@@ -1,0 +1,23 @@
+
+
+###
+GET http://localhost:3000/user/c
+Accept: application/json
+credentials: include
+
+###
+POST http://localhost:3000/user/create
+Content-Type: application/json
+
+{
+    "first": "j",
+    "last": "j",
+    "email": "j@j.com",
+    "password": "j"
+}
+
+###
+GET http://localhost:3000/users
+Accept: application/json
+
+###
