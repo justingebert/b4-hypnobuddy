@@ -11,15 +11,19 @@
         npm i
         ```
     - ```console 
-npm run dev
+        npm run dev
+        ```
 - start Frontend Service:
     - open Terminal
     - ```console 
-cd /Fontend/hypno-buddy
+        cd /Fontend/hypno-buddy
+        ```
     - ```console 
-npm i
+        npm i
+        ```
     - ```console 
- npm run dev
+         npm run dev
+         ```
 
 # pickung up work again after some time:
 
