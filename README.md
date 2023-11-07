@@ -1,3 +1,29 @@
+#How to start Developing:
+- install mongoDB
+- clone repo
+- the app is written in typescript so you have to compile it to vanilla js first, the frontend does that by starting the server, the Backend has to be done mannually by opening another terminal session going into the Backend Folder and starting the Typescript compiler like this: tsc --watch (this will recompile the file on any changes)
+- start Backend Service (typescript needs to be compiled):
+    - open Terminal
+    - ```console 
+        cd /Backend 
+        ```
+    - ```console 
+        npm i
+        ```
+    - ```console 
+npm run dev
+- start Frontend Service:
+    - open Terminal
+    - ```console 
+cd /Fontend/hypno-buddy
+    - ```console 
+npm i
+    - ```console 
+ npm run dev
+
+# pickung up work again after some time:
+
+
 
 # Hypno-Buddy (In progress)
 
