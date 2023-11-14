@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import AuthFrom from '../components/AuthFrom.tsx';
+import AuthForm from '../components/AuthForm.tsx';
 import { FlashContext } from '../contexts/FlashContext';
 import {useNavigate} from "react-router-dom";  // Ensure correct import path
 
@@ -41,7 +41,7 @@ function LoginPage({ onLoginSuccess }:any) {
     return (
         <div>
             <h1>Login</h1>
-            <AuthFrom onSubmit={handleLogin} isLogin />
+            <AuthForm onSubmit={handleLogin} isLogin />
         </div>
     );
 }

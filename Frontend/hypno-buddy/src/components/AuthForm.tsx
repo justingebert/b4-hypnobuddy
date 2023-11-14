@@ -1,4 +1,4 @@
-function AuthFrom({ onSubmit, isLogin }:any) {
+function AuthForm({ onSubmit, isLogin }:any) {
     return (
         <form onSubmit={onSubmit}>
             {!isLogin && (
@@ -22,4 +22,4 @@ function AuthFrom({ onSubmit, isLogin }:any) {
         </form>
     );
 }
-export default AuthFrom;
+export default AuthForm;
