@@ -9,7 +9,7 @@ import { body, validationResult } from 'express-validator';
  * @returns {Object} - object with user params
  * @type
  */
-const getUserParams = body => {
+export const getUserParams = body => {
     return {
         name: {
             first: body.first,
@@ -34,17 +34,17 @@ export const validate = [
 
     // Middleware to handle the validation result
     (req, res, next) => {
+
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             // Map the errors to extract messages
             let messages = errors.array().map(e => e.msg);
-
             req.skip = true; // Skip the next middleware do i need that?
 
-            res.json({
+            res.status(400).json({
                 success: false,
                 redirect: '/login',
-                message: req.flash('error', messages.join(' and ')),
+                message: messages.join(' and ')
             });
             next();
         } else {
@@ -89,9 +89,8 @@ export const authenticate = (req, res, next) => {
  *
  */
 export async function create(req, res, next) {
-    console.log(req.body)
     if (req.skip) {
-        next();
+        return next();
     }
     let newUser = new User(getUserParams(req.body));
     User.register(newUser, req.body.password, (error, user) => {
