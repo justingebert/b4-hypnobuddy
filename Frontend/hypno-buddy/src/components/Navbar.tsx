@@ -15,7 +15,7 @@ const Navbar = ({ isLoggedIn, handleLogout }:any) => {
                 {isLoggedIn.isAuthenticated && isLoggedIn.user ? ( //TODO i think is is not a good approach to let 2 fetches go before rendering
                     <>
                         <LogoutButton onLogout={handleLogout} className={styles.logoutButton} />
-                        <div className={styles.userEmail}>{isLoggedIn.user.name.first + isLoggedIn.user.name.last}</div>
+                        <div className={styles.userEmail}>{isLoggedIn.user.name.first + " " + isLoggedIn.user.name.last}</div>
                     </>
                 ) : (
                     <>
