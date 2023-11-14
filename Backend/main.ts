@@ -16,7 +16,7 @@ import cors from 'cors';
 import User from './data/model/user';
 
 const app = express();
-connectDB().then(r => console.log('connected to db'));
+connectDB().then(() => console.log('connected to db'));
 
 //! Enable CORS for frontend Port - This is for development only!!
 app.use(cors({

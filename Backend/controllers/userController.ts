@@ -3,7 +3,13 @@ import passport from 'passport';
 
 import { body, validationResult } from 'express-validator';
 
-export const getUserParams = body => {
+/**
+ * Get user params from request body
+ * @param body
+ * @returns {Object} - object with user params
+ * @type
+ */
+const getUserParams = body => {
     return {
         name: {
             first: body.first,
@@ -14,7 +20,9 @@ export const getUserParams = body => {
     };
 }
 
-//validate user input
+/**
+ * validate user input
+ */
 export const validate = [
     // Validation and sanitization middlewares
     body('email')
@@ -45,7 +53,13 @@ export const validate = [
     }
 ];
 
-//authenticate user
+/**
+ * Authenticate user
+ * @param req - request object
+ * @param res - response object
+ * @param next - next middleware
+ *
+ */
 export const authenticate = (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
         if (err) {
@@ -57,8 +71,6 @@ export const authenticate = (req, res, next) => {
         req.logIn(user, function(err) {
             if (err) return next(err);
 
-            console.log('is authenticated?: ' + req.isAuthenticated());
-            console.log(req.session);
             return res.json({
                 success: true,
                 message: 'Successful Login',
@@ -69,7 +81,13 @@ export const authenticate = (req, res, next) => {
     })(req, res, next);
 };
 
-//create user if not existing
+/**
+ * create user if not existing
+ * @param req
+ * @param res
+ * @param next
+ *
+ */
 export async function create(req, res, next) {
     console.log(req.body)
     if (req.skip) {
@@ -98,6 +116,12 @@ export async function create(req, res, next) {
     });
 }
 
+/**
+ * logout user by calling req.logout() in passport
+ * @param req
+ * @param res
+ * @param next
+ */
 export async function logout(req, res, next) {
     req.logout(function(err) {
         if (err) { return next(err); }
@@ -110,7 +134,12 @@ export async function logout(req, res, next) {
     });
 }
 
-
+/**
+ * get current user if authenticated
+ * @param req
+ * @param res
+ * @param next
+ */
 export async function currentUser(req, res, next){
     if (req.isAuthenticated()) {
         // Assuming req.user holds the authenticated user information

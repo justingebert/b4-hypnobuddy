@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import passportLocalMongoose from "passport-local-mongoose";
 
+
 // @ts-ignore
 const userSchema = new mongoose.Schema({
     name: {
