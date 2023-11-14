@@ -6,6 +6,8 @@ import Navbar from './components/Navbar';
 import { FlashContext,FlashProvider } from './contexts/FlashContext';
 import './styles/App.css';
 import DashboardPage from "./pages/DashboardPage.tsx";
+import DosAndDontsPage from "./pages/DosAndDontsPage.tsx";
+import ProfilePage from "./pages/ProfilePage.tsx"
 
 function App() {
 
@@ -66,6 +68,8 @@ function App() {
                     <Route path="/" element={<DashboardPage/>}/>
                     <Route path="/register" element={<RegisterPage/>}/>
                     <Route path="/login" element={<LoginPage onLoginSuccess={updateLoginState} />}/>
+                    <Route path="/dosanddonts" element={<DosAndDontsPage/>}/>
+                    <Route path="/profile" element={<ProfilePage/>}/>
                     {/* Add other routes here */}
                 </Routes>
             </Router>
