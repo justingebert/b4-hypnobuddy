@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import { useNavigate } from 'react-router-dom';
-import AuthForm from '../components/AuthFrom';
+import AuthFrom from '../components/AuthFrom.tsx';
 import { FlashContext } from '../contexts/FlashContext';
 
 
@@ -39,7 +39,7 @@ function RegisterPage() {
     return (
         <div>
             <h1>Register</h1>
-            <AuthForm onSubmit={handleRegister} />
+            <AuthFrom onSubmit={handleRegister} />
         </div>
     );
 }

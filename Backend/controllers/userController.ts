@@ -3,7 +3,7 @@ import passport from 'passport';
 
 import { body, validationResult } from 'express-validator';
 
-const getUserParams = body => {
+export const getUserParams = body => {
     return {
         name: {
             first: body.first,

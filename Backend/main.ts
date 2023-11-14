@@ -1,5 +1,5 @@
 //import base
-import express from 'express';
+const express = require('express');
 import router from './routes/index';
 import MongoStore from 'connect-mongo';
 import {connectDB} from './data/connectToDb';
@@ -66,3 +66,5 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+export default app;
