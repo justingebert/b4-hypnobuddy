@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="40cf01d2-3b72-4a80-b78d-5b90b441537f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Frontend/hypno-buddy/src/contexts/AuthContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/hypno-buddy/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/hypno-buddy/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/hypno-buddy/src/types/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/hypno-buddy/src/types/User.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitToolBoxStore">
+    <option name="recentBranches">
+      <RecentBranches>
+        <option name="branchesForRepo">
+          <list>
+            <RecentBranchesForRepo>
+              <option name="branches">
+                <list>
+                  <RecentBranch>
+                    <option name="branchName" value="loginAuthenticationContext" />
+                    <option name="lastUsedInstant" value="1699977800" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="login" />
+                    <option name="lastUsedInstant" value="1699977799" />
+                  </RecentBranch>
+                </list>
+              </option>
+              <option name="repositoryRootUrl" value="file://$PROJECT_DIR$" />
+            </RecentBranchesForRepo>
+          </list>
+        </option>
+      </RecentBranches>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 7
+}]]></component>
+  <component name="ProjectId" id="2YAoPLFdy497vdfKGKLKGe8H3HT" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "git-widget-placeholder": "loginAuthenticationContext",
+    "ignore_missing_gitignore": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "ts.external.directory.path": "/Users/sinahan/Documents/GitHub/b4-hypnobuddy/Backend/node_modules/typescript/lib"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+    <option name="exactExcludedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/Frontend/hypno-buddy/vite.config.d.ts" />
+        <option value="$PROJECT_DIR$/Backend/main.js" />
+        <option value="$PROJECT_DIR$/Backend/main.js.map" />
+        <option value="$PROJECT_DIR$/Backend/data/connectToDb.js.map" />
+        <option value="$PROJECT_DIR$/Backend/data/connectToDb.js" />
+        <option value="$PROJECT_DIR$/Backend/controllers/userController.js.map" />
+        <option value="$PROJECT_DIR$/Backend/controllers/userController.js" />
+        <option value="$PROJECT_DIR$/Backend/routes/index.js" />
+        <option value="$PROJECT_DIR$/Backend/routes/userRoutes.js" />
+        <option value="$PROJECT_DIR$/Backend/routes/index.js.map" />
+        <option value="$PROJECT_DIR$/Backend/routes/userRoutes.js.map" />
+        <option value="$PROJECT_DIR$/Backend/data/model/user.js" />
+        <option value="$PROJECT_DIR$/Backend/data/model/user.js.map" />
+      </list>
+    </option>
+  </component>
+</project>
