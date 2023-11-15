@@ -2,7 +2,7 @@
 const express = require('express');
 import router from './routes/index';
 import MongoStore from 'connect-mongo';
-import {connectDB} from './data/connectToDb';
+import { connectDB } from './data/connectToDb';
 //import passport
 import passport from 'passport';
 import session from 'express-session';
@@ -16,7 +16,7 @@ import cors from 'cors';
 import User from './data/model/user';
 
 const app = express();
-connectDB().then(r => console.log('connected to db'));
+connectDB().then(() => console.log('connected to db'));
 
 //! Enable CORS for frontend Port - This is for development only!!
 app.use(cors({
@@ -51,7 +51,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use(flash());
-app.use((req:any, res, next:Function) => {
+app.use((req: any, res, next: Function) => {
     res.locals.loggedIn = req.isAuthenticated();
     res.locals.currentUser = req.user;
     res.locals.flashMessages = req.flash();

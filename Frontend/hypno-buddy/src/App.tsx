@@ -1,23 +1,20 @@
-import {useContext, useEffect, useState} from 'react';
+import { useEffect, useState} from 'react';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 import Navbar from './components/Navbar';
-import { FlashContext,FlashProvider } from './contexts/FlashContext';
+import { FlashProvider } from './contexts/FlashContext';
 import './styles/App.css';
 import DashboardPage from "./pages/DashboardPage.tsx";
-import DosAndDontsPage from "./pages/DosAndDontsPage.tsx";
-import ProfilePage from "./pages/ProfilePage.tsx"
-import RoadmapPage from "./pages/RoadmapPage.tsx"
 
 function App() {
 
-    const { flash } = useContext(FlashContext);
+    //const { flash } = useContext(FlashContext);
     const [isLoggedIn, setIsLoggedIn] = useState({isAuthenticated: false, user: null});
 
-    const updateLoginState = (user:any) => {
-        checkLogin();
-        setIsLoggedIn({ isAuthenticated: true, user: user });
+    const updateLoginState = async (user: any) => {
+        await checkLogin();
+        setIsLoggedIn({isAuthenticated: true, user: user});
     };
     const checkLogin = async () => {
         try {
@@ -69,9 +66,6 @@ function App() {
                     <Route path="/" element={<DashboardPage/>}/>
                     <Route path="/register" element={<RegisterPage/>}/>
                     <Route path="/login" element={<LoginPage onLoginSuccess={updateLoginState} />}/>
-                    <Route path="/dosanddonts" element={<DosAndDontsPage/>}/>
-                    <Route path="/roadmap" element={<RoadmapPage/>}/>
-                    <Route path="/profile" element={<ProfilePage/>}/>
                     {/* Add other routes here */}
                 </Routes>
             </Router>

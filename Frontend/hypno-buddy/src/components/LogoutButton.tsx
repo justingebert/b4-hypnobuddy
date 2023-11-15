@@ -1,6 +1,4 @@
-import React from 'react';
-
-const LogoutButton = ({ onLogout }) => {
+const LogoutButton = ({ onLogout }:any) => {
     return (
         <button onClick={onLogout}>Logout</button>
     );
