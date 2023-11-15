@@ -16,6 +16,7 @@ const Navbar = ({ isLoggedIn, handleLogout }:any) => {
                 {isLoggedIn.isAuthenticated && isLoggedIn.user ? ( //TODO i think is is not a good approach to let 2 fetches go before rendering
                     <>
                         <Link to="/dosanddonts" className={styles.navLink}>Dos&Donts</Link>
+                        <Link to="/roadmap" className={styles.navLink}>Roadmap</Link>
                         <Link to="/profile" className={styles.navLink}>
                             <div className={styles.userEmail}>{isLoggedIn.user.email}</div>
                         </Link>
