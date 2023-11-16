@@ -42,9 +42,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
     };
 
     // Function to check the authentication status on component mount
-    const checkLogin = async (): Promise<User | null> => {
+    const checkLogin = async () => {
         try {
-            const response = await fetch('http://localhost:3000/user/c', {
+            const response = await fetch('http://localhost:3000/user/currentUser', {
                 method: 'GET',
                 credentials: 'include',
                 headers: {
@@ -58,7 +58,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
         } catch (error) {
             console.error('Error fetching auth status: ', error);
         }
-        return null;
     };
 
     // Function to handle user logout
