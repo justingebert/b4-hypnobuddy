@@ -2,8 +2,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem;
-    background-color: #333;
+    padding: 2rem;
+    background-color: #f7e6e8;
     color: rgba(255, 255, 255, 0.87);
 }
 
@@ -29,6 +29,7 @@
 .navItems {
     display: flex;
     align-items: center;
+    color: #2f015a;
 }
 
 .navLink {
@@ -61,3 +62,4 @@
 .logoutButton:hover {
     background-color: #535bf2;
 }
+

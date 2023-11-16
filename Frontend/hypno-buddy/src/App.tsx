@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import { FlashProvider } from './contexts/FlashContext';
 import './styles/App.css';
 import DashboardPage from "./pages/DashboardPage.tsx";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 
