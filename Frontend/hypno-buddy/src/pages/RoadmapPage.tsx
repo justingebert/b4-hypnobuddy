@@ -4,12 +4,21 @@ function RoadmapPage() {
     const [data, setData] = useState(null);
 
     useEffect(() => {
-        fetch('http://localhost:3000/profile/data',{
-            method: 'GET',
-            credentials: 'include',
-        })
-            .then(response => response.json())
-            .then(data => setData(data));
+        const fetchData = async () => {
+            try {
+                const response = await fetch('http://localhost:3000/roadmap/data', {
+                    method: 'GET',
+                    credentials: 'include',
+                });
+
+                const responseData = await response.json();
+                setData(responseData);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
     }, []);
 
     if (!data) {
