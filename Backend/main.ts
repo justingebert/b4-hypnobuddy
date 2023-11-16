@@ -15,7 +15,7 @@ import cors from 'cors';
 //import models
 import User from './data/model/user';
 
-const app = express();
+export const app = express();
 connectDB().then(() => console.log('connected to db'));
 
 //! Enable CORS for frontend Port - This is for development only!!
@@ -31,11 +31,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser('your secret'));
 
 // Configure session and store in MongoDB
+export const sessionStore = MongoStore.create({ mongoUrl: 'mongodb://127.0.0.1:27017/hypnobuddy' });
 app.use(session({
     secret: 'your_secret_key',
     resave: false,
     saveUninitialized: false,
-    store: MongoStore.create({ mongoUrl: 'mongodb://127.0.0.1:27017/hypnobuddy' }),
+    store: sessionStore,
     cookie: {
         httpOnly: true,
         secure: false,
@@ -60,11 +61,3 @@ app.use((req: any, res, next: Function) => {
 
 //setup routes
 app.use('/', router);
-
-//start server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-});
-
-export default app;
