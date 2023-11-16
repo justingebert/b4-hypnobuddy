@@ -2,8 +2,11 @@ import { Link } from 'react-router-dom';
 import LogoutButton from './LogoutButton';
 import Logo from '../assets/hb.svg';
 import styles from '../styles/Navbar.module.css';
+import {useAuth} from "../contexts/AuthContext.tsx";
 
-const Navbar = ({ isLoggedIn, handleLogout }:any) => {
+const Navbar = () => {
+    const { isAuthenticated, user, handleLogout } = useAuth();
+
     return (
         <nav className={styles.navbar}>
             <Link to="/" className={styles.logoLink}>
@@ -12,10 +15,11 @@ const Navbar = ({ isLoggedIn, handleLogout }:any) => {
             </Link>
 
             <div className={styles.navItems}>
-                {isLoggedIn.isAuthenticated && isLoggedIn.user ? ( //TODO i think is is not a good approach to let 2 fetches go before rendering
+                {isAuthenticated && user ? (
+                 //TODO i think is is not a good approach to let 2 fetches go before rendering
                     <>
                         <LogoutButton onLogout={handleLogout} className={styles.logoutButton} />
-                        <div className={styles.userEmail}>{isLoggedIn.user.name.first + isLoggedIn.user.name.last}</div>
+                        <div className={styles.userEmail}>{user.name.first + " " + user.name.last}</div>
                     </>
                 ) : (
                     <>

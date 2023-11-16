@@ -13,21 +13,18 @@ import {useEffect} from "react";
 function App() {
 
     //const { flash } = useContext(FlashContext);
-    const { isAuthenticated, updateLoginState, checkLogin, handleLogout } =
-        useAuth();
-    useEffect(() => {
-        checkLogin();
-    }, []);
+    const { isAuthenticated, updateLoginState, checkLogin, handleLogout } = useAuth();
+    useEffect(() => { checkLogin(); }, []);
 
 
     return (
         <FlashProvider>
             <Router>
-                <Navbar isAuthenticated={isAuthenticated} handleLogout={handleLogout}/>
+                <Navbar />
                 <Routes>
                     <Route path="/" element={<DashboardPage/>}/>
                     <Route path="/register" element={<RegisterPage/>}/>
-                    <Route path="/login" element={<LoginPage onLoginSuccess={updateLoginState} />}/>
+                    <Route path="/login" element={<LoginPage />}/>
                     {/* Add other routes here */}
                 </Routes>
             </Router>

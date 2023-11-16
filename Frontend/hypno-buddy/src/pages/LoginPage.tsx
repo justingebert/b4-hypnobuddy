@@ -1,10 +1,12 @@
 import {useContext} from 'react';
 import AuthForm from '../components/AuthForm.tsx';
 import { FlashContext } from '../contexts/FlashContext';
-import {useNavigate} from "react-router-dom";  // Ensure correct import path
+import {useNavigate} from "react-router-dom";
+import {useAuth} from "../contexts/AuthContext.tsx";  // Ensure correct import path
 
-function LoginPage({ onLoginSuccess }:any) {
+function LoginPage() {
     const { flash } = useContext(FlashContext);  // Access flash function from context
+    const { updateLoginState } = useAuth();
     const navigate = useNavigate();
 
     const handleLogin = async (event:any) => {
@@ -25,7 +27,7 @@ function LoginPage({ onLoginSuccess }:any) {
             });
             const data = await response.json();
             if (response.ok) {
-                onLoginSuccess(data.user);
+                await updateLoginState(data.user);
                 flash(data.message);  // Display the success message from the server
                 navigate(data.redirect);
             } else {

@@ -5,9 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="40cf01d2-3b72-4a80-b78d-5b90b441537f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Frontend/hypno-buddy/src/contexts/AuthContext.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/hypno-buddy/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/hypno-buddy/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/hypno-buddy/src/types/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/hypno-buddy/src/types/User.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/hypno-buddy/src/components/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/hypno-buddy/src/components/Navbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/hypno-buddy/src/contexts/AuthContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/hypno-buddy/src/contexts/AuthContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/hypno-buddy/src/pages/LoginPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/hypno-buddy/src/pages/LoginPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/hypno-buddy/src/pages/RegisterPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/hypno-buddy/src/pages/RegisterPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/hypno-buddy/src/types/User.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/hypno-buddy/src/types/User.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,25 +57,26 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="2YAoPLFdy497vdfKGKLKGe8H3HT" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "git-widget-placeholder": "loginAuthenticationContext",
-    "ignore_missing_gitignore": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "ts.external.directory.path": "/Users/sinahan/Documents/GitHub/b4-hypnobuddy/Backend/node_modules/typescript/lib"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;git-widget-placeholder&quot;: &quot;loginAuthenticationContext&quot;,
+    &quot;ignore_missing_gitignore&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;Errors&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/sinahan/Documents/GitHub/b4-hypnobuddy/Backend/node_modules/typescript/lib&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <servers />

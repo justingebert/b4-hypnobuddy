@@ -5,8 +5,6 @@ export interface User {
         last: string;
     };
     email: string;
-    createdAt: Date;
-    updatedAt?: Date; // updatedAt is optional
     role: 'patient' | 'guardian' | 'therapist' | 'admin';
 
 }
