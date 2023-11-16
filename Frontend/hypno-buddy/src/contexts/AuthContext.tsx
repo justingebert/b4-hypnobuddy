@@ -1,5 +1,6 @@
 import {createContext, ReactNode, useContext, useEffect, useState} from 'react';
 import { User } from "../types/User.ts";
+//import {useNavigate} from "react-router-dom";
 
 //this file provides a centralized state management system for
 // handling user authentication,
@@ -11,6 +12,7 @@ interface AuthContextProps {
     checkLogin: () => Promise<void>;
     handleLogout: () => Promise<void>;
 }
+//const navigate = useNavigate;
 
 //createContext() returns provider and consumer
 const AuthContext = createContext<AuthContextProps |  undefined>(undefined);

@@ -6,9 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="40cf01d2-3b72-4a80-b78d-5b90b441537f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/data/httpReqTest.http" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/data/httpReqTest.http" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/main.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/server.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/hypno-buddy/src/contexts/AuthContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/hypno-buddy/src/contexts/AuthContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/hypno-buddy/src/types/user.ts" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,5 +122,17 @@
         <option value="$PROJECT_DIR$/Backend/tests/unit/userController.test.js.map" />
       </list>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/Backend/main.ts</url>
+          <line>6</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
