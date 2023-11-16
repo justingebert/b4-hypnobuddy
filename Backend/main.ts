@@ -7,16 +7,22 @@ import {connectDB} from './data/connectToDb';
 import passport from 'passport';
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
-
 //import flash
 import flash from 'express-flash';
+//import other
+import cors from 'cors';
 //import models
 import User from './data/model/user';
 
 export const app = express();
 connectDB().then(() => console.log('connected to db'));
 
-
+//! Enable CORS for frontend Port - This is for development only!!
+app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+    "Access-Control-Allow-Credentials": true
+}));
 
 //middleware setup
 app.use(express.json());
