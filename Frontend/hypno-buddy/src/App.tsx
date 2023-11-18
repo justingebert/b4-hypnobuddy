@@ -12,8 +12,7 @@ import {useEffect} from "react";
 
 function App() {
 
-    //const { flash } = useContext(FlashContext);
-    const { isAuthenticated, updateLoginState, checkLogin, handleLogout } = useAuth();
+    const { checkLogin } = useAuth();
     useEffect(() => { checkLogin(); }, []);
 
 

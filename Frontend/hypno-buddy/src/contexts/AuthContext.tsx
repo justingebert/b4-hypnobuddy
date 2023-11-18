@@ -1,5 +1,6 @@
 import {createContext, ReactNode, useContext, useEffect, useState} from 'react';
 import { User } from "../types/User.ts";
+import {FlashContext} from "./FlashContext.tsx";
 //import {useNavigate} from "react-router-dom";
 
 //this file provides a centralized state management system for
@@ -11,6 +12,7 @@ interface AuthContextProps {
     updateLoginState: (user: User) => Promise<void>
     checkLogin: () => Promise<void>;
     handleLogout: () => Promise<void>;
+    handleLogin: (email: string, password: string)=> Promise<{ success: boolean; redirect: any; }>;
 }
 //const navigate = useNavigate;
 
@@ -34,6 +36,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
         isAuthenticated: false,
         user: null as User | null,
     });
+    //const navigate = useNavigate();
+    const {flash } = useContext(FlashContext);
 
     // Function to update the authentication state after a successful login or registration
     const updateLoginState = async (user: User) => {
@@ -59,6 +63,35 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
             }
         } catch (error) {
             console.error('Error fetching auth status: ', error);
+        }
+    };
+
+    const handleLogin = async(email: string, password: string) : Promise<{ success: boolean, redirect: any}> => {
+        try {
+            const response = await fetch('http://localhost:3000/user/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password,
+                }),
+                credentials: 'include',
+            });
+            const data = await response.json();
+            if (response.ok) {
+                await updateLoginState(data.user);
+                flash(data.message);  // Display the success message from the server
+                return { success: true, redirect: data.redirect };
+            } else {
+                flash(data.message || 'An error occurred while logging in');
+                return { success: false, redirect: '/' };
+            }
+        } catch (error) {
+            flash('An error occurred while logging in');
+            console.error('Login error:', error);
+            return { success: false, redirect: '/' };
         }
     };
 
@@ -95,6 +128,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
                 updateLoginState,
                 checkLogin,
                 handleLogout,
+                handleLogin
 
             }}>
             {children}
