@@ -6,7 +6,7 @@ function DosAndDontsPage() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:3000/dosanddonst/data', {
+                const response = await fetch('http://localhost:3000/dosanddonts/data', {
                     method: 'GET',
                     credentials: 'include',
                 });
