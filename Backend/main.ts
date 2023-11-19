@@ -7,10 +7,9 @@ import { connectDB } from './data/connectToDb';
 import passport from 'passport';
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
-
 //import flash
 import flash from 'express-flash';
-//other imports
+//import other
 import cors from 'cors';
 //import models
 import User from './data/model/user';
@@ -61,3 +60,5 @@ app.use((req: any, res, next: Function) => {
 
 //setup routes
 app.use('/', router);
+
+

@@ -2,10 +2,12 @@ import {useContext} from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthForm from '../components/AuthForm.tsx';
 import { FlashContext } from '../contexts/FlashContext';
+import {useAuth} from "../contexts/AuthContext.tsx";
 
 
 function RegisterPage() {
     const { flash } = useContext(FlashContext);
+    const { updateLoginState } = useAuth();
     const navigate = useNavigate();
     const handleRegister = async (event:any) => {
         event.preventDefault();
@@ -28,6 +30,9 @@ function RegisterPage() {
             console.log(data);
             flash(data.message);  // Display the message from the server
 
+            if (response.ok) {
+                await updateLoginState(data.user);
+            }
             navigate(data.redirect);
 
     } catch (error) {
