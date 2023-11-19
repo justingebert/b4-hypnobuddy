@@ -1,6 +1,11 @@
-const LogoutButton = ({ onLogout }:any) => {
+
+const LogoutButton = ({ onLogout }): any => {
+    const handleClick = async() => {
+        await onLogout();
+    };
+
     return (
-        <button onClick={onLogout}>Logout</button>
+        <button onClick={handleClick}>Logout</button>
     );
 };
 

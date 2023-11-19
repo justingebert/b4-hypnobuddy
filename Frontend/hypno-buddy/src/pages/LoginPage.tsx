@@ -1,47 +1,46 @@
 import {useContext} from 'react';
 import AuthForm from '../components/AuthForm.tsx';
 import { FlashContext } from '../contexts/FlashContext';
-import {useNavigate} from "react-router-dom";  // Ensure correct import path
+import {useNavigate} from "react-router-dom";
+import {useAuth} from "../contexts/AuthContext.tsx";  // Ensure correct import path
 
-function LoginPage({ onLoginSuccess }:any) {
-    const { flash } = useContext(FlashContext);  // Access flash function from context
+function LoginPage() {
+    const { flash } = useContext(FlashContext);
+    const { handleLogin } = useAuth();
     const navigate = useNavigate();
 
-    const handleLogin = async (event:any) => {
+    const handleLoginFromSubmit = async (event:React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const { email, password } = event.target.elements;
 
-        try {
-            const response = await fetch('http://localhost:3000/user/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    email: email.value,
-                    password: password.value,
-                }),
-                credentials: 'include',
-            });
-            const data = await response.json();
-            if (response.ok) {
-                onLoginSuccess(data.user);
-                flash(data.message);  // Display the success message from the server
-                navigate(data.redirect);
-            } else {
-                flash(data.message || 'An error occurred while logging in');
+        const emailInput = (event.target as HTMLFormElement).elements.namedItem('email') as HTMLInputElement | null;
+        const passwordInput = (event.target as HTMLFormElement).elements.namedItem('password') as HTMLInputElement | null;
+
+        if (emailInput && passwordInput) {
+            const email = emailInput.value;
+            const password = passwordInput.value;
+
+            try {
+                const {success, redirect} = await handleLogin(email, password);
+
+                if (success) {
+                    flash('login successful');
+                    navigate(redirect);
+                } else {
+                    flash('login unsuccesful');
+                }
+            } catch (error) {
+                flash('An error occurred while logging in');
+                console.error('Login error:', error);
             }
-            navigate(data.redirect);
-        } catch (error) {
-            flash('An error occurred while logging in');
-            console.error('Login error:', error);
+        } else {
+            console.error('Email or password input not found');
         }
-    };
 
+    };
     return (
         <div>
             <h1>Login</h1>
-            <AuthForm onSubmit={handleLogin} isLogin />
+            <AuthForm onSubmit={handleLoginFromSubmit} isLogin />
         </div>
     );
 }

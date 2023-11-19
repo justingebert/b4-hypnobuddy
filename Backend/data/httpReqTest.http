@@ -1,7 +1,7 @@
 
 
 ###
-GET http://localhost:3000/user/c
+GET http://localhost:3000/user/currentUser
 Accept: application/json
 credentials: include
 

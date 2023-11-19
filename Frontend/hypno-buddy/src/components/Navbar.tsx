@@ -1,9 +1,18 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import LogoutButton from './LogoutButton';
 import Logo from '../assets/hb.svg';
 import styles from '../styles/Navbar.module.css';
+import { useAuth } from "../contexts/AuthContext.tsx";
 
-const Navbar = ({ isLoggedIn, handleLogout }:any) => {
+const Navbar = () => {
+    const { isAuthenticated, user, handleLogout } = useAuth();
+    const navigate = useNavigate();
+    const handleLogoutClick = async () => {
+        await handleLogout();
+        navigate("/");
+        // You may also add a redirect here if needed
+    };
+
     return (
 
         <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top">
@@ -39,12 +48,10 @@ const Navbar = ({ isLoggedIn, handleLogout }:any) => {
                         </li>
 
                         <li className="nav-item dropdown">
-                            {isLoggedIn.isAuthenticated && isLoggedIn.user ? (
+                            {isAuthenticated && user ? (
                                 <>
-                                    <LogoutButton onLogout={handleLogout} className={styles.logoutButton} />
-                                    <div className={styles.userEmail}>
-                                        {isLoggedIn.user.name.first} {isLoggedIn.user.name.last}
-                                    </div>
+                                    <LogoutButton onLogout={handleLogoutClick} className={styles.logoutButton} />
+                                    <div className={styles.userEmail}>{user.name.first + " " + user.name.last}</div>
                                 </>
                             ) : (
                                 <>
