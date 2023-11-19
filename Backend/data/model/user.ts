@@ -1,16 +1,15 @@
 import mongoose from "mongoose";
 import passportLocalMongoose from "passport-local-mongoose";
 
-
 // @ts-ignore
 const userSchema = new mongoose.Schema({
     name: {
-        first:{
+        first: {
             type: String,
             trim: true,
             required: 'First name is required'
         },
-        last:{
+        last: {
             type: String,
             trim: true,
             required: 'First name is required'
@@ -30,14 +29,14 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ['patient','guardian','therapist', 'admin'],
+        enum: ['patient', 'guardian', 'therapist', 'admin'],
         default: 'patient'
     },
 }, {
     timestamps: true
 })
 
-userSchema.virtual('fullName').get(function(this: any) {
+userSchema.virtual('fullName').get(function (this: any) {
     return `${this.name.first} ${this.name.last}`;
 })
 

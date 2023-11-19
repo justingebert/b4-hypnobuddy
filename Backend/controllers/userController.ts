@@ -68,7 +68,7 @@ export const authenticate = (req, res, next) => {
         if (!user) {
             return res.status(401).json({ message: info.message, redirect: '/login' });
         }
-        req.logIn(user, function(err) {
+        req.logIn(user, function (err) {
             if (err) return next(err);
 
             return res.json({
@@ -122,7 +122,7 @@ export async function create(req, res, next) {
  * @param next
  */
 export async function logout(req, res, next) {
-    req.logout(function(err) {
+    req.logout(function (err) {
         if (err) { return next(err); }
         res.json({
             success: true,
@@ -139,7 +139,7 @@ export async function logout(req, res, next) {
  * @param res
  * @param next
  */
-export async function currentUser(req, res, next){
+export async function currentUser(req, res, next) {
     if (req.isAuthenticated()) {
         // Assuming req.user holds the authenticated user information
         res.json({

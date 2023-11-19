@@ -50,8 +50,12 @@ const Navbar = () => {
                         <li className="nav-item dropdown">
                             {isAuthenticated && user ? (
                                 <>
+                                    <Link to="/dosanddonts" className={styles.navLink}>Dos&Donts</Link>
+                                    <Link to="/roadmap" className={styles.navLink}>Roadmap</Link>
+                                    <Link to="/profile" className={styles.navLink}>
+                                        <div className={styles.userEmail}>{user.name.first + " " + user.name.last}</div>
+                                    </Link>
                                     <LogoutButton onLogout={handleLogoutClick} className={styles.logoutButton} />
-                                    <div className={styles.userEmail}>{user.name.first + " " + user.name.last}</div>
                                 </>
                             ) : (
                                 <>
