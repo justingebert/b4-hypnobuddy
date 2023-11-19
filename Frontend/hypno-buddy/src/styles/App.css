@@ -1,7 +1,13 @@
-#root {
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-  background-color: #242424; /* Taken from index.css for consistency */
+@media (min-width: 1000px) {
+  .navbar {
+    margin-left: 166px;
+    margin-right: 166px;
+    width: calc(100% - 166px);
+  }
+  .navbar-toggler {
+    display: none; /* Verstecke den Toggle-Button bei Desktop-Ansicht */
+  }
+  .collapse.navbar-collapse {
+    display: flex !important; /* Zeige das Menü bei Desktop-Ansicht */
+  }
 }
