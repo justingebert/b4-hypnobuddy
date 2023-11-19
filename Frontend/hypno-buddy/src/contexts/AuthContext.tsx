@@ -14,7 +14,6 @@ interface AuthContextProps {
     handleLogout: () => Promise<void>;
     handleLogin: (email: string, password: string)=> Promise<{ success: boolean; redirect: any; }>;
 }
-//const navigate = useNavigate;
 
 //createContext() returns provider and consumer
 const AuthContext = createContext<AuthContextProps |  undefined>(undefined);
@@ -36,7 +35,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
         isAuthenticated: false,
         user: null as User | null,
     });
-    //const navigate = useNavigate();
     const {flash } = useContext(FlashContext);
 
     // Function to update the authentication state after a successful login or registration
