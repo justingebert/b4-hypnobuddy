@@ -1,4 +1,6 @@
 # How to start Developing:
+- npm install lottie-react --lagacy-peer-deps
+- npm i react-bootstrap bootstrap oder npm i bootstrap
 - install mongoDB
 - clone repo
 - the app is written in typescript so you have to compile it to vanilla js first, the frontend does that by starting the server, the Backend has to be done mannually by opening another terminal session going into the Backend Folder and starting the Typescript compiler like this: tsc --watch (this will recompile the file on any changes)
