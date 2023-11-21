@@ -2,7 +2,7 @@
 const express = require('express');
 import router from './routes/index';
 import MongoStore from 'connect-mongo';
-import { connectDB } from './data/connectToDb';
+import { connectDB, ensureVerificationCodes } from './data/connectToDb';
 //import passport
 import passport from 'passport';
 import session from 'express-session';
@@ -15,7 +15,6 @@ import cors from 'cors';
 import User from './data/model/user';
 
 export const app = express();
-connectDB().then(() => console.log('connected to db'));
 
 //! Enable CORS for frontend Port - This is for development only!!
 app.use(cors({

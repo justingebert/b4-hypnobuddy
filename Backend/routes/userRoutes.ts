@@ -8,4 +8,7 @@ userRouter.post('/login', userController.authenticate, userController.currentUse
 userRouter.post('/logout', userController.logout);
 userRouter.get('/currentUser', userController.currentUser);
 
+userRouter.post('/verify', userController.isAuthenticated ,userController.verifyTherapist);
+userRouter.post('/link', userController.isAuthenticated, userController.linkPatientToTherapist);
+
 export default userRouter;
