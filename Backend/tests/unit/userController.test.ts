@@ -274,6 +274,19 @@ describe('Therapist Verification', () => {
         expect(response.body.success).toBeFalsy();
     });
 
+    it('should update role to therapist after successful verification', async () => {
+        // Use a valid verification code
+        await request(app)
+            .post('/user/verify')
+            .set('Cookie', therapistCookie)
+            .send({ code: 'valid-verification-code' });
+
+        // Fetch the updated therapist data
+        const updatedTherapist = await User.findById(therapist._id);
+
+        expect(updatedTherapist.role).toBe('therapist');
+    });
+
     // Additional tests for already used codes, etc.
 });
 describe('Linking Patient to Therapist', () => {
@@ -319,6 +332,19 @@ describe('Linking Patient to Therapist', () => {
         expect(response.status).toBe(401);
         expect(response.body.success).toBeFalsy();
     })
+
+    it('should link the correct therapist to the patient', async () => {
+        // Link patient to therapist
+        await request(app)
+            .post('/user/link')
+            .set('Cookie', patientCookie)
+            .send({ patientCode: patientLinkingCode.code });
+
+        // Fetch the updated patient data
+        const updatedPatient = await User.findById(patient._id);
+
+        expect(updatedPatient.therapist.toString()).toBe(therapist._id.toString());
+    });
 
     // Additional tests for expired codes, codes exceeding use limits, etc.
 });
