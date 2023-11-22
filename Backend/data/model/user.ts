@@ -32,6 +32,11 @@ const userSchema = new mongoose.Schema({
         enum: ['patient', 'guardian', 'therapist', 'admin'],
         default: 'patient'
     },
+    therapist: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+
+    }
 }, {
     timestamps: true
 })
