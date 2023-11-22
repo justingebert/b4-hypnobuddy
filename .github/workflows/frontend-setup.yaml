@@ -1,0 +1,36 @@
+name: Frontend CI
+
+on:
+  push:
+    branches:
+      - main
+      - gh-actions-workflows # test
+  pull_request:
+    branches:
+      - main
+      - gh-actions-workflows # test
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20.9
+
+    - name: Install Dependencies and Build
+      run: |
+        cd Frontend/hypno-buddy
+        npm install
+        npm run build
+
+    - name: Run Frontend Tests
+      run: |
+        cd Frontend/hypno-buddy
+        npm run test
