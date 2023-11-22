@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({
     email: {
         type: String,
         required: 'Email address is required',
-        unique: true, //TODO this throws ts error but works
+        // unique: true, //TODO this throws ts error but works
     },
     createdAt: {
         type: Date,
