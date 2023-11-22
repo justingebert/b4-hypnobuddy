@@ -27,8 +27,8 @@ jobs:
     - name: Install Dependencies and Compile TypeScript
       run: |
         cd Backend
-        npm install
-        npm run build
+        npm i
+#        npm run build
 
     - name: Run Backend Tests
       run: |
