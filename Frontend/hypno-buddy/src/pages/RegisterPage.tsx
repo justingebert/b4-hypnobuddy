@@ -27,7 +27,6 @@ function RegisterPage() {
                 }),
             });
             const data = await response.json();
-            console.log(data);
             flash(data.message);  // Display the message from the server
 
             if (response.ok) {

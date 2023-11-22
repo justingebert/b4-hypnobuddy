@@ -121,7 +121,7 @@ export async function create(req, res, next) {
             next();
         } else {
             console.log(error.message)
-            const messages = "Failed to create user account because: ${error.message}"
+            const messages = error.message
             res.status(400).json({
                 success: false,
                 redirect: '/register',
@@ -178,7 +178,11 @@ export async function currentUser(req, res, next) {
  */
 export async function verifyTherapist(req, res) {
     const { code } = req.body;
+    const user = req.user;
     const verificationCode = await VerificationCode.findOne({ code: code, type: 'therapistVerification' });
+
+    console.log(code, user)
+    console.log(verificationCode)
 
     if (verificationCode && !verificationCode.used) {
         // Mark the therapist verification code as used
@@ -186,7 +190,7 @@ export async function verifyTherapist(req, res) {
         await verificationCode.save();
 
         // Update the therapist's role
-        const therapist = await User.findById(verificationCode.therapistId);
+        const therapist = await User.findById(user._id);
         therapist.role = 'therapist';
         await therapist.save();
 

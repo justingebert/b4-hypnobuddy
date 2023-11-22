@@ -48,6 +48,7 @@ export async function ensureVerificationCodes() {
 
             await VerificationCode.insertMany(newCodes);
         }
+        console.log('Verification codes checked and generated if necessary');
     } catch (error) {
         console.error('Error connecting to MongoDB', error);
         process.exit(1);
