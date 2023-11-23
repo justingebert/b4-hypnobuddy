@@ -43,7 +43,7 @@ const userSchema = new mongoose.Schema({
     }],
     patientLinkingCode: {
         type: String,
-        unique: true,
+        unique: false, //TODO should be unique except when its null
     },
 }, {
     timestamps: true
@@ -56,6 +56,7 @@ userSchema.virtual('fullName').get(function (this: any) {
 userSchema.plugin(passportLocalMongoose, {
     usernameField: 'email'
 });
+
 
 const User = mongoose.model('User', userSchema);
 export default User;

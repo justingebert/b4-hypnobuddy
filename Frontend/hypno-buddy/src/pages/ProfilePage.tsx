@@ -6,7 +6,7 @@ function ProfilePage() {
     const [data, setData] = useState(null);
     const [code, setCode] = useState('');
     const [linkCode, setLinkCode] = useState('')
-    const [patients, setPatients] = useState([{}])
+    const [patients, setPatients] = useState([])
 
     const { flash } = useContext(FlashContext);
     const navigate = useNavigate();
@@ -122,11 +122,11 @@ function ProfilePage() {
             {data.user.role === 'therapist' && (
                 <>
                     <h2>Linked Patients</h2>
-                    {patients.length > 0 ? (
+                    {patients && patients.length > 0 ? (
                         <ul>
                             {patients.map((patient) => (
                                 <li key={patient._id}>
-                                    {/*patient.name.first} {patient.name.last*/}1
+                                    {patient.name.first} {patient.name.last}
                                 </li>
                             ))}
                         </ul>

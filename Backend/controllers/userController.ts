@@ -181,9 +181,6 @@ export async function verifyTherapist(req, res) {
     const user = req.user;
     const verificationCode = await VerificationCode.findOne({ code: code, type: 'therapistVerification' });
 
-    console.log(code, user)
-    console.log(verificationCode)
-
     if (verificationCode && !verificationCode.used) {
         // Mark the therapist verification code as used
         verificationCode.used = true;
@@ -230,22 +227,29 @@ export async function linkPatientToTherapist(req, res) {
         verificationCode.uses < verificationCode.useLimit) {
 
         const patient = await User.findById(req.user._id);
-        patient.therapist = verificationCode.therapistId;
+        const therapist = await User.findById(verificationCode.therapistId);
+
+        // Link the patient to the therapist
+        patient.therapist = therapist._id;
         await patient.save();
+
+        // Add the patient to the therapist's list of patients
+        therapist.patients.push(patient._id);
+        await therapist.save();
 
         verificationCode.uses += 1;
         await verificationCode.save();
 
         res.json({ success: true, message: 'Linked to therapist successfully' });
     } else {
-        if (verificationCode && verificationCode.uses > verificationCode.useLimit){
+        if (verificationCode && verificationCode.uses >= verificationCode.useLimit){
             res.status(400).json({ success: false, message: 'Code limit reached' });
-        }else{
+        } else {
             res.status(400).json({ success: false, message: 'Invalid code' });
-
         }
     }
 }
+
 
 /**
  * get patients of therapist
