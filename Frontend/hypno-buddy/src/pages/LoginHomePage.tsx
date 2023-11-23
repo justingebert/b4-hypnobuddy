@@ -17,8 +17,14 @@ const WelcomeHeading = styled.div`
   font: 700 90px/109px Inter, sans-serif;
  
   position: absolute;
-  top: 350px;
-  left: 95px;
+  top: 45%;
+  left: 15%;
+`;
+const Container = styled.div`
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
 `;
 
 const LoginHomePage = () => {
@@ -36,7 +42,7 @@ const LoginHomePage = () => {
     };
 
     return (
-        <div className="position-relative vw-100 vh-100 overflow-hidden">
+        <Container>
             <Lottie options={defaultOptions} height="100%" width="100%" className="position-absolute" />
             <WelcomeHeading className="display-1">Willkommen</WelcomeHeading>
             <div className="position-absolute top-0 start-0 end-0 bottom-0 d-flex flex-column justify-content-center align-items-center">
@@ -53,7 +59,7 @@ const LoginHomePage = () => {
                     )}
                 </div>
             </div>
-        </div>
+        </Container>
     );
 };
 export default LoginHomePage;

@@ -16,7 +16,6 @@ const NavbarPage = () => {
         navigate("/");
         // You may also add a redirect here if needed
     };
-
     return (
         <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary navbar-nav1" sticky="top" bg="dark" data-bs-theme="dark" >
             <Container>
@@ -70,5 +69,4 @@ const NavbarPage = () => {
         </Navbar>
     );
 };
-
 export default NavbarPage;

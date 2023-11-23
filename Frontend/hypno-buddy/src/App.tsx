@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import { FlashProvider } from './contexts/FlashContext';
 import { AuthProvider, useAuth } from "./contexts/AuthContext.tsx";
 import './styles/App.css';
@@ -31,6 +32,7 @@ function App() {
 
                     {/* Add other routes here */}
                 </Routes>
+                <Footer/>
             </Router>
         </FlashProvider>
     );
