@@ -39,7 +39,7 @@ export const validate = [
         if (!errors.isEmpty()) {
             // Map the errors to extract messages
             let messages = errors.array().map(e => e.msg);
-            req.skip = true; // Skip the next middleware do i need that?
+            req.skip = true;
 
             res.status(400).json({
                 success: false,

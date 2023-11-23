@@ -19,7 +19,6 @@ const roadmapGoalSchema = new mongoose.Schema({
         default: Date.now,
         required: true
     },
-    //discussion: include or not
     dueDate: {
         type: Date
     },
@@ -40,6 +39,5 @@ const roadmapGoalSchema = new mongoose.Schema({
     }],
 });
 
-const RoadmapGoalModel = mongoose.model('RoadmapGoal', roadmapGoalSchema);
-
-module.exports = RoadmapGoalModel;
+const RoadmapGoal = mongoose.model('RoadmapGoal', roadmapGoalSchema);
+export default RoadmapGoal;

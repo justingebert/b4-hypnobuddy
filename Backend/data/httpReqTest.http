@@ -21,3 +21,18 @@ GET http://localhost:3000/users
 Accept: application/json
 
 ###
+POST http://localhost:3000/goal/create
+Content-Type: application/json
+
+{
+  "title": "test",
+  "description": "test",
+  "status": "in_progress",
+  "isSubGoal": false,
+  "dueDate": "2018-12-31T00:00:00.000Z",
+  "parentGoalId": null,
+  "subGoals": []
+}
+
+###
+
