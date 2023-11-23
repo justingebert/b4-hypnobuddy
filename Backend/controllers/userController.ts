@@ -192,10 +192,11 @@ export async function verifyTherapist(req, res) {
         // Update the therapist's role
         const therapist = await User.findById(user._id);
         therapist.role = 'therapist';
-        await therapist.save();
 
         // Generate a new patient linking code for the therapist
         const patientCode = uuidv4();
+        therapist.patientLinkingCode = patientCode;
+        await therapist.save();
         const patientVerification = new VerificationCode({
             code: patientCode,
             therapistId: therapist._id,
@@ -215,6 +216,11 @@ export async function verifyTherapist(req, res) {
     }
 }
 
+/**
+ * link patient to therapist by code
+ * @param req
+ * @param res
+ */
 export async function linkPatientToTherapist(req, res) {
     const { patientCode } = req.body;
     const verificationCode = await VerificationCode.findOne({ code: patientCode });
@@ -239,4 +245,14 @@ export async function linkPatientToTherapist(req, res) {
 
         }
     }
+}
+
+/**
+ * get patients of therapist
+ * @param req
+ * @param res
+ */
+export async function getPatients(req, res) {
+    const therapist = await User.findById(req.user._id).populate('patients');
+    res.json({ success: true, patients: therapist.patients });
 }

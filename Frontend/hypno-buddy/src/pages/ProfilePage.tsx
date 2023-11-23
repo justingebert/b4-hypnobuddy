@@ -1,12 +1,15 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {FlashContext} from "../contexts/FlashContext.tsx";
+import {useNavigate} from "react-router-dom";
 
 function ProfilePage() {
     const [data, setData] = useState(null);
     const [code, setCode] = useState('');
     const [linkCode, setLinkCode] = useState('')
+    const [patients, setPatients] = useState([{}])
 
     const { flash } = useContext(FlashContext);
+    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -27,6 +30,25 @@ function ProfilePage() {
         fetchData();
     }, []);
 
+    const getPatients = async () => {
+        try {
+            const response = await fetch('http://localhost:3000/user/profile/patients', {
+                method: 'GET',
+                credentials: 'include',
+            });
+
+            const responseData = await response.json();
+
+            if (response.ok) {
+                console.log(responseData.patients);
+                setPatients(responseData.patients);
+            } else {
+                flash(responseData.message);
+            }
+        } catch (error) {
+            console.error('Error getting patients:', error);
+        }
+    }
 
     const handleVerifySubmit = async (event) => {
         event.preventDefault(); // Prevent default form submission behavior
@@ -90,6 +112,29 @@ function ProfilePage() {
             <strong>Email:</strong> {data.user.email}
             <br />
             <strong>Role</strong> {data.user.role}
+            {data.user.role === 'therapist' && (
+                <>
+                <p><strong>Code to give to patients:</strong> {data.user.patientLinkingCode}</p>
+                <button onClick={getPatients}>See linked Patients</button>
+                </>
+            )}
+            {/* List of linked patients */}
+            {data.user.role === 'therapist' && (
+                <>
+                    <h2>Linked Patients</h2>
+                    {patients.length > 0 ? (
+                        <ul>
+                            {patients.map((patient) => (
+                                <li key={patient._id}>
+                                    {/*patient.name.first} {patient.name.last*/}1
+                                </li>
+                            ))}
+                        </ul>
+                    ) : (
+                        <p>No patients linked yet.</p>
+                    )}
+                </>
+            )}
             {/* Verification Form */}
             <form onSubmit={handleVerifySubmit}>
                 <input
@@ -101,15 +146,19 @@ function ProfilePage() {
                 <button type="submit">Verify</button>
             </form>
             {/* Link to Therapist Form */}
-            <form onSubmit={handleLinkSubmit}>
-                <input
-                    type="text"
-                    value={linkCode}
-                    onChange={(e) => setLinkCode(e.target.value)}
-                    placeholder="Enter link to therapist code"
-                />
-                <button type="submit">Link to Therapist</button>
-            </form>
+            {data.user.role === 'patient' && (
+
+                <form onSubmit={handleLinkSubmit}>
+                    <input
+                        type="text"
+                        value={linkCode}
+                        onChange={(e) => setLinkCode(e.target.value)}
+                        placeholder="Enter link to therapist code"
+                    />
+                    <button type="submit">Link to Therapist</button>
+                </form>
+            )}
+
         </div>
     );
 }
