@@ -7,8 +7,13 @@
     position: absolute;
     top: 125px;
     right: 125px;
-    margin-inside: 30px;
+    padding: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.link{
+    color: #f7e6e8;
+
 }

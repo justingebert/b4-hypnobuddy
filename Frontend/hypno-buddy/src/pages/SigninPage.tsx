@@ -27,7 +27,10 @@ const WelcomeHeading = styled.div`
 `;
 
 const SigninPage = () => {
-    const [isLogin] = useState(true);
+    const [isLogin, setIsLogin] = useState(true);
+    const toggleForm = () => {
+        setIsLogin((prevIsLogin) => !prevIsLogin);
+    };
     const defaultOptions: AnimationConfigWithData<'svg'> = {
         loop: true,
         autoplay: true,
@@ -42,20 +45,18 @@ const SigninPage = () => {
             <Lottie options={defaultOptions} height="100%" width="100%" className="position-absolute" />
             <WelcomeHeading className="display-1">Willkommen</WelcomeHeading>
             <div className="position-absolute top-0 start-0 end-0 bottom-0 d-flex flex-column justify-content-center align-items-center">
-                <div className="c_dark">
-                    <div className="text-white w-100 py-4">
-                    </div>
+                <div className="c_dark" style={{ flexDirection: 'column' }}>
+                    {isLogin ? <RegisterForm /> : <LoginForm />}
                     {isLogin ? (
                         <p className="mt-3">
-                            Du hast bereits einen Account? <Link to="/login">Login hier.</Link>
+                            Du hast bereits einen Account? <Link to="/login" className="link" onClick={toggleForm}>Login hier.</Link>
                         </p>
                     ) : (
                         <p className="mt-3">
-                            Du hast noch kein Account? <Link to="/register">Registriere dich hier.</Link>
+                            Du hast noch kein Account? <Link to="/register" className="link" onClick={toggleForm}>Registriere dich hier.</Link>
                         </p>
                     )}
 
-                    {isLogin ? <RegisterForm /> : <LoginForm />}
                 </div>
             </div>
         </div>

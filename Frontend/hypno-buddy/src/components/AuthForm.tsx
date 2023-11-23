@@ -1,4 +1,4 @@
-//import './styles/AuthForm.css';
+//import '../styles/AuthForm.css';
 
 function AuthForm({ onSubmit, isLogin }:any) {
     return (
