@@ -40,7 +40,7 @@ function DosAndDontsPage() {
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await fetch('http://localhost:3000/dosAndDonts');
+            const response = await fetch('http://localhost:3000/dosAndDonts/dosAndDonts');
             const data = await response.json();
             setDosAndDonts(data);
           } catch (error) {
@@ -61,7 +61,7 @@ function DosAndDontsPage() {
     
       const handleSaveClick = async () => {
         try {
-          const response = await fetch('http://localhost:3000/dosAndDonts', {
+          const response = await fetch('http://localhost:3000/dosAndDonts/dosAndDonts', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
