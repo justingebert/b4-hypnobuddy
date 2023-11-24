@@ -10,8 +10,8 @@ import DosAndDontsPage from "./pages/DosAndDontsPage.tsx";
 import RoadmapPage from "./pages/RoadmapPage.tsx";
 import { useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import LoginHomePage from "./pages/LoginHomePage.tsx"
-import SigninPage from "./pages/SigninPage.tsx";
+import LoginPage from "./pages/LoginPage.tsx"
+import RegisterPage from "./pages/RegisterPage.tsx";
 
 function App() {
 
@@ -24,8 +24,8 @@ function App() {
                 <Navbar/>
                 <Routes>
                     <Route path="/" element={<DashboardPage />} />
-                    <Route path="/register" element={<SigninPage />} />
-                    <Route path="/login" element={<LoginHomePage />} />
+                    <Route path="/register" element={<RegisterPage />} />
+                    <Route path="/login" element={<LoginPage />} />
                     <Route path="/profile" element={<ProfilePage />} />
                     <Route path="/dosanddonts" element={<DosAndDontsPage />} />
                     <Route path="/roadmap" element={<RoadmapPage />} />

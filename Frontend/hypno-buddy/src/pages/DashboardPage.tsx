@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../styles/DashboardPage.css';
 
 function DashboardPage() {
     const [data, setData] = useState(null);
@@ -18,7 +20,11 @@ function DashboardPage() {
 
     return (
         <div className="dashboard">
-            <h1>Dashboard</h1>
+            <div className="background-image"></div>
+            <div>
+                <h1>Dashboard</h1>
+                <p> hallo</p>
+            </div>
         </div>
     );
 }

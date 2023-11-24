@@ -1,0 +1,19 @@
+
+.dashboard {
+    position: relative;
+}
+
+.background-image {
+    background-image: url('../assets/GradientHintergund.png');
+    background-size: cover;
+    background-position: left;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    left: -100%; /* Initially hidden to the left */
+    transition: left 0.5s ease; /* Add transition for smooth appearance */
+}
+
+.dashboard:hover .background-image {
+    left: 0; /* Move to the center on hover (you can adjust this) */
+}

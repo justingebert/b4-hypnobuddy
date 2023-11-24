@@ -27,6 +27,7 @@ const NavbarPage = () => {
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link href="#features">Platzhalter</Nav.Link>
+                        <Nav.Link href="/profile">Profil</Nav.Link>
                         <Nav.Link href="/" className="nav-link active" aria-current="page">
                             Home
                         </Nav.Link>
