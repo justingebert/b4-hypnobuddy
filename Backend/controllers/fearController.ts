@@ -17,6 +17,7 @@ export const getFearById = async (req: Request, res: Response): Promise<void> =>
     const {fearId} = req.params;
     try {
         const fear = await FearModel.findById(fearId).populate('dosAndDonts');
+        console.log(fear);
         res.json(fear);
     } catch (error) {
         res.status(500).json({error: 'Internal Server Error'});

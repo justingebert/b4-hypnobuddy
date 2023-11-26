@@ -6,8 +6,8 @@ const dosAndDontsRouter = Router();
 
 dosAndDontsRouter.get('/dosAndDonts', dosAndDontsController.getDosAndDonts);
 dosAndDontsRouter.get('/fears', fearController.getFears)
-dosAndDontsRouter.get('dosAndDonts/:fearId', fearController.getFearById);
-dosAndDontsRouter.post('/dosAndDonts', dosAndDontsController.saveDoAndDont, fearController.saveFear);
+dosAndDontsRouter.get('/fears/:fearId', fearController.getFearById);
+dosAndDontsRouter.post('/dosAndDonts', dosAndDontsController.saveDoAndDont);
 dosAndDontsRouter.post('/fears', fearController.saveFear);
-dosAndDontsRouter.post('/dosAndDonts/addDoAndDont', fearController.addDoAndDontToFear);
+dosAndDontsRouter.post('/fears/addDoAndDont', fearController.addDoAndDontToFear);
 export default dosAndDontsRouter;

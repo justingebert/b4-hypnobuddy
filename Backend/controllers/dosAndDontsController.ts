@@ -14,10 +14,14 @@ export const getDosAndDonts = async (req: Request, res: Response): Promise<void>
 export const saveDoAndDont = async (req: Request, res: Response): Promise<void> => {
   const { type, text, fearId } = req.body;
   try {
-    const newDoAndDont = new DoAndDontModel({ type, text });
+    const newDoAndDont = new DoAndDontModel({ type, text, fearId });
     const savedDoAndDont = await newDoAndDont.save();
-    // Associate the new DoAndDont with the specified Fear
-    await FearModel.findByIdAndUpdate(fearId, {$push: { dosAndDonts: savedDoAndDont._id } });
+
+    const fear = await FearModel.findById(fearId);
+    if (fear) {
+      fear.dosAndDonts.push(savedDoAndDont._id);
+      await fear.save();
+    }
     res.json(savedDoAndDont);
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
