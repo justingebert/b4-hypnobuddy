@@ -32,7 +32,7 @@ jobs:
     - name: Install dependencies
       run: |
         cd Backend
-        npm i
+        npm ci
 
     - name: Build TypeScript
       run: |
