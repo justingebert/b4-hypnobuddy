@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const doAndDontSchema = new mongoose.Schema({
+export const doAndDontSchema = new mongoose.Schema({
   type: String,
   text: String,
 });
