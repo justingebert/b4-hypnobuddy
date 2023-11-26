@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const fearSchema = new mongoose.Schema({
     name: String,
     dosAndDonts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'DoAndDont' }],
-});
+}, {collection: 'fears'});
 
 export const FearModel = mongoose.model('Fear', fearSchema);
 

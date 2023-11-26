@@ -8,7 +8,7 @@ function DosAndDontsPage() {
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const fearResponse = await fetch(`/fears`);
+            const fearResponse = await fetch(`http://localhost:3000/dosAndDonts/fears`);
 
             const fearData = await fearResponse.json();
             console.log('Fears data:', fearData);
@@ -23,12 +23,11 @@ function DosAndDontsPage() {
     
       return (
         <div className="">
-          <h1>Do's and Don'ts</h1>
             <div>
                 <h2>Fears</h2>
                 {fears.map((fear) => (
-                    <div key={fear._id}>
-                        <Link to={`/dosanddonts/${fear._id}`}>{fear.name}</Link>
+                    <div className="card" key={fear._id}>
+                        <Link className="card-content" to={`/dosanddonts/${fear._id}`}>{fear.name}</Link>
                     </div>
                 ))}
                 <Link to={"/dosanddonts/newFear"}>Add New Fear</Link>

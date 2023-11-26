@@ -8,6 +8,7 @@ interface DosAndDontsViewProps {
   onTypeChange: (type: 'Do' | 'Don\'t') => void;
   onInputChange: (text: string) => void;
   onSaveClick: (fearId: string) => void;
+  currentFearId: string;
 }
 
 const DosAndDontsView: React.FC<DosAndDontsViewProps> = ({
@@ -17,7 +18,10 @@ const DosAndDontsView: React.FC<DosAndDontsViewProps> = ({
   onTypeChange,
   onInputChange,
   onSaveClick,
+  currentFearId,
 }) => {
+  const filteredDosAndDonts = dosAndDonts.filter(item => item.fearId === currentFearId);
+
   return (
     <div className="DosAndDontsApp">
       <div>
@@ -48,7 +52,7 @@ const DosAndDontsView: React.FC<DosAndDontsViewProps> = ({
       />
       <button onClick={() => onSaveClick('')}>Save</button>
 
-      {dosAndDonts.map((item) => (
+      {filteredDosAndDonts.map((item) => (
         <div key={item._id}>
           <h4>{item.type}</h4>
           <p>{item.text}</p>

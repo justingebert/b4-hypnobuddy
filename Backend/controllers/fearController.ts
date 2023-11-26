@@ -3,9 +3,12 @@ import {FearModel, Fear} from "../data/model/fearModel";
 
 export const getFears = async (req: Request, res: Response): Promise<void> => {
     try {
+        console.log('Inside getFears controller');
         const fears = await FearModel.find();
+        console.log(fears);
         res.json(fears);
     } catch (error) {
+        console.error('Error in getFears:', error);
         res.status(500).json({ error: 'Internal Server Error'});
     }
 };
@@ -22,8 +25,9 @@ export const getFearById = async (req: Request, res: Response): Promise<void> =>
 export const saveFear = async (req: Request, res:Response): Promise<void> => {
     const { name } = req.body;
     try {
-        const newFear = new FearModel({name });
+        const newFear = new FearModel({ name });
         const savedFear = await newFear.save();
+        console.log(savedFear);
         res.json(savedFear);
     } catch (error) {
         res.status(500).json({ error: 'Internal Server Error' });

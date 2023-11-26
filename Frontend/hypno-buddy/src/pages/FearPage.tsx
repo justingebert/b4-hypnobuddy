@@ -4,18 +4,22 @@ import {DoAndDont} from "../../../../Backend/data/model/dosAndDontsModel.ts";
 import DosAndDontsView from "../views/DosAndDontsView.tsx";
 
 function FearPage() {
+    const { fearId } = useParams();
+    const [fearData, setFearData] = useState({});
     const [inputText, setInputText] = useState('');
-    const {fearId } = useParams();
     const [dosAndDonts, setDosAndDonts] = useState<DoAndDont[]>([]);
     const [selectedType, setSelectedType] = useState<'Do' | 'Don\'t'>('Do');
+    const [fearTitle, setFearTitle] = useState('');
 
     useEffect(() => {
         const fetchData = async() => {
             try {
                 const response = await fetch('http://localhost:3000/dosAndDonts/dosAndDonts');
-                //const response = await fetch (`http://localhost:3000/fears/${fearId}`);
                 const data = await response.json();
+                setFearData(data);
                 setDosAndDonts(data);
+                setFearTitle(data.name);
+                console.log(fearTitle);
             } catch(error) {
                 console.error('Error fetching data;', error);
             }
@@ -45,6 +49,7 @@ function FearPage() {
             setDosAndDonts([...dosAndDonts, data]);
             setInputText('');
         } catch (error) {
+            console.error(error);
             console.error('Error saving:', error);
         }
     };
@@ -52,17 +57,18 @@ function FearPage() {
 
     return (
         <div>
-            <h1>Dos and Donts for Fear</h1>
+            <h1>{fearTitle}</h1>
             <DosAndDontsView dosAndDonts={dosAndDonts}
                              selectedType={selectedType}
                              inputText={inputText}
                              onTypeChange={handleTypeChange}
                              onInputChange={handleInputChange}
                              onSaveClick={handleSaveClick}>
+                             currentFearId={fearId}
 
             </DosAndDontsView>
-            {dosAndDonts.map((item, index) => (
-                <div key={item._id || index}>
+            {dosAndDonts.map((item) => (
+                <div key={item._id}>
                     <h4>{item.type}</h4>
                     <p>{item.text}</p>
                 </div>
