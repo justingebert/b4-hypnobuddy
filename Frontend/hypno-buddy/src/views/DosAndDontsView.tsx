@@ -7,7 +7,7 @@ interface DosAndDontsViewProps {
   inputText: string;
   onTypeChange: (type: 'Do' | 'Don\'t') => void;
   onInputChange: (text: string) => void;
-  onSaveClick: () => void;
+  onSaveClick: (fearId: string) => void;
 }
 
 const DosAndDontsView: React.FC<DosAndDontsViewProps> = ({
@@ -46,7 +46,7 @@ const DosAndDontsView: React.FC<DosAndDontsViewProps> = ({
         value={inputText}
         onChange={(e) => onInputChange(e.target.value)}
       />
-      <button onClick={onSaveClick}>Save</button>
+      <button onClick={() => onSaveClick('')}>Save</button>
 
       {dosAndDonts.map((item) => (
         <div key={item._id}>

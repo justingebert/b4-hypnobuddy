@@ -1,21 +1,14 @@
-import mongoose, { Document, Schema } from 'mongoose';
-import { DoAndDont, doAndDontSchema } from './dosAndDontsModel';
+import mongoose from 'mongoose';
 
-export interface Fear extends Document {
-    name: string;
-    dosAndDonts: DoAndDont['_id'][];
-}
-
-const fearSchema = new Schema<Fear>({
-    name: {
-        type: String,
-        required: true,
-        unique: true,
-    },
-    dosAndDonts: [{
-        type: Schema.Types.ObjectId,
-        ref: 'DoAndDont',
-    }],
+const fearSchema = new mongoose.Schema({
+    name: String,
+    dosAndDonts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'DoAndDont' }],
 });
 
-export const FearModel = mongoose.model<Fear>('Fear', fearSchema);
+export const FearModel = mongoose.model('Fear', fearSchema);
+
+export interface Fear {
+    _id: string;
+    name: string;
+    dosAndDonts: string[]; // array of DoAndDont IDs
+}
