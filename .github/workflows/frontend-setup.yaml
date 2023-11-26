@@ -27,10 +27,4 @@ jobs:
     - name: Install Dependencies and Build
       run: |
         cd Frontend/hypno-buddy
-        npm i
-#        npm run build
-
-#    - name: Run Frontend Tests
-#      run: |
-#        cd Frontend/hypno-buddy
-#        npm run test
+        npm install

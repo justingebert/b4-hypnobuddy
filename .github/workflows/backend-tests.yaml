@@ -15,6 +15,14 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    services:
+      mongodb:
+        image: mongo
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd "mongo --eval 'db.runCommand({ connectionStatus: 1 })'" --health-interval 10s --health-timeout 5s --health-retries 3
+
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
@@ -24,11 +32,13 @@ jobs:
       with:
         node-version: 20.9
 
-    - name: Install Dependencies and Compile TypeScript
+    - name: Install dependencies
       run: |
-        cd Backend
-        npm i
-#        npm run build
+        npm install
+
+    - name: Build TypeScript
+      run: |
+        npm run build
 
     - name: Run Backend Tests
       run: |
