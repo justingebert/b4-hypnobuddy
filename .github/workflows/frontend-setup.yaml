@@ -1,14 +1,9 @@
 name: Frontend CI
 
 on:
-  push:
-    branches:
-      - main
-      - gh-actions-workflows # test
   pull_request:
     branches:
       - main
-      - gh-actions-workflows # test
 
 jobs:
   build:
