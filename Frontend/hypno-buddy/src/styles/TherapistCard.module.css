@@ -1,0 +1,91 @@
+/* Custom styles for the therapist card */
+.therapist-card {
+  background-color: #7945A2;
+  border-radius: 30px; 
+  color: #fff; /* Text color */
+  padding: 20px; /* Padding inside the card */
+  text-align: center; /* Center-align the title */
+}
+
+/* Custom styles for the therapist card title */
+.therapist-card-title {
+  margin-top: 0; /* Remove default margin for h2 */
+}
+
+/* Custom styles for the editable title */
+.editable-title {
+  width: 100%;
+  padding: 10px;
+  background-color: #7945A2; 
+  border: none;
+  border-radius: 30px; 
+  color: #fff; /* Text color */
+  margin-bottom: 10px;
+  text-align: center; 
+  font-size: 1.5rem; /* Match the font size of the title */
+}
+
+.close-button {
+  background-color: transparent;
+  border: none;
+  color: #fff; 
+  font-size: 2rem; 
+  cursor: pointer;
+  margin: -20px;
+  margin-right: 30px;
+}
+
+/* Custom styles for the therapist card container */
+.therapist-card-container {
+  display: flex; /* Use flexbox for left and right containers */
+  justify-content: space-between; /* Space out the left and right containers */
+  margin-top: 20px; /* Add margin at the top of the containers */
+}
+
+/* Custom styles for the therapist card left and right containers */
+.therapist-card-left,
+.therapist-card-right {
+  width: 48%; /* Set width for left and right containers */
+}
+
+/* Custom styles for the subheading */
+h4 {
+  color: #fff; /* Text color for subheadings */
+}
+
+/* Custom styles for the cream-colored text field */
+.cream-text-field {
+  background-color: #F4E7E8; 
+  height: auto; /* Allow the height to adjust based on content */
+  min-height: 3em; /* Minimum height equivalent to 3 lines */
+  max-height: 5em; /* Maximum height equivalent to 5 lines */
+  width: 100%; /* Take up the full width */
+  resize: vertical; /* Allow vertical resizing */
+  overflow-y: auto; /* Add a vertical scrollbar if needed */
+  padding: 10px; /* Add padding to the text field */
+  margin: 0; /* Remove margin to position text input at the beginning */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  line-height: 1.2; /* Set line height to 1.2 times the font size for better readability */
+  border-radius: 10px; /* Round edges */
+  margin-bottom: 10px; /* Add space between text fields */
+}
+
+.cream-text-field.editable {
+  background-color: #F4E7E8;
+}
+
+/* Custom styles for the button */
+.edit-save-button {
+  background-color: #F4E7E8; 
+  color: #7945A2; 
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 30px; /* Round edges */
+  margin-top: 10px; /* Add space between text fields and button */
+  transition: background-color 0.3s ease;
+}
+
+.edit-save-button:hover {
+  background-color: #C5B6F1;
+}

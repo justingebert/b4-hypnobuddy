@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { DoAndDont } from '../../../../Backend/data/model/dosAndDontsModel';
 import DosAndDontsView from '../views/DosAndDontsView'
+import TherapistCard from '../components/TherapistCard';
+import '../styles/TherapistCard.module.css'
 
 function DosAndDontsPage() {
     const [inputText, setInputText] = useState('');
@@ -78,7 +80,7 @@ function DosAndDontsPage() {
       };
     
       return (
-        <div className="">
+        <><div className="">
           <h1>Do's and Don'ts</h1>
           <DosAndDontsView
             dosAndDonts={dosAndDonts}
@@ -86,9 +88,14 @@ function DosAndDontsPage() {
             inputText={inputText}
             onTypeChange={handleTypeChange}
             onInputChange={handleInputChange}
-            onSaveClick={handleSaveClick}
-          />
-        </div>
+            onSaveClick={handleSaveClick} />
+        </div><div className="container mt-5">
+            <div className="row">
+              <div className="col-md-6 mx-auto">
+                <TherapistCard />
+              </div>
+            </div>
+          </div></>
       );
 }
 
