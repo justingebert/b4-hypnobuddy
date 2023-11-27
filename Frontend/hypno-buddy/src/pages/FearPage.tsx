@@ -14,7 +14,6 @@ function FearPage() {
     useEffect(() => {
         const fetchData = async() => {
             try {
-                console.log(fearId);
                 const response = await fetch(`http://localhost:3000/dosAndDonts/fears/${fearId}`);
                 const data = await response.json();
                 if (data) {
@@ -41,26 +40,18 @@ function FearPage() {
 
     const handleSaveClick = async () => {
         try {
-            const url = 'http://localhost:3000/dosAndDonts/fears/addDoAndDont';
-            const body = JSON.stringify({ type: selectedType, text: inputText, fearId });
-            console.log('POST URL:', url);
-            console.log('POST Body:', body);
-
-            const response = await fetch(url, {
+            const response = await fetch('http://localhost:3000/dosAndDonts/fears/addDoAndDont', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body,
+                body: JSON.stringify({ type: selectedType, text: inputText, fearId }),
             });
 
             const data = await response.json();
-            console.log('POST Response:', data);
-
             setDosAndDonts([...dosAndDonts, data]);
             setInputText('');
         } catch (error) {
-            console.error(error);
             console.error('Error saving:', error);
         }
     };

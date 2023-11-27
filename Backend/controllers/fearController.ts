@@ -4,9 +4,7 @@ import {DoAndDontModel} from "../data/model/dosAndDontsModel";
 
 export const getFears = async (req: Request, res: Response): Promise<void> => {
     try {
-        console.log('Inside getFears controller');
         const fears = await FearModel.find();
-        console.log(fears);
         res.json(fears);
     } catch (error) {
         console.error('Error in getFears:', error);
