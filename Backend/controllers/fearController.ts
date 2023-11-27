@@ -1,5 +1,6 @@
 import {Request, Response } from 'express';
 import {FearModel, Fear} from "../data/model/fearModel";
+import {DoAndDontModel} from "../data/model/dosAndDontsModel";
 
 export const getFears = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -35,19 +36,23 @@ export const saveFear = async (req: Request, res:Response): Promise<void> => {
     }
 };
 export const addDoAndDontToFear = async (req: Request, res: Response): Promise<void> => {
-    const {fearId, doAndDontId} = req.body;
-    console.log(fearId, doAndDontId);
+    const {fearId, type, text} = req.body;
+    console.log(fearId, text);
     try {
+        const newDoAndDont = new DoAndDontModel({type, text, fearId});
+        const savedDoAndDont = await newDoAndDont.save();
+
         const fear = await FearModel.findById(fearId);
         if (!fear) {
             res.status(404).json({error: 'Fear not found'});
             return;
         }
 
-        fear.dosAndDonts.push(doAndDontId);
+        fear.dosAndDonts.push(savedDoAndDont._id);
         await fear.save();
         res.json(fear);
     } catch (error) {
+        console.error('Error in addDoAndDontToFear:', error);
         res.status(500).json({error: 'Internal Server Error'});
     }
 };
