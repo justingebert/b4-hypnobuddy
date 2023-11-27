@@ -14,12 +14,17 @@ function FearPage() {
     useEffect(() => {
         const fetchData = async() => {
             try {
-                const response = await fetch('http://localhost:3000/dosAndDonts/dosAndDonts');
+                console.log(fearId);
+                const response = await fetch(`http://localhost:3000/dosAndDonts/fears/${fearId}`);
                 const data = await response.json();
-                setFearData(data);
-                setDosAndDonts(data);
-                setFearTitle(data.name);
-                console.log(fearTitle);
+                if (data) {
+                    setFearData(data);
+                    setDosAndDonts(data.dosAndDonts || []);
+                    setFearTitle(data.name);
+                    console.log(fearTitle);
+                } else {
+                    console.error(`Fear with ID ${fearId} not found.`);
+                }
             } catch(error) {
                 console.error('Error fetching data;', error);
             }
@@ -37,7 +42,7 @@ function FearPage() {
 
     const handleSaveClick = async (fearId: string) => {
         try {
-            const response = await fetch('http://localhost:3000/dosAndDonts/dosAndDonts', {
+            const response = await fetch('http://localhost:3000/dosAndDonts/fears/addDoAndDont', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -63,8 +68,8 @@ function FearPage() {
                              inputText={inputText}
                              onTypeChange={handleTypeChange}
                              onInputChange={handleInputChange}
-                             onSaveClick={handleSaveClick}>
-                             currentFearId={fearId}
+                             onSaveClick={handleSaveClick}
+                             currentFearId={fearId}>
 
             </DosAndDontsView>
             {dosAndDonts.map((item) => (
