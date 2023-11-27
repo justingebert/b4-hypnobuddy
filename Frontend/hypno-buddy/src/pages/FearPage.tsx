@@ -21,7 +21,6 @@ function FearPage() {
                     setFearData(data);
                     setDosAndDonts(data.dosAndDonts || []);
                     setFearTitle(data.name);
-                    console.log(fearTitle);
                 } else {
                     console.error(`Fear with ID ${fearId} not found.`);
                 }
@@ -77,14 +76,7 @@ function FearPage() {
                              onInputChange={handleInputChange}
                              onSaveClick={handleSaveClick}
                              currentFearId={fearId}>
-
             </DosAndDontsView>
-            {dosAndDonts.map((item) => (
-                <div key={item._id}>
-                    <h4>{item.type}</h4>
-                    <p>{item.text}</p>
-                </div>
-            ))}
         </div>
     )
 }
