@@ -36,6 +36,7 @@ export const saveFear = async (req: Request, res:Response): Promise<void> => {
 };
 export const addDoAndDontToFear = async (req: Request, res: Response): Promise<void> => {
     const {fearId, doAndDontId} = req.body;
+    console.log(fearId, doAndDontId);
     try {
         const fear = await FearModel.findById(fearId);
         if (!fear) {

@@ -40,17 +40,24 @@ function FearPage() {
         setInputText(text);
     };
 
-    const handleSaveClick = async (fearId: string) => {
+    const handleSaveClick = async () => {
         try {
-            const response = await fetch('http://localhost:3000/dosAndDonts/fears/addDoAndDont', {
+            const url = 'http://localhost:3000/dosAndDonts/fears/addDoAndDont';
+            const body = JSON.stringify({ type: selectedType, text: inputText, fearId });
+            console.log('POST URL:', url);
+            console.log('POST Body:', body);
+
+            const response = await fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ type: selectedType, text: inputText, fearId }),
+                body,
             });
 
             const data = await response.json();
+            console.log('POST Response:', data);
+
             setDosAndDonts([...dosAndDonts, data]);
             setInputText('');
         } catch (error) {
