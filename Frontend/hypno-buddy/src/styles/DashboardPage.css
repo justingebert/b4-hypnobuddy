@@ -1,19 +1,63 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .dashboard {
     position: relative;
+    height: 100vh;
+    width: 100vw;
 }
 
 .background-image {
     background-image: url('../assets/GradientHintergund.png');
     background-size: cover;
-    background-position: left;
-    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
     height: 100vh;
-    position: fixed;
-    left: -100%; /* Initially hidden to the left */
-    transition: left 0.5s ease; /* Add transition for smooth appearance */
+    width: 100%;
+    position: absolute;
+    overflow: hidden;
+
+}
+.dashboard-content{
+
+    padding-top: 50px;
+    text-align: center;
+
 }
 
-.dashboard:hover .background-image {
-    left: 0; /* Move to the center on hover (you can adjust this) */
+.titel{
+    padding: 30px;
+    text-transform: uppercase;
+    color: #f7e6e8;
+    font-size: 40px;
+    margin-top: 267px;
+    font: 700 60px/73px Inter, sans-serif;
+    text-align: left;
+    padding-left: 15%;
+}
+
+.text{
+    color: #014751;
+    text-align: center;
+    font: 400 30px/33px Inter, sans-serif;
+    padding-bottom: 15px;
+}
+
+.textContaner{
+    padding-top: 20px;
+    display: flow;
+    float: right;
+    width: 700px;
+    padding-right: 200px;
+}
+
+.button{
+    background: #014751;
+    --bs-btn-hover-bg: #56c8c9;
+    border: none;
 }

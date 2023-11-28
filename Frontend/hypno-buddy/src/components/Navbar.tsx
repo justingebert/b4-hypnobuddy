@@ -26,8 +26,6 @@ const NavbarPage = () => {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link href="#features">Platzhalter</Nav.Link>
-                        <Nav.Link href="/profile">Profil</Nav.Link>
                         <Nav.Link href="/" className="nav-link active" aria-current="page">
                             Home
                         </Nav.Link>
@@ -43,6 +41,7 @@ const NavbarPage = () => {
                                 Separated link
                             </NavDropdown.Item>
                         </NavDropdown>
+                        <Nav.Link href="/profile">Profil</Nav.Link>
                     </Nav>
                     <Nav>
                         <Navbar.Text>
