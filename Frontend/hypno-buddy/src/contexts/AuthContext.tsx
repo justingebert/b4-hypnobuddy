@@ -57,10 +57,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
             });
             const data = await response.json();
             if (data.isAuthenticated) {
-                return data.user;
+                setAuthState({ isAuthenticated: true, user: data.user });
+            } else {
+                setAuthState({ isAuthenticated: false, user: null });
             }
         } catch (error) {
             console.error('Error fetching auth status: ', error);
+            setAuthState({ isAuthenticated: false, user: null });
         }
     };
 
