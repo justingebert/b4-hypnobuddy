@@ -11,6 +11,8 @@ import DosAndDontsPage from "./pages/DosAndDontsPage.tsx";
 import RoadmapPage from "./pages/RoadmapPage.tsx";
 import { useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import FearPage from "./pages/FearPage.tsx";
+import NewFearPage from "./pages/NewFearPage.tsx";
 
 function App() {
 
@@ -28,6 +30,8 @@ function App() {
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/profile" element={<ProfilePage />} />
                     <Route path="/dosanddonts" element={<DosAndDontsPage />} />
+                    <Route path="/dosanddonts/:fearId" element={<FearPage />} />
+                    <Route path="/dosanddonts/newFear" element={<NewFearPage />}/>
                     <Route path="/roadmap" element={<RoadmapPage />} />
                     {/* Add other routes here */}
                 </Routes>

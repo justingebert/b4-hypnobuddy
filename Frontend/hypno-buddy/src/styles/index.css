@@ -54,3 +54,25 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+/* Card container */
+.card {
+
+  background-color: #8140a7;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: box-shadow 0.3s;
+  margin: 10px;
+  width: 30vw;
+  height: 10vw;
+}
+
+/* Card content */
+.card-content {
+  padding: 30px;
+  text-align: center;
+}
+
+/* Hover effect */
+.card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}

@@ -4,7 +4,8 @@ import dosAndDontsRouter from './dosAndDontsRoutes'
 
 const router = Router()
 
-router.use('/user', userRoutes)
-router.use('/dosAndDonts', dosAndDontsRouter)
+router.use('/user', userRoutes);
+router.use('/dosAndDonts', dosAndDontsRouter);
 
-export default router
+
+export default router;
