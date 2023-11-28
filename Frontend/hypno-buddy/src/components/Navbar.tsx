@@ -46,6 +46,11 @@ const Navbar = () => {
                                 Features
                             </Link>
                         </li>
+                        <li className="nav-item">
+                            <Link to="/roadmap" className="nav-link">
+                                Roadmap
+                            </Link>
+                        </li>
 
                         <li className="nav-item dropdown">
                             {isAuthenticated && user ? (

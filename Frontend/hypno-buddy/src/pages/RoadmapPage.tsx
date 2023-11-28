@@ -1,33 +1,41 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Goal from "../components/Goal.tsx";
 
 function RoadmapPage() {
-    const [data, setData] = useState(null);
+    const [goals, setGoals] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchGoals = async () => {
             try {
-                const response = await fetch('http://localhost:3000/roadmap/data', {
-                    method: 'GET',
-                    credentials: 'include',
-                });
-
-                const responseData = await response.json();
-                setData(responseData);
+                setIsLoading(true);
+                const response = await fetch('http://localhost:3000/goals');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                setGoals(data);
             } catch (error) {
-                console.error('Error fetching data:', error);
+                setError(error.message);
+            } finally {
+                setGoals([]);
+                setIsLoading(false);
             }
         };
 
-        fetchData();
+        fetchGoals();
     }, []);
 
-    if (!data) {
-        return <div>Roadmap Loading...</div>;
-    }
+    if (isLoading) return <div>Loading...</div>;
+   //if (error) return <div>Error: {error}</div>;
 
     return (
-        <div className="">
+        <div>
             <h1>Roadmap</h1>
+            {goals.map(goal => (
+                <Goal key={goal.id} goal={goal} />
+            ))}
         </div>
     );
 }
