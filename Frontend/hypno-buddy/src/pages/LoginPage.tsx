@@ -20,13 +20,13 @@ function LoginPage() {
             const password = passwordInput.value;
 
             try {
-                const {success, redirect} = await handleLogin(email, password);
+                const {success, redirect, message} = await handleLogin(email, password);
 
                 if (success) {
-                    flash('login successful');
+                    flash(message);
                     navigate(redirect);
                 } else {
-                    flash('login unsuccesful');
+                    flash(message);
                 }
             } catch (error) {
                 flash('An error occurred while logging in');
