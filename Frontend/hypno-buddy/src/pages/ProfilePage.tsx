@@ -28,6 +28,7 @@ function ProfilePage() {
         };
 
         fetchData();
+        getPatients()
     }, []);
 
     const getPatients = async () => {
