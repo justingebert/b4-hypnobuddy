@@ -111,13 +111,16 @@ export async function createGoal (req, res, next) {
 
         const newRoadmapGoal = new RoadmapGoal(getGoalParams(req.body));
         const savedRoadmapGoal = await newRoadmapGoal.save();
+        await User.findOneAndUpdate({ _id: savedRoadmapGoal.userID }, { $push: { goalIDs: savedRoadmapGoal._id } });
         return res.json({
             success: true,
             message: 'Successfully created goal',
             goal: savedRoadmapGoal,
             redirect: '/',
         });
+
         next();
+
     }catch (error){
         console.error('Error creating roadmap goal:', error);
         res.status(500).json({ error: 'Internal Server Error' });

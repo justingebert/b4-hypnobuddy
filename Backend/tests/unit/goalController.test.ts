@@ -119,7 +119,7 @@ describe('Goal Input Validation', () => {
         expect(response.status).toBe(400);
         expect(response.body.message).toContain('Invalid MongoDB ID');
     });
-    
+
     it('should reject non-existing userIDs', async () => {
         const response = await request(app)
             .post('/goal/create')
@@ -179,6 +179,22 @@ describe('Goal Creation', () => {
         expect(response.body.goal).toBeDefined(); // Assuming you return the created goal in the response
     });
 
-    // Add more tests for handling duplicate goals, invalid input, etc.
-});
+    it('should save the goalID within user document', async () => {
+        const response = await request(app)
+            .post('/goal/create')
+            .send({
+                userID: user._id,
+                title: 'Sample Goal',
+                description: 'Sample description',
+                status: 'in_progress',
+                isSubGoal: false,
+                subGoals: [],
+            });
 
+        const updatedUser = await User.findById(user._id);
+        const goalIdString = response.body.goal._id.toString();
+        expect(updatedUser.goalIDs.map(String)).toContain(goalIdString);
+
+    });
+
+});
