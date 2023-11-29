@@ -1,4 +1,5 @@
 import RoadmapGoal from '../data/model/roadmapGoal';
+import User from '../data/model/user';
 
 import { body, validationResult } from 'express-validator';
 import { isValid, parseISO } from 'date-fns';
@@ -26,15 +27,21 @@ export const getGoalParams = body => {
  */
 export const validate = [
     // Validation and sanitization middlewares
-    body('userID')
-        //TODO: check if id actually exists in the database + write tests
-        .custom((value) => {
-            console.log('Value before validation:', value);
-            if (!/^[a-fA-F0-9]{24}$/.test(value)) {
-                throw new Error('Invalid MongoDB ID');
-            }
-            return true;
-        }),
+    body('userID').custom(async (value) => {
+        //check if the id is a valid MongoDB ID
+        if (!/^[a-fA-F0-9]{24}$/.test(value)) {
+            throw new Error('Invalid MongoDB ID');
+        }
+
+        //check if the user with the given ID exists
+        const userExists = await User.exists({ _id: value });
+
+        if (!userExists) {
+            throw new Error('User not found');
+        }
+
+        return true;
+    }),
     body('title')
         .trim()
         .notEmpty().withMessage('Title cannot be empty'),
@@ -89,6 +96,8 @@ export const validate = [
 
 /**
  * Creates a new goal and saves it to the database
+ * - userID saved within the goal document
+ * - TODO: save goalID within the user document
  * @param req {body: { userID, title, description, status, dueDate, isSubGoal, parentGoalId, subGoals }}
  * @param res {success: true, message: 'Successful Login', goal: savedRoadmapGoal, redirect: '/'}
  * @param next

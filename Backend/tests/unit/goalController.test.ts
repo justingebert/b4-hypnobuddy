@@ -102,6 +102,14 @@ describe('getGoalParams Function', () => {
 
 
 describe('Goal Input Validation', () => {
+    let user;
+
+    beforeAll(async () => {
+        await registerTestUser('john@example.com', '123456');
+        user = await loginUserAndGetUser('john@example.com', '123456');
+    });
+
+    afterEach(cleanDatabase);
 
     it('should reject invalid userIDs', async () => {
         const response = await request(app)
@@ -111,11 +119,20 @@ describe('Goal Input Validation', () => {
         expect(response.status).toBe(400);
         expect(response.body.message).toContain('Invalid MongoDB ID');
     });
+    
+    it('should reject non-existing userIDs', async () => {
+        const response = await request(app)
+            .post('/goal/create')
+            .send({ userID: "65523e8ad445f1c1acf2ed9c", title: 'Sample Goal', description: 'Sample description', status: 'not_started', isSubGoal: false, subGoals: [] });
+
+        expect(response.status).toBe(400);
+        expect(response.body.message).toContain('User not found');
+    });
 
     it('should reject empty title', async () => {
         const response = await request(app)
             .post('/goal/create')
-            .send({ userID: "65523e8ad445f1c1acf2ed9f", description: 'Sample description', status: 'not_started', isSubGoal: false, subGoals: [] });
+            .send({ userID: user._id, description: 'Sample description', status: 'not_started', isSubGoal: false, subGoals: [] });
 
         expect(response.status).toBe(400);
         expect(response.body.message).toContain('Title cannot be empty');
@@ -124,7 +141,7 @@ describe('Goal Input Validation', () => {
     it('should reject empty description', async () => {
         const response = await request(app)
             .post('/goal/create')
-            .send({ userID: "65523e8ad445f1c1acf2ed9f",title: 'Sample Goal', status: 'not_started', isSubGoal: false, subGoals: [] });
+            .send({ userID: user._id,  title: 'Sample Goal', status: 'not_started', isSubGoal: false, subGoals: [] });
 
         expect(response.status).toBe(400);
         expect(response.body.message).toContain('Description cannot be empty');
