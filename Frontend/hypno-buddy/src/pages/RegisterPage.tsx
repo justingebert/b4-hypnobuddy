@@ -20,7 +20,7 @@ const WelcomeHeading = styled.div`
     left: 95px;
 `;
 
-const RegisterLoginPage = () => {
+const RegisterPage = () => {
     const { flash } = useContext(FlashContext);
     const { updateLoginState } = useAuth();
     const navigate = useNavigate();
@@ -43,6 +43,7 @@ const RegisterLoginPage = () => {
                 }),
             });
             const data = await response.json();
+            flash(data.message);  // Display the message from the server
             console.log(data);
             flash(data.message);
 
@@ -99,4 +100,4 @@ const RegisterLoginPage = () => {
     );
 };
 
-export default RegisterLoginPage;
+export default RegisterPage;
