@@ -5,10 +5,12 @@ import { isValid, parseISO } from 'date-fns';
 
 /**
  * Extracts the goal parameters from the request body
- * @param body - request body
+ * @param body - request body containing { userID, title, description, status, dueDate, isSubGoal, parentGoalId, subGoals }
  */
 export const getGoalParams = body => {
+    console.log('body:', body);
     return {
+        userID: body.userID,
         title: body.title,
         description: body.description,
         status: body.status,
@@ -24,6 +26,15 @@ export const getGoalParams = body => {
  */
 export const validate = [
     // Validation and sanitization middlewares
+    body('userID')
+        //TODO: check if id actually exists in the database + write tests
+        .custom((value) => {
+            console.log('Value before validation:', value);
+            if (!/^[a-fA-F0-9]{24}$/.test(value)) {
+                throw new Error('Invalid MongoDB ID');
+            }
+            return true;
+        }),
     body('title')
         .trim()
         .notEmpty().withMessage('Title cannot be empty'),
@@ -35,7 +46,6 @@ export const validate = [
         .isIn(['not_started', 'in_progress', 'completed']).withMessage('Status must be one of: Not Started, In Progress, Completed'),
     body('dueDate')
         .custom((value) => {
-            console.log('value:', value);
             if (value !== null && value !== undefined && value !== '') {
                 value = parseISO(value);
                 if (!isValid(value)) {
@@ -64,6 +74,7 @@ export const validate = [
             let messages = errors.array().map(e => e.msg);
             console.log("!Validation Error!");
             console.log(messages);
+            console.log(errors);
 
             req.skip = true; // to avoid rewriting the response
             res.status(400).json({
@@ -78,8 +89,8 @@ export const validate = [
 
 /**
  * Creates a new goal and saves it to the database
- * @param req
- * @param res
+ * @param req {body: { userID, title, description, status, dueDate, isSubGoal, parentGoalId, subGoals }}
+ * @param res {success: true, message: 'Successful Login', goal: savedRoadmapGoal, redirect: '/'}
  * @param next
  */
 export async function createGoal (req, res, next) {
@@ -93,8 +104,8 @@ export async function createGoal (req, res, next) {
         const savedRoadmapGoal = await newRoadmapGoal.save();
         return res.json({
             success: true,
-            message: 'Successful Login',
-            user: savedRoadmapGoal,
+            message: 'Successfully created goal',
+            goal: savedRoadmapGoal,
             redirect: '/',
         });
         next();

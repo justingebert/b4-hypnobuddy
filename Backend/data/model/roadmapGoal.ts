@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
 
 const roadmapGoalSchema = new mongoose.Schema({
+    userID: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
     title: {
         type: String,
         required: true
@@ -12,7 +17,8 @@ const roadmapGoalSchema = new mongoose.Schema({
     status: {
         type: String,
         enum: ['pending', 'in_progress', 'completed'],
-        required: true
+        required: true,
+        default: 'pending'
     },
     creationDate: {
         type: Date,

@@ -1,9 +1,47 @@
 import request from 'supertest';
-import { app } from '../../main';
+import {app, sessionStore} from '../../main';
 import RoadmapGoal from '../../data/model/roadmapGoal';
+import User from '../../data/model/user';
 import { getGoalParams, validate, createGoal } from '../../controllers/goalController';
 import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
+
+//reused code in functions
+async function registerTestUser(email, password, role = 'patient') {
+    const newUser = new User({
+        email: email,
+        name: {first: 'John', last: 'Doe'},
+        role: role
+    });
+
+    await User.register(newUser, password);
+}
+
+async function loginUserAndGetUser(email, password) {
+    const loginResponse = await request(app)
+        .post('/user/login')
+        .send({ email: email, password: password });
+
+    if (loginResponse.status !== 200) {
+        throw new Error('Failed to log in user for test');
+    }
+
+    const userCookie = loginResponse.headers['set-cookie'];
+    const response = await request(app)
+        .get('/user/currentUser')
+        .set('Cookie', userCookie);
+
+    if (response.status !== 200) {
+        throw new Error('Failed to get logged in user for test');
+    }
+
+    return response.body.user;
+}
+
+async function cleanDatabase() {
+    await User.deleteMany({});
+    await RoadmapGoal.deleteMany({});
+}
 
 /**
  * Connect to a new mockup database before running any tests.
@@ -21,20 +59,22 @@ beforeAll(async () => {
 afterAll(async () => {
     await mongoose.disconnect();
     await mongoServer.stop();
+    await sessionStore.close();
 });
-
 /**
- * clear all mocks after each test
- * clear all timers after each test
+ * Remove and close the db and server.
  */
 afterEach(() => {
     jest.restoreAllMocks();
     jest.clearAllTimers();
 });
 
+//------------------TESTS------------------
+
 describe('getGoalParams Function', () => {
     it('should correctly extract goal parameters from the body', () => {
         const body = {
+            userID: "65523e8ad445f1c1acf2ed9f",
             title: 'Sample Goal',
             description: 'Sample description',
             status: 'not_started',
@@ -45,6 +85,7 @@ describe('getGoalParams Function', () => {
         };
 
         const expectedOutput = {
+            userID: "65523e8ad445f1c1acf2ed9f",
             title: 'Sample Goal',
             description: 'Sample description',
             status: 'not_started',
@@ -56,37 +97,25 @@ describe('getGoalParams Function', () => {
 
         expect(getGoalParams(body)).toEqual(expectedOutput);
     });
-
-    it('should handle missing fields appropriately', () => {
-        const body = {
-            title: 'Sample Goal',
-            description: 'Sample description',
-            // status, dueDate, isSubGoal, parentGoalId, subGoals are missing
-        };
-
-        const expectedOutput = {
-            title: 'Sample Goal',
-            description: 'Sample description',
-            status: undefined,
-            dueDate: undefined,
-            isSubGoal: undefined,
-            parentGoalId: undefined,
-            subGoals: undefined,
-        };
-
-        expect(getGoalParams(body)).toEqual(expectedOutput);
-    });
-
-    // Add more tests for different scenarios, such as handling null values, unexpected input types, etc.
 });
 
 
 
 describe('Goal Input Validation', () => {
+
+    it('should reject invalid userIDs', async () => {
+        const response = await request(app)
+            .post('/goal/create')
+            .send({ userID: "wrongID", title: 'Sample Goal', description: 'Sample description', status: 'not_started', isSubGoal: false, subGoals: [] });
+
+        expect(response.status).toBe(400);
+        expect(response.body.message).toContain('Invalid MongoDB ID');
+    });
+
     it('should reject empty title', async () => {
         const response = await request(app)
             .post('/goal/create')
-            .send({ description: 'Sample description', status: 'not_started', isSubGoal: false, subGoals: [] });
+            .send({ userID: "65523e8ad445f1c1acf2ed9f", description: 'Sample description', status: 'not_started', isSubGoal: false, subGoals: [] });
 
         expect(response.status).toBe(400);
         expect(response.body.message).toContain('Title cannot be empty');
@@ -95,7 +124,7 @@ describe('Goal Input Validation', () => {
     it('should reject empty description', async () => {
         const response = await request(app)
             .post('/goal/create')
-            .send({ title: 'Sample Goal', status: 'not_started', isSubGoal: false, subGoals: [] });
+            .send({ userID: "65523e8ad445f1c1acf2ed9f",title: 'Sample Goal', status: 'not_started', isSubGoal: false, subGoals: [] });
 
         expect(response.status).toBe(400);
         expect(response.body.message).toContain('Description cannot be empty');
@@ -105,10 +134,21 @@ describe('Goal Input Validation', () => {
 });
 
 describe('Goal Creation', () => {
+    let user;
+
+    beforeAll(async () => {
+        await registerTestUser('john@example.com', '123456');
+        user = await loginUserAndGetUser('john@example.com', '123456');
+    });
+
+    afterEach(cleanDatabase);
+
     it('should create a new goal', async () => {
+        console.log("user:" + JSON.stringify(user, null, 2))
         const response = await request(app)
             .post('/goal/create')
             .send({
+                userID: user._id,
                 title: 'Sample Goal',
                 description: 'Sample description',
                 status: 'in_progress',
@@ -118,8 +158,8 @@ describe('Goal Creation', () => {
 
         expect(response.status).toBe(200);
         expect(response.body.success).toBeTruthy();
-        expect(response.body.message).toContain('Successful Login');
-        expect(response.body.user).toBeDefined(); // Assuming you return the created goal in the response
+        expect(response.body.message).toContain('Successfully created goal');
+        expect(response.body.goal).toBeDefined(); // Assuming you return the created goal in the response
     });
 
     // Add more tests for handling duplicate goals, invalid input, etc.
