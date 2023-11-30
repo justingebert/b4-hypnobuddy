@@ -253,7 +253,7 @@ describe('Getting Goals', () => {
 
     it('should get a goal by ID', async () => {
         const response = await request(app)
-            .get(`/goal/get/${goal1._id}`)
+            .get(`/goal/${goal1._id}`)
 
         expect(response.status).toBe(200);
         expect(response.body.success).toBeTruthy();

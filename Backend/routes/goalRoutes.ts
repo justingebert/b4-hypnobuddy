@@ -5,6 +5,6 @@ const goalRouter = Router();
 
 goalRouter.post('/create', goalController.validate, goalController.createGoal);
 goalRouter.get('/getAll', goalController.getAllGoals); //include the user id in the request body
-goalRouter.get('/get/:goalId', goalController.getGoal);
+goalRouter.get('/:goalId', goalController.getGoal);
 
 export default goalRouter;
