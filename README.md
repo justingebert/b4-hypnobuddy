@@ -1,5 +1,5 @@
 # How to start Developing:
-- npm install lottie-react --lagacy-peer-deps
+- npm install lottie-react --legacy-peer-deps
 - npm i react-bootstrap bootstrap oder npm i bootstrap
 - install mongoDB
 - clone repo
