@@ -9,7 +9,6 @@ import { isValid, parseISO } from 'date-fns';
  * @param body - request body containing { userID, title, description, status, dueDate, isSubGoal, parentGoalId, subGoals }
  */
 export const getGoalParams = body => {
-    console.log('body:', body);
     return {
         userID: body.userID,
         title: body.title,
@@ -97,7 +96,7 @@ export const validate = [
 /**
  * Creates a new goal and saves it to the database
  * - userID saved within the goal document
- * - TODO: save goalID within the user document
+ * - goalID saved within the user document
  * @param req {body: { userID, title, description, status, dueDate, isSubGoal, parentGoalId, subGoals }}
  * @param res {success: true, message: 'Successful Login', goal: savedRoadmapGoal, redirect: '/'}
  * @param next
@@ -107,8 +106,6 @@ export async function createGoal (req, res, next) {
         return next();
     }
     try {
-        console.log(req.body)
-
         const newRoadmapGoal = new RoadmapGoal(getGoalParams(req.body));
         const savedRoadmapGoal = await newRoadmapGoal.save();
         await User.findOneAndUpdate({ _id: savedRoadmapGoal.userID }, { $push: { goalIDs: savedRoadmapGoal._id } });
@@ -123,6 +120,35 @@ export async function createGoal (req, res, next) {
 
     }catch (error){
         console.error('Error creating roadmap goal:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+        next();
+    }
+}
+
+/**
+ * Gets all goals for a given user
+ * - route: GET /goal/getAll
+ * @param req {body: { userID }}
+ * @param res {success: true, message: 'Successfully retrieved goals', goals: goals, redirect: '/'}
+ * @param next
+ */
+export async function getAllGoals(req, res, next) {
+    if (req.skip) {
+        return next();
+    }
+    try {
+        const goals = await RoadmapGoal.find({ userID: req.body.userID });
+        return res.json({
+            success: true,
+            message: 'Successfully retrieved goals',
+            goals: goals,
+            redirect: '/',
+        });
+
+        next();
+
+    } catch (error) {
+        console.error('Error getting all roadmap goals:', error);
         res.status(500).json({ error: 'Internal Server Error' });
         next();
     }

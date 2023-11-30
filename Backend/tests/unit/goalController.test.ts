@@ -38,6 +38,17 @@ async function loginUserAndGetUser(email, password) {
     return response.body.user;
 }
 
+async function createTestGoal(userID, title, description, status, dueDate, isSubGoal, parentGoalId, subGoals) {
+    const response = await request(app)
+        .post('/goal/create')
+        .send({ userID: userID, title: title, description: description, status: status, dueDate: dueDate, isSubGoal: isSubGoal, parentGoalId: parentGoalId, subGoals: subGoals });
+
+    if (response.status !== 200) {
+        throw new Error('Failed to create goal for test');
+    }
+    return response.body.goal;
+}
+
 async function cleanDatabase() {
     await User.deleteMany({});
     await RoadmapGoal.deleteMany({});
@@ -197,4 +208,46 @@ describe('Goal Creation', () => {
 
     });
 
+});
+
+describe('Getting Goals', () => {
+    let user;
+    let goal1;
+    let goal2;
+
+    beforeAll(async () => {
+        await registerTestUser('john@example.com', '123456');
+        user = await loginUserAndGetUser('john@example.com', '123456');
+        goal1 = await createTestGoal(user._id, 'Sample Goal 1', 'Sample description 1', 'in_progress', '2023-01-01', false, null, []);
+        goal2 = await createTestGoal(user._id, 'Sample Goal 2', 'Sample description 2', 'in_progress', '2023-01-01', false, null, []);
+    });
+
+    afterEach(cleanDatabase);
+
+    it('should get all goals for a given user', async () => {
+        const response = await request(app)
+            .get('/goal/getAll')
+            .send({ userID: user._id });
+
+        expect(response.status).toBe(200);
+        expect(response.body.success).toBeTruthy();
+        expect(response.body.message).toContain('Successfully retrieved goals');
+        expect(response.body.goals).toBeDefined();
+
+        const retrievedGoals = response.body.goals;
+        expect(retrievedGoals).toHaveLength(2);
+
+        const goal1InResponse = retrievedGoals.find(goal => goal._id === goal1._id);
+        const goal2InResponse = retrievedGoals.find(goal => goal._id === goal2._id);
+
+        expect(goal1InResponse).toBeDefined();
+        expect(goal1InResponse.title).toBe(goal1.title);
+        expect(goal1InResponse.description).toBe(goal1.description);
+        expect(goal1InResponse).toStrictEqual(goal1);
+
+        expect(goal2InResponse).toBeDefined();
+        expect(goal2InResponse.title).toBe(goal2.title);
+        expect(goal2InResponse.description).toBe(goal2.description);
+        expect(goal2InResponse).toStrictEqual(goal2);
+    });
 });
