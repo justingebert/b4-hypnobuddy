@@ -25,7 +25,7 @@ function DashboardPage() {
             <div className="background-image">
                 <div className="dashboard-content">
                     <h1 className="titel" >
-                        Entdecke<br />dein volles Potenzial<br />mit Hypnose Buddy
+                        Entdecke<br />dein volles Potenzial<br />mit Hypno Buddy
                     </h1>
                     <div className="textContaner">
                         <p className="text">
