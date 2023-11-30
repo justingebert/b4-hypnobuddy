@@ -153,3 +153,32 @@ export async function getAllGoals(req, res, next) {
         next();
     }
 }
+
+/**
+ * Gets a goal by ID
+ * - route: GET /goal/get/:goalId
+ * @param req
+ * @param res {success: true, message: 'Successfully retrieved goal', goal: goal, redirect: '/'}
+ * @param next
+ */
+export async function getGoal(req, res, next) {
+    if (req.skip) {
+        return next();
+    }
+    try {
+        const goal = await RoadmapGoal.findById(req.params.goalId);
+        return res.json({
+            success: true,
+            message: 'Successfully retrieved goal',
+            goal: goal,
+            redirect: '/',
+        });
+
+        next();
+
+    } catch (error) {
+        console.error('Error getting roadmap goal:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+        next();
+    }
+}

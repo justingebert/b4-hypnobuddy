@@ -250,4 +250,18 @@ describe('Getting Goals', () => {
         expect(goal2InResponse.description).toBe(goal2.description);
         expect(goal2InResponse).toStrictEqual(goal2);
     });
+
+    it('should get a goal by ID', async () => {
+        const response = await request(app)
+            .get(`/goal/get/${goal1._id}`)
+
+        expect(response.status).toBe(200);
+        expect(response.body.success).toBeTruthy();
+        expect(response.body.message).toContain('Successfully retrieved goal');
+        expect(response.body.goal).toBeDefined();
+        expect(response.body.goal._id).toBe(goal1._id);
+        expect(response.body.goal.title).toBe(goal1.title);
+        expect(response.body.goal.description).toBe(goal1.description);
+        expect(response.body.goal).toStrictEqual(goal1);
+    });
 });
