@@ -1,3 +1,11 @@
+POST http://localhost:3000/user/verify
+Content-Type: application/json
+
+{
+  "code": "123456"
+}
+
+###
 
 
 ###
