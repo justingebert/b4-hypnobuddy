@@ -8,7 +8,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
-const NavbarPage = () => {
+const NavbarComponent = () => {
     const { isAuthenticated, user, handleLogout } = useAuth();
     const navigate = useNavigate();
     const handleLogoutClick = async () => {
@@ -69,4 +69,4 @@ const NavbarPage = () => {
         </Navbar>
     );
 };
-export default NavbarPage;
+export default NavbarComponent;
