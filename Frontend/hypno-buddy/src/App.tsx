@@ -11,6 +11,8 @@ import DosAndDontsPage from "./pages/DosAndDontsPage.tsx";
 import RoadmapPage from "./pages/RoadmapPage.tsx";
 import { useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import QueueView from "./pages/QueueView.tsx";
+import {GoalsProvider} from "./contexts/GoalContext.tsx";
 
 function App() {
 
@@ -28,9 +30,20 @@ function App() {
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/profile" element={<ProfilePage />} />
                     <Route path="/dosanddonts" element={<DosAndDontsPage />} />
-                    <Route path="/roadmap" element={<RoadmapPage />} />
+                    <Route path="/roadmap" element={
+                        <GoalsProvider>
+                            <RoadmapPage/>
+                        </GoalsProvider>
+                    }/>
+                    <Route path="/goalQueueView" element={
+                        <GoalsProvider>
+                            <QueueView/>
+                        </GoalsProvider>
+                    }/>
+                    <Route path="*" element={<h1>Not Found</h1>} />
                     {/* Add other routes here */}
                 </Routes>
+
             </Router>
         </FlashProvider>
     );
