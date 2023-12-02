@@ -1,9 +1,5 @@
 @media (min-width: 1000px) {
-  .navbar {
-    margin-left: 166px;
-    margin-right: 166px;
-    width: calc(100% - 166px);
-  }
+
   .navbar-toggler {
     display: none; /* Verstecke den Toggle-Button bei Desktop-Ansicht */
   }

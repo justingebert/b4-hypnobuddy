@@ -1,0 +1,19 @@
+.c_dark {
+    background-color: #2f015a;
+    width: 600px;
+    height: 800px;
+    opacity: 0.9;
+    color: #c6f222;
+    position: absolute;
+    top: 125px;
+    right: 125px;
+    padding: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.link{
+    color: #f7e6e8;
+
+}
