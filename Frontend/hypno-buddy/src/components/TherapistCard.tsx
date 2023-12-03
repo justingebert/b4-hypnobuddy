@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/TherapistCard.module.css';
+import styles from '../styles/TherapistCard.module.css';
 
 interface TherapistCardProps {
   initialTitle?: string;
@@ -50,11 +50,11 @@ const TherapistCard: React.FC<TherapistCardProps> = ({ initialTitle = "Enter tit
   };
 
   return (
-    <div className="therapist-card">
+    <div className={styles.therapistCard}>
       {/* Header Container - Includes title and close button */}
-      <div className="therapist-card-header position-relative">
+      <div className={`${styles.therapistCardHeader} position-relative`}>
         {/* Close button at the upper right corner of the card */}
-        <button className="close-button position-absolute top-0 start-100" onClick={handleClose}>
+        <button className={`${styles.closeButton} position-absolute top-0 start-100`} onClick={handleClose}>
           &times;
         </button>
 
@@ -64,18 +64,18 @@ const TherapistCard: React.FC<TherapistCardProps> = ({ initialTitle = "Enter tit
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="editable-title"
+            className={styles.editableTitle}
             placeholder="Enter title here..."
           />
         ) : (
-          <h2 className="therapist-card-title">{title}</h2>
+          <h2 className={styles.therapistCardTitle}>{title}</h2>
         )}
       </div>
 
       {/* Containers - Divided into left and right */}
-      <div className="therapist-card-container">
+      <div className={styles.therapistCardContainer}>
         {/* Left Container */}
-        <div className="therapist-card-left">
+        <div className={styles.therapistCardLeft}>
           {/* Subheading for Left Container */}
           <h4>Don't</h4>
 
@@ -83,7 +83,7 @@ const TherapistCard: React.FC<TherapistCardProps> = ({ initialTitle = "Enter tit
           <textarea
             value={leftTextField}
             onChange={handleTextAreaChange}
-            className={`cream-text-field editable left`}
+            className={`${styles.creamTextField} editable left`}
             placeholder="Type here..."
             readOnly={!isEditMode}
             rows={3} // Initial rows
@@ -91,7 +91,7 @@ const TherapistCard: React.FC<TherapistCardProps> = ({ initialTitle = "Enter tit
         </div>
 
         {/* Right Container */}
-        <div className="therapist-card-right">
+        <div className={styles.therapistCardRight}>
           {/* Subheading for Right Container */}
           <h4>Do</h4>
 
@@ -99,7 +99,7 @@ const TherapistCard: React.FC<TherapistCardProps> = ({ initialTitle = "Enter tit
           <textarea
             value={rightTextField}
             onChange={handleTextAreaChange}
-            className={`cream-text-field editable right`}
+            className={`${styles.creamTextField} editable right`}
             placeholder="Type here..."
             readOnly={!isEditMode}
             rows={3} // Initial rows
@@ -108,7 +108,7 @@ const TherapistCard: React.FC<TherapistCardProps> = ({ initialTitle = "Enter tit
       </div>
 
       {/* Button for Edit/Save */}
-      <button className="edit-save-button" onClick={isEditMode ? handleSave : handleEditToggle}>
+      <button className={styles.editSaveButton} onClick={isEditMode ? handleSave : handleEditToggle}>
         {isEditMode ? "Save" : "Edit"}
       </button>
     </div>
