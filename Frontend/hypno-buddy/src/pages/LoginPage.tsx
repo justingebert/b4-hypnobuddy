@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext.tsx';
 import { Link } from 'react-router-dom';
 import RegisterForm from './RegisterPage';
-import Lottie, { AnimationConfigWithData } from 'react-lottie';
+import Lottie, { AnimationConfigWithData } from 'lottie-web';
 import LoginAnimation from '../assets/LoginAnimation.json';
 import styled from 'styled-components';
 import '../styles/LoginSignin.css';
