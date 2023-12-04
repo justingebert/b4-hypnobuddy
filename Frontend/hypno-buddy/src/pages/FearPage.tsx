@@ -1,180 +1,4 @@
-  // // import {useParams} from "react-router-dom";
-  // // import {useEffect, useState} from "react";
-  // // import {DoAndDont} from "../../../../Backend/data/model/dosAndDontsModel.ts";
-  // // import DosAndDontsView from "../views/DosAndDontsView.tsx";
-  // // import TherapistCard from '../components/TherapistCard.tsx';
-
-  // import React, { useEffect, useState } from 'react';
-  // import { useParams, useNavigate } from 'react-router-dom';
-  // import { DoAndDont } from '../../../../Backend/data/model/dosAndDontsModel.ts';
-  // import TherapistCard from '../components/TherapistCard.tsx';
-
-  // function FearPage() {
-  // //     const { fearId } = useParams();
-  // //     const [fearData, setFearData] = useState({});
-  // //     const [inputText, setInputText] = useState('');
-  // //     const [dosAndDonts, setDosAndDonts] = useState<DoAndDont[]>([]);
-  // //     const [selectedType, setSelectedType] = useState<'Do' | 'Don\'t'>('Do');
-  // //     const [fearTitle, setFearTitle] = useState('');
-
-  // //     useEffect(() => {
-  // //         const fetchData = async() => {
-  // //             try {
-  // //                 const response = await fetch(`http://localhost:3000/dosAndDonts/fears/${fearId}`);
-  // //                 const data = await response.json();
-  // //                 if (data) {
-  // //                     setFearData(data);
-  // //                     setDosAndDonts(data.dosAndDonts || []);
-  // //                     setFearTitle(data.name);
-  // //                 } else {
-  // //                     console.error(`Fear with ID ${fearId} not found.`);
-  // //                 }
-  // //             } catch(error) {
-  // //                 console.error('Error fetching data;', error);
-  // //             }
-  // //         };
-  // //         fetchData();
-  // //     }, [fearId]);
-
-  // //     const handleTypeChange = (type: 'Do' | 'Don\'t') => {
-  // //         setSelectedType(type);
-  // //     };
-
-  // //     const handleInputChange = (text: string) => {
-  // //         setInputText(text);
-  // //     };
-
-  // //     const handleSaveClick = async () => {
-  // //         try {
-  // //             const response = await fetch('http://localhost:3000/dosAndDonts/fears/addDoAndDont', {
-  // //                 method: 'POST',
-  // //                 headers: {
-  // //                     'Content-Type': 'application/json',
-  // //                 },
-  // //                 body: JSON.stringify({ type: selectedType, text: inputText, fearId }),
-  // //             });
-
-  // //             const data = await response.json();
-  // //             setDosAndDonts([...dosAndDonts, data]);
-  // //             setInputText('');
-  // //         } catch (error) {
-  // //             console.error('Error saving:', error);
-  // //         }
-  // //     };
-
-
-  // //     return (
-  // //         <><div>
-  // //             <h1>{fearTitle}</h1>
-  // //             <DosAndDontsView dosAndDonts={dosAndDonts}
-  // //                 selectedType={selectedType}
-  // //                 inputText={inputText}
-  // //                 onTypeChange={handleTypeChange}
-  // //                 onInputChange={handleInputChange}
-  // //                 onSaveClick={handleSaveClick}
-  // //                 currentFearId={fearId}>
-  // //             </DosAndDontsView>
-  // //         </div><div className="container mt-5">
-  // //                 <TherapistCard />
-  // //             </div></>
-  // //     )
-
-  //   const { fearId } = useParams();
-  //   const [fearData, setFearData] = useState({});
-  //   const [inputText, setInputText] = useState('');
-  //   const [dosAndDonts, setDosAndDonts] = useState<DoAndDont[]>([]); // Use DoAndDont type here
-  //   const [selectedType, setSelectedType] = useState<'Do' | 'Don\'t'>('Do');
-  //   const [fearTitle, setFearTitle] = useState('');
-  //   const [editMode, setEditMode] = useState(false);
-  //   const navigate = useNavigate();
-
-  //   useEffect(() => {
-  //     const fetchData = async () => {
-  //       try {
-  //         const response = await fetch(`http://localhost:3000/dosAndDonts/fears/${fearId}`);
-  //         const data = await response.json();
-  //         if (data) {
-  //           setFearData(data);
-  //           setDosAndDonts(data.dosAndDonts || []);
-  //           setFearTitle(data.name);
-  //         } else {
-  //           console.error(`Fear with ID ${fearId} not found.`);
-  //         }
-  //       } catch (error) {
-  //         console.error('Error fetching data;', error);
-  //       }
-  //     };
-  //     fetchData();
-  //   }, [fearId]);
-
-  //   const handleEditToggle = () => {
-  //     // Toggle the edit mode for the entire card
-  //     setDosAndDonts((prevDosAndDonts) => {
-  //       const updatedDosAndDonts = prevDosAndDonts.map((item) => ({
-  //         ...item,
-  //         // You may need to add any other properties from the item that you want to preserve
-  //       }));
-  //       return updatedDosAndDonts;
-  //     });
-  //     setEditMode((prevEditMode) => !prevEditMode);
-  //   };
-
-  //   const handleSave = async () => {
-  //     try {
-  //       const response = await fetch('http://localhost:3000/dosAndDonts/fears/addDoAndDont', {
-  //         method: 'POST',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //         body: JSON.stringify({ type: selectedType, text: inputText, fearId }),
-  //       });
-
-  //       const data = await response.json();
-  //       setDosAndDonts([...dosAndDonts, data]);
-  //       setInputText('');
-  //     } catch (error) {
-  //       console.error('Error saving:', error);
-  //     }
-  //   };
-
-  //   const handleTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-  //     // Update the state based on the className
-  //     const className = e.target.className;
-  //     const value = e.target.value;
-
-  //     if (className.includes('left')) {
-  //       setSelectedType("Don't");
-  //       setInputText(value);
-  //     } else if (className.includes('right')) {
-  //       setSelectedType('Do');
-  //       setInputText(value);
-  //     }
-  //   };
-
-  //   const handleClose = async () => {
-  //     console.log("Card closed");
-  //     navigate('/dosanddonts');
-  // }
-
-  //   return (
-  //     <TherapistCard
-  //       initialTitle={fearTitle}
-  //       leftTextField={dosAndDonts.find(item => item.type === "Don't")?.text || ''}
-  //       rightTextField={dosAndDonts.find(item => item.type === 'Do')?.text || ''}
-  //       isEditMode={false} // You can set this based on your logic
-  //       isLeftField={false} // You can set this based on your logic
-  //       onEditToggle={handleEditToggle}
-  //       onSave={handleSave}
-  //       onTextAreaChange={handleTextAreaChange}
-  //       onClose={handleClose}
-  //     />
-  //   );
-
-  // }
-
-  // export default FearPage;
-
-  import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { DoAndDont } from '../../../../Backend/data/model/dosAndDontsModel.ts';
 import TherapistCard from '../components/TherapistCard.tsx';
@@ -216,47 +40,6 @@ function FearPage() {
     setIsLeftField(true);
   };
 
-  // const handleSave = async () => {
-  //   try {
-  //     // Update fear title
-  //     await fetch(`http://localhost:3000/dosAndDonts/fears/${fearId}`, {
-  //       method: 'PUT',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({ name: fearTitle }), // Use the variable representing the updated title
-  //     });
-
-  //     // Update "Do" entry
-  //     const doEntry = dosAndDonts.find(entry => entry.type === 'Do');
-  //     if (doEntry) {
-  //       await fetch(`http://localhost:3000/dosAndDonts/dosAndDonts/${doEntry._id}`, {
-  //         method: 'PUT',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //         body: JSON.stringify({ text: isLeftField ? '' : rightTextField }), // Updated logic
-  //       });
-  //     }
-
-  //     // Update "Don't" entry
-  //     const dontEntry = dosAndDonts.find(entry => entry.type === "Don't");
-  //     if (dontEntry) {
-  //       await fetch(`http://localhost:3000/dosAndDonts/dosAndDonts/${dontEntry._id}`, {
-  //         method: 'PUT',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //         body: JSON.stringify({ text: isLeftField ? leftTextField : '' }), // Updated logic
-  //       });
-  //     }
-
-  //     setEditMode(false);
-  //   } catch (error) {
-  //     console.error('Error saving data:', error);
-  //   }
-  // };
-
   const handleSave = async () => {
     try {
       // Update fear title
@@ -265,7 +48,7 @@ function FearPage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name: fearTitle }), // Use the variable representing the updated title
+        body: JSON.stringify({ name: fearTitle }),
       });
   
      // Update the "Do" entry
@@ -310,7 +93,6 @@ function FearPage() {
       });
     }
 
-  
       // Fetch updated data after save
       const response = await fetch(`http://localhost:3000/dosAndDonts/fears/${fearId}`);
       const data = await response.json();
