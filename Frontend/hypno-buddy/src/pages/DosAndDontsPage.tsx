@@ -27,7 +27,7 @@ function DosAndDontsPage() {
                 <h2>Fears</h2>
                 {fears.map((fear) => (
                     <div className="card" key={fear._id}>
-                        <Link className="card-content" to={`/dosanddonts/${fear._id}`}>{fear.name}</Link>
+                        <Link className="card-content" to={`/dosanddonts/t/${fear._id}`}>{fear.name}</Link>
                     </div>
                 ))}
                 <Link to={"/dosanddonts/newFear"}>Add New Fear</Link>

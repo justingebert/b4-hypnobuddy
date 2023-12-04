@@ -49,7 +49,9 @@ const Navbar = () => {
 
                         <li className="nav-item dropdown">
                             {isAuthenticated && user ? (
+
                                 <>
+                                    {/*TODO change routes*/}
                                     <Link to="/dosanddonts" className={styles.navLink}>Dos&Donts</Link>
                                     <Link to="/roadmap" className={styles.navLink}>Roadmap</Link>
                                     <Link to="/profile" className={styles.navLink}>

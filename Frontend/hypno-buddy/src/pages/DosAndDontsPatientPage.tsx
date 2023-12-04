@@ -12,9 +12,10 @@ const DosAndDontsPatientPage = ({ fearId }) => {
     useEffect(() => {
         const fetchDosAndDonts = async () => {
             try {
-                const response = await fetch(`/dosAndDonts/fears/${fearId}`);
+                const response = await fetch(`http://localhost:3000/dosAndDonts/fears/${fearId}`);
                 const data = await response.json();
-                if (response.ok) {
+
+                if (data) {
                     setDosAndDonts(data.dosAndDonts || []);
                 } else {
                     console.error('Error fetching dos and donts:', data.message);
