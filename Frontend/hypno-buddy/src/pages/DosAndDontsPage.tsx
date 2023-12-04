@@ -1,7 +1,7 @@
 import  { useEffect, useState } from 'react';
 import {Link} from "react-router-dom";
 import { Fear} from "../../../../Backend/data/model/fearModel.ts";
-import TherapistCard from '../components/TherapistCard.tsx';
+// import TherapistCard from '../components/TherapistCard.tsx';
 
 function DosAndDontsPage() {
     const [fears, setFears ] = useState<Fear[]>([]);
@@ -33,13 +33,8 @@ function DosAndDontsPage() {
             ))}
             <Link to={"/dosanddonts/newFear"}>Add New Fear</Link>
           </div>
-        </div><div className="container mt-5">
-            {/* <div className="row"> */}
-              {/* <div className="col-md-6 mx-auto"> */}
-                <TherapistCard/>
-              {/* </div>
-            </div> */}
-          </div></>
+        </div>
+          </>
       );
 }
 

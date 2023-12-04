@@ -22,6 +22,7 @@ export const getFearById = async (req: Request, res: Response): Promise<void> =>
         res.status(500).json({error: 'Internal Server Error'});
     }
 };
+
 export const saveFear = async (req: Request, res:Response): Promise<void> => {
     const { name } = req.body;
     try {
@@ -33,6 +34,7 @@ export const saveFear = async (req: Request, res:Response): Promise<void> => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
+
 export const addDoAndDontToFear = async (req: Request, res: Response): Promise<void> => {
     const {fearId, type, text} = req.body;
     console.log(fearId, text);
@@ -54,3 +56,27 @@ export const addDoAndDontToFear = async (req: Request, res: Response): Promise<v
         res.status(500).json({error: 'Internal Server Error'});
     }
 };
+
+export const updateFearName = async (req: Request, res: Response): Promise<void> => {
+    const { fearId } = req.params;
+    const { name } = req.body;
+    console.log(fearId, name);
+  
+    try {
+      const updatedFear = await FearModel.findByIdAndUpdate(
+        { _id: fearId },
+        { name },
+        { new: true } // Return the updated document
+      );
+      console.log(updatedFear);
+      
+      if (!updatedFear) {
+        res.status(404).json({ error: 'Fear not found' });
+        return;
+      }
+      
+      res.json(updatedFear);
+    } catch (error) {
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  };

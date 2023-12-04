@@ -27,3 +27,25 @@ export const saveDoAndDont = async (req: Request, res: Response): Promise<void> 
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
+export const updateDoAndDont = async (req: Request, res: Response): Promise<void> => {
+  const { id } = req.params;
+  const { text } = req.body;
+
+  try {
+    const updatedDoAndDont = await DoAndDontModel.findByIdAndUpdate(
+      id,
+      { text },
+      { new: true } // Return the updated document
+    );
+
+    if (!updatedDoAndDont) {
+      res.status(404).json({ error: 'DoAndDont not found' });
+      return;
+    }
+
+    res.json(updatedDoAndDont);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
