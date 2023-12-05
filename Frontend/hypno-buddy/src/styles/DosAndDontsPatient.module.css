@@ -4,12 +4,22 @@
     flex-shrink: 0;
     background: #542BD4;
 }
-.background {
+.background_image{
     background-image: url('../assets/BackgroundDaD.png');
     background-repeat: no-repeat;
     background-position: center;
-    height: 120vh;
-    width: 100%;
+    height: 79vh;
+    width: auto;
+
+    overflow: hidden;
+}
+.background_eclipse{
+    background-image: url('../assets/Ellipse 10.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 93vh;
+    width: auto;
+    position: relative;
 
     overflow: hidden;
 }
@@ -38,9 +48,26 @@
     padding: 10px;
     margin-inline: 15rem;
 }
+
+.text {
+    color: #F4E7E8;
+    text-align: center;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    width: 60.5625rem;
+    padding: 11rem;
+    margin-inline: 19rem;
+    margin-top: 10rem;
+    position: absolute;
+}
+
 .container {
     display: flex;
     justify-content: space-evenly;
+    position: relative;
+    transition: transform 0.3s ease-in-out;
 }
 
 .column {
@@ -54,6 +81,35 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+
+    transition: transform 0.3s ease-in-out;
 }
+
+.rectangle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 27.4375rem;
+    background-color: #d373d2;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    z-index: 2;
+}
+
+.rectangle.cover-right {
+    transform: translateX(100%);
+}
+
+/* Additional styles for the columns */
+.dos-column {
+    position: relative;
+    overflow: hidden;
+}
+
+.container.slide-right {
+    transform: translateX(100%);
+}
+
 
 

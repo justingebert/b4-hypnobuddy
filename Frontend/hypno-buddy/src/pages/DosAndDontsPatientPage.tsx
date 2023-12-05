@@ -1,13 +1,20 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {useAuth} from "../contexts/AuthContext.tsx";
 import styles from '../styles/DosAndDontsPatient.module.css';
 
 const DosAndDontsPatientPage = ({ fearId }) => {
     const {isAuthenticated, user} = useAuth();
     const [dosAndDonts, setDosAndDonts ] = useState([]);
+    const [isSliderVisible, setIsSliderVisible] = useState(true);
 
     if (!isAuthenticated || (user && user.role !== 'patient')) {
-        return null; // or you can return a message or redirect to another page
+        return "Sie sind nicht berechtigt für diese Seite."; // or you can return a message or redirect to another page
+    }
+
+    const handleSliderClick = () => {
+
+        setIsSliderVisible(!isSliderVisible);
+        console.log('Slider clicked', isSliderVisible);
     }
 
     useEffect(() => {
@@ -30,7 +37,7 @@ const DosAndDontsPatientPage = ({ fearId }) => {
 
     return (
         <div className={styles.layout}>
-            <div className={styles.background}>
+            <div className={styles.background_image}>
                 <div className={styles.header}>
                     <h1>Gemeinsam <br /> Ängste überwinden</h1>
                 </div>
@@ -38,26 +45,35 @@ const DosAndDontsPatientPage = ({ fearId }) => {
                     <p>Wir verstehen, dass es Momente gibt, in denen du dich vielleicht unsicher fühlst, besonders wenn es darum geht, die Ängste deines Kindes zu verstehen und zu unterstützen.</p>
                 </div>
             </div>
-            <div className={styles.container}>
-                <div className={styles.column}>
-                    <ul>
-                        {dosAndDonts
-                            .filter((item) => item.type === "Don't")
-                            .map((item) => (
-                                <li key={item._id}>{item.text}</li>
-                            ))}
-                    </ul>
-                </div>
-                <div className={styles.column}>
-                    <ul>
-                        {dosAndDonts
-                            .filter((item) => item.type === "Do")
-                            .map((item) => (
-                                <li key={item._id}>{item.text}</li>
-                            ))}
-                    </ul>
+            <div className={`dos-column ${isSliderVisible ? '' : 'slide-right'}`}>
+                <div className={styles.container}>
+                    <div className={`${styles.column} ${isSliderVisible ? "" : "slide-right"}`}>
+                        <ul>
+                            {dosAndDonts
+                                .filter((item) => item.type === "Don't")
+                                .map((item) => (
+                                    <li key={item._id}>{item.text}</li>
+                                ))}
+                        </ul>
+                    </div>
+                    <div className={`${styles.column} ${isSliderVisible ? "" : "slide-right"}`}>
+                        <ul>
+                            {dosAndDonts
+                                .filter((item) => item.type === "Do")
+                                .map((item) => (
+                                    <li key={item._id}>{item.text}</li>
+                                ))}
+                        </ul>
+                    </div>
+                    <div className={`${styles.rectangle} ${isSliderVisible ? '' : 'cover-right'}`} onClick={handleSliderClick}></div>
                 </div>
             </div>
+            <div className={styles.background_eclipse}>
+                <div className={styles.text}>
+                    <p>Jeder kleine Schritt, den du als Elternteil <br /> machst, ist ein großer Beitrag auf der Reise<br /> deines Kindes. <br />Du machst bereits einen bedeutenden <br />Unterschied, und jeder weitere Schritt bringt<br /> uns näher zur Überwindung von Ängsten und <br />zum Erblühen von Vertrauen.</p>
+                </div>
+            </div>
+
         </div>
 
     );
