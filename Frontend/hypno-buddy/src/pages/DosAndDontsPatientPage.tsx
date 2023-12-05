@@ -30,31 +30,33 @@ const DosAndDontsPatientPage = ({ fearId }) => {
 
     return (
         <div className={styles.layout}>
-            <div className={styles.header}>
-                <h2>Gemeinsam Ängste überwinden</h2>
+            <div className={styles.background}>
+                <div className={styles.header}>
+                    <h1>Gemeinsam <br /> Ängste überwinden</h1>
+                </div>
+                <div className={styles.infotext}>
+                    <p>Wir verstehen, dass es Momente gibt, in denen du dich vielleicht unsicher fühlst, besonders wenn es darum geht, die Ängste deines Kindes zu verstehen und zu unterstützen.</p>
+                </div>
             </div>
-            <div className={styles.infotext}>
-                <p>Wir verstehen, dass es Momente gibt, in denen du dich vielleicht unsicher fühlst, besonders wenn es darum geht, die Ängste deines Kindes zu verstehen und zu unterstützen.</p>
-            </div>
-            <div className={styles.dos}>
-                <h3>Dos</h3>
-                <ul>
-                    {dosAndDonts
-                        .filter((item) => item.type === 'Do')
-                        .map((item) => (
-                            <li key={item._id}>{item.text}</li>
-                        ))}
-                </ul>
-            </div>
-            <div className={styles.donts}>
-                <h3>Donts</h3>
-                <ul>
-                    {dosAndDonts
-                        .filter((item) => item.type === "Don't")
-                        .map((item) => (
-                            <li key={item._id}>{item.text}</li>
-                        ))}
-                </ul>
+            <div className={styles.container}>
+                <div className={styles.column}>
+                    <ul>
+                        {dosAndDonts
+                            .filter((item) => item.type === "Don't")
+                            .map((item) => (
+                                <li key={item._id}>{item.text}</li>
+                            ))}
+                    </ul>
+                </div>
+                <div className={styles.column}>
+                    <ul>
+                        {dosAndDonts
+                            .filter((item) => item.type === "Do")
+                            .map((item) => (
+                                <li key={item._id}>{item.text}</li>
+                            ))}
+                    </ul>
+                </div>
             </div>
         </div>
 

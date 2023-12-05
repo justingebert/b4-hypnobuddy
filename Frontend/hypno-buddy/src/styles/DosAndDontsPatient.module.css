@@ -1,48 +1,59 @@
 .layout{
     width: 99.875rem;
-    height: 34.375rem;
+    height: 100%;
     flex-shrink: 0;
     background: #542BD4;
 }
-.header{
-    color: #FFF;
+.background {
+    background-image: url('../assets/BackgroundDaD.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 120vh;
+    width: 100%;
 
-    font-size: 4rem;
-    font-style: normal;
-    font-weight: 400;
+    overflow: hidden;
+}
+.header{
+    text-align: left;
+    font-size: 1.5rem;
+    font-style: normal ;
+    font-weight: 200;
     line-height: normal;
+
+    color: #fff;
+    margin-top: 5rem;
+    padding: 5rem;
+
+    @media (max-width: 991px) {
+        font-size: 1rem;
+    }
+
 }
 .infotext {
-    width: 51.3125rem;
-    height: 8.9375rem;
-    flex-shrink: 0;
-    color: #FFF;
-
+    width: 821px;
+    height: 143px;
+    color: #fff;
     text-align: center;
-    font-size: 2rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+    font: 400 32px Inter, sans-serif;
+    padding: 10px;
+    margin-inline: 15rem;
 }
-.dos{
+.container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.column {
     width: 27.4375rem;
     height: 17.5rem;
-    flex-shrink: 0;
+    box-sizing: border-box;
     color: #FFF;
+    padding: 3rem;
 
     font-size: 1.125rem;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
 }
-.donts{
-    width: 27.4375rem;
-    height: 17.5rem;
-    flex-shrink: 0;
-    color: #FFF;
 
-    font-size: 1.125rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-}
+
