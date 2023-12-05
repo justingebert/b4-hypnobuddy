@@ -1,0 +1,48 @@
+.layout{
+    width: 99.875rem;
+    height: 34.375rem;
+    flex-shrink: 0;
+    background: #542BD4;
+}
+.header{
+    color: #FFF;
+
+    font-size: 4rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.infotext {
+    width: 51.3125rem;
+    height: 8.9375rem;
+    flex-shrink: 0;
+    color: #FFF;
+
+    text-align: center;
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.dos{
+    width: 27.4375rem;
+    height: 17.5rem;
+    flex-shrink: 0;
+    color: #FFF;
+
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.donts{
+    width: 27.4375rem;
+    height: 17.5rem;
+    flex-shrink: 0;
+    color: #FFF;
+
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}

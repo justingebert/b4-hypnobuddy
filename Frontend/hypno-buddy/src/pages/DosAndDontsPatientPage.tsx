@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useAuth} from "../contexts/AuthContext.tsx";
+import styles from '../styles/DosAndDontsPatient.module.css';
 
 const DosAndDontsPatientPage = ({ fearId }) => {
     const {isAuthenticated, user} = useAuth();
@@ -28,9 +29,14 @@ const DosAndDontsPatientPage = ({ fearId }) => {
     }, [fearId]);
 
     return (
-        <div>
-            <h1>Dos and Donts</h1>
-            <div className="dos-column">
+        <div className={styles.layout}>
+            <div className={styles.header}>
+                <h2>Gemeinsam Ängste überwinden</h2>
+            </div>
+            <div className={styles.infotext}>
+                <p>Wir verstehen, dass es Momente gibt, in denen du dich vielleicht unsicher fühlst, besonders wenn es darum geht, die Ängste deines Kindes zu verstehen und zu unterstützen.</p>
+            </div>
+            <div className={styles.dos}>
                 <h3>Dos</h3>
                 <ul>
                     {dosAndDonts
@@ -40,7 +46,7 @@ const DosAndDontsPatientPage = ({ fearId }) => {
                         ))}
                 </ul>
             </div>
-            <div className="donts-column">
+            <div className={styles.donts}>
                 <h3>Donts</h3>
                 <ul>
                     {dosAndDonts

@@ -30,7 +30,7 @@ function DosAndDontsPage() {
                         <Link className="card-content" to={`/dosanddonts/t/${fear._id}`}>{fear.name}</Link>
                     </div>
                 ))}
-                <Link to={"/dosanddonts/newFear"}>Add New Fear</Link>
+                <Link to={"/dosanddonts/t/newFear"}>Add New Fear</Link>
             </div>
         </div>
       );

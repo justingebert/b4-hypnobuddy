@@ -38,7 +38,6 @@ function App() {
         </FlashProvider>
     );
 }
-//TODO: routes dont work yet
 function DosAndDontsRoutes() {
     const { user } = useAuth();
 
