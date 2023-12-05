@@ -29,6 +29,7 @@ const NavbarComponent = () => {
                         <Nav.Link href="/" className="nav-link active" aria-current="page">
                             Home
                         </Nav.Link>
+                        {isAuthenticated && user ? (
                         <NavDropdown title="Feature" id="collapsible-nav-dropdown">
                             <NavDropdown.Item href="/dosanddonts" className={styles.navLink}>
                                 Dos&Donts
@@ -41,25 +42,26 @@ const NavbarComponent = () => {
                                 Separated link
                             </NavDropdown.Item>
                         </NavDropdown>
-                        <Nav.Link href="/profile">Profil</Nav.Link>
+                        ) : null}
                     </Nav>
                     <Nav>
-                        <Navbar.Text>
-                            Signed in as: <a href="/login">XXX</a>
-                        </Navbar.Text>
-                        <Nav.Link href="#deets">
+                        <Nav.Link href="#deets" className="d-flex">
                             {isAuthenticated && user ? (
                                 <>
-                                    <Link to="/dosanddonts" className={styles.navLink}>Dos&Donts</Link>
-                                    <Link to="/roadmap" className={styles.navLink}>Roadmap</Link>
-                                    <Link to="/profile" className={styles.navLink}>
-                                        <div className={styles.userEmail}>{user.name.first + " " + user.name.last}</div>
-                                    </Link>
+                                    <Nav.Link to="/profile" className={styles.navLink}>
+                                        <div className={styles.userEmail}>
+                                            <Navbar.Text>
+                                                Eingeloggt:
+                                            </Navbar.Text>
+                                            {" " + user.name.first + " " + user.name.last}
+                                        </div>
+                                    </Nav.Link>
+                                    <Nav.Link href="/profile">Profil</Nav.Link>
                                     <LogoutButton onLogout={handleLogoutClick} className={styles.logoutButton} />
                                 </>
                             ) : (
                                 <>
-                                    <Link to="/login" className={styles.navLink}>Login</Link>
+                                    <Link to="/login" className={styles.logoutButton}>Login</Link>
                                 </>
                             )}
                         </Nav.Link>

@@ -1,0 +1,50 @@
+
+.background{
+    background-image: url('../assets/BackgroundProfl.png');
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    overflow-x: hidden;
+
+}
+
+.containerProfil {
+    align-self: center;
+    display: flex;
+    align-items: flex-start;
+}
+.textContentProfil{
+    border-radius: 30px;
+    background-color: #4C4AD280;
+    padding: 30px;
+    margin-left: 250px;
+    width: 600px;
+
+
+}
+.textProfil{
+    padding: 15px;
+    color: #03d59e;
+    text-align: center;
+}
+
+.form{
+    background: #4C4AD2;
+    color:  #03d59e;
+    width: 300px;
+    border: 1px solid;
+    border-color: #4C4AD2;
+    border-radius: 5px;
+}
+.form::placeholder {
+    color: #c5b6f1;
+}
+
+.divForm{
+    display: flow;
+    flex-wrap: wrap;
+    gap: 8px;
+}

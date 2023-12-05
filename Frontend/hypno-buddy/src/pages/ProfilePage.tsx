@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {FlashContext} from "../contexts/FlashContext.tsx";
 import {useNavigate} from "react-router-dom";
+import '../styles/Profil.css';
 
 function ProfilePage() {
     const [data, setData] = useState(null);
@@ -107,59 +108,77 @@ function ProfilePage() {
 
     return (
         <div className="profile-page">
-            <h1>Your Profile</h1>
-            <strong>Name:</strong> {data.user.name.first} {data.user.name.last}
-            <br />
-            <strong>Email:</strong> {data.user.email}
-            <br />
-            <strong>Role</strong> {data.user.role}
-            {data.user.role === 'therapist' && (
-                <>
-                <p><strong>Code to give to patients:</strong> {data.user.patientLinkingCode}</p>
-                <button onClick={getPatients}>See linked Patients</button>
-                </>
-            )}
-            {/* List of linked patients */}
-            {data.user.role === 'therapist' && (
-                <>
-                    <h2>Linked Patients</h2>
-                    {patients && patients.length > 0 ? (
-                        <ul>
-                            {patients.map((patient) => (
-                                <li key={patient._id}>
-                                    {patient.name.first} {patient.name.last}
-                                </li>
-                            ))}
-                        </ul>
-                    ) : (
-                        <p>No patients linked yet.</p>
-                    )}
-                </>
-            )}
-            {/* Verification Form */}
-            <form onSubmit={handleVerifySubmit}>
-                <input
-                    type="text"
-                    value={code}
-                    onChange={(e) => setCode(e.target.value)}
-                    placeholder="Enter verification code"
-                />
-                <button type="submit">Verify</button>
-            </form>
-            {/* Link to Therapist Form */}
-            {data.user.role === 'patient' && (
+            <div className="background">
+                <div className="containerProfil">
+                    <div className="textContentProfil">
+                        <h1 className="textProfil">Mein Profil</h1>
+                        <div className="m-4">
+                        <strong className="textProfil" >Name:</strong> {data.user.name.first} {data.user.name.last}
+                        <br />
+                        <strong className="textProfil">Email:</strong> {data.user.email}
+                        <br />
+                        </div>
+                        <div className="divForm">
+                        <strong className="textProfil">Rolle</strong> {data.user.role}
+                            <br />
+                        {data.user.role === 'therapist' && (
+                            <>
+                                <p><strong className="textProfil">Code zur Weitergabe an Patienten:</strong> {data.user.patientLinkingCode}</p>
 
-                <form onSubmit={handleLinkSubmit}>
-                    <input
-                        type="text"
-                        value={linkCode}
-                        onChange={(e) => setLinkCode(e.target.value)}
-                        placeholder="Enter link to therapist code"
-                    />
-                    <button type="submit">Link to Therapist</button>
-                </form>
-            )}
+                                <button onClick={getPatients} className="p-1 m-2">Siehe verlinkte Patienten</button>
+                            </>
+                        )}
+                        {/* List of linked patients */}
+                        {data.user.role === 'therapist' && (
+                            <>
+                                <h2 className="textProfil">Verlinkte Patienten</h2>
+                                {patients && patients.length > 0 ? (
+                                    <ul>
+                                        {patients.map((patient) => (
+                                            <li key={patient._id}>
+                                                {patient.name.first} {patient.name.last}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                ) : (
+                                    <p>Es sind noch keine Patienten verlinkt.</p>
+                                )}
+                            </>
+                        )}
+                        {/* Verification Form */}
+                        <form onSubmit={handleVerifySubmit} >
+                            <input
+                                type="text"
+                                value={code}
+                                onChange={(e) => setCode(e.target.value)}
+                                placeholder="Verifizierungscode eingeben"
+                                id="Verifizierungscode"
+                                className="form"
+                            />
 
+                            <button type="submit" className="p-1 m-2">Prüfen</button>
+                        </form>
+                        {/* Link to Therapist Form */}
+                        {data.user.role === 'patient' && (
+                            <form onSubmit={handleLinkSubmit}>
+                                <input
+                                    type="text"
+                                    value={linkCode}
+                                    onChange={(e) => setLinkCode(e.target.value)}
+                                    placeholder="Link zum Therapeuten-Code eingeben"
+                                    className="form"
+                                />
+
+                                <button type="submit" className="p-1 m-2">Link zu Therapeut*innen</button>
+                            </form>
+                            )}
+                        </div>
+                    </div>
+                    <div className="">
+                        {/* platzhalter für message */}
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }
