@@ -65,50 +65,45 @@
 
 .container {
     display: flex;
-    justify-content: space-evenly;
     position: relative;
-    transition: transform 0.3s ease-in-out;
+    margin-inline: 13rem;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
 }
 
 .column {
-    width: 27.4375rem;
-    height: 17.5rem;
+    flex: 1;
+    position: relative;
     box-sizing: border-box;
     color: #FFF;
-    padding: 3rem;
+    padding-inline: 6rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    height:15rem;
 
     font-size: 1.125rem;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
 
-    transition: transform 0.3s ease-in-out;
 }
 
 .rectangle {
     position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 27.4375rem;
     background-color: #d373d2;
-    cursor: pointer;
-    transition: transform 0.3s ease-in-out;
+    display: flex;
+    width: 31rem; /* Adjust the width to match the left column */
+    height: 100%;
     z-index: 2;
+    transition: transform 0.3s ease-in-out;
 }
 
-.rectangle.cover-right {
-    transform: translateX(100%);
+.inDos {
+    transform: translateX(38.5rem); /* Adjust the translation to match the width of the columns */
 }
 
-/* Additional styles for the columns */
-.dos-column {
-    position: relative;
-    overflow: hidden;
-}
-
-.container.slide-right {
-    transform: translateX(100%);
+.inDonts {
+    transform: translateX(0);
 }
 
 

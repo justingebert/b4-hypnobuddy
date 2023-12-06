@@ -5,17 +5,12 @@ import styles from '../styles/DosAndDontsPatient.module.css';
 const DosAndDontsPatientPage = ({ fearId }) => {
     const {isAuthenticated, user} = useAuth();
     const [dosAndDonts, setDosAndDonts ] = useState([]);
-    const [isSliderVisible, setIsSliderVisible] = useState(true);
+    const [isInDos, setIsInDos] = useState(true);
 
     if (!isAuthenticated || (user && user.role !== 'patient')) {
         return "Sie sind nicht berechtigt für diese Seite."; // or you can return a message or redirect to another page
     }
 
-    const handleSliderClick = () => {
-
-        setIsSliderVisible(!isSliderVisible);
-        console.log('Slider clicked', isSliderVisible);
-    }
 
     useEffect(() => {
         const fetchDosAndDonts = async () => {
@@ -35,6 +30,11 @@ const DosAndDontsPatientPage = ({ fearId }) => {
         fetchDosAndDonts();
     }, [fearId]);
 
+    const handleSliderClick = () => {
+        setIsInDos((prevIsInDos) => !prevIsInDos);
+        console.log("click");
+    };
+
     return (
         <div className={styles.layout}>
             <div className={styles.background_image}>
@@ -45,9 +45,10 @@ const DosAndDontsPatientPage = ({ fearId }) => {
                     <p>Wir verstehen, dass es Momente gibt, in denen du dich vielleicht unsicher fühlst, besonders wenn es darum geht, die Ängste deines Kindes zu verstehen und zu unterstützen.</p>
                 </div>
             </div>
-            <div className={`dos-column ${isSliderVisible ? '' : 'slide-right'}`}>
                 <div className={styles.container}>
-                    <div className={`${styles.column} ${isSliderVisible ? "" : "slide-right"}`}>
+                    <div className={`${styles.rectangle} ${isInDos ? styles.inDos : styles.inDonts}`}
+                         onClick={handleSliderClick}></div>
+                    <div className={styles.column} id="donts">
                         <ul>
                             {dosAndDonts
                                 .filter((item) => item.type === "Don't")
@@ -56,7 +57,7 @@ const DosAndDontsPatientPage = ({ fearId }) => {
                                 ))}
                         </ul>
                     </div>
-                    <div className={`${styles.column} ${isSliderVisible ? "" : "slide-right"}`}>
+                    <div className={styles.column} id="dos">
                         <ul>
                             {dosAndDonts
                                 .filter((item) => item.type === "Do")
@@ -65,12 +66,19 @@ const DosAndDontsPatientPage = ({ fearId }) => {
                                 ))}
                         </ul>
                     </div>
-                    <div className={`${styles.rectangle} ${isSliderVisible ? '' : 'cover-right'}`} onClick={handleSliderClick}></div>
+
                 </div>
-            </div>
+
             <div className={styles.background_eclipse}>
                 <div className={styles.text}>
-                    <p>Jeder kleine Schritt, den du als Elternteil <br /> machst, ist ein großer Beitrag auf der Reise<br /> deines Kindes. <br />Du machst bereits einen bedeutenden <br />Unterschied, und jeder weitere Schritt bringt<br /> uns näher zur Überwindung von Ängsten und <br />zum Erblühen von Vertrauen.</p>
+                    <p>Jeder kleine Schritt, den du als Elternteil <br />
+                        machst, ist ein großer Beitrag auf der Reise<br />
+                        deines Kindes. <br />
+                        Du machst bereits einen bedeutenden <br />
+                        Unterschied, und jeder weitere Schritt bringt<br />
+                        uns näher zur Überwindung von Ängsten und <br />
+                        zum Erblühen von Vertrauen.
+                    </p>
                 </div>
             </div>
 
