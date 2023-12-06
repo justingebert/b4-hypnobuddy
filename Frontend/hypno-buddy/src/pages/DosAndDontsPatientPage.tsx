@@ -32,7 +32,6 @@ const DosAndDontsPatientPage = ({ fearId }) => {
 
     const handleSliderClick = () => {
         setIsInDos((prevIsInDos) => !prevIsInDos);
-        console.log("click");
     };
 
     return (
@@ -46,7 +45,7 @@ const DosAndDontsPatientPage = ({ fearId }) => {
                 </div>
             </div>
                 <div className={styles.container}>
-                    <div className={`${styles.rectangle} ${isInDos ? styles.inDos : styles.inDonts}`}
+                    <div className={`${styles.rectangle} ${isInDos ? styles.inDonts : styles.inDos}`}
                          onClick={handleSliderClick}></div>
                     <div className={styles.column} id="donts">
                         <ul>

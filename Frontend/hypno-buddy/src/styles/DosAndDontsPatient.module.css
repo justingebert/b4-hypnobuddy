@@ -90,21 +90,26 @@
 
 .rectangle {
     position: absolute;
-    background-color: #d373d2;
     display: flex;
     width: 31rem; /* Adjust the width to match the left column */
     height: 100%;
     z-index: 2;
+    cursor: pointer;
     transition: transform 0.3s ease-in-out;
 }
 
 .inDos {
+    background: url("../assets/bunny_dont.png") center #d373d2 no-repeat;
+    background-size: 120%;
     transform: translateX(38.5rem); /* Adjust the translation to match the width of the columns */
 }
 
 .inDonts {
+    background: url("../assets/bunny_do.png") center #d373d2 no-repeat;
+    background-size: 120%;
     transform: translateX(0);
 }
+
 
 
 
