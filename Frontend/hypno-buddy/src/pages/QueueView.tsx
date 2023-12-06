@@ -98,10 +98,10 @@ const QueueView: React.FC = () => {
 
     return (
         <>
-            <div>
-                <h1>Goals Queue</h1>
+            <div className="container my-4">
+                <h1 className="mb-3">Goals Queue</h1>
                 <QueueList goals={goals} onReorder={onReorder} onEdit={handleEditGoal} onDelete={handleDeleteGoal}/>
-                <button onClick={() => setShowCreateModal(true)}>Create Goal</button>
+                <button className="btn btn-success mt-3" onClick={() => setShowCreateModal(true)}>Create Goal</button>
 
                 {showCreateModal && (
                     <GoalCreateForm
@@ -112,7 +112,7 @@ const QueueView: React.FC = () => {
                 )}
             </div>
             <br/>
-            <button onClick={goToRoadmap}>Roadmap View</button>
+            <button className="btn btn-secondary" onClick={goToRoadmap}>Roadmap View</button>
         </>
     );
 };

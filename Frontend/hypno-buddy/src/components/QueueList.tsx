@@ -48,7 +48,7 @@ function QueueList({ goals, onReorder,onEdit, onDelete}) {
             {/*//Droppable is the wrapper for the list of draggable items / space where items can be dropped*/}
             <StrictModeDroppable droppableId="goals">
                 {(provided) => (
-                    <div {...provided.droppableProps} ref={provided.innerRef}>
+                    <div {...provided.droppableProps} ref={provided.innerRef} className="container">
                         {/*//Draggable is the wrapper for each draggable item*/}
                         {localGoals.map((goal, index) => (
                             <Draggable key={goal.id} draggableId={goal.id} index={index}>
@@ -57,6 +57,7 @@ function QueueList({ goals, onReorder,onEdit, onDelete}) {
                                         ref={provided.innerRef}
                                         {...provided.draggableProps}
                                         {...provided.dragHandleProps}
+                                        className="mb-2"
                                     >
                                         <Goal
                                             goal={goal}

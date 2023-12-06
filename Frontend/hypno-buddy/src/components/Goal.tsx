@@ -2,15 +2,13 @@ import React from 'react';
 
 function GoalItem({ goal, onEdit, onDelete }) {
     return (
-        <div>
-            <h3>{goal.title}</h3>
-            <p>{goal.description}</p>
-            {/* Edit button to open the edit modal */}
-            <button onClick={() => onEdit(goal)}>Edit</button>
-            {/* Delete button to delete the goal */}
-            <button onClick={() => onDelete(goal.id)}>Delete</button>
-            <br/>
-            <br/>
+        <div className="card mb-3">
+            <div className="card-body">
+                <h5 className="card-title">{goal.title}</h5>
+                <p className="card-text">{goal.description}</p>
+                <button className="btn btn-primary mr-2" onClick={() => onEdit(goal)}>Edit</button>
+                <button className="btn btn-danger" onClick={() => onDelete(goal.id)}>Delete</button>
+            </div>
         </div>
     );
 }
