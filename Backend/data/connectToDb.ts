@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import { v4 as uuidv4 } from 'uuid';
-import VerificationCode from "./model/verificationCode"; // UUID library for generating unique codes
+import VerificationCode from "./model/verificationCode";
+import User from "./model/user"; // UUID library for generating unique codes
+import { sampleTherapists, samplePatients } from "./mockupData";
 
 
 // connect to mongodb
@@ -54,4 +56,36 @@ export async function ensureVerificationCodes() {
         process.exit(1);
     }
 
+}
+
+/**
+ * This function will create some mockup data in the database.
+ * It will delete all existing users and create some new ones.
+ * For testing purposes only.
+ */
+export async function createMockupData() {
+    try {
+
+        for (const therapistData of sampleTherapists) {
+            const exists = await User.findOne({ email: therapistData.email });
+            if (!exists) {
+                const therapist = new User(therapistData);
+                await therapist.save();
+            }
+        }
+
+        // Seed patients
+        for (const patientData of samplePatients) {
+            const exists = await User.findOne({ email: patientData.email });
+            if (!exists) {
+                const patient = new User(patientData);
+                await patient.save();
+            }
+        }
+
+        console.log('Mockup data created successfully');
+    } catch (error) {
+        console.error('Error creating mockup data', error);
+        process.exit(1);
+    }
 }
