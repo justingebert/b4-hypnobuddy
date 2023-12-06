@@ -1,0 +1,16 @@
+@mixin circle($size, $color: #ccc) {
+  width: $size;
+  height: $size;
+  border-radius: 50%;
+  background-color: $color;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circle {
+  @include circle(50px); // Example size
+
+  // Additional styling specific to the circle
+  // e.g., colors based on status, border, etc.
+}

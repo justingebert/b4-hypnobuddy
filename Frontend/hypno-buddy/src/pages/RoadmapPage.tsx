@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import Goal from "../components/Goal.tsx";
 import {useNavigate} from "react-router-dom";
 import {useGoals} from "../contexts/GoalContext.tsx";
 
+import styles from '../styles/RoadmapPage.module.scss';
+
 function RoadmapPage() {
     const { goals, addGoal, setGoals } = useGoals();
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
     const navigate = useNavigate();
@@ -26,46 +27,71 @@ function RoadmapPage() {
             }
         };
 
-        fetchGoals();
+        //fetchGoals(); //TODO uncomment this when backend is ready
+
     }, []);
 
-    //TODO implement with form popping up
+
     const handleAddGoal = async () => {
-        try {
-            const response = await fetch('http://localhost:3000/goals', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    title: 'New Goal',
-                    description: 'This is a new goal',
-                    status: 'Not Started',
-                }),
-            });
-            if (response.ok) {
-                const data = await response.json();
-                setGoals([...goals, data]);
-            }
-        } catch (error) {
-            console.error('Error adding goal:', error);
-        }
+        //TODO connect with backend
+        // try {
+        //     const response = await fetch('http://localhost:3000/goals', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify({
+        //             title: 'New Goal',
+        //             description: 'This is a new goal',
+        //             status: 'Not Started',
+        //         }),
+        //     });
+        //     if (response.ok) {
+        //         const data = await response.json();
+        //         setGoals([...goals, data]);
+        //     }
+        // } catch (error) {
+        //     console.error('Error adding goal:', error);
+        // }
     }
 
     const goToQueue = () => {
         navigate('/goalQueueView');
     }
+
+    const getStatusClass = (status) => {
+        switch (status) {
+            case 'Not Started': return 'bg-secondary';
+            case 'in_progress': return 'bg-primary';
+            case 'completed': return 'bg-success';
+            default: return 'bg-secondary';
+        }
+    };
+
     if (isLoading) return <div>Loading...</div>;
    //if (error) return <div>Error: {error}</div>;
 
     return (
         <>
-            <h1>Roadmap</h1>
-            {goals.map(goal => (
-                <Goal key={goal.id} goal={goal}/>
-            ))}
-            <button onClick={handleAddGoal}>Add Goal</button>
-            <button onClick={goToQueue}>Queue View</button>
+            <div className="container mt-3">
+                <h1 className="text-center mb-4">Goals Roadmap</h1>
+                <div className="d-flex flex-column align-items-center">
+                    {goals.map((goal, index) => (
+                        <div key={goal.id} className={`d-flex align-items-center ${index < goals.length - 1 ? 'mb-3' : ''}`}>
+                            <div className={`${styles.circle} ${getStatusClass(goal.status)}`}>
+                                {index + 1}
+                            </div>
+                            <div className="ml-3">
+                                <h5>{goal.title}</h5>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                <div className="text-center mt-4">
+                    <button className="btn btn-success" onClick={handleAddGoal}>Add Goal</button>
+                    <button className="btn btn-primary" onClick={() => navigate('/goalQueueView')}>Queue View</button>
+                </div>
+            </div>
         </>
     );
 }
