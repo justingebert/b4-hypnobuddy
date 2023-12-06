@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import {RoadmapGoal} from "../types/Roadmap-Goal.ts";
 
 interface GoalCreateFormProps {
-    goalData: any; // Replace 'any' with a specific type if available
-    onSave: (goalData: any) => void;
+    goalData: RoadmapGoal | null;
+    onSave: (goalData: RoadmapGoal) => void;
     onClose: () => void;
 }
 
@@ -10,72 +11,64 @@ const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClo
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [status, setStatus] = useState('Not Started');
-    // const [priority, setPriority] = useState('Low');
-    // const [category, setCategory] = useState('General');
-    // const [dueDate, setDueDate] = useState('');
 
-    // Reset form when goalData is null (creating a new goal)
     useEffect(() => {
-        if (goalData === null) {
+        if (goalData) {
+            setTitle(goalData.title);
+            setDescription(goalData.description);
+            setStatus(goalData.status);
+        } else {
             setTitle('');
             setDescription('');
             setStatus('Not Started');
-            // setPriority('Low');
-            // setCategory('General');
-            // setDueDate('');
-        } else {
-            // If editing an existing goal, populate form with goalData
-            // setTitle(goalData.title), etc.
         }
     }, [goalData]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        onSave({ title, description, status});
+        onSave({ title, description, status });
         onClose();
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-                <label>
-                    Title:
-                    <input type="text" value={title} onChange={e => setTitle(e.target.value)} />
-                </label>
-                <br/>
-                <label>
-                    Description:
-                    <textarea value={description} onChange={e => setDescription(e.target.value)} />
-                </label>
-                <br/>
-                <label>
-                    Status:
-                    <select value={status} onChange={e => setStatus(e.target.value)}>
-                        <option value="Not Started">Not Started</option>
-                        <option value="In Progress">In Progress</option>
-                        <option value="Completed">Completed</option>
-                    </select>
-                </label>
-                <br/>
-                {/*maybe for later*/}
-                {/*<label>*/}
-                {/*    Priority:*/}
-                {/*    <select value={priority} onChange={e => setPriority(e.target.value)}>*/}
-                {/*        <option value="Low">Low</option>*/}
-                {/*        <option value="Medium">Medium</option>*/}
-                {/*        <option value="High">High</option>*/}
-                {/*    </select>*/}
-                {/*</label>*/}
-                {/*<label>*/}
-                {/*    Category:*/}
-                {/*    <input type="text" value={category} onChange={e => setCategory(e.target.value)} />*/}
-                {/*</label>*/}
-                {/*<label>*/}
-                {/*    Due Date:*/}
-                {/*    <input type="date" value={dueDate} onChange={e => setDueDate(e.target.value)} />*/}
-                {/*</label>*/}
-                <button type="submit">Save Goal</button>
-                <button type="button" onClick={onClose}>Cancel</button>
-        </form>
+        <div className="modal show" tabIndex={-1} role="dialog" style={{ display: 'block' }}>
+            <div className="modal-dialog" role="document">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title">{goalData ? 'Edit Goal' : 'Create Goal'}</h5>
+                        <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={onClose}>
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form onSubmit={handleSubmit}>
+                        <div className="modal-body">
+                            {/* Form fields */}
+                            <div className="form-group">
+                                <label>Title</label>
+                                <input type="text" className="form-control" value={title} onChange={e => setTitle(e.target.value)} />
+                            </div>
+                            <div className="form-group">
+                                <label>Description</label>
+                                <textarea className="form-control" value={description} onChange={e => setDescription(e.target.value)}></textarea>
+                            </div>
+                            <div className="form-group">
+                                <label>Status</label>
+                                <select className="form-control" value={status} onChange={e => setStatus(e.target.value)}>
+                                    <option value="Not Started">Not Started</option>
+                                    <option value="in_progress">In Progress</option>
+                                    <option value="completed">Completed</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" onClick={onClose}>Close</button>
+                            <button type="submit" className="btn btn-primary">Save Goal</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
     );
 };
 

@@ -10,6 +10,7 @@ const QueueView: React.FC = () => {
     const { goals, setGoals, addGoal } = useGoals();
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [editingGoal, setEditingGoal] = useState<RoadmapGoal | null>(null);
     const [showCreateModal, setShowCreateModal] = useState(false);
 
     const navigate = useNavigate();
@@ -59,9 +60,29 @@ const QueueView: React.FC = () => {
         //     console.error('Error creating goal:', error);
         // }
         // Create a new goal locally
-        addGoal({ ...goalData, id: Date.now().toString()});
-        setShowCreateModal(false); // Close the modal after creating the goal
+        if (editingGoal) {
+            // Updating an existing goal
+            const updatedGoals = goals.map(goal => goal.id === editingGoal.id ? { ...goal, ...goalData } : goal);
+            setGoals(updatedGoals);
+        } else {
+            // Adding a new goal
+            addGoal({ ...goalData, id: Date.now().toString() });
+        }
+        setShowCreateModal(false);
+        setEditingGoal(null); // Reset editing state
     };
+
+    const handleEditGoal = (goal: RoadmapGoal) => {
+        setEditingGoal(goal);
+        setShowCreateModal(true);
+    };
+
+    const handleDeleteGoal = (goalId: string) => {
+        // Logic for handling delete
+        // For example, filter out the deleted goal from the goals array
+        setGoals(goals.filter(goal => goal.id !== goalId));
+    };
+
 
     const onReorder = (reorderedGoals: RoadmapGoal[]) => {
         // Update the goals state with the new order
@@ -79,12 +100,12 @@ const QueueView: React.FC = () => {
         <>
             <div>
                 <h1>Goals Queue</h1>
-                <QueueList goals={goals} onReorder={onReorder} />
+                <QueueList goals={goals} onReorder={onReorder} onEdit={handleEditGoal} onDelete={handleDeleteGoal}/>
                 <button onClick={() => setShowCreateModal(true)}>Create Goal</button>
 
                 {showCreateModal && (
                     <GoalCreateForm
-                        goalData={null}
+                        goalData={editingGoal}
                         onSave={handleCreateGoal}
                         onClose={() => setShowCreateModal(false)}
                     />

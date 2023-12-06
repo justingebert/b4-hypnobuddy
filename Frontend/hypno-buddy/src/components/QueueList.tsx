@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { DragDropContext, Droppable, Draggable, DroppableProps } from 'react-beautiful-dnd';
 import Goal from "./Goal.tsx"; // Your Goal component
 
-function QueueList({ goals, onReorder }) {
+function QueueList({ goals, onReorder,onEdit, onDelete}) {
     const [localGoals, setLocalGoals] = useState(goals);
 
     // Synchronize localGoals state with goals prop
@@ -58,7 +58,11 @@ function QueueList({ goals, onReorder }) {
                                         {...provided.draggableProps}
                                         {...provided.dragHandleProps}
                                     >
-                                        <Goal goal={goal} />
+                                        <Goal
+                                            goal={goal}
+                                            onEdit={onEdit}
+                                            onDelete={onDelete}
+                                        />
                                     </div>
                                 )}
                             </Draggable>
