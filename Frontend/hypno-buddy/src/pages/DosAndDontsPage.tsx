@@ -1,6 +1,7 @@
 import  { useEffect, useState } from 'react';
-import {Link} from "react-router-dom";
-import { Fear} from "../../../../Backend/data/model/fearModel.ts";
+import { Link } from "react-router-dom";
+import { Fear } from "../../../../Backend/data/model/fearModel.ts";
+
 
 function DosAndDontsPage() {
     const [fears, setFears ] = useState<Fear[]>([]);
