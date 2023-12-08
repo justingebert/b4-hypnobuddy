@@ -3,7 +3,7 @@ import AuthForm from '../components/AuthForm.tsx';
 import { FlashContext } from '../contexts/FlashContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext.tsx';
-import Lottie, { AnimationConfigWithData } from 'react-lottie';
+import Lottie, { AnimationConfigWithData } from 'lottie-web';
 import LoginAnimation from '../assets/LoginAnimation.json';
 import styled from 'styled-components';
 import '../styles/LoginSignin.css';
