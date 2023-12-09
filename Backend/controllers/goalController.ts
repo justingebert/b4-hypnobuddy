@@ -107,7 +107,6 @@ export async function createGoal (req, res, next) {
         return next();
     }
     try {
-        console.log(req.body)
 
         const newRoadmapGoal = new RoadmapGoal(getGoalParams(req.body));
         const savedRoadmapGoal = await newRoadmapGoal.save();
@@ -123,7 +122,7 @@ export async function createGoal (req, res, next) {
 
     }catch (error){
         console.error('Error creating roadmap goal:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        res.status(500).json({ message 'Internal Server Error' });
         next();
     }
 }
