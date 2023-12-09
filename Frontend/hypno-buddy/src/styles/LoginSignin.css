@@ -15,5 +15,20 @@
 
 .link{
     color: #f7e6e8;
+}
 
+.background-login-image {
+    background-image: url('../assets/LoginBackground.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    overflow: hidden;
+}
+
+.loginPage {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
 }

@@ -3,8 +3,8 @@ import AuthForm from '../components/AuthForm.tsx';
 import { FlashContext } from '../contexts/FlashContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext.tsx';
-import Lottie, { AnimationConfigWithData } from 'lottie-web';
-import LoginAnimation from '../assets/LoginAnimation.json';
+//import Lottie, { AnimationConfigWithData } from 'lottie-web';
+//import LoginAnimation from '../assets/LoginAnimation.json';
 import styled from 'styled-components';
 import '../styles/LoginSignin.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -61,7 +61,7 @@ const RegisterPage = () => {
     const toggleForm = () => {
         setIsLogin((prevIsLogin) => !prevIsLogin);
     };
-
+/*
     const defaultOptions: AnimationConfigWithData<'svg'> = {
         loop: true,
         autoplay: true,
@@ -70,10 +70,10 @@ const RegisterPage = () => {
             preserveAspectRatio: 'xMidYMid slice',
         },
     };
-
+*/
     return (
-        <div className="position-relative vw-100 vh-100 overflow-hidden">
-            <Lottie options={defaultOptions} height="100%" width="100%" className="position-absolute" />
+        <div className="loginPage">
+            <div className="background-login-image">
             <WelcomeHeading className="display-1">Willkommen</WelcomeHeading>
             <div className="position-absolute top-0 start-0 end-0 bottom-0 d-flex flex-column justify-content-center align-items-center">
                 <div className="c_dark" style={{ flexDirection: 'column' }}>
@@ -95,6 +95,7 @@ const RegisterPage = () => {
                         </p>
                     )}
                 </div>
+            </div>
             </div>
         </div>
     );

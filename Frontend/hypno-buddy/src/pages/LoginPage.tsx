@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext.tsx';
 import { Link } from 'react-router-dom';
 import RegisterForm from './RegisterPage';
-import Lottie, { AnimationConfigWithData } from 'lottie-web';
-import LoginAnimation from '../assets/LoginAnimation.json';
+//import Lottie, { AnimationConfigWithData } from 'lottie-web';
+//import LoginAnimation from '../assets/LoginAnimation.json';
 import styled from 'styled-components';
 import '../styles/LoginSignin.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -22,12 +22,7 @@ const WelcomeHeading = styled.div`
     top: 45%;
     left: 15%;
 `;
-const Container = styled.div`
-    overflow: hidden;
-    width: 100vw;
-    height: 100vh;
-    position: relative;
-`;
+
 
 const LoginPage = () => {
     const { flash } = useContext(FlashContext);
@@ -70,6 +65,7 @@ const LoginPage = () => {
     const toggleForm = () => {
         setIsLogin((prevIsLogin) => !prevIsLogin);
     };
+    /*
     const defaultOptions: AnimationConfigWithData<'svg'> = {
         loop: true,
         autoplay: true,
@@ -78,10 +74,10 @@ const LoginPage = () => {
             preserveAspectRatio: 'xMidYMid slice',
         },
     };
-
+*/
     return (
-        <Container>
-            <Lottie options={defaultOptions} height="100%" width="100%" className="position-absolute" />
+        <div className="loginPage">
+            <div className="background-login-image">
             <WelcomeHeading className="display-1">Willkommen</WelcomeHeading>
             <div className="position-absolute top-0 start-0 end-0 bottom-0 d-flex flex-column justify-content-center align-items-center">
                 <div className="c_dark" style={{ flexDirection: 'column' }}>
@@ -104,7 +100,8 @@ const LoginPage = () => {
                     )}
                 </div>
             </div>
-        </Container>
+            </div>
+        </div>
     );
 };
 
