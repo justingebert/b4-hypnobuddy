@@ -66,21 +66,28 @@ export async function ensureVerificationCodes() {
 export async function createMockupData() {
     try {
 
+        const therapistDocs = [];
         for (const therapistData of sampleTherapists) {
-            const exists = await User.findOne({ email: therapistData.email });
-            if (!exists) {
-                const therapist = new User(therapistData);
-                await therapist.save();
-            }
+            const therapist = await findOrCreateUser(therapistData);
+            therapistDocs.push(therapist);
         }
 
         // Seed patients
+        const patientDocs = [];
         for (const patientData of samplePatients) {
-            const exists = await User.findOne({ email: patientData.email });
-            if (!exists) {
-                const patient = new User(patientData);
-                await patient.save();
-            }
+            const patient = await findOrCreateUser(patientData);
+            patientDocs.push(patient);
+        }
+
+        // Distribute patients to therapists
+        distributePatients(therapistDocs, patientDocs);
+
+        // Save updated therapist and patient documents
+        for (const therapist of therapistDocs) {
+            await therapist.save();
+        }
+        for (const patient of patientDocs) {
+            await patient.save();
         }
 
         console.log('Mockup data created successfully');
@@ -89,3 +96,29 @@ export async function createMockupData() {
         process.exit(1);
     }
 }
+
+const distributePatients = (therapists, patients) => {
+    // Example distribution logic
+    let patientIndex = 0;
+    for (const therapist of therapists) {
+        const numberOfPatients = Math.ceil(Math.random() * 3); // Assign 1-3 patients per therapist
+        for (let i = 0; i < numberOfPatients; i++) {
+            if (patientIndex < patients.length) {
+                therapist.patients.push(patients[patientIndex]._id);
+                patients[patientIndex].therapist = therapist._id;
+                patientIndex++;
+            } else {
+                break;
+            }
+        }
+    }
+};
+
+const findOrCreateUser = async (userData) => {
+    let user = await User.findOne({ email: userData.email });
+    if (!user) {
+        user = new User(userData);
+        await user.save();
+    }
+    return user;
+};
