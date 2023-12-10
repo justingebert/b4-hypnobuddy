@@ -1,7 +1,9 @@
-import React, {useContext, useEffect, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import {FlashContext} from "../contexts/FlashContext.tsx";
 import {useNavigate} from "react-router-dom";
 import '../styles/Profil.css';
+import SubmitButton from "../components/SubmitButton.tsx";
+import { Form, FormControl, Button, Row, Col } from 'react-bootstrap';
 
 function ProfilePage() {
     const [data, setData] = useState(null);
@@ -118,14 +120,14 @@ function ProfilePage() {
                         <strong className="textProfil">Email:</strong> {data.user.email}
                         <br />
                         </div>
-                        <div className="divForm">
+                        <div className="divForm m-4">
                         <strong className="textProfil">Rolle</strong> {data.user.role}
                             <br />
                         {data.user.role === 'therapist' && (
                             <>
                                 <p><strong className="textProfil">Code zur Weitergabe an Patienten:</strong> {data.user.patientLinkingCode}</p>
 
-                                <button onClick={getPatients} className="p-1 m-2">Siehe verlinkte Patienten</button>
+                                <Button onClick={getPatients} className="p-1 m-2">Siehe verlinkte Patienten</Button>
                             </>
                         )}
                         {/* List of linked patients */}
@@ -146,31 +148,41 @@ function ProfilePage() {
                             </>
                         )}
                         {/* Verification Form */}
-                        <form onSubmit={handleVerifySubmit} >
-                            <input
-                                type="text"
-                                value={code}
-                                onChange={(e) => setCode(e.target.value)}
-                                placeholder="Verifizierungscode eingeben"
-                                id="Verifizierungscode"
-                                className="form"
-                            />
-
-                            <button type="submit" className="p-1 m-2">Prüfen</button>
-                        </form>
+                            <Form  onSubmit={handleVerifySubmit}>
+                                <Row className="justify-content-md-center">
+                                    <Col>
+                                        <FormControl
+                                            type="text"
+                                            value={code}
+                                            onChange={(e) => setCode(e.target.value)}
+                                            placeholder="Verifizierungscode eingeben"
+                                            id="Verifizierungscode"
+                                            className="form"
+                                        />
+                                    </Col>
+                                    <Col>
+                                        <SubmitButton></SubmitButton>
+                                    </Col>
+                            </Row>
+                            </Form>
                         {/* Link to Therapist Form */}
-                        {data.user.role === 'patient' && (
-                            <form onSubmit={handleLinkSubmit}>
-                                <input
-                                    type="text"
-                                    value={linkCode}
-                                    onChange={(e) => setLinkCode(e.target.value)}
-                                    placeholder="Link zum Therapeuten-Code eingeben"
-                                    className="form"
-                                />
-
-                                <button type="submit" className="p-1 m-2">Link zu Therapeut*innen</button>
-                            </form>
+                            {data.user.role === 'patient' && (
+                                <Form as={Col} onSubmit={handleLinkSubmit}>
+                                    <Row className="align-items-center">
+                                        <Col>
+                                            <FormControl
+                                                type="text"
+                                                value={linkCode}
+                                                onChange={(e) => setLinkCode(e.target.value)}
+                                                placeholder="Link zum Therapeuten-Code eingeben"
+                                                className="form"
+                                            />
+                                        </Col>
+                                        <Col>
+                                            <SubmitButton></SubmitButton>
+                                        </Col>
+                                    </Row>
+                                </Form>
                             )}
                         </div>
                     </div>

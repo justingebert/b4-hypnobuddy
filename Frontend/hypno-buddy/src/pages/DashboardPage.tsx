@@ -1,25 +1,14 @@
 import { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useAuth } from "../contexts/AuthContext.tsx";
 import Button from 'react-bootstrap/Button';
 import '../styles/DashboardPage.css';
 import '../assets/GradientHintergund.png';
 
 function DashboardPage() {
     const [data, setData] = useState(null);
-/*
-    useEffect(() => {
-        fetch('http://localhost:3000/dashboard/data',{
-            method: 'GET',
-            credentials: 'include',
-        })
-            .then(response => response.json())
-            .then(data => setData(data));
-    }, []);
 
-    if (!data) {
-        return <div>Loading...</div>;
-    }
-*/
+    const { isAuthenticated, user} = useAuth();
     return (
         <div className="dashboard">
             <div className="background-image">
@@ -31,9 +20,15 @@ function DashboardPage() {
                         <p className="text">
                             Bereit für positive Veränderungen?<br />Starte deine Reise zu einem<br />selbstbestimmten Leben jetzt.
                         </p>
+                        {isAuthenticated && user ? (
                         <Button href="/roadmap" variant="secondary" size="lg" className="button">
                             Starte jetzt!
                         </Button>
+                                ) : (
+                            <Button href="/login" variant="secondary" size="lg" className="button">
+                                Starte jetzt!
+                            </Button>
+                                )}
                     </div>
                 </div>
             </div>

@@ -48,7 +48,7 @@ const NavbarComponent = () => {
                         <Nav.Link href="#deets" className="d-flex">
                             {isAuthenticated && user ? (
                                 <>
-                                    <Nav.Link to="/profile" className={styles.navLink}>
+                                    <Nav.Link href="/profile" className={styles.navLink}>
                                         <div className={styles.userEmail}>
                                             <Navbar.Text>
                                                 Eingeloggt:
@@ -56,7 +56,6 @@ const NavbarComponent = () => {
                                             {" " + user.name.first + " " + user.name.last}
                                         </div>
                                     </Nav.Link>
-                                    <Nav.Link href="/profile">Profil</Nav.Link>
                                     <LogoutButton onLogout={handleLogoutClick} className={styles.logoutButton} />
                                 </>
                             ) : (
