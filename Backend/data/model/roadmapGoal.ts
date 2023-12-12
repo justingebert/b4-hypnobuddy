@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
 
 const roadmapGoalSchema = new mongoose.Schema({
+    userID: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
     title: {
         type: String,
         required: true
@@ -12,14 +17,14 @@ const roadmapGoalSchema = new mongoose.Schema({
     status: {
         type: String,
         enum: ['pending', 'in_progress', 'completed'],
-        required: true
+        required: true,
+        default: 'pending'
     },
     creationDate: {
         type: Date,
         default: Date.now,
         required: true
     },
-    //discussion: include or not
     dueDate: {
         type: Date
     },
@@ -40,6 +45,5 @@ const roadmapGoalSchema = new mongoose.Schema({
     }],
 });
 
-const RoadmapGoalModel = mongoose.model('RoadmapGoal', roadmapGoalSchema);
-
-module.exports = RoadmapGoalModel;
+const RoadmapGoal = mongoose.model('RoadmapGoal', roadmapGoalSchema);
+export default RoadmapGoal;
