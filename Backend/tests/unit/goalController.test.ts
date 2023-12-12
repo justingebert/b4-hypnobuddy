@@ -169,7 +169,7 @@ describe('Goal Creation', () => {
         user = await loginUserAndGetUser('john@example.com', '123456');
     });
 
-    afterEach(cleanDatabase);
+    afterAll(cleanDatabase);
 
     it('should create a new goal', async () => {
         console.log("user:" + JSON.stringify(user, null, 2))
@@ -222,7 +222,7 @@ describe('Getting Goals', () => {
         goal2 = await createTestGoal(user._id, 'Sample Goal 2', 'Sample description 2', 'in_progress', '2023-01-01', false, null, []);
     });
 
-    afterEach(cleanDatabase);
+    afterAll(cleanDatabase);
 
     it('should get all goals for a given user', async () => {
         const response = await request(app)
