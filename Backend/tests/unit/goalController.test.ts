@@ -2,7 +2,7 @@ import request from 'supertest';
 import {app, sessionStore} from '../../main';
 import RoadmapGoal from '../../data/model/roadmapGoal';
 import User from '../../data/model/user';
-import { getGoalParams, validate, createGoal } from '../../controllers/goalController';
+import { getGoalParams } from '../../controllers/goalController';
 import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 
@@ -158,7 +158,7 @@ describe('Goal Creation', () => {
         user = await loginUserAndGetUser('john@example.com', '123456');
     });
 
-    afterEach(cleanDatabase);
+    afterAll(cleanDatabase);
 
     it('should create a new goal', async () => {
         console.log("user:" + JSON.stringify(user, null, 2))
@@ -190,7 +190,6 @@ describe('Goal Creation', () => {
                 isSubGoal: false,
                 subGoals: [],
             });
-
         const updatedUser = await User.findById(user._id);
         const goalIdString = response.body.goal._id.toString();
         expect(updatedUser.goalIDs.map(String)).toContain(goalIdString);

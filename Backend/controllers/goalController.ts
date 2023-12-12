@@ -118,11 +118,10 @@ export async function createGoal (req, res, next) {
             redirect: '/',
         });
 
-        next();
 
     }catch (error){
         console.error('Error creating roadmap goal:', error);
-        res.status(500).json({ message 'Internal Server Error' });
+        res.status(500).json({ message: 'Internal Server Error' });
         next();
     }
 }
