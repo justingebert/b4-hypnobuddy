@@ -32,6 +32,10 @@ const userSchema = new mongoose.Schema({
         enum: ['patient', 'guardian', 'therapist', 'admin'],
         default: 'patient'
     },
+    goalIDs: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'RoadmapGoal'
+    }],
 }, {
     timestamps: true
 })

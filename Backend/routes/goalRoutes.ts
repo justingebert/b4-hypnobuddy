@@ -3,6 +3,6 @@ import * as goalController from "../controllers/goalController";
 
 const goalRouter = Router();
 
-goalRouter.get('/test', goalController.test);
+goalRouter.post('/create', goalController.validate, goalController.createGoal);
 
 export default goalRouter;
