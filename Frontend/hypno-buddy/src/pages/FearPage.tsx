@@ -138,7 +138,7 @@ function FearPage() {
 
   const handleClose = () => {
     setEditMode(false);
-    navigate('/dosanddonts');
+    navigate('/dosanddonts/t');
   };
 
   return (
