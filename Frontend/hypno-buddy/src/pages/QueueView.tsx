@@ -7,7 +7,7 @@ import {useGoals} from "../contexts/GoalContext.tsx"; // Assuming you have a for
 
 const QueueView: React.FC = () => {
 
-    const { goals, setGoals, fetchGoals, createGoal, updateGoal, deleteGoal } = useGoals();
+    const { goals, setGoals, fetchGoals, createGoal, updateGoal, deleteGoal, updateGoalOrder } = useGoals();
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [editingGoal, setEditingGoal] = useState<RoadmapGoal | null>(null);
@@ -24,29 +24,35 @@ const QueueView: React.FC = () => {
         setShowCreateModal(false);
     };
 
+    /**
+     *  This function updates the goal in the backend on save
+     * @param updatedGoalData
+     */
     const handleUpdateGoal = async (updatedGoalData: RoadmapGoal) => {
-        // Assuming updateGoal is a function available from useGoals that updates the goal
         await updateGoal(editingGoal.id, updatedGoalData);
         setEditingGoal(null);
         setShowCreateModal(false);
     };
 
+    /**
+     * This function makes the form with the appropriate goal(editingGoal state) data appear
+     * @param goal
+     */
     const handleEditGoal = (goal: RoadmapGoal) => {
         setEditingGoal(goal);
         setShowCreateModal(true);
     };
 
-    const handleDeleteGoal = (goalId: string) => {
-        // Logic for handling delete
-        // For example, filter out the deleted goal from the goals array
-        setGoals(goals.filter(goal => goal.id !== goalId));
+    const handleDeleteGoal = async (goalId: string) => {
+        await deleteGoal(goalId); // Call the deleteGoal function from the context
+        setGoals(goals.filter(goal => goal.id !== goalId)); // Update local state to remove the deleted goal
     };
 
 
     const onReorder = (reorderedGoals: RoadmapGoal[]) => {
         // Update the goals state with the new order
+        await updateGoalOrder(reorderedGoals.map(goal => goal.id));
         setGoals(reorderedGoals);
-        // save the new order to the backend
     };
 
     const goToRoadmap = () => {

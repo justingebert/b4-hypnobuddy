@@ -1,5 +1,6 @@
 import React, { createContext, useState, useContext, useCallback } from 'react';
 import { RoadmapGoal } from '../types/Roadmap-Goal';
+import {FlashContext} from "./FlashContext.tsx";
 
 interface GoalsContextType {
     goals: RoadmapGoal[];
@@ -9,6 +10,7 @@ interface GoalsContextType {
     createGoal: (goalData: { title: string; description: string; status: string }) => Promise<void>;
     deleteGoal: (goalId: string) => Promise<void>;
     updateGoal: (goalId: string, updatedData: RoadmapGoal) => Promise<void>;
+    updateGoalOrder: (newOrder: string[]) => Promise<void>
 }
 
 const GoalsContext = createContext<GoalsContextType | undefined>(undefined);
@@ -28,6 +30,7 @@ export const useGoals = () => {
  */
 export const GoalsProvider: React.FC = ({ children }) => {
     const [goals, setGoals] = useState<RoadmapGoal[]>([]);
+    const { flash } = useContext(FlashContext);
 
     const addGoal = useCallback((newGoal: RoadmapGoal) => {
         setGoals((prevGoals) => [...prevGoals, newGoal]);
@@ -44,12 +47,12 @@ export const GoalsProvider: React.FC = ({ children }) => {
             });
             if (response.ok) {
                 const data = await response.json();
-                setGoals(data.goals); // Assuming the response has a 'goals' property
+                setGoals(data.goals);
             } else {
-                console.error('Failed to fetch goals:', response.status);//TODO implement flash
+                console.error('Failed to fetch goals:', response.status); //TODO set
             }
         } catch (error) {
-            console.error('Error fetching goals:', error);//TODO implement flash
+            console.error('Error fetching goals:', error);
         }
     }, []);
 
@@ -119,6 +122,13 @@ export const GoalsProvider: React.FC = ({ children }) => {
         }
     }, []);
 
+    /**
+     * Updates the order of goals for a user
+     * - route: POST /goal/reorder
+     * @param req {body: { goalIDs }}
+     * @param res {success: true, message: 'Successfully updated goal order', redirect: '/'}
+     * @param next
+     */
     const updateGoalOrder = useCallback(async (newOrder: string[]) => {
         try {
             const response = await fetch('http://localhost:3000/goal/reorder', {
@@ -142,7 +152,7 @@ export const GoalsProvider: React.FC = ({ children }) => {
     }, []);
 
     return (
-        <GoalsContext.Provider value={{ goals, setGoals, addGoal, fetchGoals, createGoal, deleteGoal, updateGoal }}>
+        <GoalsContext.Provider value={{ goals, setGoals, addGoal, fetchGoals, createGoal, deleteGoal, updateGoal, updateGoalOrder }}>
             {children}
         </GoalsContext.Provider>
     );
