@@ -117,8 +117,12 @@ const distributePatients = (therapists, patients) => {
 const findOrCreateUser = async (userData) => {
     let user = await User.findOne({ email: userData.email });
     if (!user) {
-        user = new User(userData);
-        await user.save();
+        user = new User({
+            email: userData.email,
+            name: userData.name,
+            role: userData.role
+        });
+        await User.register(user, userData.password);
     }
     return user;
 };
