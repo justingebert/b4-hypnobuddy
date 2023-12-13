@@ -51,7 +51,7 @@ function QueueList({ goals, onReorder,onEdit, onDelete}) {
                     <div {...provided.droppableProps} ref={provided.innerRef} className="container">
                         {/*//Draggable is the wrapper for each draggable item*/}
                         {localGoals.map((goal, index) => (
-                            <Draggable key={goal.id} draggableId={goal.id} index={index}>
+                            <Draggable key={goal._id} draggableId={goal._id} index={index}>
                                 {(provided) => (
                                     <div
                                         ref={provided.innerRef}

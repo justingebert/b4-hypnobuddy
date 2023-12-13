@@ -7,7 +7,7 @@ import {useGoals} from "../contexts/GoalContext.tsx"; // Assuming you have a for
 
 const QueueView: React.FC = () => {
 
-    const { goals, setGoals, addGoal } = useGoals();
+    const { goals, setGoals, addGoal, fetchGoals, createGoal } = useGoals();
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [editingGoal, setEditingGoal] = useState<RoadmapGoal | null>(null);
@@ -16,57 +16,19 @@ const QueueView: React.FC = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        //TODO uncomment this when backend is ready
-        // const fetchGoals = async () => {
-        //     try {
-        //         setIsLoading(true);
-        //         const response = await fetch('http://localhost:3000/goals');
-        //         if (response.ok) {
-        //             const data = await response.json();
-        //             setGoals(data);
-        //         }
-        //     } catch (error) {
-        //
-        //         setError(error.message);
-        //     } finally {
-        //         setIsLoading(false);
-        //     }
-        // };
-        //
-        // fetchGoals();
-
-        setGoals([]);
+        fetchGoals
     }, []);
 
-    const handleCreateGoal = (goalData: RoadmapGoal) => {
-        //TODO when backend is ready, uncomment this
-        // try {
-        //     const response = await fetch('http://localhost:3000/goal/create', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify(goalData),
-        //     });
-        //
-        //     if (response.ok) {
-        //         const newGoal = await response.json();
-        //         setGoals(prevGoals => [...prevGoals, newGoal]);
-        //     } else {
-        //         // Handle the error case
-        //         console.error('Failed to create goal');
-        //     }
-        // } catch (error) {
-        //     console.error('Error creating goal:', error);
-        // }
-        // Create a new goal locally
+    const handleCreateGoal = async (goalData: RoadmapGoal) => {
+        //TODO connect Backend
+
         if (editingGoal) {
             // Updating an existing goal
             const updatedGoals = goals.map(goal => goal.id === editingGoal.id ? { ...goal, ...goalData } : goal);
             setGoals(updatedGoals);
         } else {
-            // Adding a new goal
-            addGoal({ ...goalData, id: Date.now().toString() });
+            console.log(goalData)
+            await createGoal(goalData)
         }
         setShowCreateModal(false);
         setEditingGoal(null); // Reset editing state
@@ -87,7 +49,6 @@ const QueueView: React.FC = () => {
     const onReorder = (reorderedGoals: RoadmapGoal[]) => {
         // Update the goals state with the new order
         setGoals(reorderedGoals);
-
         // save the new order to the backend
     };
 

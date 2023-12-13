@@ -1,35 +1,21 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import {useNavigate} from "react-router-dom";
 import {useGoals} from "../contexts/GoalContext.tsx";
+import {useAuth} from "../contexts/AuthContext.tsx";
 
 import styles from '../styles/RoadmapPage.module.scss';
 
 function RoadmapPage() {
-    const { goals, addGoal, setGoals } = useGoals();
+    const { goals, addGoal, setGoals,fetchGoals } = useGoals();
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
+    const {user} = useAuth();
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchGoals = async () => {
-            try {
-                setIsLoading(true);
-                const response = await fetch('http://localhost:3000/goal/get');
-                if (response.ok) {
-                    const data = await response.json();
-                    setGoals(data);
-                }
-            } catch (error) {
-                setError(error.message);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        //fetchGoals(); //TODO uncomment this when backend is ready
-
-    }, []);
+        fetchGoals()
+    });
 
 
     const handleAddGoal = async () => {
@@ -55,10 +41,6 @@ function RoadmapPage() {
         // }
     }
 
-    const goToQueue = () => {
-        navigate('/goalQueueView');
-    }
-
     const getStatusClass = (status) => {
         switch (status) {
             case 'Not Started': return 'bg-secondary';
@@ -76,8 +58,8 @@ function RoadmapPage() {
             <div className="container mt-3">
                 <h1 className="text-center mb-4">Goals Roadmap</h1>
                 <div className="d-flex flex-column align-items-center">
-                    {goals.map((goal, index) => (
-                        <div key={goal.id} className={`d-flex align-items-center ${index < goals.length - 1 ? 'mb-3' : ''}`}>
+                    {goals.length > 0 && goals.map((goal, index) => (
+                        <div key={goal._id} className={`d-flex align-items-center ${index < goals.length - 1 ? 'mb-3' : ''}`}>
                             <div className={`${styles.circle} ${getStatusClass(goal.status)}`}>
                                 {index + 1}
                             </div>

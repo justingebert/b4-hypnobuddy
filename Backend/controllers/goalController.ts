@@ -6,11 +6,12 @@ import { isValid, parseISO } from 'date-fns';
 
 /**
  * Extracts the goal parameters from the request body
- * @param body - request body containing { userID, title, description, status, dueDate, isSubGoal, parentGoalId, subGoals }
+ * @param request - request body containing { userID, title, description, status, dueDate, isSubGoal, parentGoalId, subGoals }
  */
-export const getGoalParams = body => {
-    return {
-        userID: body.userID,
+export const getGoalParams = request => {
+    //TODO redo when frontend form is set up
+    /*return {
+        userID: request.user._id,
         title: body.title,
         description: body.description,
         status: body.status,
@@ -18,7 +19,18 @@ export const getGoalParams = body => {
         isSubGoal: body.isSubGoal,
         parentGoalId: body.parentGoalId,
         subGoals: body.subGoals
-    };
+    };*/
+
+    return {
+        userID: request.user._id,
+        title: request.body.title,
+        description: request.body.description,
+        status: request.body.status,
+        dueDate: request.body.dueDate,
+        isSubGoal: false,
+        parentGoalId: null,
+        subGoals: []
+    }
 }
 
 /**
@@ -95,6 +107,7 @@ export const validate = [
 
 /**
  * Creates a new goal and saves it to the database
+ * -
  * - userID saved within the goal document
  * - goalID saved within the user document
  * @param req {body: { userID, title, description, status, dueDate, isSubGoal, parentGoalId, subGoals }}
@@ -106,7 +119,7 @@ export async function createGoal (req, res, next) {
         return next();
     }
     try {
-        const newRoadmapGoal = new RoadmapGoal(getGoalParams(req.body));
+        const newRoadmapGoal = new RoadmapGoal(getGoalParams(req));
         const savedRoadmapGoal = await newRoadmapGoal.save();
         await User.findOneAndUpdate({ _id: savedRoadmapGoal.userID }, { $push: { goalIDs: savedRoadmapGoal._id } });
         return res.json({
@@ -116,7 +129,6 @@ export async function createGoal (req, res, next) {
             redirect: '/',
         });
 
-        next();
 
     }catch (error){
         console.error('Error creating roadmap goal:', error);
@@ -133,11 +145,12 @@ export async function createGoal (req, res, next) {
  * @param next
  */
 export async function getAllGoals(req, res, next) {
+    console.log(req.body)
     if (req.skip) {
         return next();
     }
     try {
-        const goals = await RoadmapGoal.find({ userID: req.body.userID });
+        const goals = await RoadmapGoal.find({ userID: req.user._id });
         return res.json({
             success: true,
             message: 'Successfully retrieved goals',
@@ -145,7 +158,6 @@ export async function getAllGoals(req, res, next) {
             redirect: '/',
         });
 
-        next();
 
     } catch (error) {
         console.error('Error getting all roadmap goals:', error);
@@ -174,7 +186,6 @@ export async function getGoal(req, res, next) {
             redirect: '/',
         });
 
-        next();
 
     } catch (error) {
         console.error('Error getting roadmap goal:', error);
