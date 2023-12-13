@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import { FlashProvider } from './contexts/FlashContext';
 import { AuthProvider, useAuth } from "./contexts/AuthContext.tsx";
 import './styles/App.css';
@@ -42,8 +43,9 @@ function App() {
                     }/>
                     <Route path="*" element={<h1>Not Found</h1>} />
                     {/* Add other routes here */}
+                    {/* Add other routes here */}
                 </Routes>
-
+                <Footer/>
             </Router>
         </FlashProvider>
     );

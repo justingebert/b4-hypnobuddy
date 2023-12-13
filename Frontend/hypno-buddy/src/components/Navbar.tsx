@@ -3,8 +3,12 @@ import LogoutButton from './LogoutButton';
 import Logo from '../assets/hb.svg';
 import styles from '../styles/Navbar.module.css';
 import { useAuth } from "../contexts/AuthContext.tsx";
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
-const Navbar = () => {
+const NavbarComponent = () => {
     const { isAuthenticated, user, handleLogout } = useAuth();
     const navigate = useNavigate();
     const handleLogoutClick = async () => {
@@ -12,47 +16,38 @@ const Navbar = () => {
         navigate("/");
         // You may also add a redirect here if needed
     };
-
     return (
-
-        <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top">
-            <div className="container-fluid">
-                <Link to="/" className={styles.logoLink}>
+        <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary navbar-nav1" sticky="top" bg="dark" data-bs-theme="dark" >
+            <Container>
+                <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">
                     <img src={Logo} alt="logo" className={styles.logo} />
-                    <h1 className={styles.title}>Hypno Buddy</h1>
-                </Link>
-
-                <button
-                    className="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarNavDropdown"
-                    aria-controls="navbarNavDropdown"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                >
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-
-                <div className="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul className="navbar-nav">
-                        <li className="nav-item">
-                            <Link to="/" className="nav-link active" aria-current="page">
-                                Home
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="/features" className="nav-link">
-                                Features
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="/roadmap" className="nav-link">
+                    <h3>Hypno Buddy</h3>
+                </Navbar.Brand>
+                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                <Navbar.Collapse id="responsive-navbar-nav">
+                    <Nav className="me-auto">
+                        <Nav.Link href="/" className="nav-link active" aria-current="page">
+                            Home
+                        </Nav.Link>
+                        <NavDropdown title="Feature" id="collapsible-nav-dropdown">
+                            <NavDropdown.Item href="/dosanddonts" className={styles.navLink}>
+                                Dos&Donts
+                            </NavDropdown.Item>
+                            <NavDropdown.Item href="/roadmap" className={styles.navLink}>
                                 Roadmap
-                            </Link>
-                        </li>
-
-                        <li className="nav-item dropdown">
+                            </NavDropdown.Item>
+                            <NavDropdown.Divider />
+                            <NavDropdown.Item href="#action/3.4">
+                                Separated link
+                            </NavDropdown.Item>
+                        </NavDropdown>
+                        <Nav.Link href="/profile">Profil</Nav.Link>
+                    </Nav>
+                    <Nav>
+                        <Navbar.Text>
+                            Signed in as: <a href="/login">XXX</a>
+                        </Navbar.Text>
+                        <Nav.Link href="#deets">
                             {isAuthenticated && user ? (
                                 <>
                                     <Link to="/dosanddonts" className={styles.navLink}>Dos&Donts</Link>
@@ -64,39 +59,14 @@ const Navbar = () => {
                                 </>
                             ) : (
                                 <>
-                                    <Link to="/login" className={styles.navLink}>
-                                        Login
-                                    </Link>
-                                    <Link to="/register" className={styles.navLink}>
-                                        Register
-                                    </Link>
+                                    <Link to="/login" className={styles.navLink}>Login</Link>
                                 </>
                             )}
-
-                            {/* Dropdown-Elemente */}
-                            <ul className="dropdown-menu">
-                                <li>
-                                    <Link to="/action" className="dropdown-item">
-                                        Action
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to="/another-action" className="dropdown-item">
-                                        Another Action
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to="/something-else" className="dropdown-item">
-                                        Something Else Here
-                                    </Link>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+                        </Nav.Link>
+                    </Nav>
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
     );
 };
-
-export default Navbar;
+export default NavbarComponent;
