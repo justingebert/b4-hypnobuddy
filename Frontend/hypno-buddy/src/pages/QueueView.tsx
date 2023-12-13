@@ -7,7 +7,7 @@ import {useGoals} from "../contexts/GoalContext.tsx"; // Assuming you have a for
 
 const QueueView: React.FC = () => {
 
-    const { goals, setGoals, addGoal, fetchGoals, createGoal } = useGoals();
+    const { goals, setGoals, fetchGoals, createGoal, updateGoal, deleteGoal } = useGoals();
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [editingGoal, setEditingGoal] = useState<RoadmapGoal | null>(null);
@@ -19,19 +19,16 @@ const QueueView: React.FC = () => {
         fetchGoals
     }, []);
 
-    const handleCreateGoal = async (goalData: RoadmapGoal) => {
-        //TODO connect Backend
-
-        if (editingGoal) {
-            // Updating an existing goal
-            const updatedGoals = goals.map(goal => goal.id === editingGoal.id ? { ...goal, ...goalData } : goal);
-            setGoals(updatedGoals);
-        } else {
-            console.log(goalData)
-            await createGoal(goalData)
-        }
+    const handleCreateNewGoal = async (goalData: RoadmapGoal) => {
+        await createGoal(goalData);
         setShowCreateModal(false);
-        setEditingGoal(null); // Reset editing state
+    };
+
+    const handleUpdateGoal = async (updatedGoalData: RoadmapGoal) => {
+        // Assuming updateGoal is a function available from useGoals that updates the goal
+        await updateGoal(editingGoal.id, updatedGoalData);
+        setEditingGoal(null);
+        setShowCreateModal(false);
     };
 
     const handleEditGoal = (goal: RoadmapGoal) => {
@@ -67,7 +64,7 @@ const QueueView: React.FC = () => {
                 {showCreateModal && (
                     <GoalCreateForm
                         goalData={editingGoal}
-                        onSave={handleCreateGoal}
+                        onSave={editingGoal ? handleUpdateGoal : handleCreateNewGoal}
                         onClose={() => setShowCreateModal(false)}
                     />
                 )}

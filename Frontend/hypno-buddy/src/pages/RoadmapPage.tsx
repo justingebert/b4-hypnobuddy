@@ -15,7 +15,7 @@ function RoadmapPage() {
 
     useEffect(() => {
         fetchGoals()
-    });
+    },[]);
 
 
     const handleAddGoal = async () => {

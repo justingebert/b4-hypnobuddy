@@ -145,7 +145,6 @@ export async function createGoal (req, res, next) {
  * @param next
  */
 export async function getAllGoals(req, res, next) {
-    console.log(req.body)
     if (req.skip) {
         return next();
     }
