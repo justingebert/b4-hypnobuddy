@@ -9,6 +9,7 @@ goalRouter.get('/:goalId', goalController.getGoal);
 goalRouter.post('/delete/:goalId', goalController.deleteGoal)
 goalRouter.post('/update/:goalId', goalController.updateGoal)
 goalRouter.post('/reorder', goalController.updateGoalOrder)
+goalRouter.post('/createSubGoal', goalController.createSubGoal)
 
 
 

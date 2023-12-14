@@ -275,3 +275,41 @@ export async function updateGoalOrder(req, res, next) {
         next();
     }
 }
+
+/**
+ * Creates a new subgoal and attaches it to a parent goal
+ * @param req - Express request object
+ * @param res - Express response object
+ */
+async function createSubGoal(req, res) {
+    try {
+        const { title, description, status, parentGoalId } = req.body;
+
+        // Create a new subgoal
+        const newSubgoal = new RoadmapGoal({
+            title,
+            description,
+            status,
+            isSubGoal: true,
+            parentGoalId,
+        });
+
+        const savedSubgoal = await newSubgoal.save();
+
+        // Optionally, update the parent goal to include this subgoal's ID
+        await RoadmapGoal.findByIdAndUpdate(
+            parentGoalId,
+            { $push: { subGoals: savedSubgoal._id } },
+            { new: true }
+        );
+
+        res.status(201).json({
+            success: true,
+            message: 'Subgoal successfully created',
+            subgoal: savedSubgoal
+        });
+    } catch (error) {
+        console.error('Error creating subgoal:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 
-function GoalItem({ goal, onEdit, onDelete }) {
+function GoalItem({ goal, onEdit, onDelete, onCreateSubGoal }) {
     return (
         <div className="card mb-3">
             <div className="card-body">
@@ -8,6 +8,7 @@ function GoalItem({ goal, onEdit, onDelete }) {
                 <p className="card-text">{goal.description}</p>
                 <button className="btn btn-primary mr-2" onClick={() => onEdit(goal)}>Edit</button>
                 <button className="btn btn-danger" onClick={() => onDelete(goal._id)}>Delete</button>
+                <button className="btn btn-secondary" onClick={() => onCreateSubGoal(goal._id)}>Create Subgoal</button>
             </div>
         </div>
     );

@@ -7,7 +7,7 @@ import {useGoals} from "../contexts/GoalContext.tsx"; // Assuming you have a for
 
 const QueueView: React.FC = () => {
 
-    const { goals, setGoals, fetchGoals, createGoal, updateGoal, deleteGoal, updateGoalOrder } = useGoals();
+    const { goals, setGoals, fetchGoals, createGoal, updateGoal, deleteGoal, updateGoalOrder, createSubGoal } = useGoals();
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [editingGoal, setEditingGoal] = useState<RoadmapGoal | null>(null);
@@ -55,6 +55,20 @@ const QueueView: React.FC = () => {
         setGoals(reorderedGoals);
     };
 
+    const handleCreateSubGoal = async (parentGoalId: string) => {
+        // Initialize a new subgoal with the parentGoalId
+        const newSubGoal = {
+            title: '', // Default title or prompt for input
+            description: '', // Default description or prompt for input
+            status: 'Not Started', // Default status
+            parentGoalId: parentGoalId,
+            isSubGoal: true,
+        };
+        setEditingGoal(newSubGoal);
+        setShowCreateModal(true);
+        await createSubGoal(subGoalData);
+    }
+
     const goToRoadmap = () => {
         navigate('/roadmap');
     }
@@ -63,7 +77,7 @@ const QueueView: React.FC = () => {
         <>
             <div className="container my-4">
                 <h1 className="mb-3">Goals Queue</h1>
-                <QueueList goals={goals} onReorder={onReorder} onEdit={handleEditGoal} onDelete={handleDeleteGoal}/>
+                <QueueList goals={goals} onReorder={onReorder} onEdit={handleEditGoal} onDelete={handleDeleteGoal} onCreateSubGoal={handleCreateSubGoal}/>
                 <button className="btn btn-success mt-3" onClick={() => setShowCreateModal(true)}>Create Goal</button>
 
                 {showCreateModal && (

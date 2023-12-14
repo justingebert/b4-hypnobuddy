@@ -11,6 +11,7 @@ interface GoalsContextType {
     deleteGoal: (goalId: string) => Promise<void>;
     updateGoal: (goalId: string, updatedData: RoadmapGoal) => Promise<void>;
     updateGoalOrder: (newOrder: string[]) => Promise<void>
+    createSubGoal: (subGoalData: { title: string; description: string; status: string; parentGoalId: string }) => Promise<void>;
 }
 
 const GoalsContext = createContext<GoalsContextType | undefined>(undefined);
@@ -151,8 +152,33 @@ export const GoalsProvider: React.FC = ({ children }) => {
         }
     }, []);
 
+    const createSubGoal = useCallback(async (subGoalData: { title: string; description: string; status: string; parentGoalId: string }) => {
+        try {
+            const response = await fetch('http://localhost:3000/goal/createSubGoal', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+                body: JSON.stringify(subGoalData),
+            });
+
+            if (response.ok) {
+                const newSubGoal = await response.json();
+                setGoals(prevGoals => [...prevGoals, newSubGoal.goal]);
+                // Optionally, you can also handle adding this subgoal under its parent goal in your local state
+            } else {
+                // Handle HTTP errors
+                console.error('Failed to create subgoal:', response.status);
+            }
+        } catch (error) {
+            // Handle network errors
+            console.error('Error creating subgoal:', error);
+        }
+    }, []);
+
     return (
-        <GoalsContext.Provider value={{ goals, setGoals, addGoal, fetchGoals, createGoal, deleteGoal, updateGoal, updateGoalOrder }}>
+        <GoalsContext.Provider value={{ goals, setGoals, addGoal, fetchGoals, createGoal, deleteGoal, updateGoal, updateGoalOrder, createSubGoal }}>
             {children}
         </GoalsContext.Provider>
     );
