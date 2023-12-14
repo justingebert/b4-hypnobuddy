@@ -158,11 +158,29 @@ export async function logout(req, res, next) {
  */
 export async function currentUser(req, res, next) {
     if (req.isAuthenticated()) {
-        // Assuming req.user holds the authenticated user information
-        res.json({
-            isAuthenticated: true,
-            user: req.user
-        });
+        // // Assuming req.user holds the authenticated user information
+        // res.json({
+        //     isAuthenticated: true,
+        //     user: req.user
+        // });
+
+
+        //for tests
+        try {
+            const user = await User.findById(req.user._id)
+                .populate('patients')  // Populate 'patients' field if the user is a therapist
+                .populate('therapist'); // Populate 'therapist' field if the user is a patient
+
+            res.json({
+                isAuthenticated: true,
+                user: user
+            });
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+            res.status(500).json({ isAuthenticated: true, error: "Failed to fetch user data" });
+        }
+
+
     } else {
         res.json({ isAuthenticated: false });
     }
