@@ -259,6 +259,7 @@ export async function updateGoalOrder(req, res, next) {
     if (req.skip) {
         return next();
     }
+    console.log(req.body)
     try {
         const { goalIDs } = req.body;
         await User.findOneAndUpdate({ _id: req.user._id }, { goalIDs: goalIDs });

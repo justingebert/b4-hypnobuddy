@@ -29,7 +29,7 @@ const QueueView: React.FC = () => {
      * @param updatedGoalData
      */
     const handleUpdateGoal = async (updatedGoalData: RoadmapGoal) => {
-        await updateGoal(editingGoal.id, updatedGoalData);
+        await updateGoal(editingGoal._id, updatedGoalData);
         setEditingGoal(null);
         setShowCreateModal(false);
     };
@@ -45,12 +45,12 @@ const QueueView: React.FC = () => {
 
     const handleDeleteGoal = async (goalId: string) => {
         await deleteGoal(goalId); // Call the deleteGoal function from the context
-        setGoals(goals.filter(goal => goal.id !== goalId)); // Update local state to remove the deleted goal
+        setGoals(goals.filter(goal => goal._id !== goalId)); // Update local state to remove the deleted goal
     };
 
 
     const onReorder = async (reorderedGoals: RoadmapGoal[]) => {
-        await updateGoalOrder(reorderedGoals.map(goal => goal.id));
+        await updateGoalOrder(reorderedGoals.map(goal => goal._id));
         // Update the goals state with the new order
         setGoals(reorderedGoals);
     };
