@@ -15,8 +15,8 @@ const QueueView: React.FC = () => {
 
     const navigate = useNavigate();
 
-    useEffect(() => {
-        fetchGoals
+    useEffect( () => {
+        fetchGoals()
     }, []);
 
     const handleCreateNewGoal = async (goalData: RoadmapGoal) => {
@@ -49,14 +49,13 @@ const QueueView: React.FC = () => {
     };
 
 
-    const onReorder = (reorderedGoals: RoadmapGoal[]) => {
-        // Update the goals state with the new order
+    const onReorder = async (reorderedGoals: RoadmapGoal[]) => {
         await updateGoalOrder(reorderedGoals.map(goal => goal.id));
+        // Update the goals state with the new order
         setGoals(reorderedGoals);
     };
 
     const goToRoadmap = () => {
-        // Navigate to roadmap view
         navigate('/roadmap');
     }
 

@@ -192,3 +192,85 @@ export async function getGoal(req, res, next) {
         next();
     }
 }
+
+export async function deleteGoal(req, res, next) {
+    if (req.skip) {
+        return next();
+    }
+    try {
+        const goalId = req.params.goalId;
+
+        const deletedGoal = await RoadmapGoal.findByIdAndDelete(goalId);
+        if (!deletedGoal) {
+            return res.status(404).json({ error: 'Goal not found' });
+        }
+
+        //update the User to remove the goalID
+        await User.updateOne({ _id: deletedGoal.userID }, { $pull: { goalIDs: deletedGoal._id } });
+
+        return res.json({
+            success: true,
+            message: 'Successfully deleted goal',
+            redirect: '/'
+        });
+    } catch (error) {
+        console.error('Error deleting goal:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+        next();
+    }
+}
+
+
+export async function updateGoal(req, res, next) {
+    if (req.skip) {
+        return next();
+    }
+    try {
+        const goalId = req.params.goalId;
+        const updatedData = req.body;
+
+        const updatedGoal = await RoadmapGoal.findByIdAndUpdate(goalId, updatedData, { new: true });
+        if (!updatedGoal) {
+            return res.status(404).json({ error: 'Goal not found' });
+        }
+
+        return res.json({
+            success: true,
+            message: 'Successfully updated goal',
+            goal: updatedGoal,
+            redirect: '/'
+        });
+    } catch (error) {
+        console.error('Error updating goal:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+        next();
+    }
+}
+
+
+/**
+ * Updates the order of goals for a user
+ * - route: POST /goal/reorder
+ * @param req {body: { goalIDs }}
+ * @param res {success: true, message: 'Successfully updated goal order', redirect: '/'}
+ * @param next
+ */
+export async function updateGoalOrder(req, res, next) {
+    if (req.skip) {
+        return next();
+    }
+    try {
+        const { goalIDs } = req.body;
+        await User.findOneAndUpdate({ _id: req.user._id }, { goalIDs: goalIDs });
+
+        return res.json({
+            success: true,
+            message: 'Successfully updated goal order',
+            redirect: '/',
+        });
+    } catch (error) {
+        console.error('Error updating goal order:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+        next();
+    }
+}

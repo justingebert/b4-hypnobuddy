@@ -7,7 +7,7 @@ function GoalItem({ goal, onEdit, onDelete }) {
                 <h5 className="card-title">{goal.title}</h5>
                 <p className="card-text">{goal.description}</p>
                 <button className="btn btn-primary mr-2" onClick={() => onEdit(goal)}>Edit</button>
-                <button className="btn btn-danger" onClick={() => onDelete(goal.id)}>Delete</button>
+                <button className="btn btn-danger" onClick={() => onDelete(goal._id)}>Delete</button>
             </div>
         </div>
     );
