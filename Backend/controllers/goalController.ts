@@ -140,7 +140,7 @@ export async function createGoal (req, res, next) {
 /**
  * Gets all goals for a given user
  * - route: GET /goal/getAll
- * @param req {body: { userID }}
+ * @param req
  * @param res {success: true, message: 'Successfully retrieved goals', goals: goals, redirect: '/'}
  * @param next
  */
@@ -167,7 +167,7 @@ export async function getAllGoals(req, res, next) {
 
 /**
  * Gets a goal by ID
- * - route: GET /goal/get/:goalId
+ * - route: GET /goal/:goalId
  * @param req
  * @param res {success: true, message: 'Successfully retrieved goal', goal: goal, redirect: '/'}
  * @param next
@@ -178,6 +178,9 @@ export async function getGoal(req, res, next) {
     }
     try {
         const goal = await RoadmapGoal.findById(req.params.goalId);
+        if(!goal){
+            return res.status(404).json({error: 'Goal not found'});
+        }
         return res.json({
             success: true,
             message: 'Successfully retrieved goal',
@@ -281,7 +284,7 @@ export async function updateGoalOrder(req, res, next) {
  * @param req - Express request object
  * @param res - Express response object
  */
-async function createSubGoal(req, res) {
+export async function createSubGoal(req, res) {
     try {
         const { title, description, status, parentGoalId } = req.body;
 

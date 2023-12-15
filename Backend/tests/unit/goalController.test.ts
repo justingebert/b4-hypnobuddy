@@ -17,7 +17,7 @@ async function registerTestUser(email, password, role = 'patient') {
     await User.register(newUser, password);
 }
 
-async function loginUserAndGetUser(email, password) {
+async function loginUserAndGetUserCookie(email, password) {
     const loginResponse = await request(app)
         .post('/user/login')
         .send({ email: email, password: password });
@@ -26,7 +26,14 @@ async function loginUserAndGetUser(email, password) {
         throw new Error('Failed to log in user for test');
     }
 
-    const userCookie = loginResponse.headers['set-cookie'];
+    return loginResponse.headers['set-cookie'];
+
+}
+
+async function loginUserAndGetUser(email, password) {
+
+    const userCookie = await loginUserAndGetUserCookie(email, password);
+
     const response = await request(app)
         .get('/user/currentUser')
         .set('Cookie', userCookie);
@@ -36,6 +43,22 @@ async function loginUserAndGetUser(email, password) {
     }
 
     return response.body.user;
+}
+
+async function saveExampleGoal(userID){
+    const goal = new RoadmapGoal({
+        userID: userID,
+        title: 'Sample Goal',
+        description: 'Sample description',
+        status: 'not_started',
+        dueDate: '2023-01-01',
+        isSubGoal: false,
+        parentGoalId: null,
+        subGoals: [],
+    });
+
+    await goal.save();
+    return goal;
 }
 
 async function cleanDatabase() {
@@ -197,3 +220,93 @@ describe('Goal Creation', () => {
     });
 
 });
+
+describe('Getting all goals of a given user', () => {
+    const exampleLogin = {email: 'john@example.com', password: '123456'};
+
+    let userCookie;
+    let user;
+    let goal;
+
+    beforeAll(async () => {
+        await registerTestUser(exampleLogin.email, exampleLogin.password);
+        userCookie = await loginUserAndGetUserCookie(exampleLogin.email, exampleLogin.password);
+        user = await loginUserAndGetUser(exampleLogin.email, exampleLogin.password);
+        goal = await saveExampleGoal(user._id);
+    });
+
+    afterAll(cleanDatabase);
+
+    it('should return all goals of user', async () => {
+        const response = await request(app)
+            .get('/goal/getAll')
+            .set('Cookie', userCookie)
+            .send();
+
+        expect(response.status).toBe(200);
+        expect(response.body.success).toBeTruthy();
+        expect(response.body.message).toContain('Successfully retrieved goal');
+        expect(response.body.goals).toBeDefined();
+        expect(response.body.goals.length).toBe(1);
+        expect(response.body.goals[0]._id).toBe(goal._id.toString());
+
+    });
+
+    it('should return an empty array if the user has no goals', async () => {
+        await RoadmapGoal.deleteMany({});
+        const response = await request(app)
+            .get('/goal/getAll')
+            .set('Cookie', userCookie)
+            .send();
+
+        expect(response.status).toBe(200);
+        expect(response.body.success).toBeTruthy();
+        expect(response.body.message).toContain('Successfully retrieved goal');
+        expect(response.body.goals).toBeDefined();
+        expect(response.body.goals.length).toBe(0);
+        expect(response.body.goals).toEqual([]);
+    });
+
+});
+
+describe('Getting a goal by ID', () => {
+    const exampleLogin = {email: 'john@example.com', password: '123456'};
+
+    let user;
+    let goal;
+
+    beforeAll(async () => {
+        await registerTestUser(exampleLogin.email, exampleLogin.password);
+        user = await loginUserAndGetUser(exampleLogin.email, exampleLogin.password);
+        goal = await saveExampleGoal(user._id);
+    });
+
+    afterAll(cleanDatabase);
+
+
+    it('should return the goal with the given ID', async () => {
+        const response = await request(app)
+            .get(`/goal/${goal._id}`)
+            .send();
+
+        expect(response.status).toBe(200);
+        expect(response.body.success).toBeTruthy();
+        expect(response.body.message).toContain('Successfully retrieved goal');
+        expect(response.body.goal).toBeDefined();
+        expect(response.body.goal._id).toBe(goal._id.toString());
+    });
+
+    it('should handle invalid goal ID', async () => {
+        const invalidGoalId = '1234567f8912345678912345';
+        const response = await request(app)
+            .get(`/goal/${invalidGoalId}`)
+
+        expect(response.status).toBe(404);
+        expect(response.body.error).toBe('Goal not found');
+    });
+});
+
+
+
+
+
