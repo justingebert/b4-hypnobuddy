@@ -306,6 +306,52 @@ describe('Getting a goal by ID', () => {
     });
 });
 
+describe('Deleting a goal', () => {
+    const exampleLogin = {email: 'john@example.com', password: '123456'};
+    let user;
+    let goal;
+
+    beforeAll(async () => {
+        await registerTestUser(exampleLogin.email, exampleLogin.password);
+        user = await loginUserAndGetUser(exampleLogin.email, exampleLogin.password);
+        goal = await saveExampleGoal(user._id);
+    });
+
+    afterAll(cleanDatabase);
+
+    it ('should delete a the goal from db', async () => {
+        const deleteResponse = await request(app)
+            .post(`/goal/delete/${goal._id}`)
+            .send();
+
+        const goalFromDb = await RoadmapGoal.findById(goal._id);
+
+        expect(deleteResponse.status).toBe(200);
+        expect(deleteResponse.body.success).toBeTruthy();
+        expect(deleteResponse.body.message).toContain('Successfully deleted goal');
+        expect(goalFromDb).toBeNull();
+    });
+
+    it('should remove the goalID from the user document', async () => {
+        await request(app)
+            .post(`/goal/delete/${goal._id}`)
+            .send();
+
+        const userFromDb = await User.findById(user._id);
+
+        expect(userFromDb.goalIDs).not.toContain(goal._id);
+    });
+
+    it('should handle invalid goal ID', async () => {
+        const invalidGoalId = '1234567f8912345678912345';
+        const response = await request(app)
+            .post(`/goal/delete/${invalidGoalId}`)
+
+        expect(response.status).toBe(404);
+        expect(response.body.error).toBe('Goal not found');
+    });
+});
+
 
 
 
