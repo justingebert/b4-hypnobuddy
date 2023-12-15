@@ -149,14 +149,23 @@ export async function getAllGoals(req, res, next) {
         return next();
     }
     try {
-        const goals = await RoadmapGoal.find({ userID: req.user._id });
+        //get order of goals form user document
+        const goalIDs = await User.findOne({ _id: req.user._id }).select('goalIDs');
+        //add goals in the correct order to the goals array
+        const goals = [];
+        for (const goalID of goalIDs.goalIDs) {
+            const goal = await RoadmapGoal.findOne({ _id: goalID });
+            if (goal) {
+                goals.push(goal);
+            }
+        }
+
         return res.json({
             success: true,
             message: 'Successfully retrieved goals',
             goals: goals,
             redirect: '/',
         });
-
 
     } catch (error) {
         console.error('Error getting all roadmap goals:', error);
@@ -254,7 +263,7 @@ export async function updateGoal(req, res, next) {
 /**
  * Updates the order of goals for a user
  * - route: POST /goal/reorder
- * @param req {body: { goalIDs }}
+ * @param req - {body: { goalIDs }} - goalIDs is an array of goalIDs in the new order
  * @param res {success: true, message: 'Successfully updated goal order', redirect: '/'}
  * @param next
  */
@@ -262,7 +271,7 @@ export async function updateGoalOrder(req, res, next) {
     if (req.skip) {
         return next();
     }
-    console.log(req.body)
+
     try {
         const { goalIDs } = req.body;
         await User.findOneAndUpdate({ _id: req.user._id }, { goalIDs: goalIDs });

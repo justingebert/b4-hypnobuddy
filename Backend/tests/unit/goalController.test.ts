@@ -46,6 +46,7 @@ async function loginUserAndGetUser(email, password) {
 }
 
 async function saveExampleGoal(userID){
+
     const goal = new RoadmapGoal({
         userID: userID,
         title: 'Sample Goal',
@@ -56,8 +57,10 @@ async function saveExampleGoal(userID){
         parentGoalId: null,
         subGoals: [],
     });
-
     await goal.save();
+
+    await User.findOneAndUpdate({ _id: goal.userID }, { $push: { goalIDs: goal._id } });
+
     return goal;
 }
 
@@ -349,6 +352,79 @@ describe('Deleting a goal', () => {
 
         expect(response.status).toBe(404);
         expect(response.body.error).toBe('Goal not found');
+    });
+});
+
+describe('Updating a goal', () => {
+    const exampleLogin = {email: 'john@example.com', password: '123456'};
+    let user;
+    let goal;
+
+    beforeAll(async () => {
+        await registerTestUser(exampleLogin.email, exampleLogin.password);
+        user = await loginUserAndGetUser(exampleLogin.email, exampleLogin.password);
+        goal = await saveExampleGoal(user._id);
+    });
+
+    afterAll(cleanDatabase);
+
+    it('should update the goal', async () => {
+        const updateResponse = await request(app)
+            .post(`/goal/update/${goal._id}`)
+            .send({title: 'Updated Title', description: 'Updated Description'});
+
+        expect(updateResponse.status).toBe(200);
+        expect(updateResponse.body.success).toBeTruthy();
+        expect(updateResponse.body.message).toContain('Successfully updated goal');
+        expect(updateResponse.body.goal).toBeDefined();
+        expect(updateResponse.body.goal.title).toBe('Updated Title');
+        expect(updateResponse.body.goal.description).toBe('Updated Description');
+    });
+
+    it('should handle invalid goal ID', async () => {
+        const invalidGoalId = '1234567f8912345678912345';
+        const response = await request(app)
+            .post(`/goal/update/${invalidGoalId}`)
+
+        expect(response.status).toBe(404);
+        expect(response.body.error).toBe('Goal not found');
+    });
+});
+
+describe('Reordering goals', () => {
+    const exampleLogin = {email: 'john@example.com', password: '123456'};
+    let userCookie;
+    let user;
+    let goal1
+    let goal2;
+
+    beforeAll(async () => {
+        await registerTestUser(exampleLogin.email, exampleLogin.password);
+        userCookie = await loginUserAndGetUserCookie(exampleLogin.email, exampleLogin.password);
+        user = await loginUserAndGetUser(exampleLogin.email, exampleLogin.password);
+        goal1 = await saveExampleGoal(user._id);
+        goal2 = await saveExampleGoal(user._id);
+    });
+
+    afterAll(cleanDatabase);
+
+    it('should reorder the goals', async () => {
+        const reorderResponse = await request(app)
+            .post(`/goal/reorder`)
+            .set('Cookie', userCookie)
+            .send({goalIDs: [goal2._id, goal1._id]});
+
+        expect(reorderResponse.status).toBe(200);
+        expect(reorderResponse.body.success).toBeTruthy();
+        expect(reorderResponse.body.message).toContain('Successfully updated goal order');
+
+        const goalListResponse = await request(app)
+            .get('/goal/getAll')
+            .set('Cookie', userCookie)
+            .send();
+
+        expect(goalListResponse.body.goals[0]._id.toString()).toBe(goal2._id.toString());
+        expect(goalListResponse.body.goals[1]._id.toString()).toBe(goal1._id.toString());
     });
 });
 
