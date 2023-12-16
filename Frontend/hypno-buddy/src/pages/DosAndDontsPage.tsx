@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import { Fear } from '../../../../Backend/data/model/fearModel.ts';
 import DeleteConfirmationModal from '../components/DeleteConfirmationModal';
 import styles from '../styles/TherapistCard.module.css';
+import {FlashContext} from "../contexts/FlashContext.tsx";
 
 function DosAndDontsPage() {
   const navigate = useNavigate();
+  const { flash } = useContext(FlashContext);
   const [fears, setFears] = useState<Fear[]>([]);
   const [isDeleteMode, setIsDeleteMode] = useState(false);
   const [selectedFearId, setSelectedFearId] = useState<string | null>(null);
@@ -37,6 +39,7 @@ function DosAndDontsPage() {
 
       // Remove the closed fear from the state
       setFears((prevFears) => prevFears.filter((fear) => fear._id !== fearId));
+      flash('Fear deleted successfully!');
     } catch (error) {
       console.error('Error closing fear:', error);
     }
