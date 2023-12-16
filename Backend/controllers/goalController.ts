@@ -281,7 +281,7 @@ export async function updateGoalOrder(req, res, next) {
  * @param req - Express request object
  * @param res - Express response object
  */
-async function createSubGoal(req, res) {
+export async function createSubGoal(req, res) {
     try {
         const { title, description, status, parentGoalId } = req.body;
 

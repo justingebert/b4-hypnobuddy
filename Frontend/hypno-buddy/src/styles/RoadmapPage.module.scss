@@ -1,16 +1,69 @@
+.timeline {
+  position: relative;
+  max-width: 1200px;
+  margin: 100px auto;
+}
+
+.timeline::after {
+  content: '';
+  position: absolute;
+  width: 4px;
+  background-color: rgba(105, 105, 105, 0.68);
+  border-radius: 6px;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -3px;
+}
+
+@mixin section{
+  position: relative;
+  padding: 10px 50px;
+  width: 50%;
+}
+
+.sectionLeft{
+  @include section;
+  left: 0;
+}
+
+.sectionRight{
+  @include section;
+  left: 50%;
+
+    .circle{
+      left: -20px;
+    }
+}
+
 @mixin circle($size, $color: #ccc) {
+  position: absolute;
   width: $size;
   height: $size;
   border-radius: 50%;
+  top: 32px;
+  right: -20px;
+  z-index: 10;
   background-color: $color;
+
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .circle {
-  @include circle(50px); // Example size
+  @include circle(40px); // Example size
 
   // Additional styling specific to the circle
   // e.g., colors based on status, border, etc.
 }
+
+.textbox{
+  position: relative;
+  padding: 20px 30px;
+  background: #fff;
+  border-radius: 6px;
+  //border: 1px solid #ccc;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
