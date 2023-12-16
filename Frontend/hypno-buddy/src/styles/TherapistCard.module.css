@@ -1,7 +1,8 @@
 /* Custom styles for the therapist card */
 .therapistCard {
   background-color: #7945A2;
-  border-radius: 30px; 
+  border-radius: 30px;
+  width: 70%;
   color: #fff;
   padding: 20px;
   text-align: center;
@@ -95,4 +96,69 @@
 
 .editSaveButton:hover {
   background-color: #C5B6F1;
+}
+
+.cardContainer {
+  display: flex;
+  flex-wrap: wrap; /* Allow cards to wrap to the next row */
+  justify-content: space-around; /* Adjust as needed */
+
+}
+
+.card {
+  background-color: #8140a7;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  border-radius: 1rem;
+  transition: box-shadow 0.3s;
+  margin: 20px 20px 40px;
+  width: 25vw;
+  height: auto;
+  color: #FFFFFF;
+  text-align: center;
+}
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 14% 14% 10%;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+.card a {
+  color: #fff; /* Set the font color to white */
+  text-decoration: inherit;
+}
+.card a:hover {
+  color: #ccc; /* Adjust the hover color as needed */
+}
+
+.layout{
+  flex-shrink: 0;
+  background: #FFFFFF url('../assets/backgroundTF.png') no-repeat center;
+  background-size: contain;
+  margin: 5rem;
+  padding-top: 5rem;
+  padding-bottom: 3rem;
+}
+.button {
+  background-color: #8140a7;
+  color: white;
+  width: 10px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+.centerContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }

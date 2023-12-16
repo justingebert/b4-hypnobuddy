@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import { Fear } from '../../../../Backend/data/model/fearModel.ts';
 import DeleteConfirmationModal from '../components/DeleteConfirmationModal';
+import styles from '../styles/TherapistCard.module.css';
 
 function DosAndDontsPage() {
+  const navigate = useNavigate();
   const [fears, setFears] = useState<Fear[]>([]);
   const [isDeleteMode, setIsDeleteMode] = useState(false);
   const [selectedFearId, setSelectedFearId] = useState<string | null>(null);
@@ -13,7 +15,6 @@ function DosAndDontsPage() {
       try {
         const fearResponse = await fetch(`http://localhost:3000/dosAndDonts/fears`);
         const fearData = await fearResponse.json();
-        console.log('Fears data:', fearData);
 
         setFears(fearData);
       } catch (error) {
@@ -22,6 +23,10 @@ function DosAndDontsPage() {
     };
     fetchData();
   }, []);
+
+  const handleAddNewFearClick = () => {
+    navigate('/dosanddonts/t/newFear');
+  };
 
   const handleFearDelete = async (fearId: string) => {
     try {
@@ -59,31 +64,31 @@ function DosAndDontsPage() {
   };
 
   return (
-    <>
-      <div className="">
-        <div>
-          <h2>Fears</h2>
-          {fears.map((fear) => (
-            <div className="card" key={fear._id}>
-              <Link className="card-content" to={`/dosanddonts/t/${fear._id}`}>
-                {fear.name}
+    <div className={styles.layout}>
+      <h1>Do's & Dont's</h1>
+      <div className={styles.cardContainer}>
+        {fears.map((fear) => (
+            <div className={styles.card} key={fear._id}>
+              <Link className={styles.cardContent} to={`/dosanddonts/t/${fear._id}`}>
+                <h3>{fear.name}</h3>
               </Link>
               {isDeleteMode && (
-                <button
-                  onClick={() => handleDeleteButtonClick(fear._id)}
-                  className="btn btn-danger"
-                >
-                  Delete
-                </button>
+                  <button
+                    onClick={() => handleDeleteButtonClick(fear._id)}
+                    className="btn btn-danger"
+                  >
+                    <b>x</b>
+                  </button>
               )}
             </div>
-          ))}
-          <Link to="/dosanddonts/t/newFear">Add New Fear</Link>
-          <br></br>
-          <button onClick={handleDeleteModeToggle} className="btn btn-danger">
-            {isDeleteMode ? 'Exit Delete Mode' : 'Delete Fears'}
-          </button>
-        </div>
+        ))}
+      </div>
+      <div className={styles.centerContainer}>
+        <button className={styles.button} onClick={handleAddNewFearClick}><b>+</b></button>
+        <br></br>
+        <button onClick={handleDeleteModeToggle} className="btn btn-danger">
+          {isDeleteMode ? 'Exit Delete Mode' : 'Delete Fears'}
+        </button>
       </div>
       {isDeleteMode && selectedFearId && (
         <DeleteConfirmationModal
@@ -92,7 +97,7 @@ function DosAndDontsPage() {
           onConfirm={handleDeleteConfirm}
         />
       )}
-    </>
+    </div>
   );
 }
 
