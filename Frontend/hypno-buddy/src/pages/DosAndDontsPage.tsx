@@ -65,7 +65,7 @@ function DosAndDontsPage() {
 
   return (
     <div className={styles.layout}>
-      <h1>Do's & Dont's</h1>
+      <h1 className={styles.h1}>Do's & Dont's</h1>
       <div className={styles.cardContainer}>
         {fears.map((fear) => (
             <div className={styles.card} key={fear._id}>
@@ -80,6 +80,13 @@ function DosAndDontsPage() {
                     <b>x</b>
                   </button>
               )}
+              {isDeleteMode && selectedFearId === fear._id && (
+                  <DeleteConfirmationModal
+                      isOpen={isDeleteMode}
+                      onCancel={handleDeleteCancel}
+                      onConfirm={handleDeleteConfirm}
+                  />
+              )}
             </div>
         ))}
       </div>
@@ -87,16 +94,9 @@ function DosAndDontsPage() {
         <button className={styles.button} onClick={handleAddNewFearClick}><b>+</b></button>
         <br></br>
         <button onClick={handleDeleteModeToggle} className="btn btn-danger">
-          {isDeleteMode ? 'Exit Delete Mode' : 'Delete Fears'}
+          {isDeleteMode ? 'Abbrechen' : 'Angst löschen'}
         </button>
       </div>
-      {isDeleteMode && selectedFearId && (
-        <DeleteConfirmationModal
-          isOpen={isDeleteMode}
-          onCancel={handleDeleteCancel}
-          onConfirm={handleDeleteConfirm}
-        />
-      )}
     </div>
   );
 }
