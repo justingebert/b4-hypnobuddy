@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import FearPage from "./pages/FearPage.tsx";
 import NewFearPage from "./pages/NewFearPage.tsx";
+import DosAndDontsPatientPage from "./pages/DosAndDontsPatientPage.tsx";
 
 function App() {
 
@@ -29,9 +30,7 @@ function App() {
                     <Route path="/register" element={<RegisterPage />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/profile" element={<ProfilePage />} />
-                    <Route path="/dosanddonts" element={<DosAndDontsPage />} />
-                    <Route path="/dosanddonts/:fearId" element={<FearPage />} />
-                    <Route path="/dosanddonts/newFear" element={<NewFearPage />}/>
+                    <Route path="/dosanddonts//*" element={<DosAndDontsRoutes />} />
                     <Route path="/roadmap" element={<RoadmapPage />} />
                     {/* Add other routes here */}
                 </Routes>
@@ -39,6 +38,30 @@ function App() {
         </FlashProvider>
     );
 }
+function DosAndDontsRoutes() {
+    const { user } = useAuth();
+
+    if (user && user.role === 'therapist') {
+        return (
+            <Routes>
+                <Route path="/t" element={<DosAndDontsPage />} />
+                <Route path="/t/:fearId" element={<FearPage />} />
+                <Route path="/t/newFear" element={<NewFearPage />} />
+            </Routes>
+        );
+    } else if (user && user.role === 'patient') {
+        const testFearId = '65638a27e644da5ecfba94c5'; //schulangst
+        return (
+            <Routes>
+                <Route path="/p/" element={<DosAndDontsPatientPage fearId={testFearId}/>} />;
+            </Routes>
+            )
+
+    } else {
+        return null;
+    }
+}
+
 function AppWrapper() {
     return (
         <AuthProvider>

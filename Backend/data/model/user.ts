@@ -32,6 +32,19 @@ const userSchema = new mongoose.Schema({
         enum: ['patient', 'guardian', 'therapist', 'admin'],
         default: 'patient'
     },
+    therapist: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+
+    },
+    patients: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    }],
+    patientLinkingCode: {
+        type: String,
+        unique: false, //TODO should be unique except when its null
+    },
 }, {
     timestamps: true
 })
@@ -43,6 +56,7 @@ userSchema.virtual('fullName').get(function (this: any) {
 userSchema.plugin(passportLocalMongoose, {
     usernameField: 'email'
 });
+
 
 const User = mongoose.model('User', userSchema);
 export default User;

@@ -57,14 +57,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
             });
             const data = await response.json();
             if (data.isAuthenticated) {
-                return data.user;
+                setAuthState({ isAuthenticated: true, user: data.user });
+            } else {
+                setAuthState({ isAuthenticated: false, user: null });
             }
         } catch (error) {
             console.error('Error fetching auth status: ', error);
+            setAuthState({ isAuthenticated: false, user: null });
         }
     };
 
-    const handleLogin = async(email: string, password: string) : Promise<{ success: boolean, redirect: any}> => {
+    const handleLogin = async(email: string, password: string) : Promise<{ success: boolean, redirect: string, message: string}> => {
         try {
             const response = await fetch('http://localhost:3000/user/login', {
                 method: 'POST',
@@ -78,18 +81,19 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
                 credentials: 'include',
             });
             const data = await response.json();
+            console.log(data)
             if (response.ok) {
                 await updateLoginState(data.user);
                 flash(data.message);  // Display the success message from the server
-                return { success: true, redirect: data.redirect };
+                return { success: true, redirect: data.redirect, message: data.message };
             } else {
                 flash(data.message || 'An error occurred while logging in');
-                return { success: false, redirect: '/' };
+                return { success: false, redirect: '/', message: data.message };
             }
         } catch (error) {
             flash('An error occurred while logging in');
             console.error('Login error:', error);
-            return { success: false, redirect: '/' };
+            return { success: false, redirect: '/', message: 'An error occurred while logging in' };
         }
     };
 

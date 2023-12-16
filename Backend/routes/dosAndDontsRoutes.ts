@@ -12,4 +12,5 @@ dosAndDontsRouter.post('/fears', fearController.saveFear);
 dosAndDontsRouter.post('/fears/addDoAndDont', fearController.addDoAndDontToFear);
 dosAndDontsRouter.put('/dosAndDonts/:id', dosAndDontsController.updateDoAndDont);
 dosAndDontsRouter.put('/fears/:fearId', fearController.updateFearName);
+dosAndDontsRouter.delete('/fears/:fearId', dosAndDontsController.deleteFearAndDosAndDonts);
 export default dosAndDontsRouter;

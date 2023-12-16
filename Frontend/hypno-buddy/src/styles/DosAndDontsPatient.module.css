@@ -1,0 +1,115 @@
+.layout{
+    width: 99.875rem;
+    height: 100%;
+    flex-shrink: 0;
+    background: #542BD4;
+}
+.background_image{
+    background-image: url('../assets/BackgroundDaD.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 79vh;
+    width: auto;
+
+    overflow: hidden;
+}
+.background_eclipse{
+    background-image: url('../assets/Ellipse 10.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 93vh;
+    width: auto;
+    position: relative;
+
+    overflow: hidden;
+}
+.header{
+    text-align: left;
+    font-size: 1.5rem;
+    font-style: normal ;
+    font-weight: 200;
+    line-height: normal;
+
+    color: #fff;
+    margin-top: 5rem;
+    padding: 5rem;
+
+    @media (max-width: 991px) {
+        font-size: 1rem;
+    }
+
+}
+.infotext {
+    width: 821px;
+    height: 143px;
+    color: #fff;
+    text-align: center;
+    font: 400 32px Inter, sans-serif;
+    padding: 10px;
+    margin-inline: 15rem;
+}
+
+.text {
+    color: #F4E7E8;
+    text-align: center;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    width: 60.5625rem;
+    padding: 11rem;
+    margin-inline: 19rem;
+    margin-top: 10rem;
+    position: absolute;
+}
+
+.container {
+    display: flex;
+    position: relative;
+    margin-inline: 13rem;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+}
+
+.column {
+    flex: 1;
+    position: relative;
+    box-sizing: border-box;
+    color: #FFF;
+    padding-inline: 6rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    height:15rem;
+
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+
+}
+
+.rectangle {
+    position: absolute;
+    display: flex;
+    width: 31rem; /* Adjust the width to match the left column */
+    height: 100%;
+    z-index: 2;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+.inDos {
+    background: url("../assets/bunny_dont.png") center #d373d2 no-repeat;
+    background-size: 120%;
+    transform: translateX(38.5rem); /* Adjust the translation to match the width of the columns */
+}
+
+.inDonts {
+    background: url("../assets/bunny_do.png") center #d373d2 no-repeat;
+    background-size: 120%;
+    transform: translateX(0);
+}
+
+
+
+

@@ -50,7 +50,15 @@ const Navbar = () => {
                         <li className="nav-item dropdown">
                             {isAuthenticated && user ? (
                                 <>
-                                    <Link to="/dosanddonts" className={styles.navLink}>Dos&Donts</Link>
+                                    {user.role === 'therapist' ?(
+                                        <>
+                                            <Link to="/dosanddonts/t/" className={styles.navLink}>Dos&Donts</Link>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Link to="/dosanddonts/p/" className={styles.navLink}>Dos&Donts</Link>
+                                        </>
+                                    )}
                                     <Link to="/roadmap" className={styles.navLink}>Roadmap</Link>
                                     <Link to="/profile" className={styles.navLink}>
                                         <div className={styles.userEmail}>{user.name.first + " " + user.name.last}</div>

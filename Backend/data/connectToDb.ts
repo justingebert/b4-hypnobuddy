@@ -1,4 +1,7 @@
 import mongoose from "mongoose";
+import { v4 as uuidv4 } from 'uuid';
+import VerificationCode from "./model/verificationCode"; // UUID library for generating unique codes
+
 
 // connect to mongodb
 export async function connectDB() {
@@ -22,4 +25,33 @@ export async function disconnectDB() {
         console.error('Error disconnecting from MongoDB', error);
         process.exit(1);
     }
+}
+export async function ensureVerificationCodes() {
+    try{
+        const requiredCodesCount = 10;
+        const existingCodesCount = await VerificationCode.countDocuments({
+            type: 'therapistVerification',
+            used: false
+        });
+
+        const codesToGenerate = requiredCodesCount - existingCodesCount;
+
+        if (codesToGenerate > 0) {
+            const newCodes = [];
+            for (let i = 0; i < codesToGenerate; i++) {
+                newCodes.push({
+                    code: uuidv4(),
+                    type: 'therapistVerification',
+                    used: false
+                });
+            }
+
+            await VerificationCode.insertMany(newCodes);
+        }
+        console.log('Verification codes checked and generated if necessary');
+    } catch (error) {
+        console.error('Error connecting to MongoDB', error);
+        process.exit(1);
+    }
+
 }

@@ -21,7 +21,7 @@ function NewFearPage() {
             console.log(data)
 
             // Redirect to the page for the newly added fear
-            navigate(`/dosanddonts/${newFearId}`);
+            navigate(`/dosanddonts/t/${newFearId}`);
         } catch (error) {
             console.error('Error saving fear:', error);
         }
