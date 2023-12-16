@@ -3,9 +3,17 @@
   background-color: #7945A2;
   border-radius: 30px;
   width: 70%;
-  color: #fff;
+  max-width: 80vw;
+  min-height: 20rem;
+  height: 60%;
+  color: #FFFFFF;
   padding: 20px;
   text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 5% 5% 10%;
 }
 
 /* Custom styles for the therapist card title */
@@ -27,14 +35,13 @@
 }
 
 .closeButton {
-  /* background-color: #000; */
+  position: relative;
   background-color: transparent;
   border: none;
   color: #fff; 
   font-size: 2rem; 
   cursor: pointer;
-  margin: -50px;
-  margin-right: -10px;
+  margin: -50px -10px -50px -50px;
 }
 
 .therapistCardHeader {
@@ -47,12 +54,13 @@
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
+  height: auto;
 }
 
 /* Custom styles for the therapist card left and right containers */
 .therapistCardLeft,
 .therapistCardRight {
-  width: 48%;
+  width: 80%;
 }
 
 /* Custom styles for the subheading */
@@ -62,24 +70,30 @@
 
 /* Custom styles for the cream-colored text field */
 .creamTextField {
+  box-sizing: border-box;
   background-color: #F4E7E8; 
   color: #000;
-  height: auto;
-  min-height: 3em;
-  max-height: 5em;
+  min-height: 10em;
   width: 100%;
   resize: vertical;
   overflow-y: auto;
   padding: 10px;
-  margin: 0;
   box-sizing: border-box;
   line-height: 1.2;
   border-radius: 10px;
-  margin-bottom: 10px;
 }
 
 .creamTextField.editable {
   background-color: #F4E7E8;
+}
+.creamTextField textarea {
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding: 10px;
+  margin: 0;
+  box-sizing: border-box;
+  outline: none;
 }
 
 /* Custom styles for the button */
