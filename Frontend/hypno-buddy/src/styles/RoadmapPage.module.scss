@@ -13,12 +13,12 @@ $timeline-thickness: 4px;
   content: '';
   position: absolute;
   width: $timeline-thickness;
-  background-color: rgba(105, 105, 105, 0.68);
+  background-color: rgba(152, 152, 152, 0.49);
   border-radius: 6px;
   top: 0;
   bottom: 0;
   left: 50%;
-  margin-left: -$timeline-thickness/2;
+  margin-left: calc(-1* $timeline-thickness/2);
 }
 
 @mixin section{
