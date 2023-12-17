@@ -1,24 +1,29 @@
+//Variables
+$circle-size: 40px;
+$timeline-thickness: 4px;
+
 .timeline {
   position: relative;
   max-width: 1200px;
   margin: 100px auto;
 }
 
+// timeline line
 .timeline::after {
   content: '';
   position: absolute;
-  width: 4px;
+  width: $timeline-thickness;
   background-color: rgba(105, 105, 105, 0.68);
   border-radius: 6px;
   top: 0;
   bottom: 0;
   left: 50%;
-  margin-left: -3px;
+  margin-left: -$timeline-thickness/2;
 }
 
 @mixin section{
   position: relative;
-  padding: 10px 50px;
+  padding: 10px 40px;
   width: 50%;
 }
 
@@ -32,7 +37,7 @@
   left: 50%;
 
     .circle{
-      left: -20px;
+      left: -$circle-size/2;
     }
 }
 
@@ -42,9 +47,10 @@
   height: $size;
   border-radius: 50%;
   top: 32px;
-  right: -20px;
+  right: -$size/2;
   z-index: 10;
   background-color: $color;
+  color: #fff;
 
   display: flex;
   align-items: center;
@@ -52,7 +58,7 @@
 }
 
 .circle {
-  @include circle(40px); // Example size
+  @include circle($circle-size); // Example size
 
   // Additional styling specific to the circle
   // e.g., colors based on status, border, etc.
