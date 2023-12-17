@@ -1,17 +1,16 @@
-import { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useAuth } from "../contexts/AuthContext.tsx";
-import Button from 'react-bootstrap/Button';
 import '../styles/DashboardPage.css';
-import '../assets/GradientHintergund.png';
+import CardCarousel from "../components/CardCarousel.tsx";
+import {Row, Button, Col} from "react-bootstrap";
+
 
 function DashboardPage() {
-    const [data, setData] = useState(null);
 
     const { isAuthenticated, user} = useAuth();
     return (
         <div className="dashboard">
-            <div className="background-image">
+            <Row className="background-image">
                 <div className="dashboard-content">
                     <h1 className="titel" >
                         Entdecke<br />dein volles Potenzial<br />mit Hypno Buddy
@@ -28,10 +27,27 @@ function DashboardPage() {
                             <Button href="/login" variant="secondary" size="lg" className="button">
                                 Starte jetzt!
                             </Button>
+
                                 )}
                     </div>
                 </div>
-            </div>
+            </Row>
+            <Row>
+                {isAuthenticated && user ? (
+                    <Row>
+                        <div className="CardCarousel" style={{display:'flex'}}>
+                            <CardCarousel></CardCarousel>
+                        </div>
+                        <div className="eye">
+                            <Col className="eyeBackground">
+                                <p className="eyeText">
+                                    Nehmen Sie sich einen kurzen Augenblick Zeit, um mit uns in eine Welt der Fantasie einzutauchen und positive Veränderungen zu entdecken.
+                                </p>
+                            </Col>
+                        </div>
+                    </Row>
+                ) : null}
+            </Row>
         </div>
     );
 }

@@ -22,10 +22,16 @@
     margin-left: 250px;
     width: 600px;
 }
+.headerProfil{
+    padding: 15px;
+    color: #03d59e;
+    text-align: center;
+}
 .textProfil{
     padding: 15px;
     color: #03d59e;
     text-align: center;
+    font-size: 20px;
 }
 
 .form{

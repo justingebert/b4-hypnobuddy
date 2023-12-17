@@ -113,7 +113,7 @@ function ProfilePage() {
             <div className="background">
                 <div className="containerProfil">
                     <div className="textContentProfil">
-                        <h1 className="textProfil">Mein Profil</h1>
+                        <h1 className="headerProfil">Mein Profil</h1>
                         <div className="m-4">
                         <strong className="textProfil" >Name:</strong> {data.user.name.first} {data.user.name.last}
                         <br />
