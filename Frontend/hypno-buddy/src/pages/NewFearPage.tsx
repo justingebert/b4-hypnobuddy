@@ -18,7 +18,6 @@ function NewFearPage() {
 
             const data = await response.json();
             const newFearId = data._id;
-            console.log(data)
 
             // Redirect to the page for the newly added fear
             navigate(`/dosanddonts/t/${newFearId}`);

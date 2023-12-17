@@ -69,6 +69,12 @@ function DosAndDontsPage() {
   return (
     <div className={styles.layout}>
       <h1 className={styles.h1}>Do's & Dont's</h1>
+      <div className={styles.welcomeContainer}>
+        <p className={styles.welcomeText}>
+          Liebe TherapeutInnen!<br />
+          Nutzen Sie die Kraft, das Leben junger Menschen durch Ihre Anleitung zu verändern. <br /> Ihre Dos and Don'ts-Listen sind der Kompass für Eltern, die den Weg zum emotionalen Wohlbefinden ihres Kindes einschlagen. <br />Mit jeder Einsicht sähen Sie die Samen der Widerstandsfähigkeit und fördern das Wachstum eines helleren Morgen.
+        </p>
+      </div>
       <div className={styles.cardContainer}>
         {fears.map((fear) => (
             <div className={styles.card} key={fear._id}>
