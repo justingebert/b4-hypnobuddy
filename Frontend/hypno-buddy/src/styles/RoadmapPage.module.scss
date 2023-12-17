@@ -5,7 +5,7 @@ $timeline-thickness: 4px;
 .timeline {
   position: relative;
   max-width: 1200px;
-  margin: 100px auto;
+  margin: 50px auto;
 }
 
 // timeline line
@@ -25,6 +25,7 @@ $timeline-thickness: 4px;
   position: relative;
   padding: 10px 40px;
   width: 50%;
+  //background: rgba(83, 91, 242, 0.54);
 }
 
 .sectionLeft{
@@ -37,7 +38,7 @@ $timeline-thickness: 4px;
   left: 50%;
 
     .circle{
-      left: -$circle-size/2;
+      left: calc(-1 * $circle-size / 2);
     }
 }
 
@@ -46,8 +47,11 @@ $timeline-thickness: 4px;
   width: $size;
   height: $size;
   border-radius: 50%;
-  top: 32px;
-  right: -$size/2;
+  top:10px;
+  // uncomment the following lines to center the circle vertically
+  // top: 50%;
+  // transform: translateY(-50%);
+  right: calc(-1 * $size / 2);
   z-index: 10;
   background-color: $color;
   color: #fff;
@@ -58,7 +62,7 @@ $timeline-thickness: 4px;
 }
 
 .circle {
-  @include circle($circle-size); // Example size
+  @include circle($circle-size);
 
   // Additional styling specific to the circle
   // e.g., colors based on status, border, etc.
@@ -69,7 +73,26 @@ $timeline-thickness: 4px;
   padding: 20px 30px;
   background: #fff;
   border-radius: 6px;
-  //border: 1px solid #ccc;
   box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+//mobile
+@media screen and (max-width: 600px) {
+  .timeline::after {
+    left: 30px;
+  }
+
+  .sectionLeft,
+  .sectionRight {
+    width: 100%;
+    left: 0;
+    padding-left: 70px;
+    padding-right: 20px;
+  }
+
+  .sectionLeft .circle,
+  .sectionRight .circle {
+    left: calc(30px - $circle-size/2);
+  }
 }
 
