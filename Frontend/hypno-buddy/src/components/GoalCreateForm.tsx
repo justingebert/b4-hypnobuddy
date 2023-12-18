@@ -11,7 +11,7 @@ const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClo
     const [id, setId] = useState<string | undefined>(undefined);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [status, setStatus] = useState('Not Started');
+    const [status, setStatus] = useState('Geplant');
     const [isSubGoal, setIsSubGoal] = useState<boolean>(false);
     const [parentGoalId, setParentGoalId] = useState<string | undefined>(undefined);
 
@@ -27,7 +27,7 @@ const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClo
             setId(undefined);
             setTitle('');
             setDescription('');
-            setStatus('Not Started');
+            setStatus('Geplant');
             setIsSubGoal(false);
             setParentGoalId(undefined);
         }
@@ -78,9 +78,9 @@ const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClo
                                 <label>Status</label>
                                 <select className="form-control" value={status}
                                         onChange={e => setStatus(e.target.value)}>
-                                    <option value="pending">Not Started</option>
-                                    <option value="in_progress">In Progress</option>
-                                    <option value="completed">Completed</option>
+                                    <option value="Geplant">Geplant</option>
+                                    <option value="Umsetzung">Umsetzung</option>
+                                    <option value="Erreicht">Erreicht</option>
                                 </select>
                             </div>
                             {/* IsSubGoal Checkbox */}
