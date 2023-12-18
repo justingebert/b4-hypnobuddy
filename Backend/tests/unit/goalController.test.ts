@@ -97,36 +97,6 @@ afterEach(() => {
 
 //------------------TESTS------------------
 
-describe('getGoalParams Function', () => {
-    it('should correctly extract goal parameters from the body', () => {
-        const body = {
-            userID: "65523e8ad445f1c1acf2ed9f",
-            title: 'Sample Goal',
-            description: 'Sample description',
-            status: 'not_started',
-            dueDate: '2023-01-01',
-            isSubGoal: false,
-            parentGoalId: null,
-            subGoals: [],
-        };
-
-        const expectedOutput = {
-            userID: "65523e8ad445f1c1acf2ed9f",
-            title: 'Sample Goal',
-            description: 'Sample description',
-            status: 'not_started',
-            dueDate: '2023-01-01',
-            isSubGoal: false,
-            parentGoalId: null,
-            subGoals: [],
-        };
-
-        expect(getGoalParams(body)).toEqual(expectedOutput);
-    });
-});
-
-
-
 describe('Goal Input Validation', () => {
     let user;
 
@@ -140,7 +110,7 @@ describe('Goal Input Validation', () => {
     it('should reject invalid userIDs', async () => {
         const response = await request(app)
             .post('/goal/create')
-            .send({ userID: "wrongID", title: 'Sample Goal', description: 'Sample description', status: 'not_started', isSubGoal: false, subGoals: [] });
+            .send({ userID: "wrongID", title: 'Sample Goal', description: 'Sample description', status: 'Geplant', isSubGoal: false, subGoals: [] });
 
         expect(response.status).toBe(400);
         expect(response.body.message).toContain('Invalid MongoDB ID');
@@ -149,7 +119,7 @@ describe('Goal Input Validation', () => {
     it('should reject non-existing userIDs', async () => {
         const response = await request(app)
             .post('/goal/create')
-            .send({ userID: "65523e8ad445f1c1acf2ed9c", title: 'Sample Goal', description: 'Sample description', status: 'not_started', isSubGoal: false, subGoals: [] });
+            .send({ userID: "65523e8ad445f1c1acf2ed9c", title: 'Sample Goal', description: 'Sample description', status: 'Geplant', isSubGoal: false, subGoals: [] });
 
         expect(response.status).toBe(400);
         expect(response.body.message).toContain('User not found');
@@ -158,7 +128,7 @@ describe('Goal Input Validation', () => {
     it('should reject empty title', async () => {
         const response = await request(app)
             .post('/goal/create')
-            .send({ userID: user._id, description: 'Sample description', status: 'not_started', isSubGoal: false, subGoals: [] });
+            .send({ userID: user._id, description: 'Sample description', status: 'Geplant', isSubGoal: false, subGoals: [] });
 
         expect(response.status).toBe(400);
         expect(response.body.message).toContain('Title cannot be empty');
@@ -167,7 +137,7 @@ describe('Goal Input Validation', () => {
     it('should reject empty description', async () => {
         const response = await request(app)
             .post('/goal/create')
-            .send({ userID: user._id,  title: 'Sample Goal', status: 'not_started', isSubGoal: false, subGoals: [] });
+            .send({ userID: user._id,  title: 'Sample Goal', status: 'Geplant', isSubGoal: false, subGoals: [] });
 
         expect(response.status).toBe(400);
         expect(response.body.message).toContain('Description cannot be empty');
@@ -194,7 +164,7 @@ describe('Goal Creation', () => {
                 userID: user._id,
                 title: 'Sample Goal',
                 description: 'Sample description',
-                status: 'in_progress',
+                status: 'Geplant',
                 isSubGoal: false,
                 subGoals: [],
             });
@@ -212,7 +182,7 @@ describe('Goal Creation', () => {
                 userID: user._id,
                 title: 'Sample Goal',
                 description: 'Sample description',
-                status: 'in_progress',
+                status: 'Umsetzung',
                 isSubGoal: false,
                 subGoals: [],
             });

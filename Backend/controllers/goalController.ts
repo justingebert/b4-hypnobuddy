@@ -61,7 +61,7 @@ export const validate = [
         .notEmpty().withMessage('Description cannot be empty'),
     body('status')
         .notEmpty().withMessage('Status cannot be empty')
-        .isIn(['not_started', 'in_progress', 'completed']).withMessage('Status must be one of: Not Started, In Progress, Completed'),
+        .isIn(['Geplant', 'Umsetzung', 'Erreicht']).withMessage('Status must be one of: Geplant, Umsetzung, Erreicht'),
     body('dueDate')
         .custom((value) => {
             if (value !== null && value !== undefined && value !== '') {

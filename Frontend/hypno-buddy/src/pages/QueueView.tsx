@@ -60,7 +60,7 @@ const QueueView: React.FC = () => {
         const newSubGoal = {
             title: '', // Default title or prompt for input
             description: '', // Default description or prompt for input
-            status: 'Not Started', // Default status
+            status: 'Geplant', // Default status
             parentGoalId: parentGoalId,
             isSubGoal: true,
         };

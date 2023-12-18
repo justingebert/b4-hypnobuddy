@@ -43,9 +43,9 @@ function RoadmapPage() {
 
     const getStatusClass = (status) => {
         switch (status) {
-            case 'Not Started': return 'bg-secondary';
-            case 'in_progress': return 'bg-primary';
-            case 'completed': return 'bg-success';
+            case 'Geplant': return 'bg-secondary';
+            case 'Umsetzung': return 'bg-primary';
+            case 'Erreicht': return 'bg-success';
             default: return 'bg-secondary';
         }
     };
