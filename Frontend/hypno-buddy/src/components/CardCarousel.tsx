@@ -45,9 +45,9 @@ function CardCarousel() {
                 {carouselItems.map((item, idx) => (
                     <Carousel.Item key={idx} className="carouselItem">
                         <div style={{ ...itemStyle, width: '40vw', height: '400px', marginBottom:'80px', padding: '40px', margin:'5vw'}} >
-                            <h2 style={{color:'#4F45DA', textAlign:'center', paddingBottom:'30px'}}>{item.title}</h2>
+                            <h2 style={{color:'#1a1a32', textAlign:'center', paddingBottom:'60px'}}>{item.title}</h2>
 
-                            <p style={{color:'#F4E7E8', textAlign:'center', width:'33vw'}}>{item.text}</p>
+                            <p style={{color:'#F4E7E8', textAlign:'center', width:'28vw'}}>{item.text}</p>
                         </div>
 
                     </Carousel.Item>

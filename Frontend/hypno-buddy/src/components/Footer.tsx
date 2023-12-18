@@ -1,15 +1,15 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import Logo from "../assets/hb.svg";
 import styles from "../styles/Navbar.module.css";
+import '../styles/footer.css';
 
 const Footer = () => {
     return (
-        <footer>
-            <div style={{ backgroundColor: '#c5b6f1' }}>
-                <Container fluid className="py-4" style={{ width: '80%', backgroundColor: '#c5b6f1'}}>
+        <footer className="footer">
+                <Container  className="py-3" style={{  backgroundColor: '#C9BAFD'}}>
                     <Row className="justify-content-between align-items-center">
-                        <Col className="d-flex align-items-center">
-                             <a href="/" className="d-flex align-items-center p-0 text-dark">
+                        <Col className="align-items-center">
+                             <a href="/" className="align-items-center p-0 text-dark">
                                 <img src={Logo} alt="logo" className={styles.logo} />
                                 <span className="ms-4 h5 mb-0 font-weight-bold">Hypno Buddy</span>
                              </a>
@@ -19,7 +19,6 @@ const Footer = () => {
                         </Col>
                     </Row>
                 </Container>
-            </div>
         </footer>
     );
 };

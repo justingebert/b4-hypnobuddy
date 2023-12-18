@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import LogoutButton from './LogoutButton';
+import LoginButton from './LoginButton.tsx';
 import Logo from '../assets/hb.svg';
 import styles from '../styles/Navbar.module.css';
 import { useAuth } from "../contexts/AuthContext.tsx";
@@ -16,12 +17,18 @@ const NavbarComponent = () => {
         navigate("/");
         // You may also add a redirect here if needed
     };
+
     return (
-        <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary navbar-nav1" sticky="top" bg="dark" data-bs-theme="dark" >
+        <Navbar collapseOnSelect expand="lg"
+                className=" navbar-nav1 fixed-top"
+                bg="dark"
+                data-bs-theme="dark"
+                style={{width:'100%', overflowX:'hidden'}}
+        >
             <Container>
                 <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">
                     <img src={Logo} alt="logo" className={styles.logo} />
-                    <h3>Hypno Buddy</h3>
+                    <h3 className="ms-2">Hypno Buddy</h3>
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
@@ -56,11 +63,11 @@ const NavbarComponent = () => {
                                             {" " + user.name.first + " " + user.name.last}
                                         </div>
                                     </Nav.Link>
-                                    <LogoutButton onLogout={handleLogoutClick} className={styles.logoutButton} />
+                                    <LogoutButton onLogout={handleLogoutClick}/>
                                 </>
                             ) : (
                                 <>
-                                    <Link to="/login" className={styles.logoutButton}>Login</Link>
+                                    <LoginButton/>
                                 </>
                             )}
                         </Nav.Link>

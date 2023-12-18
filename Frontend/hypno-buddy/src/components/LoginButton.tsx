@@ -1,8 +1,9 @@
-import { BsArrowRightCircle } from "react-icons/bs";
-import Button from "react-bootstrap/Button";
-import React, { ReactElement } from "react";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
-const SubmitButton = (): ReactElement => {
+const LoginButton = ({ }): any => {
+    const navigate = useNavigate();
+
     const handleMouseOver = (e: React.MouseEvent<HTMLButtonElement>): void => {
         const target = e.target as HTMLButtonElement;
         target.style.borderColor = '#56c8c9';
@@ -13,20 +14,24 @@ const SubmitButton = (): ReactElement => {
         target.style.borderColor = '#4F45DA';
     };
 
+    const handleClick = (): void => {
+        // Navigate to /login on button click
+        navigate("/login");
+    };
+
     return (
-        <Button
-            type="submit"
-            className="m-1"
+        <button
             style={{
                 backgroundColor: '#4F45DA',
                 borderColor: '#56c8c9',
             }}
             onMouseOver={handleMouseOver}
             onMouseOut={handleMouseOut}
+            onClick={handleClick}
         >
-            <BsArrowRightCircle />
-        </Button>
+            Login
+        </button>
     );
 };
 
-export default SubmitButton;
+export default LoginButton;
