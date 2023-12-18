@@ -3,7 +3,7 @@ import * as goalController from "../controllers/goalController";
 
 const goalRouter = Router();
 
-goalRouter.post('/create', goalController.createGoal);
+goalRouter.post('/create',goalController.validate ,goalController.createGoal);
 goalRouter.get('/getAll', goalController.getAllGoals);
 goalRouter.get('/:goalId', goalController.getGoal);
 goalRouter.post('/delete/:goalId', goalController.deleteGoal)

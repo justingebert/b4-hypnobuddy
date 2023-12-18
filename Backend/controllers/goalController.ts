@@ -20,7 +20,6 @@ export const getGoalParams = request => {
         parentGoalId: body.parentGoalId,
         subGoals: body.subGoals
     };*/
-
     return {
         userID: request.user._id,
         title: request.body.title,
@@ -38,21 +37,6 @@ export const getGoalParams = request => {
  */
 export const validate = [
     // Validation and sanitization middlewares
-    body('userID').custom(async (value) => {
-        //check if the id is a valid MongoDB ID
-        if (!/^[a-fA-F0-9]{24}$/.test(value)) {
-            throw new Error('Invalid MongoDB ID');
-        }
-
-        //check if the user with the given ID exists
-        const userExists = await User.exists({ _id: value });
-
-        if (!userExists) {
-            throw new Error('User not found');
-        }
-
-        return true;
-    }),
     body('title')
         .trim()
         .notEmpty().withMessage('Title cannot be empty'),
@@ -118,6 +102,7 @@ export async function createGoal (req, res, next) {
     if (req.skip) {
         return next();
     }
+
     try {
         const newRoadmapGoal = new RoadmapGoal(getGoalParams(req));
         const savedRoadmapGoal = await newRoadmapGoal.save();

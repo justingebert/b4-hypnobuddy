@@ -51,7 +51,7 @@ async function saveExampleGoal(userID){
         userID: userID,
         title: 'Sample Goal',
         description: 'Sample description',
-        status: 'not_started',
+        status: 'Geplant',
         dueDate: '2023-01-01',
         isSubGoal: false,
         parentGoalId: null,
@@ -98,37 +98,21 @@ afterEach(() => {
 //------------------TESTS------------------
 
 describe('Goal Input Validation', () => {
-    let user;
+    const exampleLogin = {email: 'john@example.com', password: '123456'};
+    let userCookie;
 
     beforeAll(async () => {
-        await registerTestUser('john@example.com', '123456');
-        user = await loginUserAndGetUser('john@example.com', '123456');
+        await registerTestUser(exampleLogin.email, exampleLogin.password);
+        userCookie = await loginUserAndGetUserCookie(exampleLogin.email, exampleLogin.password);
     });
 
     afterEach(cleanDatabase);
 
-    it('should reject invalid userIDs', async () => {
-        const response = await request(app)
-            .post('/goal/create')
-            .send({ userID: "wrongID", title: 'Sample Goal', description: 'Sample description', status: 'Geplant', isSubGoal: false, subGoals: [] });
-
-        expect(response.status).toBe(400);
-        expect(response.body.message).toContain('Invalid MongoDB ID');
-    });
-
-    it('should reject non-existing userIDs', async () => {
-        const response = await request(app)
-            .post('/goal/create')
-            .send({ userID: "65523e8ad445f1c1acf2ed9c", title: 'Sample Goal', description: 'Sample description', status: 'Geplant', isSubGoal: false, subGoals: [] });
-
-        expect(response.status).toBe(400);
-        expect(response.body.message).toContain('User not found');
-    });
-
     it('should reject empty title', async () => {
         const response = await request(app)
             .post('/goal/create')
-            .send({ userID: user._id, description: 'Sample description', status: 'Geplant', isSubGoal: false, subGoals: [] });
+            .set('Cookie', userCookie)
+            .send({ description: 'Sample description', status: 'Geplant', isSubGoal: false, subGoals: [] });
 
         expect(response.status).toBe(400);
         expect(response.body.message).toContain('Title cannot be empty');
@@ -137,7 +121,8 @@ describe('Goal Input Validation', () => {
     it('should reject empty description', async () => {
         const response = await request(app)
             .post('/goal/create')
-            .send({ userID: user._id,  title: 'Sample Goal', status: 'Geplant', isSubGoal: false, subGoals: [] });
+            .set('Cookie', userCookie)
+            .send({ title: 'Sample Goal', status: 'Geplant', isSubGoal: false, subGoals: [] });
 
         expect(response.status).toBe(400);
         expect(response.body.message).toContain('Description cannot be empty');
@@ -147,21 +132,23 @@ describe('Goal Input Validation', () => {
 });
 
 describe('Goal Creation', () => {
+    const exampleLogin = {email: 'john@example.com', password: '123456'};
+    let userCookie;
     let user;
 
     beforeAll(async () => {
-        await registerTestUser('john@example.com', '123456');
-        user = await loginUserAndGetUser('john@example.com', '123456');
+        await registerTestUser(exampleLogin.email, exampleLogin.password);
+        userCookie = await loginUserAndGetUserCookie(exampleLogin.email, exampleLogin.password);
+        user = await loginUserAndGetUser(exampleLogin.email, exampleLogin.password);
     });
 
     afterAll(cleanDatabase);
 
     it('should create a new goal', async () => {
-        console.log("user:" + JSON.stringify(user, null, 2))
         const response = await request(app)
             .post('/goal/create')
+            .set('Cookie', userCookie)
             .send({
-                userID: user._id,
                 title: 'Sample Goal',
                 description: 'Sample description',
                 status: 'Geplant',
@@ -178,8 +165,8 @@ describe('Goal Creation', () => {
     it('should save the goalID within user document', async () => {
         const response = await request(app)
             .post('/goal/create')
+            .set('Cookie', userCookie)
             .send({
-                userID: user._id,
                 title: 'Sample Goal',
                 description: 'Sample description',
                 status: 'Umsetzung',
@@ -397,8 +384,3 @@ describe('Reordering goals', () => {
         expect(goalListResponse.body.goals[1]._id.toString()).toBe(goal1._id.toString());
     });
 });
-
-
-
-
-
