@@ -38,13 +38,15 @@ function DashboardPage() {
                         <div className="CardCarousel" style={{display:'flex'}}>
                             <CardCarousel></CardCarousel>
                         </div>
-                        <div className="eye">
+                        <Row className="eyeDiv">
                             <Col className="eyeBackground">
                                 <p className="eyeText">
                                     Nehmen Sie sich einen kurzen Augenblick Zeit, um mit uns in eine Welt der Fantasie einzutauchen und positive Veränderungen zu entdecken.
                                 </p>
                             </Col>
-                        </div>
+                            <Col className="eyePic">
+                            </Col>
+                        </Row>
                     </Row>
                 ) : null}
             </Row>

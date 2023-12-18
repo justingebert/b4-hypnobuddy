@@ -7,11 +7,13 @@ const LoginButton = ({ }): any => {
     const handleMouseOver = (e: React.MouseEvent<HTMLButtonElement>): void => {
         const target = e.target as HTMLButtonElement;
         target.style.borderColor = '#56c8c9';
+        target.style.backgroundColor = '#56c8c9';
     };
 
     const handleMouseOut = (e: React.MouseEvent<HTMLButtonElement>): void => {
         const target = e.target as HTMLButtonElement;
         target.style.borderColor = '#4F45DA';
+        target.style.backgroundColor = '#4F45DA';
     };
 
     const handleClick = (): void => {
@@ -23,7 +25,7 @@ const LoginButton = ({ }): any => {
         <button
             style={{
                 backgroundColor: '#4F45DA',
-                borderColor: '#56c8c9',
+                borderColor: '#4F45DA',
             }}
             onMouseOver={handleMouseOver}
             onMouseOut={handleMouseOut}

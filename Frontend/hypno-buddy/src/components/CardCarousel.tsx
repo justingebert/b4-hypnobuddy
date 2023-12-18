@@ -1,6 +1,10 @@
 import  { useState } from 'react';
 import { Carousel } from 'react-bootstrap';
 
+/**
+ * Carousel is a bootstrap component and has own styles and transitions
+ * @constructor
+ */
 function CardCarousel() {
     const [index, setIndex] = useState(0);
 

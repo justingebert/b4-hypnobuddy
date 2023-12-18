@@ -1,9 +1,10 @@
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import LogoutButton from './LogoutButton';
 import LoginButton from './LoginButton.tsx';
 import Logo from '../assets/hb.svg';
 import styles from '../styles/Navbar.module.css';
-import { useAuth } from "../contexts/AuthContext.tsx";
+import { useAuth } from '../contexts/AuthContext.tsx';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -14,16 +15,39 @@ const NavbarComponent = () => {
     const navigate = useNavigate();
     const handleLogoutClick = async () => {
         await handleLogout();
-        navigate("/");
-        // You may also add a redirect here if needed
+        navigate('/');
     };
 
+    const [prevScrollPos, setPrevScrollPos] = useState(0);
+    const [visible, setVisible] = useState(true);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollPos = window.scrollY;
+
+            setVisible(
+                (prevScrollPos > currentScrollPos &&
+                    prevScrollPos - currentScrollPos > 70) ||
+                currentScrollPos < 10
+            );
+
+            setPrevScrollPos(currentScrollPos);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, [prevScrollPos, visible]);
+
     return (
-        <Navbar collapseOnSelect expand="lg"
-                className=" navbar-nav1 fixed-top"
-                bg="dark"
-                data-bs-theme="dark"
-                style={{width:'100%', overflowX:'hidden'}}
+        <Navbar
+            collapseOnSelect
+            expand="lg"
+            className={`navbar-nav1 fixed-top ${visible ? 'visible' : 'hidden'}`}
+            bg="dark"
+            data-bs-theme="dark"
         >
             <Container>
                 <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">

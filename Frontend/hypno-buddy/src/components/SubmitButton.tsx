@@ -1,30 +1,36 @@
 import { BsArrowRightCircle } from "react-icons/bs";
 import Button from "react-bootstrap/Button";
-import React, { ReactElement } from "react";
+import React, { ReactElement, useState } from "react";
 
 const SubmitButton = (): ReactElement => {
-    const handleMouseOver = (e: React.MouseEvent<HTMLButtonElement>): void => {
-        const target = e.target as HTMLButtonElement;
-        target.style.borderColor = '#56c8c9';
+    const [isHovered, setIsHovered] = useState(false);
+
+    const handleMouseOver = () => {
+        setIsHovered(true);
     };
 
-    const handleMouseOut = (e: React.MouseEvent<HTMLButtonElement>): void => {
-        const target = e.target as HTMLButtonElement;
-        target.style.borderColor = '#4F45DA';
+    const handleMouseOut = () => {
+        setIsHovered(false);
+    };
+
+    const buttonStyle = {
+        backgroundColor: isHovered ? '#56c8c9' : '#4F45DA',
+        borderColor: isHovered ? '#56c8c9' : '#4F45DA',
+    };
+
+    const iconStyle = {
+        color: isHovered ? '#ffffff' : '#ffffff',
     };
 
     return (
         <Button
             type="submit"
             className="m-1"
-            style={{
-                backgroundColor: '#4F45DA',
-                borderColor: '#56c8c9',
-            }}
+            style={buttonStyle}
             onMouseOver={handleMouseOver}
             onMouseOut={handleMouseOut}
         >
-            <BsArrowRightCircle />
+            <BsArrowRightCircle style={iconStyle} />
         </Button>
     );
 };

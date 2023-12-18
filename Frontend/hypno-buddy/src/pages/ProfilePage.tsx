@@ -120,7 +120,7 @@ function ProfilePage() {
                         <strong className="textProfil">Email:</strong> {data.user.email}
                         <br />
                         </div>
-                        <div className="divForm m-4">
+                        <div className="divForm  m-4">
                         <strong className="textProfil">Rolle</strong> {data.user.role}
                             <br />
                         {data.user.role === 'therapist' && (
@@ -130,6 +130,7 @@ function ProfilePage() {
                                 <Button onClick={getPatients} className="p-1 m-2">Siehe verlinkte Patienten</Button>
                             </>
                         )}
+                            <br />
                         {/* List of linked patients */}
                         {data.user.role === 'therapist' && (
                             <>
@@ -149,7 +150,7 @@ function ProfilePage() {
                         )}
                         {/* Verification Form */}
                             <Form  onSubmit={handleVerifySubmit}>
-                                <Row className="justify-content-md-center">
+                                <Row className=" d-flex align-items-center submitLayout">
                                     <Col>
                                         <FormControl
                                             type="text"
@@ -168,7 +169,7 @@ function ProfilePage() {
                         {/* Link to Therapist Form */}
                             {data.user.role === 'patient' && (
                                 <Form as={Col} onSubmit={handleLinkSubmit}>
-                                    <Row className="align-items-center">
+                                    <Row className="d-flex align-items-center submitLayout">
                                         <Col>
                                             <FormControl
                                                 type="text"

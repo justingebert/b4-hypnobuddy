@@ -32,6 +32,7 @@
     color: #03d59e;
     text-align: center;
     font-size: 20px;
+    margin-bottom: 15px;
 }
 
 .form{
@@ -51,4 +52,8 @@
     display: flow;
     flex-wrap: wrap;
     gap: 8px;
+}
+.submitLayout{
+    vertical-align: middle;
+    margin: 5px;
 }
