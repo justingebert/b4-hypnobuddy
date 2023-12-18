@@ -1,4 +1,3 @@
-
 .background{
     background-image: url('../assets/BackgroundProfl.png');
     display: flex;
@@ -9,7 +8,6 @@
     background-position: center;
     overflow-x: hidden;
 }
-
 .containerProfil {
     align-self: center;
     display: flex;
@@ -34,7 +32,6 @@
     font-size: 20px;
     margin-bottom: 15px;
 }
-
 .form{
     background: #4C4AD2;
     color:  #03d59e;
@@ -47,7 +44,6 @@
 .form::placeholder {
     color: #c5b6f1;
 }
-
 .divForm{
     display: flow;
     flex-wrap: wrap;
