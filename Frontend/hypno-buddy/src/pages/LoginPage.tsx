@@ -6,9 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext.tsx';
 import { Link } from 'react-router-dom';
 import RegisterForm from './RegisterPage';
-import Lottie, { AnimationConfigWithData } from 'react-lottie';
-import LoginAnimation from '../assets/LoginAnimation.json';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import styled from 'styled-components';
 import { Container, Row, Col } from 'react-bootstrap';
 import '../styles/LoginSignin.css';
@@ -79,6 +76,7 @@ const LoginPage = () => {
     const toggleForm = () => {
         setIsLogin((prevIsLogin) => !prevIsLogin);
     };
+    /*
     const defaultOptions: AnimationConfigWithData<'svg'> = {
         loop: true,
         autoplay: true,
@@ -87,39 +85,34 @@ const LoginPage = () => {
             preserveAspectRatio: 'xMidYMid slice',
         },
     };
-
+*/
     return (
-        <ContainerStyl>
-            <Lottie options={defaultOptions} height="100%" width="100%" className="position-absolute z-0" />
-            <Container>
-                <Row>
-                    <Col className="welcome" md={6}>
-                         <h1 >Willkommen</h1>
-                    </Col>
-                    <Col className=" top-0 start-0 end-0 bottom-0 d-flex flex-column justify-content-center align-items-center" md={6}>
-                        <div className="c_dark" style={{ flexDirection: 'column' }}>
-                            {isLogin ? (
-                                <div>
-                                    <h1>Login</h1>
-                                    <AuthForm onSubmit={handleLoginFromSubmit} isLogin />
-                                 </div>
-                            ) : (
-                                <RegisterForm />
-                            )}
-                            {isLogin ? (
-                                <p className="mt-3">
-                                    Du hast noch kein Account? <Link to="/register" className="link" onClick={toggleForm}>Registriere dich hier.</Link>
-                                </p>
-                            ) : (
-                                <p className="mt-3">
-                                 Du hast bereits einen Account? <Link to="/loginsignin " className="link" onClick={toggleForm}>Login hier.</Link>
-                                </p>
-                            )}
+        <div className="loginPage">
+            <div className="background-login-image">
+            <WelcomeHeading className="display-1">Willkommen</WelcomeHeading>
+            <div className="position-absolute top-0 start-0 end-0 bottom-0 d-flex flex-column justify-content-center align-items-center">
+                <div className="c_dark" style={{ flexDirection: 'column' }}>
+                    {isLogin ? (
+                        <div>
+                            <h1>Login</h1>
+                            <AuthForm onSubmit={handleLoginFromSubmit} isLogin />
                         </div>
-                     </Col>
-                </Row>
-            </Container>
-        </ContainerStyl>
+                    ) : (
+                        <RegisterForm />
+                    )}
+                    {isLogin ? (
+                        <p className="mt-3">
+                            Du hast noch kein Account? <Link to="/register" className="link" onClick={toggleForm}>Registriere dich hier.</Link>
+                        </p>
+                    ) : (
+                        <p className="mt-3">
+                            Du hast bereits einen Account? <Link to="/loginsignin " className="link" onClick={toggleForm}>Login hier.</Link>
+                        </p>
+                    )}
+                </div>
+            </div>
+            </div>
+        </div>
     );
 };
 
