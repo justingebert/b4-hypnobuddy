@@ -21,7 +21,7 @@ const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClo
             setTitle(goalData.title);
             setDescription(goalData.description);
             setStatus(goalData.status);
-            setIsSubGoal(goalData.isSubGoal);
+            setIsSubGoal(goalData.isSubGoal || false);
             setParentGoalId(goalData.parentGoalId || undefined);
         } else {
             setId(undefined);
@@ -83,14 +83,18 @@ const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClo
                                     <option value="Erreicht">Erreicht</option>
                                 </select>
                             </div>
-                            {/* IsSubGoal Checkbox */}
-                            <div className="form-check">
-                                <input className="form-check-input" type="checkbox" checked={isSubGoal}
-                                       onChange={e => setIsSubGoal(e.target.checked)} id="isSubGoalCheck" />
-                                <label className="form-check-label" htmlFor="isSubGoalCheck">
-                                    Is Sub Goal
-                                </label>
-                            </div>
+                            {  /* TODO: include again when subgoals are implemented
+                               /* IsSubGoal Checkbox (??only makes sense in edit mode??)
+                            {isEditing && (
+                                <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" checked={isSubGoal}
+                                           onChange={e => setIsSubGoal(e.target.checked)} id="isSubGoalCheck" />
+                                    <label className="form-check-label" htmlFor="isSubGoalCheck">
+                                        Is Sub Goal
+                                    </label>
+                                </div>
+                            )}
+                            */}
                             {/* Parent Goal ID Field */}
                             {parentGoalId && (
                                 <div className="form-group">
