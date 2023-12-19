@@ -20,7 +20,6 @@ export const getGoalParams = request => {
         parentGoalId: body.parentGoalId,
         subGoals: body.subGoals
     };*/
-
     return {
         userID: request.user._id,
         title: request.body.title,
@@ -38,21 +37,6 @@ export const getGoalParams = request => {
  */
 export const validate = [
     // Validation and sanitization middlewares
-    body('userID').custom(async (value) => {
-        //check if the id is a valid MongoDB ID
-        if (!/^[a-fA-F0-9]{24}$/.test(value)) {
-            throw new Error('Invalid MongoDB ID');
-        }
-
-        //check if the user with the given ID exists
-        const userExists = await User.exists({ _id: value });
-
-        if (!userExists) {
-            throw new Error('User not found');
-        }
-
-        return true;
-    }),
     body('title')
         .trim()
         .notEmpty().withMessage('Title cannot be empty'),
@@ -118,6 +102,7 @@ export async function createGoal (req, res, next) {
     if (req.skip) {
         return next();
     }
+
     try {
         const newRoadmapGoal = new RoadmapGoal(getGoalParams(req));
         const savedRoadmapGoal = await newRoadmapGoal.save();
@@ -140,7 +125,7 @@ export async function createGoal (req, res, next) {
 /**
  * Gets all goals for a given user
  * - route: GET /goal/getAll
- * @param req {body: { userID }}
+ * @param req
  * @param res {success: true, message: 'Successfully retrieved goals', goals: goals, redirect: '/'}
  * @param next
  */
@@ -149,14 +134,23 @@ export async function getAllGoals(req, res, next) {
         return next();
     }
     try {
-        const goals = await RoadmapGoal.find({ userID: req.user._id });
+        //get order of goals form user document
+        const goalIDs = await User.findOne({ _id: req.user._id }).select('goalIDs');
+        //add goals in the correct order to the goals array
+        const goals = [];
+        for (const goalID of goalIDs.goalIDs) {
+            const goal = await RoadmapGoal.findOne({ _id: goalID });
+            if (goal) {
+                goals.push(goal);
+            }
+        }
+
         return res.json({
             success: true,
             message: 'Successfully retrieved goals',
             goals: goals,
             redirect: '/',
         });
-
 
     } catch (error) {
         console.error('Error getting all roadmap goals:', error);
@@ -167,7 +161,7 @@ export async function getAllGoals(req, res, next) {
 
 /**
  * Gets a goal by ID
- * - route: GET /goal/get/:goalId
+ * - route: GET /goal/:goalId
  * @param req
  * @param res {success: true, message: 'Successfully retrieved goal', goal: goal, redirect: '/'}
  * @param next
@@ -178,6 +172,9 @@ export async function getGoal(req, res, next) {
     }
     try {
         const goal = await RoadmapGoal.findById(req.params.goalId);
+        if(!goal){
+            return res.status(404).json({error: 'Goal not found'});
+        }
         return res.json({
             success: true,
             message: 'Successfully retrieved goal',
@@ -251,7 +248,7 @@ export async function updateGoal(req, res, next) {
 /**
  * Updates the order of goals for a user
  * - route: POST /goal/reorder
- * @param req {body: { goalIDs }}
+ * @param req - {body: { goalIDs }} - goalIDs is an array of goalIDs in the new order
  * @param res {success: true, message: 'Successfully updated goal order', redirect: '/'}
  * @param next
  */
@@ -259,7 +256,7 @@ export async function updateGoalOrder(req, res, next) {
     if (req.skip) {
         return next();
     }
-    console.log(req.body)
+
     try {
         const { goalIDs } = req.body;
         await User.findOneAndUpdate({ _id: req.user._id }, { goalIDs: goalIDs });
