@@ -26,25 +26,21 @@
 
 .link{
     color: #f7e6e8;
-
 }
 
-.welcome{
-    color: #f4e7e8;
-    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    margin: auto 0;
-    font: 700 2em Inter, sans-serif;
-
+.background-login-image {
+    background-image: url('../assets/LoginBackground.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
     position: absolute;
-    top: 45%;
-    left: 15%;
+    overflow: hidden;
+}
 
-    @media (max-width: 700px) {
-        font-size: 40%;
-    }
 
-    @media (max-width: 480px) {
-        font-size: 10px;
-    }
-
+.loginPage {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
 }

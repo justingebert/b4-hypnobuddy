@@ -1,5 +1,5 @@
 import {app} from "./main";
-import { connectDB, ensureVerificationCodes } from './data/connectToDb';
+import {connectDB, createMockupData, ensureVerificationCodes} from './data/connectToDb';
 
 //start the server
 
@@ -8,6 +8,7 @@ import { connectDB, ensureVerificationCodes } from './data/connectToDb';
         await connectDB();
 
         await ensureVerificationCodes();
+        await createMockupData();
 
         const PORT = process.env.PORT || 3000;
         app.listen(PORT, () => {
