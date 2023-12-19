@@ -57,22 +57,30 @@ function RoadmapPage() {
         <>
             <div className="container mt-3">
                 <h1 className="text-center mb-4">Goals Roadmap</h1>
-                <div className="d-flex flex-column align-items-center">
+
+                {/*<div className={`${styles.timeline} d-flex flex-column align-items-start`}>*/}
+                <div className={`${styles.timeline}`}>
                     {goals.length > 0 && goals.map((goal, index) => (
-                        <div key={goal._id} className={`d-flex align-items-center ${index < goals.length - 1 ? 'mb-3' : ''}`}>
+                        <div
+                            key={goal._id}
+                            // className={`${index % 2 === 0 ? styles.sectionRight : styles.sectionLeft} d-flex align-items-center ${index < goals.length - 1 ? 'mb-3' : ''}`}
+                            className={`${index % 2 === 0 ? styles.sectionRight : styles.sectionLeft}`}
+                        >
                             <div className={`${styles.circle} ${getStatusClass(goal.status)}`}>
                                 {index + 1}
                             </div>
-                            <div className="ml-3">
+                            <div className={`${styles.textbox} ml-3`}>
                                 <h5>{goal.title}</h5>
                             </div>
                         </div>
                     ))}
                 </div>
+
                 <div className="text-center mt-4">
                     <button className="btn btn-success" onClick={handleAddGoal}>Add Goal</button>
                     <button className="btn btn-primary" onClick={() => navigate('/goalQueueView')}>Queue View</button>
                 </div>
+
             </div>
         </>
     );
