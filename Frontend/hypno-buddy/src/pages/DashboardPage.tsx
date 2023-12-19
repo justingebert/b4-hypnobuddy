@@ -9,7 +9,7 @@ function DashboardPage() {
 
     const { isAuthenticated, user} = useAuth();
     return (
-        <div className="dashboard">
+        <div>
             <Row className="background-image">
                 <div className="dashboard-content">
                     <h1 className="titel" >
@@ -34,7 +34,7 @@ function DashboardPage() {
             </Row>
             <Row>
                 {isAuthenticated && user ? (
-                    <Row>
+                    <div>
                         <div className="CardCarousel" style={{display:'flex'}}>
                             <CardCarousel></CardCarousel>
                         </div>
@@ -47,7 +47,7 @@ function DashboardPage() {
                             <Col className="eyePic">
                             </Col>
                         </Row>
-                    </Row>
+                    </div>
                 ) : null}
             </Row>
         </div>

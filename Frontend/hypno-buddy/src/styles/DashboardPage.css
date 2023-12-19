@@ -1,14 +1,13 @@
-.dashboard {
-        overflow-x: hidden;
+.body{
+    margin: 0;
+    padding-right: 0;
 }
-
 .background-image {
     background-image: url('../assets/GradientHintergund.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    height: 1000px;
-    width: 100%;
+    height: 100vh;
     overflow-x: hidden;
 }
 .dashboard-content{
@@ -20,7 +19,6 @@
     padding: 30px;
     text-transform: uppercase;
     color: #f7e6e8;
-    font-size: 40px;
     margin-top: 267px;
     font: 700 60px/73px Inter, sans-serif;
     text-align: left;
@@ -38,7 +36,7 @@
     padding-top: 20px;
     display: flow;
     float: right;
-    width: 700px;
+    width: 40vw;
     padding-right: 200px;
 }
 
@@ -49,9 +47,7 @@
 }
 .CardCarousel{
     background: #f7e6e8;
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
+    height: 40vw;
     align-items: center;
     justify-content: center;
 }
@@ -62,7 +58,6 @@
 .eyeDiv{
     background: #C9BAFD;
     height: 350px;
-    display: flex;
 }
 .eyeBackground{
     background: #542BD4;
@@ -82,7 +77,6 @@
 }
 .eyePic{
     height: 100%;
-    max-width: 100%;
     background-image: url('../assets/eye.png');
     background-repeat: no-repeat;
     background-position: right;
