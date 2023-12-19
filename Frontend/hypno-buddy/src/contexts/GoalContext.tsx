@@ -113,8 +113,8 @@ export const GoalsProvider: React.FC = ({ children }) => {
             });
 
             if (response.ok) {
-                const updatedGoal = await response.json();
-                setGoals(prevGoals => prevGoals.map(goal => goal.id === goalId ? { ...goal, ...updatedGoal } : goal));
+                const updatedGoalPromise = await response.json();
+                setGoals(prevGoals => prevGoals.map(goal => goal._id === goalId ? { ...goal, ...updatedGoalPromise.goal } : goal));
             } else {
                 console.error('Failed to update goal:', response.status);
             }
