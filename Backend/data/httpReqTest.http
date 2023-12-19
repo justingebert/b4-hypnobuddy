@@ -1,3 +1,11 @@
+POST http://localhost:3000/user/verify
+Content-Type: application/json
+
+{
+  "code": "123456"
+}
+
+###
 
 
 ###
@@ -28,7 +36,7 @@ Content-Type: application/json
   "userID": "65523e8ad445f1c1acf2ed9f",
   "title": "test",
   "description": "test",
-  "status": "in_progress",
+  "status": "Umsetzung",
   "isSubGoal": false,
   "dueDate": "2018-12-31T00:00:00.000Z",
   "parentGoalId": null,

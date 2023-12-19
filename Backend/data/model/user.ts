@@ -32,6 +32,19 @@ const userSchema = new mongoose.Schema({
         enum: ['patient', 'guardian', 'therapist', 'admin'],
         default: 'patient'
     },
+    therapist: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+
+    },
+    patients: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    }],
+    patientLinkingCode: {
+        type: String,
+        unique: false, //TODO should be unique except when its null
+    },
     goalIDs: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'RoadmapGoal'

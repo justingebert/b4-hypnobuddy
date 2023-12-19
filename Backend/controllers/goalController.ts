@@ -6,11 +6,12 @@ import { isValid, parseISO } from 'date-fns';
 
 /**
  * Extracts the goal parameters from the request body
- * @param body - request body containing { userID, title, description, status, dueDate, isSubGoal, parentGoalId, subGoals }
+ * @param request - request body containing { userID, title, description, status, dueDate, isSubGoal, parentGoalId, subGoals }
  */
-export const getGoalParams = body => {
-    return {
-        userID: body.userID,
+export const getGoalParams = request => {
+    //TODO redo when frontend form is set up
+    /*return {
+        userID: request.user._id,
         title: body.title,
         description: body.description,
         status: body.status,
@@ -18,7 +19,18 @@ export const getGoalParams = body => {
         isSubGoal: body.isSubGoal,
         parentGoalId: body.parentGoalId,
         subGoals: body.subGoals
-    };
+    };*/
+
+    return {
+        userID: request.user._id,
+        title: request.body.title,
+        description: request.body.description,
+        status: request.body.status,
+        dueDate: request.body.dueDate,
+        isSubGoal: false,
+        parentGoalId: null,
+        subGoals: []
+    }
 }
 
 /**
@@ -49,7 +61,7 @@ export const validate = [
         .notEmpty().withMessage('Description cannot be empty'),
     body('status')
         .notEmpty().withMessage('Status cannot be empty')
-        .isIn(['not_started', 'in_progress', 'completed']).withMessage('Status must be one of: Not Started, In Progress, Completed'),
+        .isIn(['Geplant', 'Umsetzung', 'Erreicht']).withMessage('Status must be one of: Geplant, Umsetzung, Erreicht'),
     body('dueDate')
         .custom((value) => {
             if (value !== null && value !== undefined && value !== '') {
@@ -95,6 +107,7 @@ export const validate = [
 
 /**
  * Creates a new goal and saves it to the database
+ * -
  * - userID saved within the goal document
  * - goalID saved within the user document
  * @param req {body: { userID, title, description, status, dueDate, isSubGoal, parentGoalId, subGoals }}
@@ -106,7 +119,7 @@ export async function createGoal (req, res, next) {
         return next();
     }
     try {
-        const newRoadmapGoal = new RoadmapGoal(getGoalParams(req.body));
+        const newRoadmapGoal = new RoadmapGoal(getGoalParams(req));
         const savedRoadmapGoal = await newRoadmapGoal.save();
         await User.findOneAndUpdate({ _id: savedRoadmapGoal.userID }, { $push: { goalIDs: savedRoadmapGoal._id } });
         return res.json({
@@ -116,7 +129,6 @@ export async function createGoal (req, res, next) {
             redirect: '/',
         });
 
-        next();
 
     }catch (error){
         console.error('Error creating roadmap goal:', error);
@@ -137,7 +149,7 @@ export async function getAllGoals(req, res, next) {
         return next();
     }
     try {
-        const goals = await RoadmapGoal.find({ userID: req.body.userID });
+        const goals = await RoadmapGoal.find({ userID: req.user._id });
         return res.json({
             success: true,
             message: 'Successfully retrieved goals',
@@ -145,7 +157,6 @@ export async function getAllGoals(req, res, next) {
             redirect: '/',
         });
 
-        next();
 
     } catch (error) {
         console.error('Error getting all roadmap goals:', error);
@@ -174,11 +185,131 @@ export async function getGoal(req, res, next) {
             redirect: '/',
         });
 
-        next();
 
     } catch (error) {
         console.error('Error getting roadmap goal:', error);
         res.status(500).json({ error: 'Internal Server Error' });
         next();
+    }
+}
+
+export async function deleteGoal(req, res, next) {
+    if (req.skip) {
+        return next();
+    }
+    try {
+        const goalId = req.params.goalId;
+
+        const deletedGoal = await RoadmapGoal.findByIdAndDelete(goalId);
+        if (!deletedGoal) {
+            return res.status(404).json({ error: 'Goal not found' });
+        }
+
+        //update the User to remove the goalID
+        await User.updateOne({ _id: deletedGoal.userID }, { $pull: { goalIDs: deletedGoal._id } });
+
+        return res.json({
+            success: true,
+            message: 'Successfully deleted goal',
+            redirect: '/'
+        });
+    } catch (error) {
+        console.error('Error deleting goal:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+        next();
+    }
+}
+
+
+export async function updateGoal(req, res, next) {
+    if (req.skip) {
+        return next();
+    }
+    try {
+        const goalId = req.params.goalId;
+        const updatedData = req.body;
+
+        const updatedGoal = await RoadmapGoal.findByIdAndUpdate(goalId, updatedData, { new: true });
+        if (!updatedGoal) {
+            return res.status(404).json({ error: 'Goal not found' });
+        }
+
+        return res.json({
+            success: true,
+            message: 'Successfully updated goal',
+            goal: updatedGoal,
+            redirect: '/'
+        });
+    } catch (error) {
+        console.error('Error updating goal:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+        next();
+    }
+}
+
+
+/**
+ * Updates the order of goals for a user
+ * - route: POST /goal/reorder
+ * @param req {body: { goalIDs }}
+ * @param res {success: true, message: 'Successfully updated goal order', redirect: '/'}
+ * @param next
+ */
+export async function updateGoalOrder(req, res, next) {
+    if (req.skip) {
+        return next();
+    }
+    console.log(req.body)
+    try {
+        const { goalIDs } = req.body;
+        await User.findOneAndUpdate({ _id: req.user._id }, { goalIDs: goalIDs });
+
+        return res.json({
+            success: true,
+            message: 'Successfully updated goal order',
+            redirect: '/',
+        });
+    } catch (error) {
+        console.error('Error updating goal order:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+        next();
+    }
+}
+
+/**
+ * Creates a new subgoal and attaches it to a parent goal
+ * @param req - Express request object
+ * @param res - Express response object
+ */
+export async function createSubGoal(req, res) {
+    try {
+        const { title, description, status, parentGoalId } = req.body;
+
+        // Create a new subgoal
+        const newSubgoal = new RoadmapGoal({
+            title,
+            description,
+            status,
+            isSubGoal: true,
+            parentGoalId,
+        });
+
+        const savedSubgoal = await newSubgoal.save();
+
+        // Optionally, update the parent goal to include this subgoal's ID
+        await RoadmapGoal.findByIdAndUpdate(
+            parentGoalId,
+            { $push: { subGoals: savedSubgoal._id } },
+            { new: true }
+        );
+
+        res.status(201).json({
+            success: true,
+            message: 'Subgoal successfully created',
+            subgoal: savedSubgoal
+        });
+    } catch (error) {
+        console.error('Error creating subgoal:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 }

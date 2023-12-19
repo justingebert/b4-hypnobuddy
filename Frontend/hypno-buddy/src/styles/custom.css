@@ -1,0 +1,29 @@
+
+.c_primary {
+    color: #c5b6f1;
+}
+
+.c_secundary {
+    color: #8140a7;
+}
+.c_dark {
+   color: #2f015a;
+}
+.c_light {
+    color: #f7e6e8;
+}
+.c_secundary {
+    color: #03d59e;
+}
+.c_success {
+    color: #8140a7;
+}
+.c_info {
+    color: #555;
+}
+.c_warning {
+    color: #c6f222;
+}
+.c_danger {
+    color: #dc05a3;
+}

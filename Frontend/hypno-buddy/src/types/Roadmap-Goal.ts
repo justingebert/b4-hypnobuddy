@@ -9,10 +9,10 @@ export type Roadmap = {
 };
 
 export type RoadmapGoal = {
-    id: string;
+    _id: string;
     title: string;
     description: string;
-    status: 'pending' | 'in_progress' | 'completed';
+    status: 'Geplant' | 'Umsetzung' | 'Erreicht';
     creationDate: Date;
     dueDate?: Date;
     isSubGoal: boolean;

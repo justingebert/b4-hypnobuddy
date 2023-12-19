@@ -16,9 +16,9 @@ const roadmapGoalSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['pending', 'in_progress', 'completed'],
+        enum: ['Geplant', 'Umsetzung', 'Erreicht'],
         required: true,
-        default: 'pending'
+        default: 'not_started'
     },
     creationDate: {
         type: Date,
