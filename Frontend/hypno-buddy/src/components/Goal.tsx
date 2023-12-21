@@ -1,8 +1,17 @@
 import React from 'react';
 
 function GoalItem({ goal, onEdit, onDelete, onCreateSubGoal }) {
+    const getStatusClass = (status) => {
+        switch (status) {
+            case 'Geplant': return 'border border-secondary';
+            case 'Umsetzung': return 'border border-primary';
+            case 'Erreicht': return 'border border-success';
+            default: return 'bg-secondary';
+        }
+    };
+
     return (
-        <div className="card mb-3">
+        <div className={`card border-2 ${getStatusClass(goal.status)} mb-3`}>
             <div className="card-body">
                 <h5 className="card-title">{goal.title}</h5>
                 <p className="card-text">{goal.description}</p>
