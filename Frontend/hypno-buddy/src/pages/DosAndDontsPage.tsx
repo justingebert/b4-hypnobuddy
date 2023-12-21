@@ -112,7 +112,7 @@ function DosAndDontsPage() {
       <div className={styles.welcomeContainer}>
         <p className={styles.welcomeText}>
           Liebe TherapeutInnen!<br />
-          Nutzen Sie die Kraft, das Leben junger Menschen durch Ihre Anleitung zu verändern. <br /> Ihre Dos and Don'ts-Listen sind der Kompass für Eltern, die den Weg zum emotionalen Wohlbefinden ihres Kindes einschlagen. <br />Mit jeder Einsicht sähen Sie die Samen der Widerstandsfähigkeit und fördern das Wachstum eines helleren Morgen.
+          Nutzen Sie die Kraft, das Leben junger Menschen durch Ihre Anleitung zu verändern. <br /> Ihre Dos and Don'ts-Listen sind der Kompass für Eltern, <br/> die den Weg zum emotionalen Wohlbefinden ihres Kindes einschlagen.
         </p>
       </div>
       <div className={styles.cardContainer}>
