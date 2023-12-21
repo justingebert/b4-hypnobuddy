@@ -70,10 +70,14 @@ $timeline-thickness: 4px;
 
 .textbox{
   position: relative;
-  padding: 20px 30px;
+  padding: 10px 20px;
   background: #fff;
   border-radius: 6px;
   box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+.title, .description{
+  margin: 5px;
 }
 
 //mobile

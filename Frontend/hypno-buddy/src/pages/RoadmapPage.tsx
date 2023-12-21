@@ -69,8 +69,9 @@ function RoadmapPage() {
                             <div className={`${styles.circle} ${getStatusClass(goal.status)}`}>
                                 {index + 1}
                             </div>
-                            <div className={`${styles.textbox} ml-3`}>
-                                <h5>{goal.title}</h5>
+                            <div className={`${styles.textbox}`}>
+                                <h5 className={`${styles.title}`}>{goal.title}</h5>
+                                <p className={`${styles.description}`}>{goal.description}</p>
                             </div>
                         </div>
                     ))}
@@ -78,7 +79,7 @@ function RoadmapPage() {
 
                 <div className="text-center mt-4">
                     {/*<button className="btn btn-success" onClick={handleAddGoal}>Add Goal</button>*/}
-                    <button className="btn btn-primary" onClick={() => navigate('/goalQueueView')}>Bearbeiten</button>
+                    <button className="btn btn-primary m-3" onClick={() => navigate('/goalQueueView')}>Bearbeiten</button>
                 </div>
 
             </div>

@@ -70,7 +70,7 @@ export const GoalsProvider: React.FC = ({ children }) => {
 
             if (response.ok) {
                 const newGoal = await response.json();
-                setGoals(prevGoals => [...prevGoals, newGoal.goal]);
+                setGoals(prevGoals => [newGoal.goal, ...prevGoals]);
             } else {
                 // Handle HTTP errors
                 console.error('Failed to create goal:', response.status);
