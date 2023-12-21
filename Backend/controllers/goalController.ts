@@ -64,8 +64,15 @@ export const validate = [
     body('parentGoalId')
         .optional({ nullable: true })
         .isMongoId().withMessage('parentGoalId must be a valid MongoDB ID'),
+    /* TODO include agaain when subGoals are implemented
     body('subGoals')
+        .custom((value, { req }) => {
+            // If subGoals is undefined or null, set it to an empty array
+            req.body.subGoals = value || [];
+            return true;
+        })
         .isArray().withMessage('subGoals must be an array'),
+     */
 
     // Middleware to handle the validation result
     (req, res, next) => {
