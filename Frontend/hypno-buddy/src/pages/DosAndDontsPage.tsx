@@ -14,6 +14,7 @@ function DosAndDontsPage() {
   const [selectedFearId, setSelectedFearId] = useState<string | null>(null);
   const [isNewFearModalOpen, setIsNewFearModalOpen] = useState(false);
   const [newFearTitle, setNewFearTitle] = useState('');
+  const [isAddButtonDisabled, setIsAddButtonDisabled] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,6 +36,8 @@ function DosAndDontsPage() {
 
   const handleFearDelete = async (fearId: string) => {
     try {
+      setIsAddButtonDisabled(true);
+
       // Make a DELETE request to your backend endpoint to delete the fear and its associated entries
       await fetch(`http://localhost:3000/dosAndDonts/fears/${fearId}`, {
         method: 'DELETE',
@@ -45,6 +48,8 @@ function DosAndDontsPage() {
       flash('Fear deleted successfully!');
     } catch (error) {
       console.error('Error closing fear:', error);
+    } finally {
+      setIsAddButtonDisabled(false);
     }
   };
 
@@ -53,7 +58,6 @@ function DosAndDontsPage() {
   };
 
   const handleDeleteButtonClick = (fearId: string) => {
-    console.log('Delete button clicked for fear ID:', fearId);
     setSelectedFearId(fearId);
   };
 
@@ -70,14 +74,16 @@ function DosAndDontsPage() {
   };
 
   const handleNewFearModalClose = () => {
-    // Close the new fear modal
     setIsNewFearModalOpen(false);
-    // Reset the new fear title input
     setNewFearTitle('');
   };
 
   const handleNewFearSave = async () => {
     try {
+      if (!newFearTitle.trim()) {
+        flash('Bitte geben Sie einen Titel ein.');
+        return;
+      }
       const response = await fetch(`http://localhost:3000/dosAndDonts/fears`, {
         method: 'POST',
         headers: {
@@ -99,6 +105,7 @@ function DosAndDontsPage() {
       console.error('Error saving fear:', error);
     }
   };
+
   return (
     <div className={styles.layout}>
       <h1 className={styles.h1}>Do's & Dont's</h1>
@@ -133,7 +140,9 @@ function DosAndDontsPage() {
         ))}
       </div>
       <div className={styles.centerContainer}>
-        <button className={styles.button} onClick={handleAddNewFearClick}><b>+</b></button>
+        {!isDeleteMode && (
+            <button className={styles.button} onClick={handleAddNewFearClick} disabled={isAddButtonDisabled}><b>+</b></button>
+        )}
         <br></br>
         <button onClick={handleDeleteModeToggle} className="btn btn-danger">
           {isDeleteMode ? 'Abbrechen' : 'Angst löschen'}
