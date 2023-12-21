@@ -18,6 +18,7 @@ const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({
 
   return (
     <div className="delete-confirmation-modal">
+      <br />
       <p>Sind Sie sicher, dass sie diese Angst löschen möchten?</p>
         <button onClick={onConfirm} className={styles.confirmButton}>Ja</button>
         <button onClick={onCancel} className={styles.confirmButton}>Abbrechen</button>

@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from '../styles/TherapistCard.module.css'
 
 function NewFearModal({ isOpen, onClose, onSave, fearTitle, onTitleChange }) {
     if (!isOpen) {
@@ -14,19 +15,22 @@ function NewFearModal({ isOpen, onClose, onSave, fearTitle, onTitleChange }) {
     };
 
     return (
-        <div className="modal-overlay">
-            <div className="modal">
-                <div className="modal-header">
-                    <h2>Add New Fear</h2>
+        <div className={styles.modalOverlay}>
+            <div className={styles.modal}>
+                <div className={styles.modalHeader}>
+                    <h2>Neue Kategorie</h2>
                     <button onClick={onClose}>&times;</button>
                 </div>
-                <div className="modal-body">
+                <div className={styles.modalBody}>
                     <label>
-                        Fear Title:
-                        <input type="text" value={fearTitle} onChange={handleTitleChange} />
+                        <input type="text"
+                               value={fearTitle}
+                               onChange={handleTitleChange}
+                               placeholder="Titel"
+                               required={true}/>
                     </label>
                 </div>
-                <div className="modal-footer">
+                <div className={styles.modalFooter}>
                     <button onClick={handleSaveClick}>Save</button>
                 </div>
             </div>
