@@ -4,6 +4,7 @@ import { Fear } from '../../../../Backend/data/model/fearModel.ts';
 import DeleteConfirmationModal from '../components/DeleteConfirmationModal';
 import styles from '../styles/TherapistCard.module.css';
 import {FlashContext} from "../contexts/FlashContext.tsx";
+import NewFearModal from "../components/NewFearModal.tsx";
 
 function DosAndDontsPage() {
   const navigate = useNavigate();
@@ -11,6 +12,8 @@ function DosAndDontsPage() {
   const [fears, setFears] = useState<Fear[]>([]);
   const [isDeleteMode, setIsDeleteMode] = useState(false);
   const [selectedFearId, setSelectedFearId] = useState<string | null>(null);
+  const [isNewFearModalOpen, setIsNewFearModalOpen] = useState(false);
+  const [newFearTitle, setNewFearTitle] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,7 +30,7 @@ function DosAndDontsPage() {
   }, []);
 
   const handleAddNewFearClick = () => {
-    navigate('/dosanddonts/t/newFear');
+    setIsNewFearModalOpen(true);
   };
 
   const handleFearDelete = async (fearId: string) => {
@@ -66,6 +69,36 @@ function DosAndDontsPage() {
     setSelectedFearId(null);
   };
 
+  const handleNewFearModalClose = () => {
+    // Close the new fear modal
+    setIsNewFearModalOpen(false);
+    // Reset the new fear title input
+    setNewFearTitle('');
+  };
+
+  const handleNewFearSave = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/dosAndDonts/fears`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name: newFearTitle }),
+      });
+
+      const data = await response.json();
+      const newFearId = data._id;
+
+      // Redirect to the page for the newly added fear
+      navigate(`/dosanddonts/t/${newFearId}`);
+      // Close the new fear modal
+      setIsNewFearModalOpen(false);
+      // Reset the new fear title input
+      setNewFearTitle('');
+    } catch (error) {
+      console.error('Error saving fear:', error);
+    }
+  };
   return (
     <div className={styles.layout}>
       <h1 className={styles.h1}>Do's & Dont's</h1>
@@ -106,6 +139,13 @@ function DosAndDontsPage() {
           {isDeleteMode ? 'Abbrechen' : 'Angst löschen'}
         </button>
       </div>
+      <NewFearModal
+          isOpen={isNewFearModalOpen}
+          onClose={handleNewFearModalClose}
+          onSave={handleNewFearSave}
+          fearTitle={newFearTitle}
+          onTitleChange={setNewFearTitle}
+      />
     </div>
   );
 }
