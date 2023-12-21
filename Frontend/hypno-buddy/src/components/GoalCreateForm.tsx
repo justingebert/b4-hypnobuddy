@@ -54,7 +54,7 @@ const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClo
             <div className="modal-dialog" role="document">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-title">{isEditing ? 'Edit Goal' : 'Create Goal'}</h5>
+                        <h5 className="modal-title">{isEditing ? 'Ziel Bearbeiten' : 'Neues Ziel'}</h5>
                         <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={onClose}>
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -63,13 +63,13 @@ const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClo
                         <div className="modal-body">
                             {/* Title Field */}
                             <div className="form-group">
-                                <label>Title</label>
+                                <label>Titel</label>
                                 <input type="text" className="form-control" value={title}
                                        onChange={e => setTitle(e.target.value)} />
                             </div>
                             {/* Description Field */}
                             <div className="form-group">
-                                <label>Description</label>
+                                <label>Beschreibung</label>
                                 <textarea className="form-control" value={description}
                                           onChange={e => setDescription(e.target.value)}></textarea>
                             </div>
@@ -104,8 +104,8 @@ const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClo
                             )}
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" onClick={onClose}>Close</button>
-                            <button type="submit" className="btn btn-primary">{isEditing ? 'Save' : 'Create'}</button>
+                            <button type="button" className="btn btn-secondary" onClick={onClose}>Zurück</button>
+                            <button type="submit" className="btn btn-primary">{isEditing ? 'Speichern' : 'Hinzufügen'}</button>
                         </div>
                     </form>
                 </div>

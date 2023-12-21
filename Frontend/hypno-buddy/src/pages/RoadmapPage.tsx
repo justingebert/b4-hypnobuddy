@@ -56,7 +56,7 @@ function RoadmapPage() {
     return (
         <>
             <div className="container mt-3">
-                <h1 className="text-center mb-4">Goals Roadmap</h1>
+                <h1 className="text-center mb-4">Roadmap</h1>
 
                 {/*<div className={`${styles.timeline} d-flex flex-column align-items-start`}>*/}
                 <div className={`${styles.timeline}`}>
@@ -77,8 +77,8 @@ function RoadmapPage() {
                 </div>
 
                 <div className="text-center mt-4">
-                    <button className="btn btn-success" onClick={handleAddGoal}>Add Goal</button>
-                    <button className="btn btn-primary" onClick={() => navigate('/goalQueueView')}>Queue View</button>
+                    {/*<button className="btn btn-success" onClick={handleAddGoal}>Add Goal</button>*/}
+                    <button className="btn btn-primary" onClick={() => navigate('/goalQueueView')}>Bearbeiten</button>
                 </div>
 
             </div>
