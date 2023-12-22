@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from '../styles/TherapistCard.module.css';
 
 interface DeleteConfirmationModalProps {
   isOpen: boolean;
@@ -17,9 +18,10 @@ const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({
 
   return (
     <div className="delete-confirmation-modal">
-      <p>Are you sure you want to delete this fear?</p>
-      <button onClick={onConfirm}>Yes</button>
-      <button onClick={onCancel}>No</button>
+      <br />
+      <p>Sind Sie sicher, dass sie diese Angst löschen möchten?</p>
+        <button onClick={onConfirm} className={styles.confirmButton}>Ja</button>
+        <button onClick={onCancel} className={styles.confirmButton}>Abbrechen</button>
     </div>
   );
 };

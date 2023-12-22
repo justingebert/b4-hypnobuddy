@@ -12,7 +12,6 @@ import RoadmapPage from "./pages/RoadmapPage.tsx";
 import { useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import FearPage from "./pages/FearPage.tsx";
-import NewFearPage from "./pages/NewFearPage.tsx";
 import DosAndDontsPatientPage from "./pages/DosAndDontsPatientPage.tsx";
 
 function App() {
@@ -46,7 +45,6 @@ function DosAndDontsRoutes() {
             <Routes>
                 <Route path="/t" element={<DosAndDontsPage />} />
                 <Route path="/t/:fearId" element={<FearPage />} />
-                <Route path="/t/newFear" element={<NewFearPage />} />
             </Routes>
         );
     } else if (user && user.role === 'patient') {

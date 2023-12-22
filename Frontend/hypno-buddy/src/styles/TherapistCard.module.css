@@ -1,10 +1,19 @@
 /* Custom styles for the therapist card */
 .therapistCard {
   background-color: #7945A2;
-  border-radius: 30px; 
-  color: #fff;
+  border-radius: 30px;
+  width: 70%;
+  max-width: 80vw;
+  min-height: 25rem;
+  height: 60%;
+  color: #FFFFFF;
   padding: 20px;
   text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 3% 5% 10%;
 }
 
 /* Custom styles for the therapist card title */
@@ -26,14 +35,13 @@
 }
 
 .closeButton {
-  /* background-color: #000; */
+  position: relative;
   background-color: transparent;
   border: none;
   color: #fff; 
   font-size: 2rem; 
   cursor: pointer;
-  margin: -50px;
-  margin-right: -10px;
+  margin: -40px -10px -50px -55px;
 }
 
 .therapistCardHeader {
@@ -46,12 +54,13 @@
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
+  height: auto;
 }
 
 /* Custom styles for the therapist card left and right containers */
 .therapistCardLeft,
 .therapistCardRight {
-  width: 48%;
+  width: 80%;
 }
 
 /* Custom styles for the subheading */
@@ -61,24 +70,29 @@
 
 /* Custom styles for the cream-colored text field */
 .creamTextField {
+  box-sizing: border-box;
   background-color: #F4E7E8; 
   color: #000;
-  height: auto;
-  min-height: 3em;
-  max-height: 5em;
+  min-height: 13em;
   width: 100%;
   resize: vertical;
   overflow-y: auto;
   padding: 10px;
-  margin: 0;
-  box-sizing: border-box;
   line-height: 1.2;
   border-radius: 10px;
-  margin-bottom: 10px;
 }
 
 .creamTextField.editable {
   background-color: #F4E7E8;
+}
+.creamTextField textarea {
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding: 10px;
+  margin: 10rem;
+  box-sizing: border-box;
+  outline: none;
 }
 
 /* Custom styles for the button */
@@ -96,3 +110,146 @@
 .editSaveButton:hover {
   background-color: #C5B6F1;
 }
+
+.cardContainer {
+  display: flex;
+  flex-wrap: wrap; /* Allow cards to wrap to the next row */
+  justify-content: space-around; /* Adjust as needed */
+
+}
+
+.card {
+  background-color: #8140a7;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  border-radius: 1rem;
+  transition: box-shadow 0.3s;
+  margin: 20px 20px 40px;
+  width: 25vw;
+  height: auto;
+  color: #FFFFFF;
+  text-align: center;
+}
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 14% 14% 10%;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+.card a {
+  color: #fff; /* Set the font color to white */
+  text-decoration: inherit;
+}
+.card a:hover {
+  color: #ccc; /* Adjust the hover color as needed */
+}
+
+.layout{
+  flex-shrink: 0;
+  background: #FFFFFF url('../assets/backgroundTF.png') no-repeat center;
+  background-size: contain;
+  margin: 5rem;
+  padding-top: 5rem;
+  padding-bottom: 3rem;
+}
+.h1 {
+  text-align: center;
+  margin-bottom: 10px;
+  color: #2f015a;
+}
+.button {
+  background-color: #8140a7;
+  color: white;
+  width: 10px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+.confirmButton{
+  margin-inline: 10px;
+}
+.centerContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.welcomeText {
+  text-align: center;
+  margin: 20px;
+  font-size: 1.5rem;
+  color: #333; /* Adjust color as needed */
+}
+
+/* Wrapper for the welcome text */
+.welcomeContainer {
+  color: #2f015a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+  padding: 20px;
+}
+
+/* Adjust as needed */
+@media (min-width: 768px) {
+  .welcomeText {
+    font-size: 1.3rem;
+  }
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+/* Modal Container */
+.modal {
+  background-color: #8140a7;
+  max-width: 400px;
+  width: 100%;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Modal Header */
+.modalHeader {
+  color: #FFFFFF;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* Modal Body */
+.modalBody {
+  color: #FFFFFF;
+  margin-bottom: 20px;
+}
+
+/* Modal Footer */
+.modalFooter {
+  display: flex;
+  justify-content: flex-end;
+}
+
