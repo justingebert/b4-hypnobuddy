@@ -5,8 +5,10 @@ import DeleteConfirmationModal from '../components/DeleteConfirmationModal';
 import styles from '../styles/TherapistCard.module.css';
 import {FlashContext} from "../contexts/FlashContext.tsx";
 import NewFearModal from "../components/NewFearModal.tsx";
+import {useAuth} from "../contexts/AuthContext.tsx";
 
 function DosAndDontsPage() {
+  const {user} = useAuth();
   const navigate = useNavigate();
   const { flash } = useContext(FlashContext);
   const [fears, setFears] = useState<Fear[]>([]);
@@ -19,10 +21,12 @@ function DosAndDontsPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const fearResponse = await fetch(`http://localhost:3000/dosAndDonts/fears`);
-        const fearData = await fearResponse.json();
+        if (user) {
+          const fearResponse = await fetch(`http://localhost:3000/dosAndDonts/fears?therapistId=${user._id}`);
+          const fearData = await fearResponse.json();
 
-        setFears(fearData);
+          setFears(fearData);
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
       }
