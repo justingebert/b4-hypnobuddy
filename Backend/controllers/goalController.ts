@@ -115,7 +115,6 @@ export async function createGoal (req, res, next) {
         const savedRoadmapGoal = await newRoadmapGoal.save();
         await User.findOneAndUpdate(
             { _id: savedRoadmapGoal.userID },
-            //{ $push: { goalIDs: savedRoadmapGoal._id }
             {$push: {goalIDs: {$each: [savedRoadmapGoal._id], $position: 0 }}}
         );
         return res.json({

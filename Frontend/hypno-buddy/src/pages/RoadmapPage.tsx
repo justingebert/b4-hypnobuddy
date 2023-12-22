@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useNavigate} from "react-router-dom";
 import {useGoals} from "../contexts/GoalContext.tsx";
 import {useAuth} from "../contexts/AuthContext.tsx";
@@ -50,6 +50,17 @@ function RoadmapPage() {
         }
     };
 
+    const getDueDate = (dueDate) => {
+        const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+        if (dueDate instanceof Date) {
+            return dueDate.toLocaleDateString('de-DE', options);
+        }
+        else if (typeof dueDate === 'string') {
+            return new Date(dueDate).toLocaleDateString('de-DE', options);
+        }
+        return dueDate;
+    }
+
     if (isLoading) return <div>Loading...</div>;
    //if (error) return <div>Error: {error}</div>;
 
@@ -71,6 +82,7 @@ function RoadmapPage() {
                             </div>
                             <div className={`${styles.textbox}`}>
                                 <h5 className={`${styles.title}`}>{goal.title}</h5>
+                                <p className={`${styles.date}`}>{getDueDate(goal.dueDate)}</p>
                                 <p className={`${styles.description}`}>{goal.description}</p>
                             </div>
                         </div>

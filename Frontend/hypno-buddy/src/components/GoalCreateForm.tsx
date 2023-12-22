@@ -11,6 +11,7 @@ const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClo
     const [id, setId] = useState<string | undefined>(undefined);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
+    const [dueDate, setDueDate] = useState<Date | undefined>(undefined);
     const [status, setStatus] = useState('Geplant');
     const [isSubGoal, setIsSubGoal] = useState<boolean>(false);
     const [parentGoalId, setParentGoalId] = useState<string | undefined>(undefined);
@@ -20,6 +21,7 @@ const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClo
             setId(goalData._id);
             setTitle(goalData.title);
             setDescription(goalData.description);
+            setDueDate(goalData.dueDate || undefined);
             setStatus(goalData.status);
             setIsSubGoal(goalData.isSubGoal || false);
             setParentGoalId(goalData.parentGoalId || undefined);
@@ -27,6 +29,7 @@ const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClo
             setId(undefined);
             setTitle('');
             setDescription('');
+            setDueDate(undefined);
             setStatus('Geplant');
             setIsSubGoal(false);
             setParentGoalId(undefined);
@@ -39,6 +42,7 @@ const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClo
             _id: id,
             title,
             description,
+            dueDate,
             status,
             isSubGoal,
             parentGoalId,
@@ -55,7 +59,7 @@ const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClo
                 <div className="modal-content">
                     <div className="modal-header">
                         <h5 className="modal-title">{isEditing ? 'Ziel Bearbeiten' : 'Neues Ziel'}</h5>
-                        <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={onClose}>
+                        <button type="button" className="close bg-secondary" data-dismiss="modal" aria-label="Close" onClick={onClose}>
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -72,6 +76,14 @@ const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClo
                                 <label>Beschreibung</label>
                                 <textarea className="form-control" value={description}
                                           onChange={e => setDescription(e.target.value)}></textarea>
+                            </div>
+                            {/* DueDate Field */}
+                            <div className="form-group">
+                                <label>Datum (optional)</label>
+                                <input type="date" className="form-control date"
+                                       value={dueDate ? new Date(dueDate).toISOString().split('T')[0] : ''}
+                                       onChange={(e) => setDueDate(new Date(e.target.value))}
+                                />
                             </div>
                             {/* Status Field */}
                             <div className="form-group">
