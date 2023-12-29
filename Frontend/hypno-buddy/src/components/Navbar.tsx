@@ -50,8 +50,6 @@ const NavbarComponent = () => {
                         <Nav.Link href="#deets">
                             {isAuthenticated && user ? (
                                 <>
-                                    <Link to="/dosanddonts" className={styles.navLink}>Dos&Donts</Link>
-                                    <Link to="/roadmap" className={styles.navLink}>Roadmap</Link>
                                     <Link to="/profile" className={styles.navLink}>
                                         <div className={styles.userEmail}>{user.name.first + " " + user.name.last}</div>
                                     </Link>
