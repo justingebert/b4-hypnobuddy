@@ -18,28 +18,6 @@ function RoadmapPage() {
     },[]);
 
 
-    const handleAddGoal = async () => {
-        //TODO connect with backend
-        // try {
-        //     const response = await fetch('http://localhost:3000/goals', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify({
-        //             title: 'New Goal',
-        //             description: 'This is a new goal',
-        //             status: 'Not Started',
-        //         }),
-        //     });
-        //     if (response.ok) {
-        //         const data = await response.json();
-        //         setGoals([...goals, data]);
-        //     }
-        // } catch (error) {
-        //     console.error('Error adding goal:', error);
-        // }
-    }
 
     const getStatusClass = (status) => {
         switch (status) {

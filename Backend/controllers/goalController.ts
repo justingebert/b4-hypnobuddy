@@ -9,17 +9,6 @@ import { isValid, parseISO } from 'date-fns';
  * @param request - request body containing { userID, title, description, status, dueDate, isSubGoal, parentGoalId, subGoals }
  */
 export const getGoalParams = request => {
-    //TODO redo when frontend form is set up
-    /*return {
-        userID: request.user._id,
-        title: body.title,
-        description: body.description,
-        status: body.status,
-        dueDate: body.dueDate,
-        isSubGoal: body.isSubGoal,
-        parentGoalId: body.parentGoalId,
-        subGoals: body.subGoals
-    };*/
     return {
         userID: request.user._id,
         title: request.body.title,
