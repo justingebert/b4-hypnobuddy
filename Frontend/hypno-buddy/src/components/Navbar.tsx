@@ -88,7 +88,7 @@ const NavbarComponent = () => {
                                         </div>
                                     </Nav.Link>
                                     <LogoutButton onLogout={handleLogoutClick}/>
-                                </>
+            </>
                             ) : (
                                 <>
                                     <LoginButton/>
