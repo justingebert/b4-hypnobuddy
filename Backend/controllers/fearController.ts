@@ -32,12 +32,25 @@ export const getFearById = async (req: Request, res: Response): Promise<void> =>
 
 export const saveFear = async (req, res): Promise<void> => {
     const { name } = req.body;
-    const therapistId = req.user ? req.user._id : null; //why is uder not accessible ?? user is undefined
+    const therapistId = req.user ? req.user._id : null;
     try {
-        const newFear = new FearModel({ name, therapistId });
-        const savedFear = await newFear.save();
-        res.json(savedFear);
+        if(!therapistId) {
+            res.status(401).json({ error: 'Unauthorized' });
+            return;
+        }
+        const existingFear = await FearModel.findOne({ name, therapistId });
+
+        if (existingFear) {
+            // If a fear with the same name exists, create a new one with a unique identifier
+            res.status(409).json({ error: 'Please enter a new fear title, this fear already exists' });
+        } else {
+            // If no fear with the same name exists, create a new fear
+            const newFear = new FearModel({ name, therapistId });
+            const savedFear = await newFear.save();
+            res.json(savedFear);
+        }
     } catch (error) {
+        console.error('Error in saveFear:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };

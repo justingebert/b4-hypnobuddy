@@ -96,16 +96,18 @@ function DosAndDontsPage() {
         credentials: "include",
         body: JSON.stringify({ name: newFearTitle }),
       });
-
-      const data = await response.json();
-      const newFearId = data._id;
-
-      // Redirect to the page for the newly added fear
-      navigate(`/dosanddonts/t/${newFearId}`);
-      // Close the new fear modal
-      setIsNewFearModalOpen(false);
-      // Reset the new fear title input
-      setNewFearTitle('');
+      if (response.status === 409) {
+        flash('Bitte geben Sie einen neuen Titel ein, diese Kategorie existiert bereits.')
+      } else {
+        const data = await response.json();
+        const newFearId = data._id;
+        // Redirect to the page for the newly added fear
+        navigate(`/dosanddonts/t/${newFearId}`);
+        // Close the new fear modal
+        setIsNewFearModalOpen(false);
+        // Reset the new fear title input
+        setNewFearTitle('');
+      }
     } catch (error) {
       console.error('Error saving fear:', error);
     }
@@ -149,9 +151,11 @@ function DosAndDontsPage() {
             <button className={styles.button} onClick={handleAddNewFearClick} disabled={isAddButtonDisabled}><b>+</b></button>
         )}
         <br></br>
-        <button onClick={handleDeleteModeToggle} className="btn btn-danger">
-          {isDeleteMode ? 'Abbrechen' : 'Angst löschen'}
-        </button>
+        {fears.length> 0 && (
+            <button onClick={handleDeleteModeToggle} className="btn btn-danger">
+              {isDeleteMode ? 'Abbrechen' : 'Angst löschen'}
+            </button>
+        )}
       </div>
       <NewFearModal
           isOpen={isNewFearModalOpen}

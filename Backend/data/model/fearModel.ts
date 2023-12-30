@@ -1,10 +1,12 @@
 import mongoose from 'mongoose';
 
 const fearSchema = new mongoose.Schema({
-    name: String,
-    therapistId: String,
+    name: {type: String, unique: false },
+    therapistId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
     dosAndDonts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'DoAndDont' }],
 }, {collection: 'fears'});
+
+fearSchema.index({ name: 1, therapistId: 1 }, { unique: true });
 
 export const FearModel = mongoose.model('Fear', fearSchema);
 
