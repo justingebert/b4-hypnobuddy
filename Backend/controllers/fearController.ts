@@ -30,14 +30,12 @@ export const getFearById = async (req: Request, res: Response): Promise<void> =>
     }
 };
 
-export const saveFear = async (req: Request, res:Response): Promise<void> => {
+export const saveFear = async (req, res): Promise<void> => {
     const { name } = req.body;
     const therapistId = req.user ? req.user._id : null; //why is uder not accessible ?? user is undefined
-    console.log(therapistId);
     try {
         const newFear = new FearModel({ name, therapistId });
         const savedFear = await newFear.save();
-        console.log(savedFear);
         res.json(savedFear);
     } catch (error) {
         res.status(500).json({ error: 'Internal Server Error' });

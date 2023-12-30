@@ -93,6 +93,7 @@ function DosAndDontsPage() {
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: "include",
         body: JSON.stringify({ name: newFearTitle }),
       });
 
