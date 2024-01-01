@@ -5,8 +5,10 @@ import DeleteConfirmationModal from '../components/DeleteConfirmationModal';
 import styles from '../styles/TherapistCard.module.css';
 import {FlashContext} from "../contexts/FlashContext.tsx";
 import NewFearModal from "../components/NewFearModal.tsx";
+import {useAuth} from "../contexts/AuthContext.tsx";
 
 function DosAndDontsPage() {
+  const {user} = useAuth();
   const navigate = useNavigate();
   const { flash } = useContext(FlashContext);
   const [fears, setFears] = useState<Fear[]>([]);
@@ -19,10 +21,12 @@ function DosAndDontsPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const fearResponse = await fetch(`http://localhost:3000/dosAndDonts/fears`);
-        const fearData = await fearResponse.json();
+        if (user) {
+          const fearResponse = await fetch(`http://localhost:3000/dosAndDonts/fears?therapistId=${user._id}`);
+          const fearData = await fearResponse.json();
 
-        setFears(fearData);
+          setFears(fearData);
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -89,18 +93,21 @@ function DosAndDontsPage() {
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: "include",
         body: JSON.stringify({ name: newFearTitle }),
       });
-
-      const data = await response.json();
-      const newFearId = data._id;
-
-      // Redirect to the page for the newly added fear
-      navigate(`/dosanddonts/t/${newFearId}`);
-      // Close the new fear modal
-      setIsNewFearModalOpen(false);
-      // Reset the new fear title input
-      setNewFearTitle('');
+      if (response.status === 409) {
+        flash('Bitte geben Sie einen neuen Titel ein, diese Kategorie existiert bereits.')
+      } else {
+        const data = await response.json();
+        const newFearId = data._id;
+        // Redirect to the page for the newly added fear
+        navigate(`/dosanddonts/t/${newFearId}`);
+        // Close the new fear modal
+        setIsNewFearModalOpen(false);
+        // Reset the new fear title input
+        setNewFearTitle('');
+      }
     } catch (error) {
       console.error('Error saving fear:', error);
     }
@@ -144,9 +151,11 @@ function DosAndDontsPage() {
             <button className={styles.button} onClick={handleAddNewFearClick} disabled={isAddButtonDisabled}><b>+</b></button>
         )}
         <br></br>
-        <button onClick={handleDeleteModeToggle} className="btn btn-danger">
-          {isDeleteMode ? 'Abbrechen' : 'Angst löschen'}
-        </button>
+        {fears.length> 0 && (
+            <button onClick={handleDeleteModeToggle} className="btn btn-danger">
+              {isDeleteMode ? 'Abbrechen' : 'Angst löschen'}
+            </button>
+        )}
       </div>
       <NewFearModal
           isOpen={isNewFearModalOpen}

@@ -1,10 +1,17 @@
 import {Request, Response } from 'express';
+import User from '../data/model/user';
 import {FearModel, Fear} from "../data/model/fearModel";
 import {DoAndDontModel} from "../data/model/dosAndDontsModel";
 
 export const getFears = async (req: Request, res: Response): Promise<void> => {
     try {
-        const fears = await FearModel.find();
+        const therapistId = req.query.therapistId as string;
+        if (!therapistId) {
+            // If therapistId is not provided, return an error or handle it as per your requirement
+            res.status(400).json({ error: 'Missing therapistId parameter' });
+            return;
+        }
+        const fears = await FearModel.find({ therapistId });
         res.json(fears);
     } catch (error) {
         console.error('Error in getFears:', error);
@@ -23,14 +30,27 @@ export const getFearById = async (req: Request, res: Response): Promise<void> =>
     }
 };
 
-export const saveFear = async (req: Request, res:Response): Promise<void> => {
+export const saveFear = async (req, res): Promise<void> => {
     const { name } = req.body;
+    const therapistId = req.user ? req.user._id : null;
     try {
-        const newFear = new FearModel({ name });
-        const savedFear = await newFear.save();
-        console.log(savedFear);
-        res.json(savedFear);
+        if(!therapistId) {
+            res.status(401).json({ error: 'Unauthorized' });
+            return;
+        }
+        const existingFear = await FearModel.findOne({ name, therapistId });
+
+        if (existingFear) {
+            // If a fear with the same name exists, create a new one with a unique identifier
+            res.status(409).json({ error: 'Please enter a new fear title, this fear already exists' });
+        } else {
+            // If no fear with the same name exists, create a new fear
+            const newFear = new FearModel({ name, therapistId });
+            const savedFear = await newFear.save();
+            res.json(savedFear);
+        }
     } catch (error) {
+        console.error('Error in saveFear:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
