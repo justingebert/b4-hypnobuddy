@@ -101,11 +101,14 @@ export async function createGoal (req, res, next) {
 
     try {
         const newRoadmapGoal = new RoadmapGoal(getGoalParams(req));
+        newRoadmapGoal.description = newRoadmapGoal.description.replace(/\n/g, '<br>'); //makes multiline description possible
         const savedRoadmapGoal = await newRoadmapGoal.save();
+
         await User.findOneAndUpdate(
             { _id: savedRoadmapGoal.userID },
             {$push: {goalIDs: {$each: [savedRoadmapGoal._id], $position: 0 }}}
         );
+        console.log(savedRoadmapGoal.description)
         return res.json({
             success: true,
             message: 'Successfully created goal',
@@ -224,6 +227,9 @@ export async function updateGoal(req, res, next) {
     try {
         const goalId = req.params.goalId;
         const updatedData = req.body;
+        if(updatedData.description) {
+            updatedData.description = updatedData.description.replace(/\n/g, '<br>'); //makes multiline description possible
+        }
 
         const updatedGoal = await RoadmapGoal.findByIdAndUpdate(goalId, updatedData, { new: true });
         if (!updatedGoal) {
