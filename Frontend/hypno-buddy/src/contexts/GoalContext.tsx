@@ -11,7 +11,7 @@ interface GoalsContextType {
     deleteGoal: (goalId: string) => Promise<void>;
     updateGoal: (goalId: string, updatedData: RoadmapGoal) => Promise<void>;
     updateGoalOrder: (newOrder: string[]) => Promise<void>
-    createSubGoal: (subGoalData: { title: string; description: string; status: string; parentGoalId: string }) => Promise<void>;
+    createSubGoal: (subGoalData: RoadmapGoal) => Promise<void>;
 }
 
 const GoalsContext = createContext<GoalsContextType | undefined>(undefined);
@@ -48,16 +48,17 @@ export const GoalsProvider: React.FC = ({ children }) => {
             });
             if (response.ok) {
                 const data = await response.json();
+                console.log(data.goals);
                 setGoals(data.goals);
             } else {
-                console.error('Failed to fetch goals:', response.status); //TODO set
+                console.error('Failed to fetch goals:', response.status);
             }
         } catch (error) {
             console.error('Error fetching goals:', error);
         }
     }, []);
 
-    const createGoal = useCallback(async (goalData: { title: string; description: string; status: string }) => {
+    const createGoal = useCallback(async (goalData: RoadmapGoal) => {
         try {
             const response = await fetch('http://localhost:3000/goal/create', {
                 method: 'POST',
@@ -152,7 +153,7 @@ export const GoalsProvider: React.FC = ({ children }) => {
         }
     }, []);
 
-    const createSubGoal = useCallback(async (subGoalData: { title: string; description: string; status: string; parentGoalId: string }) => {
+    const createSubGoal = useCallback(async (subGoalData: RoadmapGoal) => {
         try {
             const response = await fetch('http://localhost:3000/goal/createSubGoal', {
                 method: 'POST',
@@ -165,10 +166,13 @@ export const GoalsProvider: React.FC = ({ children }) => {
 
             if (response.ok) {
                 const newSubGoal = await response.json();
-                setGoals(prevGoals => [...prevGoals, newSubGoal.goal]);
-                // Optionally, you can also handle adding this subgoal under its parent goal in your local state
+                setGoals(prevGoals => prevGoals.map(goal =>
+                    goal._id === newSubGoal.parentGoalId
+                        ? { ...goal, subGoals: [...(goal.subGoals || []), newSubGoal] }
+                        : goal
+                ));
+
             } else {
-                // Handle HTTP errors
                 console.error('Failed to create subgoal:', response.status);
             }
         } catch (error) {

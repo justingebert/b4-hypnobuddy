@@ -15,8 +15,8 @@ export const getGoalParams = request => {
         description: request.body.description,
         status: request.body.status,
         dueDate: request.body.dueDate,
-        isSubGoal: false,
-        parentGoalId: null,
+        isSubGoal: request.body.isSubGoal,
+        parentGoalId: request.body.parentGoalId,
         subGoals: []
     }
 }
@@ -135,11 +135,22 @@ export async function getAllGoals(req, res, next) {
     try {
         //get order of goals form user document
         const goalIDs = await User.findOne({ _id: req.user._id }).select('goalIDs');
-        //add goals in the correct order to the goals array
+
         const goals = [];
-        for (const goalID of goalIDs.goalIDs) {
-            const goal = await RoadmapGoal.findOne({ _id: goalID });
+        for (const goalID of  goalIDs.goalIDs) {
+            const goal = await RoadmapGoal.findById(goalID);
             if (goal) {
+                const subGoals = Array.isArray(goal.subGoals) ? goal.subGoals : [];
+                const populatedSubGoals = [];
+
+                for (const subGoalID of subGoals) {
+                    const subGoal = await RoadmapGoal.findById(subGoalID);
+                    if (subGoal) {
+                        populatedSubGoals.push(subGoal);
+                    }
+                }
+
+                goal.subGoals = populatedSubGoals;
                 goals.push(goal);
             }
         }
@@ -279,18 +290,12 @@ export async function updateGoalOrder(req, res, next) {
  */
 export async function createSubGoal(req, res) {
     try {
-        const { title, description, status, parentGoalId } = req.body;
+        const { title, description, status, isSubGoal, parentGoalId } = req.body;
 
         // Create a new subgoal
-        const newSubgoal = new RoadmapGoal({
-            title,
-            description,
-            status,
-            isSubGoal: true,
-            parentGoalId,
-        });
+        const newSubGoal = new RoadmapGoal(getGoalParams(req));
 
-        const savedSubgoal = await newSubgoal.save();
+        const savedSubgoal = await newSubGoal.save();
 
         // Optionally, update the parent goal to include this subgoal's ID
         await RoadmapGoal.findByIdAndUpdate(

@@ -47,12 +47,11 @@ const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClo
             status,
             isSubGoal,
             parentGoalId,
-            // You can add subGoals handling based on your application logic
         });
         onClose();
     };
 
-    const isEditing = goalData !== null;
+    const isEditing = goalData !== null && !goalData.isSubGoal;
 
     return (
         <div className="modal show" tabIndex={-1} role="dialog" style={{ display: 'block' }}>
@@ -97,8 +96,6 @@ const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClo
                                         <option value="Erreicht">Erreicht</option>
                                     </select>
                                 </div>
-                                {  /* TODO: include again when subgoals are implemented
-                                   /* IsSubGoal Checkbox (??only makes sense in edit mode??)
                                 {isEditing && (
                                     <div className="form-check">
                                         <input className="form-check-input" type="checkbox" checked={isSubGoal}
@@ -108,7 +105,6 @@ const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClo
                                         </label>
                                     </div>
                                 )}
-                                */}
                                 {/* Parent Goal ID Field */}
                                 {parentGoalId && (
                                     <div className="form-group">

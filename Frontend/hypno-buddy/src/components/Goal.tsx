@@ -29,10 +29,7 @@ function GoalItem({ goal, onEdit, onDelete, onCreateSubGoal }) {
                 <p className="card-text">{goal.description}</p>
                 <button className="btn btn-primary mr-2" onClick={() => onEdit(goal)}>Bearbeiten</button>
                 <button className="btn btn-danger m-2" onClick={() => onDelete(goal._id)}>Löschen</button>
-                {/*
-                    TODO: include again when subgoals are implemented
-                    <button className="btn btn-secondary" onClick={() => onCreateSubGoal(goal._id)}>Create Subgoal</button>
-                */}
+                <button className="btn btn-secondary" onClick={() => onCreateSubGoal(goal._id)}>Create Subgoal</button>
             </div>
         </div>
     );

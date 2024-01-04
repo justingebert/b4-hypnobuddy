@@ -19,8 +19,17 @@ const QueueView: React.FC = () => {
         fetchGoals()
     }, []);
 
+    //TODO should be split into two functions
     const handleCreateNewGoal = async (goalData: RoadmapGoal) => {
-        await createGoal(goalData);
+        //if not s a subgoal
+        if (!goalData.isSubGoal) {
+            await createGoal(goalData);
+            setShowCreateModal(false);
+            return;
+        }
+        //if it is a subgoal
+        await createSubGoal(goalData)
+        setEditingGoal(null);
         setShowCreateModal(false);
     };
 
@@ -43,6 +52,7 @@ const QueueView: React.FC = () => {
         setShowCreateModal(true);
     };
 
+    //TODO add delete subgoal form parent
     const handleDeleteGoal = async (goalId: string) => {
         await deleteGoal(goalId); // Call the deleteGoal function from the context
         setGoals(goals.filter(goal => goal._id !== goalId)); // Update local state to remove the deleted goal
@@ -58,15 +68,14 @@ const QueueView: React.FC = () => {
     const handleCreateSubGoal = async (parentGoalId: string) => {
         // Initialize a new subgoal with the parentGoalId
         const newSubGoal = {
-            title: '', // Default title or prompt for input
-            description: '', // Default description or prompt for input
-            status: 'Geplant', // Default status
+            title: '',
+            description: '',
+            status: 'Geplant',
             parentGoalId: parentGoalId,
             isSubGoal: true,
         };
         setEditingGoal(newSubGoal);
         setShowCreateModal(true);
-        await createSubGoal(subGoalData);
     }
 
     const goToRoadmap = () => {
@@ -83,7 +92,7 @@ const QueueView: React.FC = () => {
                 {showCreateModal && (
                     <GoalCreateForm
                         goalData={editingGoal}
-                        onSave={editingGoal ? handleUpdateGoal : handleCreateNewGoal}
+                        onSave={editingGoal && !editingGoal.isSubGoal ? handleUpdateGoal : handleCreateNewGoal}
                         onClose={() => setShowCreateModal(false)}
                     />
                 )}
