@@ -165,7 +165,8 @@ export const GoalsProvider: React.FC = ({ children }) => {
             });
 
             if (response.ok) {
-                const newSubGoal = await response.json();
+                const newSubGoalPromise = await response.json();
+                const newSubGoal = newSubGoalPromise.subgoal;
                 setGoals(prevGoals => prevGoals.map(goal =>
                     goal._id === newSubGoal.parentGoalId
                         ? { ...goal, subGoals: [...(goal.subGoals || []), newSubGoal] }
