@@ -6,11 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext.tsx';
 import { Link } from 'react-router-dom';
 import RegisterForm from './RegisterPage';
-//import Lottie, { AnimationConfigWithData } from 'lottie-web';
-//import LoginAnimation from '../assets/LoginAnimation.json';
 import styled from 'styled-components';
+import { Container, Row, Col } from 'react-bootstrap';
 import '../styles/LoginSignin.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 const WelcomeHeading = styled.div`
     color: #f4e7e8;
@@ -21,8 +19,21 @@ const WelcomeHeading = styled.div`
     position: absolute;
     top: 45%;
     left: 15%;
+
+  @media (max-width: 768px) {
+    font-size: 60px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 40px;
+  }
 `;
 
+const ContainerStyl = styled.div`
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+`;
 
 const LoginPage = () => {
     const { flash } = useContext(FlashContext);

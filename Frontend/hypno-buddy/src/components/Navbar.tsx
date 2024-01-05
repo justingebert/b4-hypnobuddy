@@ -1,8 +1,10 @@
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import LogoutButton from './LogoutButton';
+import LoginButton from './LoginButton.tsx';
 import Logo from '../assets/hb.svg';
 import styles from '../styles/Navbar.module.css';
-import { useAuth } from "../contexts/AuthContext.tsx";
+import { useAuth } from '../contexts/AuthContext.tsx';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -13,15 +15,44 @@ const NavbarComponent = () => {
     const navigate = useNavigate();
     const handleLogoutClick = async () => {
         await handleLogout();
-        navigate("/");
-        // You may also add a redirect here if needed
+        navigate('/');
     };
+
+    const [prevScrollPos, setPrevScrollPos] = useState(0);
+    const [visible, setVisible] = useState(true);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollPos = window.scrollY;
+
+            setVisible(
+                (prevScrollPos > currentScrollPos &&
+                    prevScrollPos - currentScrollPos > 70) ||
+                currentScrollPos < 10
+            );
+
+            setPrevScrollPos(currentScrollPos);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, [prevScrollPos, visible]);
+
     return (
-        <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary navbar-nav1" sticky="top" bg="dark" data-bs-theme="dark" >
+        <Navbar
+            collapseOnSelect
+            expand="lg"
+            className={`navbar-nav1 fixed-top ${visible ? 'visible' : 'hidden'}`}
+            bg="dark"
+            data-bs-theme="dark"
+        >
             <Container>
                 <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">
                     <img src={Logo} alt="logo" className={styles.logo} />
-                    <h3>Hypno Buddy</h3>
+                    <h3 className="ms-2">Hypno Buddy</h3>
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
@@ -29,6 +60,7 @@ const NavbarComponent = () => {
                         <Nav.Link href="/" className="nav-link active" aria-current="page">
                             Home
                         </Nav.Link>
+                        {isAuthenticated && user ? (
                         <NavDropdown title="Feature" id="collapsible-nav-dropdown">
                             <NavDropdown.Item href="/dosanddonts" className={styles.navLink}>
                                 Dos&Donts
@@ -41,23 +73,25 @@ const NavbarComponent = () => {
                                 Separated link
                             </NavDropdown.Item>
                         </NavDropdown>
-                        <Nav.Link href="/profile">Profil</Nav.Link>
+                        ) : null}
                     </Nav>
                     <Nav>
-                        <Navbar.Text>
-                            Signed in as: <a href="/login">XXX</a>
-                        </Navbar.Text>
-                        <Nav.Link href="#deets">
+                        <Nav.Link href="#deets" className="d-flex">
                             {isAuthenticated && user ? (
                                 <>
-                                    <Link to="/profile" className={styles.navLink}>
-                                        <div className={styles.userEmail}>{user.name.first + " " + user.name.last}</div>
-                                    </Link>
-                                    <LogoutButton onLogout={handleLogoutClick} className={styles.logoutButton} />
-                                </>
+                                    <Nav.Link href="/profile" className={styles.navLink}>
+                                        <div className={styles.userEmail}>
+                                            <Navbar.Text>
+                                                Eingeloggt:
+                                            </Navbar.Text>
+                                            {" " + user.name.first + " " + user.name.last}
+                                        </div>
+                                    </Nav.Link>
+                                    <LogoutButton onLogout={handleLogoutClick}/>
+            </>
                             ) : (
                                 <>
-                                    <Link to="/login" className={styles.navLink}>Login</Link>
+                                    <LoginButton/>
                                 </>
                             )}
                         </Nav.Link>
