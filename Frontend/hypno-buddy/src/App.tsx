@@ -14,6 +14,11 @@ import { useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import QueueView from "./pages/QueueView.tsx";
 import {GoalsProvider} from "./contexts/GoalContext.tsx";
+import ReflexionAddPage from './pages/ReflexionAddPage.tsx';
+import ReflexionDescriptionPage from './pages/ReflexionDescriptionPage.tsx';
+import ReflexionDeepDivePage from './pages/ReflexionDeepDivePage.tsx';
+import ReflexionFinalPage from './pages/ReflexionFinalPage.tsx';
+import ReflexionListPage from './pages/ReflexionListPage.tsx';
 
 function App() {
 
@@ -42,8 +47,11 @@ function App() {
                         </GoalsProvider>
                     }/>
                     <Route path="*" element={<h1>Not Found</h1>} />
-                    {/* Add other routes here */}
-                    {/* Add other routes here */}
+                    <Route path="/reflexion-add" element={<ReflexionAddPage />} />
+                    <Route path="/reflexion-description/:id" element={<ReflexionDescriptionPage />} />
+                    <Route path="/reflexion-deep-dive/:id" element={<ReflexionDeepDivePage />} />
+                    <Route path="/reflexion-final" element={<ReflexionFinalPage />} />
+                    <Route path="/previous-reflexions" element={<ReflexionListPage />} />
                 </Routes>
                 <Footer/>
             </Router>

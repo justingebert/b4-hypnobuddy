@@ -68,6 +68,9 @@ const NavbarComponent = () => {
                             <NavDropdown.Item href="/roadmap" className={styles.navLink}>
                                 Roadmap
                             </NavDropdown.Item>
+                            <NavDropdown.Item href="/reflexion-add" className={styles.navLink}>
+                                Reflexion
+                            </NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item href="#action/3.4">
                                 Separated link
