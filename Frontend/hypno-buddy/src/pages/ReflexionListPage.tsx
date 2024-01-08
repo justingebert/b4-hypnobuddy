@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import CustomButton from "../components/CustomButton.tsx";
 
 interface Reflexion {
   _id: string;
@@ -60,30 +61,62 @@ const promptDelete = (id: string) => {
   };
 
   return (
-    <div>
-      <h2>Previous Reflexions</h2>
-      <button onClick={() => navigate('/reflexion-add')}>Add New Reflexion</button>
-      <button onClick={() => setIsDeleteMode(!isDeleteMode)}>
-        {isDeleteMode ? 'Exit Delete Mode' : 'Delete Mode'}
-      </button>
-      <ul>
-        {reflexions.map((reflexion) => (
-          <li key={reflexion._id}>
-            <p>{new Date(reflexion.date).toLocaleString()}: {reflexion.mood}</p>
-            {reflexion.description && <p>Description: {reflexion.description}</p>}
-            {reflexion.deepDiveQuestion && <p>Deep Dive Question: {reflexion.deepDiveQuestion}</p>}
-            {reflexion.deepDiveAnswer && <p>Deep Dive Answer: {reflexion.deepDiveAnswer}</p>}
-            {isDeleteMode && <button onClick={() => promptDelete(reflexion._id)}>Delete</button>}
-            {showDeleteModal && selectedReflexionId === reflexion._id && (
-            <div>
-                <p>Are you sure you want to delete this entry?</p>
-                <button onClick={confirmDelete}>Yes</button>
-                <button onClick={cancelDelete}>No</button>
-            </div>
-            )}
-          </li>
-        ))}
-      </ul>
+    <div className="reflectionDiv">
+      <h2 className="h2-refelxion">Previous Reflexions</h2>
+      <div className="yesNoDiv">
+        <CustomButton
+            buttonText="Neuer Eintrag"
+            backgroundColor="#4F45DA"
+            hoverColor="#56c8c9"
+            borderColor="#4F45DA"
+            borderHoverColor="#56c8c9"
+            handleClick={() => {navigate('/reflexion-add')
+            }}
+        />
+        <CustomButton
+            buttonText= {isDeleteMode ? 'Zurück' : 'Löschen'}
+            backgroundColor="#958ae8"
+            hoverColor="#56c8c9"
+            borderColor="#958ae8"
+            borderHoverColor="#56c8c9"
+            handleClick = {() => setIsDeleteMode(!isDeleteMode)}
+        ></CustomButton>
+      </div>
+      <div className="reflextionEntry">
+        <div>
+          {reflexions.map((reflexion) => (
+              <ul key={reflexion._id}
+                className="singleEntry">
+                <p>{new Date(reflexion.date).toLocaleString()}: {reflexion.mood}</p>
+                {reflexion.description && <p>Description: {reflexion.description}</p>}
+                {reflexion.deepDiveQuestion && <p>Deep Dive Question: {reflexion.deepDiveQuestion}</p>}
+                {reflexion.deepDiveAnswer && <p>Deep Dive Answer: {reflexion.deepDiveAnswer}</p>}
+                {isDeleteMode && <button onClick={() => promptDelete(reflexion._id)}>Delete</button>}
+                {showDeleteModal && selectedReflexionId === reflexion._id && (
+                    <div>
+                      <p>Bist du dir sicher, den Beitrag zu löschen?</p>
+                      <CustomButton
+                          buttonText= "Ja"
+                          backgroundColor="#958ae8"
+                          hoverColor="#56c8c9"
+                          borderColor="#958ae8"
+                          borderHoverColor="#56c8c9"
+                          handleClick = {confirmDelete}
+                      />
+                      <CustomButton
+                          buttonText= "Nein"
+                          backgroundColor="#958ae8"
+                          hoverColor="#56c8c9"
+                          borderColor="#958ae8"
+                          borderHoverColor="#56c8c9"
+                          handleClick = {cancelDelete}
+                      />
+                    </div>
+                )}
+              </ul>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

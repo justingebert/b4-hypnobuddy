@@ -1,31 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import CustomButton from "../components/CustomButton.tsx";
 
-interface Params {
+/*interface Params {
   id: string;
 }
-
+*/
 const deepDiveQuestions = [
-    "What made you smile today?",
-    "Can you think of a time today when you felt really calm?",
-    "What is something new you tried today?",
-    "Who did you enjoy talking to today?",
-    "What was the best thing about your day?",
-    "Can you describe a challenge you faced today?",
-    "What is something you are looking forward to tomorrow?",
-    "How did you help someone today?",
-    "Was there a moment today when you felt proud of yourself?",
-    "Did anything surprise you today?",
-    "What was the funniest thing that happened today?",
-    "Did you feel worried at any time today?",
-    "What was your favorite part of the day?",
-    "Were there any moments today when you felt really energetic?",
-    "How did you make a friend feel happy today?",
-    "What is something kind that you did today?",
-    "Did you learn anything new and exciting today?",
-    "What was the most peaceful moment of your day?",
-    "Was there a time today when you felt really grateful?",
-    "Can you think of a moment today that made you feel loved?"
+    "Was hat dich heute zum Lächeln gebracht?",
+    "Kannst du dich an eine Zeit erinnern, in der du dich wirklich ruhig gefühlt hast?",
+    "Was ist etwas Neues, das du heute ausprobiert hast?",
+    "Mit wem hast du dich heute gerne unterhalten?",
+    "Was war das Beste an deinem Tag?",
+    "Kannst du eine Herausforderung beschreiben, die du heute bewältigt hast?",
+    "Was ist etwas, auf das du dich morgen freust?",
+    "Wie hast du heute jemandem geholfen?",
+    "Gab es heute einen Moment, in dem du stolz auf dich warst?",
+    "Hat dich heute etwas überrascht?",
+    "Was war das Lustigste, das heute passiert ist?",
+    "Hast du dich heute irgendwann besorgt gefühlt?",
+    "Was hat dir heute am besten gefallen?",
+    "Gab es heute Momente, in denen du dich besonders energiegeladen gefühlt hast?",
+    "Wie hast du heute einen Freund glücklich gemacht?",
+    "Was hast du heute Gutes getan?",
+    "Hast du heute etwas Neues und Spannendes gelernt?",
+    "Was war der friedlichste Moment deines Tages?",
+    "Gab es heute einen Moment, in dem du dich wirklich dankbar gefühlt hast?",
+    "Fällt dir heute ein Moment ein, in dem du dich geliebt gefühlt hast?"
   ];
 
   const ReflexionDeepDivePage: React.FC = () => {
@@ -76,24 +77,68 @@ const deepDiveQuestions = [
   };  
 
   return (
-    <div>
-      <h2>Selected mood: {mood}</h2>
+    <div className="reflectionDiv">
+      <h2 className="h2-refelxion">Wie du dich fühlst: {mood}</h2>
       {!showDeepDive && (
         <>
-          <h3>Would you like to continue reflexion and deepen the understanding of your feelings?</h3>
-          <button onClick={() => handleContinueReflection(true)}>Yes</button>
-          <button onClick={() => handleContinueReflection(false)}>No</button>
+            <div className="yesNoDiv">
+                <h3>Magst du deine Gefühle mehr vertiefen und verstehen?</h3>
+                <div>
+                    <CustomButton
+                        buttonText="Ja"
+                        backgroundColor="#4F45DA"
+                        hoverColor="#56c8c9"
+                        borderColor="#4F45DA"
+                        borderHoverColor="#56c8c9"
+                        handleClick= {() => handleContinueReflection(true)}
+
+                    />
+                    <CustomButton
+                        buttonText="Nein"
+                        backgroundColor="#4F45DA"
+                        hoverColor="#56c8c9"
+                        borderColor="#4F45DA"
+                        borderHoverColor="#56c8c9"
+                        handleClick= {() => handleContinueReflection(false)}
+
+                    />
+                </div>
+            </div>
         </>
       )}
       {showDeepDive && (
         <>
-          <p>{deepDiveQuestion}</p>
-          <button onClick={() => setDeepDiveQuestion(getRandomQuestion())} style={{ display: 'block', margin: '10px 0' }}>Change Question</button>
-          <textarea value={deepDiveAnswer} onChange={(e) => setDeepDiveAnswer(e.target.value)} style={{ display: 'block', margin: '10px 0' }} />
-          <div>
-            <button onClick={handleSaveDeepDive}>Save</button>
-            <button onClick={() => navigate('/reflexion-final')}>Cancel</button>
-          </div>
+            <div className="yesNoDiv">
+                <p>{deepDiveQuestion}</p>
+                <CustomButton
+                    buttonText="Andere Frage"
+                    backgroundColor="#4F45DA"
+                    hoverColor="#56c8c9"
+                    borderColor="#4F45DA"
+                    borderHoverColor="#56c8c9"
+                    handleClick= {() => setDeepDiveQuestion(getRandomQuestion())}
+                />
+                <textarea value={deepDiveAnswer} onChange={(e) => setDeepDiveAnswer(e.target.value)}
+                          className="inputText"/>
+                <div>
+                    <CustomButton
+                        buttonText="Speichern"
+                        backgroundColor="#4F45DA"
+                        hoverColor="#56c8c9"
+                        borderColor="#4F45DA"
+                        borderHoverColor="#56c8c9"
+                        handleClick= {handleSaveDeepDive}
+                    />
+                    <CustomButton
+                        buttonText="Abbruch"
+                        backgroundColor="#958ae8"
+                        hoverColor="#56c8c9"
+                        borderColor="#958ae8"
+                        borderHoverColor="#56c8c9"
+                        handleClick={() => navigate('/reflexion-final')}
+                    />
+                </div>
+            </div>
         </>
       )}
     </div>
