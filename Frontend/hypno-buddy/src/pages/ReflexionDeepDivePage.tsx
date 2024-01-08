@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-interface Params {
-  id: string;
-}
-
 const deepDiveQuestions = [
     "What made you smile today?",
     "Can you think of a time today when you felt really calm?",

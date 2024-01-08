@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
-interface Params {
-  id: string;
-}
-
 const ReflexionDescriptionPage: React.FC = () => {
   const { id } = useParams<Record<string, string | undefined>>();
   const navigate = useNavigate();
