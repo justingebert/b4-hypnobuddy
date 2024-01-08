@@ -3,7 +3,10 @@
     align-items: center;
     justify-content: center;
     align-content: center;
-
+}
+.reflectionCard{
+    background-color: #4F45DA;
+    padding-top: 100px;
 }
 .h2-refelxion{
    margin-top: 100px;
@@ -11,7 +14,7 @@
     margin-bottom: 0;
     padding: 20px;
     text-align: center;
-    background-color: #C5B6F1;
+    background-color: #C9BAFD;
     color: #4F45DA;
     align-content: center;
 }
@@ -21,7 +24,7 @@
     margin-inline: 20%;
     align-items: center;
     justify-content: center;
-    background-color: #C5B6F1;
+    background-color: #C9BAFD;
 }
 .moodButton{
     margin: 15px;
@@ -48,13 +51,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
+    background-color: #C9BAFD;
 }
-
 
 .yesNoDiv{
     margin-inline: 20%;
-    background-color: #C5B6F1;
+    background-color: #C9BAFD;
     color: #4F45DA;
     display: flex;
     flex-direction: column;
@@ -70,9 +72,11 @@
 .inputText{
     border-radius: 5px;
     width: 60%;
+    height: 150px;
     background-color: #F7E6E8;
     padding: 15px;
     margin: 15px;
+    color: #4F45DA;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -82,7 +86,6 @@
 }
 
 .reflextionEntry{
-    margin-inline: 20%;
     display: block;
     align-items: center;
     justify-content: center;
@@ -115,4 +118,9 @@
     width: 150%;
     height: auto;
     border-radius: 50%;
+}
+.bunnyImmage{
+    display: flex;
+    justify-content: center;
+    padding: 30px;
 }

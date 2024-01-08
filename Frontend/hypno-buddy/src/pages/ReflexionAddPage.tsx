@@ -7,6 +7,7 @@ import normalImage from '../assets/Mittel.png';
 import notSoGoodImage from '../assets/schlecht.png';
 import badImage from '../assets/Sehr schlecht.png';
 import CustomButton from "../components/CustomButton.tsx";
+import bunny from "../assets/bunny.png";
 const AddingReflexionPage: React.FC = () => {
   const navigate = useNavigate();
   const [hoveredButton, setHoveredButton] = useState<string | null>(null);
@@ -25,7 +26,7 @@ const AddingReflexionPage: React.FC = () => {
     }
   };
 
-  const getImageForMood = (mood: string) : string => {
+  const getImageForMood = (mood: string)  => {
     switch (mood) {
       case 'Sehr gut':
         return excellentImage;
@@ -45,6 +46,7 @@ const AddingReflexionPage: React.FC = () => {
   return (
     <div>
       <div className="reflectionDiv">
+        <div className="">
           <h2 className="h2-refelxion">Wie fühlst du dich heute?</h2>
           <div className="moodDiv">
             {['Sehr gut', 'Gut', 'Normal', 'Nicht so gut', 'Schlecht'].map((mood) => (
@@ -58,20 +60,24 @@ const AddingReflexionPage: React.FC = () => {
                       mood
                   ) : (
                       <img src={getImageForMood(mood) || ''} alt={mood} className="moodButtonImg" />
-                     )}
+                  )}
                 </button>
             ))}
           </div>
-        <div className="previousButtonDiv">
-          <CustomButton
-              buttonText="Frühere Einträge anzeigen"
-              backgroundColor="#4F45DA"
-              hoverColor="#56c8c9"
-              borderColor="#4F45DA"
-              borderHoverColor="#56c8c9"
-              handleClick={() => {navigate('/previous-reflexions')
-              }}
-          />
+          <div className="previousButtonDiv">
+            <CustomButton
+                buttonText="Frühere Einträge anzeigen"
+                backgroundColor="#4F45DA"
+                hoverColor="#56c8c9"
+                borderColor="#4F45DA"
+                borderHoverColor="#56c8c9"
+                handleClick={() => {navigate('/previous-reflexions')
+                }}
+            />
+          </div>
+        </div>
+        <div className="bunnyImmage">
+          <img src={bunny}/>
         </div>
       </div>
     </div>

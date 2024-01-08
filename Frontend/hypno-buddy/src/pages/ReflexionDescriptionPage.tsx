@@ -40,9 +40,8 @@ const ReflexionDescriptionPage: React.FC = () => {
 
   return (
     <div className="reflectionDiv">
-      <div>
+      <div className="">
         <h2 className="h2-refelxion">Wie du dich fühlst: {mood}</h2>
-      </div>
       {!showDescriptionField && (
         <>
           <div className="yesNoDiv">
@@ -94,6 +93,7 @@ const ReflexionDescriptionPage: React.FC = () => {
           </div>
         </>
       )}
+      </div>
     </div>
   );
 };

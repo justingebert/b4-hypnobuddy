@@ -62,28 +62,31 @@ const promptDelete = (id: string) => {
 
   return (
     <div className="reflectionDiv">
-      <h2 className="h2-refelxion">Previous Reflexions</h2>
-      <div className="yesNoDiv">
-        <CustomButton
-            buttonText="Neuer Eintrag"
-            backgroundColor="#4F45DA"
-            hoverColor="#56c8c9"
-            borderColor="#4F45DA"
-            borderHoverColor="#56c8c9"
-            handleClick={() => {navigate('/reflexion-add')
-            }}
-        />
-        <CustomButton
-            buttonText= {isDeleteMode ? 'Zurück' : 'Löschen'}
-            backgroundColor="#958ae8"
-            hoverColor="#56c8c9"
-            borderColor="#958ae8"
-            borderHoverColor="#56c8c9"
-            handleClick = {() => setIsDeleteMode(!isDeleteMode)}
-        ></CustomButton>
+      <div className="reflectionCard">
+        <h2 className="h2-refelxion">Deine Einträge</h2>
+        <div className="yesNoDiv">
+          <CustomButton
+              buttonText="Neuer Eintrag"
+              backgroundColor="#4F45DA"
+              hoverColor="#56c8c9"
+              borderColor="#4F45DA"
+              borderHoverColor="#56c8c9"
+              handleClick={() => {navigate('/reflexion-add')
+              }}
+          />
+          <CustomButton
+              buttonText= {isDeleteMode ? 'Zurück' : 'Löschen'}
+              backgroundColor="#958ae8"
+              hoverColor="#56c8c9"
+              borderColor="#958ae8"
+              borderHoverColor="#56c8c9"
+              handleClick = {() => setIsDeleteMode(!isDeleteMode)}
+          ></CustomButton>
+        </div>
       </div>
+
       <div className="reflextionEntry">
-        <div>
+        <div style={{marginInline:'20%'}}>
           {reflexions.map((reflexion) => (
               <ul key={reflexion._id}
                 className="singleEntry">
