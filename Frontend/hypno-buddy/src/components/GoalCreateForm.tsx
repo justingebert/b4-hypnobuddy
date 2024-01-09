@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { RoadmapGoal } from "../types/Roadmap-Goal.ts";
 import styles from '../styles/GoalForm.module.scss';
+import {useGoals} from "../contexts/GoalContext.tsx";
 
 interface GoalCreateFormProps {
     goalData: RoadmapGoal | null;
@@ -16,6 +17,9 @@ const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClo
     const [status, setStatus] = useState('Geplant');
     const [isSubGoal, setIsSubGoal] = useState<boolean>(false);
     const [parentGoalId, setParentGoalId] = useState<string | undefined>(undefined);
+    const [parentGoalTitle, setParentGoalTitle] = useState<string | undefined>(undefined);
+
+    const { getLocalGoalById } = useGoals();
 
     useEffect(() => {
         if (goalData) {
@@ -26,6 +30,7 @@ const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClo
             setStatus(goalData.status);
             setIsSubGoal(goalData.isSubGoal || false);
             setParentGoalId(goalData.parentGoalId || undefined);
+            setParentGoalTitle(getLocalGoalById(goalData.parentGoalId || '')?.title || undefined);
         } else {
             setId(undefined);
             setTitle('');
@@ -96,11 +101,12 @@ const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClo
                                         <option value="Erreicht">Erreicht</option>
                                     </select>
                                 </div>
+                                {/*//this is hidden but values need to be read //TODO remove later*/}
                                 {isEditing && (
                                     <div className="form-check">
-                                        <input className="form-check-input" type="checkbox" checked={isSubGoal}
+                                        <input className="form-check-input visually-hidden" type="checkbox" checked={isSubGoal}
                                                onChange={e => setIsSubGoal(e.target.checked)} id="isSubGoalCheck" />
-                                        <label className="form-check-label" htmlFor="isSubGoalCheck">
+                                        <label className="form-check-label visually-hidden" htmlFor="isSubGoalCheck">
                                             Is Sub Goal
                                         </label>
                                     </div>
@@ -109,7 +115,7 @@ const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClo
                                 {parentGoalId && (
                                     <div className="form-group">
                                         <label>Parent Goal ID</label>
-                                        <p className="form-control-plaintext">{parentGoalId}</p>
+                                        <p className="form-control-plaintext">{parentGoalTitle}</p>
                                     </div>
                                 )}
                             </div>

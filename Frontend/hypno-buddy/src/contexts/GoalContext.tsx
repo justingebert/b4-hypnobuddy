@@ -7,11 +7,12 @@ interface GoalsContextType {
     setGoals: React.Dispatch<React.SetStateAction<RoadmapGoal[]>>;
     addGoal: (goal: RoadmapGoal) => void;
     fetchGoals: () => Promise<void>
-    createGoal: (goalData: { title: string; description: string; status: string }) => Promise<void>;
+    createGoal: (goalData: RoadmapGoal) => Promise<void>;
     deleteGoal: (goalId: string) => Promise<void>;
     updateGoal: (goalId: string, updatedData: RoadmapGoal) => Promise<void>;
     updateGoalOrder: (newOrder: string[]) => Promise<void>
     createSubGoal: (subGoalData: RoadmapGoal) => Promise<void>;
+    getLocalGoalById: (goalId: string) => RoadmapGoal | undefined;
 }
 
 const GoalsContext = createContext<GoalsContextType | undefined>(undefined);
@@ -72,11 +73,9 @@ export const GoalsProvider: React.FC = ({ children }) => {
                 const newGoal = await response.json();
                 setGoals(prevGoals => [newGoal.goal, ...prevGoals]);
             } else {
-                // Handle HTTP errors
                 console.error('Failed to create goal:', response.status);
             }
         } catch (error) {
-            // Handle network errors
             console.error('Error creating goal:', error);
         }
     }, []);
@@ -153,7 +152,6 @@ export const GoalsProvider: React.FC = ({ children }) => {
 
             if (response.ok) {
                 // Optionally update the local state if needed
-                // This depends on how you're managing and displaying goals
             } else {
                 console.error('Failed to update goal order:', response.status);
             }
@@ -191,8 +189,13 @@ export const GoalsProvider: React.FC = ({ children }) => {
         }
     }, []);
 
+    const getLocalGoalById = useCallback((goalId: (string | undefined)) => {
+        return goals.find(goal => goal._id === goalId);
+
+    }, []);
+
     return (
-        <GoalsContext.Provider value={{ goals, setGoals, addGoal, fetchGoals, createGoal, deleteGoal, updateGoal, updateGoalOrder, createSubGoal }}>
+        <GoalsContext.Provider value={{ goals, setGoals, addGoal, fetchGoals, createGoal, deleteGoal, updateGoal, updateGoalOrder, createSubGoal, getLocalGoalById }}>
             {children}
         </GoalsContext.Provider>
     );
