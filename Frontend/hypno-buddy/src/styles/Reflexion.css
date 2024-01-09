@@ -17,6 +17,8 @@
     background-color: #C9BAFD;
     color: #4F45DA;
     align-content: center;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
 }
 .moodDiv{
     display: flex;
@@ -52,6 +54,8 @@
     align-items: center;
     justify-content: center;
     background-color: #C9BAFD;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
 }
 
 .yesNoDiv{
@@ -64,6 +68,8 @@
     text-align: center;
     justify-content: center;
     padding-block: 5%;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
 }
 .yesNoButton{
     display: inline;
@@ -96,8 +102,7 @@
 .singleEntry{
     background-color: #C9BAFD;
     color: #4F45DA;
-    padding: 2%;
-    margin: 2%;
+    padding: 2%;margin-bottom: 30px;
     border-radius: 15px;
 }
 .circleDiv{
@@ -119,8 +124,58 @@
     height: auto;
     border-radius: 50%;
 }
-.bunnyImmage{
+.moodText{
+    text-align: center;
+}
+.buttonScrollToTop {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: transparent;
+    color: #ffffff;
+    transform: scale(2.5);
+    cursor: pointer;
+}
+.datum{
+    display: flex;
+    justify-content: center;
+    color: #D3FFB4;
+}
+.datumTime{
+    display: flex;
+    justify-content: right;
+}
+.buttonScrollToTop:hover{
+    border: none;
+    border-color: transparent;
+    color: #8140a7;
+}
+.bunnyImageDiv {
     display: flex;
     justify-content: center;
     padding: 30px;
+
 }
+.bunnyImage{
+    position: relative;
+    overflow: hidden;
+
+    animation: waveAnimation 4s ease-in-out infinite;
+}
+
+@keyframes waveAnimation {
+    0%{
+        transform: rotateZ(-20grad);
+    }
+    50% {
+        transform: translateY(0px) rotateZ(20grad); /* Bewegt das Bild um 100% der eigenen Breite nach rechts */
+    }
+    100%{
+        transform: rotateZ(-20grad);
+    }
+}
+.textInspo {
+    color: #4F45DA;
+    text-align: center;
+}
+<p className="datumTime">{formatTime(new Date(reflexion.date))}</p>

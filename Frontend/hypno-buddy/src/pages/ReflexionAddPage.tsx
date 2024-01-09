@@ -76,8 +76,11 @@ const AddingReflexionPage: React.FC = () => {
             />
           </div>
         </div>
-        <div className="bunnyImmage">
-          <img src={bunny}/>
+        <div className="bunnyImageDiv">
+          <img src={bunny} className="bunnyImage" alt="bunny"/>
+        </div>
+        <div>
+          <h2 className="textInspo">Gefühle sind wichtig und Richtig.</h2>
         </div>
       </div>
     </div>
