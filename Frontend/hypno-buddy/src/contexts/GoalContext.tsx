@@ -48,7 +48,6 @@ export const GoalsProvider: React.FC = ({ children }) => {
             });
             if (response.ok) {
                 const data = await response.json();
-                console.log(data.goals);
                 setGoals(data.goals);
             } else {
                 console.error('Failed to fetch goals:', response.status);
