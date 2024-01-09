@@ -60,6 +60,11 @@ const promptDelete = (id: string) => {
     setSelectedReflexionId(null);
   };
 
+  const cancelButton = () => {
+    setIsDeleteMode(!isDeleteMode); 
+    setShowDeleteModal(false);
+  };
+
   return (
     <div className="reflectionDiv">
       <div className="reflectionCard">
@@ -80,7 +85,7 @@ const promptDelete = (id: string) => {
               hoverColor="#56c8c9"
               borderColor="#958ae8"
               borderHoverColor="#56c8c9"
-              handleClick = {() => setIsDeleteMode(!isDeleteMode)}
+              handleClick = {cancelButton}
           ></CustomButton>
         </div>
       </div>
