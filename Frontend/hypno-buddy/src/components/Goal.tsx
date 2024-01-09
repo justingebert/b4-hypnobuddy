@@ -29,7 +29,7 @@ function GoalItem({ goal, onEdit, onDelete, onCreateSubGoal }) {
                 <p className="card-text" dangerouslySetInnerHTML={{ __html: goal.description }} />
                 <button className="btn btn-primary mr-2" onClick={() => onEdit(goal)}>Bearbeiten</button>
                 <button className="btn btn-danger m-2" onClick={() => onDelete(goal._id)}>Löschen</button>
-                <button className="btn btn-secondary" onClick={() => onCreateSubGoal(goal._id)}>Create Subgoal</button>
+                <button className="btn btn-secondary" onClick={() => onCreateSubGoal(goal._id)}>neues Zwischenziel</button>
             </div>
         </div>
     );
