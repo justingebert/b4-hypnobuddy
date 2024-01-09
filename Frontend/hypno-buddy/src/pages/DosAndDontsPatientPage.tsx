@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {useAuth} from "../contexts/AuthContext.tsx";
 import styles from '../styles/DosAndDontsPatient.module.css';
 
-const DosAndDontsPatientPage = ({ fearId }) => {
+const DosAndDontsPatientPage = () => {
     const {isAuthenticated, user} = useAuth();
     const [dosAndDonts, setDosAndDonts ] = useState([]);
     const [isInDos, setIsInDos] = useState(true);
@@ -15,7 +15,7 @@ const DosAndDontsPatientPage = ({ fearId }) => {
     useEffect(() => {
         const fetchDosAndDonts = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/dosAndDonts/fears/${fearId}`);
+                const response = await fetch(`http://localhost:3000/dosAndDonts/dosAndDonts/user/${user?._id}`);
                 const data = await response.json();
 
                 if (data) {
@@ -28,7 +28,7 @@ const DosAndDontsPatientPage = ({ fearId }) => {
             }
         };
         fetchDosAndDonts();
-    }, [fearId]);
+    }, [user?._id]);
 
     const handleSliderClick = () => {
         setIsInDos((prevIsInDos) => !prevIsInDos);

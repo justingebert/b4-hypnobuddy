@@ -48,10 +48,9 @@ function DosAndDontsRoutes() {
             </Routes>
         );
     } else if (user && user.role === 'patient') {
-        const testFearId = '65638a27e644da5ecfba94c5'; //schulangst
         return (
             <Routes>
-                <Route path="/p/" element={<DosAndDontsPatientPage fearId={testFearId}/>} />;
+                <Route path="/p/" element={<DosAndDontsPatientPage />} />;
             </Routes>
             )
 
