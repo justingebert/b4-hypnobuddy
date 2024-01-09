@@ -93,7 +93,19 @@ export const GoalsProvider: React.FC = ({ children }) => {
             });
 
             if (response.ok) {
-                setGoals(prevGoals => prevGoals.filter(goal => goal.id !== goalId));
+
+                //setGoals(prevGoals => prevGoals.filter(goal => goal.id !== goalId));
+                setGoals(prevGoals => prevGoals.map(goal => {
+                    // Check if the current goal has subgoals
+                    if (goal.subGoals) {
+                        // Filter out the deleted subgoal from the subGoals array
+                        const updatedSubGoals = goal.subGoals.filter(subGoal => subGoal._id !== goalId);
+                        goal.subGoals = updatedSubGoals;
+                        return goal
+                    }
+                    return goal;
+                }).filter(goal => goal._id !== goalId));
+
             } else {
                 console.error('Failed to delete goal:', response.status);
             }
