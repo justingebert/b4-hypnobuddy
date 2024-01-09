@@ -15,7 +15,7 @@ interface TherapistCardProps {
 }
 
 function TherapistCard({
-  initialTitle = 'Enter title here.',
+  initialTitle = "Enter title here.",
   leftTextField,
   rightTextField,
   isEditMode,

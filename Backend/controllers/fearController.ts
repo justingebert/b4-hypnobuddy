@@ -12,7 +12,13 @@ interface RequestWithUser extends ExpressRequest {
 
 export const getFears = async (req: RequestWithUser, res: Response): Promise<void> => {
     try {
-        const fears = await FearModel.find();
+        const therapistId = req.query.therapistId as string;
+        if (!therapistId) {
+            // If therapistId is not provided, return an error or handle it as per your requirement
+            res.status(400).json({ error: 'Missing therapistId parameter' });
+            return;
+        }
+        const fears = await FearModel.find({ therapistId });
         res.json(fears);
     } catch (error) {
         console.error('Error in getFears:', error);
@@ -22,11 +28,9 @@ export const getFears = async (req: RequestWithUser, res: Response): Promise<voi
 
 export const getFearById = async (req: RequestWithUser, res: Response): Promise<void> => {
     const { fearId } = req.params;
-    console.log(fearId);
-
     try {
         // Fetch fear data without populating 'dosAndDonts' and 'users'
-        const fear = await FearModel.findById(fearId).populate("dosAndDonts").select('dosAndDonts users');
+        const fear = await FearModel.findById(fearId).populate("dosAndDonts").select('-__v');
         if (!fear) {
             res.status(404).json({ error: 'Fear not found' });
             return;
@@ -41,8 +45,6 @@ export const getFearById = async (req: RequestWithUser, res: Response): Promise<
             ...fear.toObject(),
             users,
         };
-
-        console.log(result);
         res.json(result);
     } catch (error) {
         console.error('Error fetching fear:', error);
@@ -51,14 +53,27 @@ export const getFearById = async (req: RequestWithUser, res: Response): Promise<
 };
 
 
-export const saveFear = async (req: RequestWithUser, res: Response): Promise<void> => {
+export const saveFear = async (req, res): Promise<void> => {
     const { name } = req.body;
+    const therapistId = req.user ? req.user._id : null;
     try {
-        const newFear = new FearModel({ name });
-        const savedFear = await newFear.save();
-        console.log(savedFear);
-        res.json(savedFear);
+        if(!therapistId) {
+            res.status(401).json({ error: 'Unauthorized' });
+            return;
+        }
+        const existingFear = await FearModel.findOne({ name, therapistId });
+
+        if (existingFear) {
+            // If a fear with the same name exists, create a new one with a unique identifier
+            res.status(409).json({ error: 'Please enter a new fear title, this fear already exists' });
+        } else {
+            // If no fear with the same name exists, create a new fear
+            const newFear = new FearModel({ name, therapistId });
+            const savedFear = await newFear.save();
+            res.json(savedFear);
+        }
     } catch (error) {
+        console.error('Error in saveFear:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
@@ -102,7 +117,6 @@ export const updateFearName = async (req: RequestWithUser, res: Response): Promi
             res.status(404).json({ error: 'Fear not found' });
             return;
         }
-
         res.json(updatedFear);
     } catch (error) {
         res.status(500).json({ error: 'Internal Server Error' });

@@ -18,8 +18,7 @@ function FearPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/dosAndDonts/fears?fearId${fearId}`);
-        const data = await response.json();
+        const response = await fetch(`http://localhost:3000/dosAndDonts/fears/${fearId}`);        const data = await response.json();
         if (data) {
           setFearData(data);
           setDosAndDonts(data.dosAndDonts || []);
