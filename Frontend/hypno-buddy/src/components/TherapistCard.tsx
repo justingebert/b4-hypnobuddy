@@ -103,8 +103,6 @@ function TherapistCard({
       patientLinked.name.first.toLowerCase().includes(searchQueryLinked.toLowerCase())
   );
 
-
-
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
