@@ -15,7 +15,7 @@ interface TherapistCardProps {
 }
 
 function TherapistCard({
-  initialTitle = "Enter title here.",
+  initialTitle = "Titel hinzufügen.",
   leftTextField,
   rightTextField,
   isEditMode,
@@ -225,7 +225,7 @@ function TherapistCard({
                       <li key={index}>
                         {patient.name.first} {patient.name.last}
                         <button onClick={() => addPatient(patient._id)} className={styles.addButton}>
-                          Add
+                          +
                         </button>
                       </li>
                   ))}
@@ -238,7 +238,7 @@ function TherapistCard({
                       value={searchQueryLinked}
                       onChange={(e) => setSearchQueryLinked(e.target.value)}
                       onClick={(e) => e.stopPropagation()}
-                      placeholder="Search linked patients..."
+                      placeholder="Verlinkte Patienten suchen..."
                       className={styles.searchInput}
                   />
                   {loadingLinked ? (
@@ -252,7 +252,7 @@ function TherapistCard({
                                   onClick={() => deletePatient(patientLinked._id)}
                                   className={styles.addButton}
                               >
-                                Delete
+                                -
                               </button>
                             </li>
                         ))}
@@ -282,7 +282,7 @@ function TherapistCard({
                     value={initialTitle}
                     onChange={(e) => onTitleChange(e.target.value)}
                     className={styles.editableTitle}
-                    placeholder="Enter title here..."
+                    placeholder="Titel hinzufügen..."
                 />
             ) : (
                 <h2 className={styles.therapistCardTitle}>{initialTitle}</h2>
@@ -301,7 +301,7 @@ function TherapistCard({
                   value={leftTextField}
                   onChange={onTextAreaChange}
                   className={`${styles.creamTextField} editable left`}
-                  placeholder="Type here..."
+                  placeholder="Hier schreiben..."
                   readOnly={!isEditMode}
                   rows={3} // Initial rows
               />
@@ -317,7 +317,7 @@ function TherapistCard({
                   value={rightTextField}
                   onChange={onTextAreaChange}
                   className={`${styles.creamTextField} editable right`}
-                  placeholder="Type here..."
+                  placeholder="Hier schreiben..."
                   readOnly={!isEditMode}
                   rows={3} // Initial rows
               />
@@ -329,7 +329,7 @@ function TherapistCard({
               className={styles.editSaveButton}
               onClick={isEditMode ? onSave : onEditToggle}
           >
-            {isEditMode ? 'Save' : 'Edit'}
+            {isEditMode ? 'Speichern' : 'Bearbeiten'}
           </button>
         </div>
       </div>
