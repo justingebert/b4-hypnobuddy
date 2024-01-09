@@ -33,6 +33,7 @@ function TherapistCard({
   const [searchQueryLinked, setSearchQueryLinked] = useState('');
   const [PatientsLinked, setPatientsLinked] = useState([]);
   const [loadingLinked, setLoadingLinked] = useState(false);
+  const [addedPatients, setAddedPatients] = useState<Array<string>>([]);
 
   useEffect(() => {
     fetchPatients();
@@ -123,10 +124,9 @@ function TherapistCard({
     e.stopPropagation();
   };
   const filteredPatients = patients.filter((patient) =>
-    typeof patient.name.first === 'string' && patient.name.first.toLowerCase().includes(searchQuery.toLowerCase())
+      !addedPatients.includes(patient._id) && !PatientsLinked.some(linkedPatient => linkedPatient._id === patient._id) && // Exclude linked patients
+      patient.name.first.toLowerCase().includes(searchQuery.toLowerCase())
   );
-
-
 
   const addPatient = async (patientId: any) => {
     const fullUrl = window.location.href;
@@ -223,7 +223,7 @@ function TherapistCard({
                 <p className={`${styles.patientList} ${styles.scrollable}`}>
                   {filteredPatients.map((patient, index) => (
                       <li key={index}>
-                        {patient.name.first}
+                        {patient.name.first} {patient.name.last}
                         <button onClick={() => addPatient(patient._id)} className={styles.addButton}>
                           Add
                         </button>
@@ -247,7 +247,7 @@ function TherapistCard({
                       <ul className={`${styles.patientList} ${styles.scrollable}`}>
                         {filteredPatientsLinked.map((patientLinked, index) => (
                             <li key={index}>
-                              {patientLinked.name.first}
+                              {patientLinked.name.first} {patientLinked.name.last}
                               <button
                                   onClick={() => deletePatient(patientLinked._id)}
                                   className={styles.addButton}
