@@ -3,6 +3,13 @@ import User from '../data/model/user';
 import {FearModel, Fear} from "../data/model/fearModel";
 import {DoAndDontModel} from "../data/model/dosAndDontsModel";
 
+/**
+ * Retrieves a list of fears associated with a given therapist.
+ * 
+ * @param {Request} req - The Express request object, expecting a therapistId in the query.
+ * @param {Response} res - The Express response object used to return the fetched data or an error message.
+ * @returns {Promise<void>} - A promise resolving to void.
+ */
 export const getFears = async (req: Request, res: Response): Promise<void> => {
     try {
         const therapistId = req.query.therapistId as string;
@@ -19,6 +26,13 @@ export const getFears = async (req: Request, res: Response): Promise<void> => {
     }
 };
 
+/**
+ * Retrieves a specific fear by its ID.
+ * 
+ * @param {Request} req - The Express request object, expecting a fearId in the parameters.
+ * @param {Response} res - The Express response object used to return the fetched fear or an error message.
+ * @returns {Promise<void>} - A promise resolving to void.
+ */
 export const getFearById = async (req: Request, res: Response): Promise<void> => {
     const {fearId} = req.params;
     try {
@@ -30,6 +44,13 @@ export const getFearById = async (req: Request, res: Response): Promise<void> =>
     }
 };
 
+/**
+ * Saves a new fear to the database.
+ * 
+ * @param {Request} req - The Express request object, containing the name of the fear in the body and the therapist's ID in the user session.
+ * @param {Response} res - The Express response object used to return the saved fear or an error message.
+ * @returns {Promise<void>} - A promise resolving to void.
+ */
 export const saveFear = async (req, res): Promise<void> => {
     const { name } = req.body;
     const therapistId = req.user ? req.user._id : null;
@@ -55,6 +76,13 @@ export const saveFear = async (req, res): Promise<void> => {
     }
 };
 
+/**
+ * Adds a 'Do and Don't' entry to a specific fear.
+ * 
+ * @param {Request} req - The Express request object, containing the fearId, type, and text of the 'Do and Don't' in the body.
+ * @param {Response} res - The Express response object used to return the updated fear or an error message.
+ * @returns {Promise<void>} - A promise resolving to void.
+ */
 export const addDoAndDontToFear = async (req: Request, res: Response): Promise<void> => {
     const {fearId, type, text} = req.body;
     console.log(fearId, text);
@@ -77,6 +105,13 @@ export const addDoAndDontToFear = async (req: Request, res: Response): Promise<v
     }
 };
 
+/**
+ * Updates the name of an existing fear.
+ * 
+ * @param {Request} req - The Express request object, containing the new name of the fear in the body and the fearId in the parameters.
+ * @param {Response} res - The Express response object used to return the updated fear or an error message.
+ * @returns {Promise<void>} - A promise resolving to void.
+ */
 export const updateFearName = async (req: Request, res: Response): Promise<void> => {
     const { fearId } = req.params;
     const { name } = req.body;

@@ -2,6 +2,15 @@ import { Request, Response } from 'express';
 import { DoAndDontModel, DoAndDont } from '../data/model/dosAndDontsModel';
 import {FearModel} from "../data/model/fearModel";
 
+/**
+ * Retrieves all dos and don'ts from the database.
+ *
+ * @function
+ * @async
+ * @param {Request} req - The Express request object.
+ * @param {Response} res - The Express response object.
+ * @returns {Promise<void>} A Promise that resolves once the operation is complete.
+ */
 export const getDosAndDonts = async (req: Request, res: Response): Promise<void> => {
   try {
     const dosAndDonts = await DoAndDontModel.find();
@@ -11,6 +20,15 @@ export const getDosAndDonts = async (req: Request, res: Response): Promise<void>
   }
 };
 
+/**
+ * Retrieves a specific do or don't by its ID from the database.
+ *
+ * @function
+ * @async
+ * @param {Request} req - The Express request object.
+ * @param {Response} res - The Express response object.
+ * @returns {Promise<void>} A Promise that resolves once the operation is complete.
+ */
 export const getDoOrDontById = async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
 
@@ -27,6 +45,15 @@ export const getDoOrDontById = async (req: Request, res: Response): Promise<void
   }
 };
 
+/**
+ * Updates a specific do or don't by its ID in the database.
+ *
+ * @function
+ * @async
+ * @param {Request} req - The Express request object.
+ * @param {Response} res - The Express response object.
+ * @returns {Promise<void>} A Promise that resolves once the operation is complete.
+ */
 export const updateDoAndDont = async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
   const { text } = req.body;
@@ -49,6 +76,15 @@ export const updateDoAndDont = async (req: Request, res: Response): Promise<void
   }
 };
 
+/**
+ * Deletes a specific fear and its associated dos and don'ts from the database.
+ *
+ * @function
+ * @async
+ * @param {Request} req - The Express request object.
+ * @param {Response} res - The Express response object.
+ * @returns {Promise<void>} A Promise that resolves once the operation is complete.
+ */
 export const deleteFearAndDosAndDonts = async (req: Request, res: Response): Promise<void> => {
   const { fearId } = req.params;
 
