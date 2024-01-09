@@ -61,7 +61,7 @@ function RoadmapPage() {
                             <div className={`${styles.textbox}`}>
                                 <h5 className={`${styles.title}`}>{goal.title}</h5>
                                 <p className={`${styles.date}`}>{getDueDate(goal.dueDate)}</p>
-                                <p className={`${styles.description}`}>{goal.description}</p>
+                                <p className={`${styles.description}`} dangerouslySetInnerHTML={{ __html: goal.description }} />
                             </div>
                         </div>
                     ))}
