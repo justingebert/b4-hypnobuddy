@@ -1,5 +1,5 @@
-import React, { createContext, useState, useContext, useCallback } from 'react';
-import { RoadmapGoal } from '../types/Roadmap-Goal';
+import React, {createContext, useCallback, useContext, useState} from 'react';
+import {RoadmapGoal} from '../types/Roadmap-Goal';
 import {FlashContext} from "./FlashContext.tsx";
 
 interface GoalsContextType {
@@ -93,13 +93,11 @@ export const GoalsProvider: React.FC = ({ children }) => {
 
             if (response.ok) {
 
-                //setGoals(prevGoals => prevGoals.filter(goal => goal.id !== goalId));
                 setGoals(prevGoals => prevGoals.map(goal => {
                     // Check if the current goal has subgoals
                     if (goal.subGoals) {
                         // Filter out the deleted subgoal from the subGoals array
-                        const updatedSubGoals = goal.subGoals.filter(subGoal => subGoal._id !== goalId);
-                        goal.subGoals = updatedSubGoals;
+                        goal.subGoals = goal.subGoals.filter(subGoal => subGoal._id !== goalId);
                         return goal
                     }
                     return goal;
