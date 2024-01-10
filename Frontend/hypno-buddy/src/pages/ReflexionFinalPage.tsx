@@ -8,7 +8,7 @@ const ReflexionFinalPage: React.FC = () => {
 
   return (
     <div className="reflectionDiv">
-        <div>
+        <div className="reflectionCard">
             <h2 className="h2-refelxion">Das hast du super gemacht!</h2>
             <div className="yesNoDiv">
                 <div className="circleDiv">

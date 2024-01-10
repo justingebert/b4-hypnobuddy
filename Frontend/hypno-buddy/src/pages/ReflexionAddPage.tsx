@@ -46,7 +46,7 @@ const AddingReflexionPage: React.FC = () => {
   return (
     <div>
       <div className="reflectionDiv">
-        <div className="">
+        <div className="reflectionCard">
           <h2 className="h2-refelxion">Wie fühlst du dich heute?</h2>
           <div className="moodDiv">
             {['Sehr gut', 'Gut', 'Normal', 'Nicht so gut', 'Schlecht'].map((mood) => (
@@ -79,8 +79,17 @@ const AddingReflexionPage: React.FC = () => {
         <div className="bunnyImageDiv">
           <img src={bunny} className="bunnyImage" alt="bunny"/>
         </div>
-        <div>
-          <h2 className="textInspo">Gefühle sind wichtig und Richtig.</h2>
+        <div className="textInspoDiv">
+          <svg height="150" width="800">
+            <text className="textInspo" fill="#D3FFB4">
+              <textPath href="#textPath">
+                 Gefühle sind Wichtig und Richtig.
+              </textPath>
+            </text>
+            <defs>
+             <path id="textPath" d="M70 40 Q 280 140, 400 70 T 800 80"/>
+            </defs>
+          </svg>
         </div>
       </div>
     </div>
