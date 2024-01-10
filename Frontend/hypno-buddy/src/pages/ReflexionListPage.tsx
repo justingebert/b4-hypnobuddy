@@ -124,13 +124,19 @@ const promptDelete = (id: string) => {
                     <h3 className="datum">{currentDate}</h3>
                     <ul className="singleEntry">
                       <h3 className="moodText">{reflexion.mood}</h3>
-                      {reflexion.description && <p>Description: {reflexion.description}</p>}
-                      {reflexion.deepDiveQuestion && <p>Deep Dive Question: {reflexion.deepDiveQuestion}</p>}
-                      {reflexion.deepDiveAnswer && <p>Deep Dive Answer: {reflexion.deepDiveAnswer}</p>}
+                      {reflexion.description && <p className="eintrag">Dein Eintrag:<br />{reflexion.description}</p>}
+                      {reflexion.deepDiveQuestion && <p style={{textAlign:"center"}}>{reflexion.deepDiveQuestion}</p>}
+                      {reflexion.deepDiveAnswer && <p className="eintrag">Deine Antwort: <br />{reflexion.deepDiveAnswer}</p>}
                       <p className="datumTime">
                         {new Date(reflexion.date).toLocaleTimeString('de-DE', { timeStyle: 'short' })} Uhr
                       </p>
-                      {isDeleteMode && <button onClick={() => promptDelete(reflexion._id)}>Delete</button>}
+                      {isDeleteMode &&   <CustomButton
+                          buttonText= "Löschen"
+                          backgroundColor="#958ae8"
+                          hoverColor="#56c8c9"
+                          borderColor="#958ae8"
+                          borderHoverColor="#56c8c9"
+                          handleClick = {() => promptDelete(reflexion._id)}/>}
                       {showDeleteModal && selectedReflexionId === reflexion._id && (
                       <div>
                         <p>Bist du dir sicher, den Beitrag zu löschen?</p>
@@ -158,13 +164,19 @@ const promptDelete = (id: string) => {
               return (
                   <ul key={reflexion._id} className="singleEntry">
                     <h3 className="moodText">{reflexion.mood}</h3>
-                    {reflexion.description && <p>Description: {reflexion.description}</p>}
-                    {reflexion.deepDiveQuestion && <p>Deep Dive Question: {reflexion.deepDiveQuestion}</p>}
-                    {reflexion.deepDiveAnswer && <p>Deep Dive Answer: {reflexion.deepDiveAnswer}</p>}
+                    {reflexion.description && <p className="eintrag">Dein Eintrag: <br />{reflexion.description}</p>}
+                    {reflexion.deepDiveQuestion && <p style={{textAlign:"center", paddingTop:"15px"}}>{reflexion.deepDiveQuestion}</p>}
+                    {reflexion.deepDiveAnswer && <p className="eintrag">Deine Antwort: <br />{reflexion.deepDiveAnswer}</p>}
                     <p className="datumTime">
                       {new Date(reflexion.date).toLocaleTimeString('de-DE', { timeStyle: 'short' })} Uhr
                     </p>
-                    {isDeleteMode && <button onClick={() => promptDelete(reflexion._id)}>Delete</button>}
+                    {isDeleteMode &&   <CustomButton
+                        buttonText= "Löschen"
+                        backgroundColor="#958ae8"
+                        hoverColor="#56c8c9"
+                        borderColor="#958ae8"
+                        borderHoverColor="#56c8c9"
+                        handleClick = {() => promptDelete(reflexion._id)}/>}
                     {showDeleteModal && selectedReflexionId === reflexion._id && (
                         <div>
                           <p>Bist du dir sicher, den Beitrag zu löschen?</p>

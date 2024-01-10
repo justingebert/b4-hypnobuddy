@@ -99,7 +99,7 @@
     align-items: center;
     justify-content: center;
     padding-block: 3%;
-    background: linear-gradient(#4F45DA,#C9BAFD);
+    background: linear-gradient(#4F45DA 30%, #8C80EC 70%,#C9BAFD);
 }
 
 .singleEntry{
@@ -147,6 +147,13 @@
 .datumTime{
     display: flex;
     justify-content: right;
+}
+.eintrag{
+    padding: 15px;
+    padding-inline: 30px;
+    margin-block: 15px;
+    background-color: #B6A1FC;
+    border-radius: 15px;
 }
 .buttonScrollToTop:hover{
     border: none;
