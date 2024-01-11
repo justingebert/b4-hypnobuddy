@@ -72,6 +72,7 @@ const NavbarComponent = () => {
                                     Reflexion
                                 </Nav.Link>
                             </Nav>
+
                         ) : null}
                     </Nav>
                     <Nav>
@@ -86,11 +87,11 @@ const NavbarComponent = () => {
                                             {" " + user.name.first + " " + user.name.last}
                                         </div>
                                     </Nav.Link>
-                                    <LogoutButton onLogout={handleLogoutClick}/>
-            </>
+                                    <LogoutButton onLogout={handleLogoutClick} />
+                                </>
                             ) : (
                                 <>
-                                    <LoginButton/>
+                                    <LoginButton />
                                 </>
                             )}
                         </Nav.Link>

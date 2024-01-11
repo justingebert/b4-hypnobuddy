@@ -12,6 +12,8 @@ import DosAndDontsPage from "./pages/DosAndDontsPage.tsx";
 import RoadmapPage from "./pages/RoadmapPage.tsx";
 import { useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import FearPage from "./pages/FearPage.tsx";
+import DosAndDontsPatientPage from "./pages/DosAndDontsPatientPage.tsx";
 import QueueView from "./pages/QueueView.tsx";
 import {GoalsProvider} from "./contexts/GoalContext.tsx";
 import ReflexionAddPage from './pages/ReflexionAddPage.tsx';
@@ -35,17 +37,17 @@ function App() {
                     <Route path="/register" element={<RegisterPage />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/profile" element={<ProfilePage />} />
-                    <Route path="/dosanddonts" element={<DosAndDontsPage />} />
+                    <Route path="/dosanddonts//*" element={<DosAndDontsRoutes />} />
                     <Route path="/roadmap" element={
                         <GoalsProvider>
-                            <RoadmapPage/>
+                            <RoadmapPage />
                         </GoalsProvider>
-                    }/>
+                    } />
                     <Route path="/goalQueueView" element={
                         <GoalsProvider>
-                            <QueueView/>
+                            <QueueView />
                         </GoalsProvider>
-                    }/>
+                    } />
                     <Route path="*" element={<h1>Not Found</h1>} />
                     <Route path="/reflexion-add" element={<ReflexionAddPage />} />
                     <Route path="/reflexion-description/:id" element={<ReflexionDescriptionPage />} />
@@ -58,6 +60,28 @@ function App() {
         </FlashProvider>
     );
 }
+function DosAndDontsRoutes() {
+    const { user } = useAuth();
+
+    if (user && user.role === 'therapist') {
+        return (
+            <Routes>
+                <Route path="/t" element={<DosAndDontsPage />} />
+                <Route path="/t/:fearId" element={<FearPage />} />
+            </Routes>
+        );
+    } else if (user && user.role === 'patient') {
+        return (
+            <Routes>
+                <Route path="/p/" element={<DosAndDontsPatientPage />} />;
+            </Routes>
+        )
+
+    } else {
+        return null;
+    }
+}
+
 function AppWrapper() {
     return (
         <AuthProvider>
