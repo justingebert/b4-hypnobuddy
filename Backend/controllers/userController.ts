@@ -1,12 +1,10 @@
 import User from '../data/model/user';
-import {FearModel}  from '../data/model/fearModel';
+import { FearModel } from '../data/model/fearModel';
 import passport from 'passport';
 
 import { body, validationResult } from 'express-validator';
 import VerificationCode from "../data/model/verificationCode";
 import { v4 as uuidv4 } from 'uuid';
-
-
 
 /**
  * Get user params from request body
@@ -44,7 +42,7 @@ export const validate = [
         if (!errors.isEmpty()) {
             // Map the errors to extract messages
             let messages = errors.array().map(e => e.msg);
-            req.skip = true; // Skip the next middleware do i need that?
+            req.skip = true;
 
             res.status(400).json({
                 success: false,
@@ -161,11 +159,29 @@ export async function logout(req, res, next) {
  */
 export async function currentUser(req, res, next) {
     if (req.isAuthenticated()) {
-        // Assuming req.user holds the authenticated user information
-        res.json({
-            isAuthenticated: true,
-            user: req.user
-        });
+        // // Assuming req.user holds the authenticated user information
+        // res.json({
+        //     isAuthenticated: true,
+        //     user: req.user
+        // });
+
+
+        //for tests
+        try {
+            const user = await User.findById(req.user._id)
+                .populate('patients')  // Populate 'patients' field if the user is a therapist
+                .populate('therapist'); // Populate 'therapist' field if the user is a patient
+
+            res.json({
+                isAuthenticated: true,
+                user: user
+            });
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+            res.status(500).json({ isAuthenticated: true, error: "Failed to fetch user data" });
+        }
+
+
     } else {
         res.json({ isAuthenticated: false });
     }
@@ -245,7 +261,7 @@ export async function linkPatientToTherapist(req, res) {
 
         res.json({ success: true, message: 'Linked to therapist successfully' });
     } else {
-        if (verificationCode && verificationCode.uses >= verificationCode.useLimit){
+        if (verificationCode && verificationCode.uses >= verificationCode.useLimit) {
             res.status(400).json({ success: false, message: 'Code limit reached' });
         } else {
             res.status(400).json({ success: false, message: 'Invalid code' });
@@ -264,38 +280,38 @@ export async function getPatients(req, res) {
     res.json({ success: true, patients: therapist.patients });
 }
 
-export async function getAllPatients (req, res) {
+export async function getAllPatients(req, res) {
     try {
         const patients = await User.find({ role: 'patient' });
-         res.json(patients);
+        res.json(patients);
     } catch (error) {
         console.error('Error in getFears:', error);
-         res.status(500).json({ error: 'Internal Server Error' });
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 };
 
 export async function getAllPatientsLinked(req, res) {
     try {
         const { fearId } = req.body;
-    
+
         const fear = await FearModel.findById(fearId);
-    
+
         if (!fear) {
-          return res.status(404).json({ error: 'Fear not found' });
+            return res.status(404).json({ error: 'Fear not found' });
         }
-    
+
         // Assuming you have a field named `users` in the Fear model which is an array of user IDs
         if (!fear.users || !Array.isArray(fear.users)) {
-          return res.status(500).json({ error: 'Invalid data in Fear model' });
+            return res.status(500).json({ error: 'Invalid data in Fear model' });
         }
-    
+
         const patients = await User.find({ _id: { $in: fear.users }, role: 'patient' });
-    
+
         res.json(patients);
-      } catch (error) {
+    } catch (error) {
         console.error('Error in getAllPatients:', error);
         res.status(500).json({ error: 'Internal Server Error' });
-      }
-    
-  }
-  
+    }
+
+}
+

@@ -1,0 +1,46 @@
+.c_dark {
+    background-color: #2f015a;
+    max-width: 600px;
+    width: 100%;
+    height: 700px;
+    opacity: 0.9;
+    color: #c6f222;
+    position: absolute;
+    top: 125px;
+    right: 125px;
+    padding: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 700px) {
+        max-width: 50%;
+    }
+    @media (max-width: 480px) {
+        max-width: 35%;
+    }
+    @media (max-height: 600px) {
+        max-height: 50%;
+    }
+}
+
+.link{
+    color: #f7e6e8;
+}
+
+.background-login-image {
+    background-image: url('../assets/LoginBackground.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    overflow: hidden;
+}
+
+
+.loginPage {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+}

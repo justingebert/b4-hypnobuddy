@@ -1,12 +1,14 @@
 .navbar {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 2rem;
-    background-color: #f7e6e8;
-    color: rgba(255, 255, 255, 0.87);
+    width: 100%;
 }
-
+.navbar-nav1 {
+    display: flex;
+}
+body {
+    overflow-x: hidden;
+}
 .logoLink {
     display: flex;
     align-items: center;
@@ -15,8 +17,7 @@
 }
 
 .logo {
-    width: 50px;
-    /* Adjust logo size as needed */
+    width: 30px;
     height: auto;
     margin-right: 1rem;
     border-radius: 8px;
@@ -27,40 +28,23 @@
     margin: 0;
 }
 
-.navItems {
-    display: flex;
-    align-items: center;
-    color: #2f015a;
-}
-
 .navLink {
     text-decoration: none;
-    color: #646cff;
+    color: #56c8c9;
     font-weight: 500;
-    margin-left: 1rem;
 }
 
 .navLink:hover,
 .userEmail:hover {
-    color: #535bf2;
+    color: #56c8c9;
 }
 
 .userEmail {
     font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.87);
+    color: #4F45DA;
     margin: 0 1rem 0 1rem;
 }
 
-.logoutButton {
-    border: none;
-    border-radius: 8px;
-    padding: 0.6em 1.2em;
-    background-color: #646cff;
-    color: white;
-    cursor: pointer;
-    margin-left: 1rem;
-}
-
 .logoutButton:hover {
-    background-color: #535bf2;
+    background-color: #56c8c9;
 }

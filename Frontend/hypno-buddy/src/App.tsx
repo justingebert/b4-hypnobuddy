@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import { FlashProvider } from './contexts/FlashContext';
 import { AuthProvider, useAuth } from "./contexts/AuthContext.tsx";
 import './styles/App.css';
@@ -13,6 +14,8 @@ import { useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import FearPage from "./pages/FearPage.tsx";
 import DosAndDontsPatientPage from "./pages/DosAndDontsPatientPage.tsx";
+import QueueView from "./pages/QueueView.tsx";
+import { GoalsProvider } from "./contexts/GoalContext.tsx";
 
 function App() {
 
@@ -30,11 +33,23 @@ function App() {
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/profile" element={<ProfilePage />} />
                     <Route path="/dosanddonts//*" element={<DosAndDontsRoutes />} />
-                    <Route path="/roadmap" element={<RoadmapPage />} />
+                    <Route path="/roadmap" element={
+                        <GoalsProvider>
+                            <RoadmapPage />
+                        </GoalsProvider>
+                    } />
+                    <Route path="/goalQueueView" element={
+                        <GoalsProvider>
+                            <QueueView />
+                        </GoalsProvider>
+                    } />
+                    <Route path="*" element={<h1>Not Found</h1>} />
                     {/* Add other routes here */}
-                </Routes>
-            </Router>
-        </FlashProvider>
+                    {/* Add other routes here */}
+                </Routes >
+                <Footer />
+            </Router >
+        </FlashProvider >
     );
 }
 function DosAndDontsRoutes() {
@@ -52,7 +67,7 @@ function DosAndDontsRoutes() {
             <Routes>
                 <Route path="/p/" element={<DosAndDontsPatientPage />} />;
             </Routes>
-            )
+        )
 
     } else {
         return null;

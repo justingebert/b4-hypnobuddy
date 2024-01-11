@@ -1,4 +1,4 @@
-export interface User {
+export type User = {
     _id: string;
     name: {
         first: string;
@@ -6,5 +6,4 @@ export interface User {
     };
     email: string;
     role: 'patient' | 'guardian' | 'therapist' | 'admin';
-
-}
+};
