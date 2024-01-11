@@ -253,3 +253,22 @@
   justify-content: flex-end;
 }
 
+.toggleSidebarButton{
+  margin: 2rem;
+}
+.searchInput{
+  margin: 1rem;
+  width: 90%;
+  border-radius: 5px;
+  border-width: 1px;
+  border-color: #8140a7;
+}
+.patientList{
+  margin-inline: 1rem;
+  border: none;
+}
+.addButton {
+  margin-right: 1rem;
+  background-color: #8140a7 !important;
+  border-color: #8140a7 !important;
+}

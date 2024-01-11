@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../styles/TherapistCard.module.css';
+import { Offcanvas, Button, ListGroup } from 'react-bootstrap';
 
 interface TherapistCardProps {
   initialTitle?: string;
@@ -26,7 +27,7 @@ function TherapistCard({
   onTextAreaChange,
   onClose,
 }: TherapistCardProps) {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [patients, setPatients] = useState<Array<{ _id: string; name: { first: string } }>>([]);
   const [newPatient, setNewPatient] = useState('');
@@ -104,23 +105,9 @@ function TherapistCard({
   );
 
   const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
+    setShowSidebar(!showSidebar);
   };
-
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-  };
-
-  const handleSearchChangePatientsLinked = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQueryPatientsLinked(e.target.value);
-    // Add logic to filter linked patients based on searchQueryPatientsLinked
-  };
-
-  const stopPropagation = (
-    e: React.MouseEvent<HTMLInputElement, MouseEvent>
-  ) => {
-    e.stopPropagation();
-  };
+  
   const filteredPatients = patients.filter((patient) =>
       !addedPatients.includes(patient._id) && !PatientsLinked.some(linkedPatient => linkedPatient._id === patient._id) && // Exclude linked patients
       patient.name.first.toLowerCase().includes(searchQuery.toLowerCase())
@@ -195,71 +182,78 @@ function TherapistCard({
         {/* Sidebar Toggle Button */}
         <button
             className={`${styles.toggleSidebarButton} position-absolute top-0 start-0`}
-            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            onClick={toggleSidebar}
         >
           ☰
         </button>
 
-        {/* Sidebar Overlay */}
-        {isSidebarOpen && (
-            <div className={styles.sidebarOverlay} onClick={() => setIsSidebarOpen(false)}>
-              {/* Sidebar Content */}
-              <div
-                  className={`${styles.sidebar} ${styles.slideIn}`}
-                  onClick={(e) => e.stopPropagation()}
-              >
-                {/* Search Input */}
-                <input
-                    type="text"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    onClick={(e) => e.stopPropagation()}
-                    placeholder="Search patients..."
-                    className={styles.searchInput}
-                />
-                {/* Patient List with Scroll */}
-                <p className={`${styles.patientList} ${styles.scrollable}`}>
-                  {filteredPatients.map((patient, index) => (
-                      <li key={index}>
-                        {patient.name.first} {patient.name.last}
-                        <button onClick={() => addPatient(patient._id)} className={styles.addButton}>
-                          +
-                        </button>
-                      </li>
-                  ))}
-                </p>
+        {/* Offcanvas Sidebar */}
+        <Offcanvas show={showSidebar}
+                   onHide={() => setShowSidebar(false)}
+                   style={{
+                     backgroundColor: '#cccccc',
+                     border: '2px',
+                     padding: '1.5rem'
+                   }}
+        >
+          <Offcanvas.Header closeButton style={{margin: '1rem', }}>
+            <Offcanvas.Title><h2>Patienten</h2></Offcanvas.Title>
+          </Offcanvas.Header>
+          <Offcanvas.Body style={{backgroundColor:'#FFFFFF'}}>
+            {/* Search Input */}
+            <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onClick={(e) => e.stopPropagation()}
+                placeholder="PatientInnen suchen..."
+                className={styles.searchInput}
+            />
 
-                {/* Add Patient Input */}
-                <div className={styles.addPatientContainer}>
-                  <input
-                      type="text"
-                      value={searchQueryLinked}
-                      onChange={(e) => setSearchQueryLinked(e.target.value)}
-                      onClick={(e) => e.stopPropagation()}
-                      placeholder="Verlinkte Patienten suchen..."
-                      className={styles.searchInput}
-                  />
-                  {loadingLinked ? (
-                      <p>Loading...</p>
-                  ) : (
-                      <ul className={`${styles.patientList} ${styles.scrollable}`}>
-                        {filteredPatientsLinked.map((patientLinked, index) => (
-                            <li key={index}>
-                              {patientLinked.name.first} {patientLinked.name.last}
-                              <button
-                                  onClick={() => deletePatient(patientLinked._id)}
-                                  className={styles.addButton}
-                              >
-                                -
-                              </button>
-                            </li>
-                        ))}
-                      </ul>
-                  )}
-                </div>
-              </div>
+            {/* Patient List with Scroll */}
+            <ListGroup className={`${styles.patientList} ${styles.scrollable}`}>
+              {filteredPatients.map((patient, index) => (
+                  <ListGroup.Item key={index}>
+                    <Button onClick={() => addPatient(patient._id)} className={styles.addButton}>
+                      +
+                    </Button>
+                    {patient.name.first} {patient.name.last}
+
+                  </ListGroup.Item>
+              ))}
+            </ListGroup>
+
+            {/* Add Patient Input */}
+            <div className={styles.addPatientContainer}>
+              <input
+                  type="text"
+                  value={searchQueryLinked}
+                  onChange={handleSearchChangeLinked}
+                  onClick={stopPropagationLinked}
+                  placeholder="Verlinkte PatientInnen suchen..."
+                  className={styles.searchInput}
+              />
+              {loadingLinked ? (
+                  <p>Loading...</p>
+              ) : (
+                  <ListGroup className={`${styles.patientList} ${styles.scrollable}`}>
+                    {filteredPatientsLinked.map((patientLinked, index) => (
+                        <ListGroup.Item key={index}>
+                          <Button
+                            onClick={() => deletePatient(patientLinked._id)}
+                            className={styles.addButton}
+                          >
+                            -
+                          </Button>
+                          {patientLinked.name.first} {patientLinked.name.last}
+
+                        </ListGroup.Item>
+                    ))}
+                  </ListGroup>
+              )}
             </div>
-        )}
+          </Offcanvas.Body>
+        </Offcanvas>
 
         {/* Main Content */}
         <div className={styles.mainContent}>
@@ -280,7 +274,7 @@ function TherapistCard({
                     value={initialTitle}
                     onChange={(e) => onTitleChange(e.target.value)}
                     className={styles.editableTitle}
-                    placeholder="Titel hinzufügen..."
+                    placeholder="Add title..."
                 />
             ) : (
                 <h2 className={styles.therapistCardTitle}>{initialTitle}</h2>
@@ -299,9 +293,9 @@ function TherapistCard({
                   value={leftTextField}
                   onChange={onTextAreaChange}
                   className={`${styles.creamTextField} editable left`}
-                  placeholder="Hier schreiben..."
+                  placeholder="Write here..."
                   readOnly={!isEditMode}
-                  rows={3} // Initial rows
+                  rows={3}
               />
             </div>
 
@@ -315,23 +309,19 @@ function TherapistCard({
                   value={rightTextField}
                   onChange={onTextAreaChange}
                   className={`${styles.creamTextField} editable right`}
-                  placeholder="Hier schreiben..."
+                  placeholder="Write here..."
                   readOnly={!isEditMode}
-                  rows={3} // Initial rows
+                  rows={3}
               />
             </div>
           </div>
 
           {/* Button for Edit/Save */}
-          <button
-              className={styles.editSaveButton}
-              onClick={isEditMode ? onSave : onEditToggle}
-          >
-            {isEditMode ? 'Speichern' : 'Bearbeiten'}
+          <button className={styles.editSaveButton} onClick={isEditMode ? onSave : onEditToggle}>
+            {isEditMode ? 'Save' : 'Edit'}
           </button>
         </div>
       </div>
   );
 }
-
 export default TherapistCard;
