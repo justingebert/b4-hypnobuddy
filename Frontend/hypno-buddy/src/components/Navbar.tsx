@@ -61,21 +61,17 @@ const NavbarComponent = () => {
                             Home
                         </Nav.Link>
                         {isAuthenticated && user ? (
-                        <NavDropdown title="Feature" id="collapsible-nav-dropdown">
-                            <NavDropdown.Item href="/dosanddonts" className={styles.navLink}>
-                                Dos&Donts
-                            </NavDropdown.Item>
-                            <NavDropdown.Item href="/roadmap" className={styles.navLink}>
-                                Roadmap
-                            </NavDropdown.Item>
-                            <NavDropdown.Item href="/reflexion-add" className={styles.navLink}>
-                                Reflexion
-                            </NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action/3.4">
-                                Separated link
-                            </NavDropdown.Item>
-                        </NavDropdown>
+                            <Nav>
+                                <Nav.Link href="/dosanddonts"  className="nav-link active" aria-current="page">
+                                    Dos&Donts
+                                </Nav.Link>
+                                <Nav.Link href="/roadmap" className="nav-link active" aria-current="page">
+                                    Roadmap
+                                </Nav.Link>
+                                <Nav.Link href="/reflexion-add"className="nav-link active" aria-current="page">
+                                    Reflexion
+                                </Nav.Link>
+                            </Nav>
                         ) : null}
                     </Nav>
                     <Nav>
