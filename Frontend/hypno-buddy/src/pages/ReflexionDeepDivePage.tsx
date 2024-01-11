@@ -2,10 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import CustomButton from "../components/CustomButton.tsx";
 
-/*interface Params {
-  id: string;
-}
-*/
 const deepDiveQuestions = [
     "Was hat dich heute zum Lächeln gebracht?",
     "Kannst du dich an eine Zeit erinnern, in der du dich wirklich ruhig gefühlt hast?",
