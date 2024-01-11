@@ -1,0 +1,177 @@
+.reflectionDiv{
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    background-color: #4F45DA;
+
+}
+.reflectionCard{
+    background-color: #4F45DA;
+    padding-top: 100px;
+}
+.h2-refelxion{
+    margin-top: 100px;
+    margin-inline: 20%;
+    margin-bottom: 0;
+    padding: 20px;
+    text-align: center;
+    background-color: #C9BAFD;
+    color: #4F45DA;
+    align-content: center;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+
+}
+.moodDiv{
+    display: flex;
+    padding: 50px;
+    margin-inline: 20%;
+    align-items: center;
+    justify-content: center;
+    background-color: #C9BAFD;
+}
+.moodButton{
+    margin: 15px;
+    width: 100px;
+    height: 50px;
+    background-color: white;
+    color: #4F45DA;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+.moodButtonImg {
+    width: 100%;
+    height: auto;
+    display: block;
+    padding: 10%;
+}
+.previousButtonDiv{
+    padding: 50px;
+    margin-inline: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #C9BAFD;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+.yesNoDiv{
+    margin-inline: 20%;
+    background-color: #C9BAFD;
+    color: #4F45DA;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    padding-block: 5%;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+.yesNoButton{
+    display: inline;
+    align-content: center;
+}
+.inputText{
+    border-radius: 5px;
+    width: 60%;
+    height: 150px;
+    background-color: #F7E6E8;
+    padding: 15px;
+    margin: 15px;
+    color: #4F45DA;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.inputText:focus {
+    background-color: white;
+    color: #4F45DA;
+}
+
+.reflextionEntry{
+    display: block;
+    align-items: center;
+    justify-content: center;
+    padding-block: 3%;
+    background: linear-gradient(#4F45DA 30%, #8C80EC 70%,#C9BAFD);
+}
+
+.singleEntry{
+    background-color: #C9BAFD;
+    color: #4F45DA;
+    padding: 2%;margin-bottom: 30px;
+    border-radius: 15px;
+}
+.circleDiv{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.circle{
+    width: 100%;
+    height: 100%;
+    background-color: #4F45DA;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.circle img {
+    width: 150%;
+    height: auto;
+    border-radius: 50%;
+}
+.moodText{
+    text-align: center;
+}
+.buttonScrollToTop {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: transparent;
+    color: #ffffff;
+    transform: scale(2.5);
+    cursor: pointer;
+}
+.datum{
+    display: flex;
+    justify-content: center;
+    color: #D3FFB4;
+}
+.datumTime{
+    display: flex;
+    justify-content: right;
+}
+.eintrag{
+    padding: 15px;
+    padding-inline: 30px;
+    margin-block: 15px;
+    background-color: #B6A1FC;
+    border-radius: 15px;
+}
+.buttonScrollToTop:hover{
+    border: none;
+    border-color: transparent;
+    color: #8140a7;
+}
+.bunnyImageDiv {
+    display: flex;
+    justify-content: center;
+    padding-top: 30px;
+}
+
+.textInspoDiv {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+.textInspo{
+    font-size: 50px;
+    font-weight: bolder;
+}

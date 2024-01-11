@@ -61,28 +61,18 @@ const NavbarComponent = () => {
                             Home
                         </Nav.Link>
                         {isAuthenticated && user ? (
-                            <NavDropdown title="Feature" id="collapsible-nav-dropdown">
-                                {user.role === 'therapist' ? (
-                                    <>
-                                        <NavDropdown.Item href="/dosanddonts/t/" className={styles.navLink}>
-                                            Dos&Donts
-                                        </NavDropdown.Item>
-                                    </>
-                                ) : (
-                                    <>
-                                        <NavDropdown.Item href="/dosanddonts/p/" className={styles.navLink}>
-                                            Dos&Donts
-                                        </NavDropdown.Item>
-                                    </>
-                                )}
-                                <NavDropdown.Item href="/roadmap" className={styles.navLink}>
+                            <Nav>
+                                <Nav.Link href="/dosanddonts"  className="nav-link active" aria-current="page">
+                                    Dos&Donts
+                                </Nav.Link>
+                                <Nav.Link href="/roadmap" className="nav-link active" aria-current="page">
                                     Roadmap
-                                </NavDropdown.Item>
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item href="#action/3.4">
-                                    Separated link
-                                </NavDropdown.Item>
-                            </NavDropdown>
+                                </Nav.Link>
+                                <Nav.Link href="/reflexion-add"className="nav-link active" aria-current="page">
+                                    Reflexion
+                                </Nav.Link>
+                            </Nav>
+
                         ) : null}
                     </Nav>
                     <Nav>
