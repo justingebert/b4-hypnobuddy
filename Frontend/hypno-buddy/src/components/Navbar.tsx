@@ -62,18 +62,17 @@ const NavbarComponent = () => {
                         </Nav.Link>
                         {isAuthenticated && user ? (
                             <NavDropdown title="Feature" id="collapsible-nav-dropdown">
-                                <>
-                                    {user.role === 'therapist' ? (
-                                        <>
-                                            <NavDropdown.Item href="/dosanddonts/t/" className={styles.navLink}> Dos&Donts</NavDropdown.Item>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <Link to="/dosanddonts/p/" className={styles.navLink}>Dos&Donts</Link>
-                                        </>
-                                    )}
-                                </>
-
+                                {user.role === 'therapist' ? (
+                                    <>
+                                        <NavDropdown.Item href="/dosanddonts/t/" className={styles.navLink}>
+                                            Dos&Donts
+                                        </NavDropdown.Item>
+                                    </>
+                                ) : (
+                                    <>
+                                        <Link to="/dosanddonts/p/" className={styles.navLink}>Dos&Donts</Link>
+                                    </>
+                                )}
                                 <NavDropdown.Item href="/roadmap" className={styles.navLink}>
                                     Roadmap
                                 </NavDropdown.Item>
