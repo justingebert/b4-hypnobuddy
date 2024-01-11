@@ -62,9 +62,18 @@ const NavbarComponent = () => {
                         </Nav.Link>
                         {isAuthenticated && user ? (
                             <NavDropdown title="Feature" id="collapsible-nav-dropdown">
-                                <NavDropdown.Item href="/dosanddonts" className={styles.navLink}>
-                                    Dos&Donts
-                                </NavDropdown.Item>
+                                <>
+                                    {user.role === 'therapist' ? (
+                                        <>
+                                            <NavDropdown.Item href="/dosanddonts/t/" className={styles.navLink}> Dos&Donts</NavDropdown.Item>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Link to="/dosanddonts/p/" className={styles.navLink}>Dos&Donts</Link>
+                                        </>
+                                    )}
+                                </>
+
                                 <NavDropdown.Item href="/roadmap" className={styles.navLink}>
                                     Roadmap
                                 </NavDropdown.Item>
@@ -79,16 +88,6 @@ const NavbarComponent = () => {
                         <Nav.Link href="#deets" className="d-flex">
                             {isAuthenticated && user ? (
                                 <>
-                                    {user.role === 'therapist' ? (
-                                        <>
-                                            <Link to="/dosanddonts/t/" className={styles.navLink}>Dos&Donts</Link>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <Link to="/dosanddonts/p/" className={styles.navLink}>Dos&Donts</Link>
-                                        </>
-                                    )}
-                                    <Link to="/roadmap" className={styles.navLink}>Roadmap</Link>
                                     <Nav.Link href="/profile" className={styles.navLink}>
                                         <div className={styles.userEmail}>
                                             <Navbar.Text>
