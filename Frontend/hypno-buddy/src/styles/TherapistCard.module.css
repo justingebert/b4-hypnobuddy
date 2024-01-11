@@ -255,6 +255,9 @@
 
 .toggleSidebarButton{
   margin: 2rem;
+  background-color:  #F4E7E8;
+  border-color: #F4E7E8;
+  color: #8140a7;
 }
 .searchInput{
   margin: 1rem;
@@ -271,4 +274,10 @@
   margin-right: 1rem;
   background-color: #8140a7 !important;
   border-color: #8140a7 !important;
+}
+.deleteButton{
+  background-color: #2f015a;
+  color: #FFFFFF;
+
+  font-size: small;
 }

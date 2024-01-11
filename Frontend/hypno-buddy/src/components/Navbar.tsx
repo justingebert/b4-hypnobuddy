@@ -70,7 +70,9 @@ const NavbarComponent = () => {
                                     </>
                                 ) : (
                                     <>
-                                        <Link to="/dosanddonts/p/" className={styles.navLink}>Dos&Donts</Link>
+                                        <NavDropdown.Item href="/dosanddonts/p/" className={styles.navLink}>
+                                            Dos&Donts
+                                        </NavDropdown.Item>
                                     </>
                                 )}
                                 <NavDropdown.Item href="/roadmap" className={styles.navLink}>

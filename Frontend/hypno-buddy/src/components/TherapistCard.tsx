@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../styles/TherapistCard.module.css';
 import { Offcanvas, Button, ListGroup } from 'react-bootstrap';
+import LoginButton from "./LoginButton.tsx";
 
 interface TherapistCardProps {
   initialTitle?: string;

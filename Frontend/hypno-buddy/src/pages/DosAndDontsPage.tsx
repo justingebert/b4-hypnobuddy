@@ -152,7 +152,7 @@ function DosAndDontsPage() {
         )}
         <br></br>
         {fears.length> 0 && (
-            <button onClick={handleDeleteModeToggle} className="btn btn-danger">
+            <button onClick={handleDeleteModeToggle} className={styles.deleteButton}>
               {isDeleteMode ? 'Abbrechen' : 'Angst löschen'}
             </button>
         )}
