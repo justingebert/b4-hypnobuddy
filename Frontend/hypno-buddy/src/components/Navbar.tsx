@@ -62,9 +62,15 @@ const NavbarComponent = () => {
                         </Nav.Link>
                         {isAuthenticated && user ? (
                             <Nav>
-                                <Nav.Link href="/dosanddonts"  className="nav-link active" aria-current="page">
-                                    Dos&Donts
-                                </Nav.Link>
+                                {user.role === 'therapist' ? (
+                                    <Nav.Link href="/dosanddonts/t"  className="nav-link active" aria-current="page">
+                                        Dos&Donts
+                                    </Nav.Link>
+                                ) : (
+                                    <Nav.Link href="/dosanddonts/p"  className="nav-link active" aria-current="page">
+                                        Dos&Donts
+                                    </Nav.Link>
+                                )}
                                 <Nav.Link href="/roadmap" className="nav-link active" aria-current="page">
                                     Roadmap
                                 </Nav.Link>
