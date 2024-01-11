@@ -12,5 +12,7 @@ userRouter.get('/profile/patients', userController.isAuthenticated, userControll
 
 userRouter.post('/verify', userController.isAuthenticated ,userController.verifyTherapist);
 userRouter.post('/link', userController.isAuthenticated, userController.linkPatientToTherapist);
+userRouter.get('/getAllPatients', userController.getAllPatients);
+userRouter.post('/getAllPatientsLinked', userController.getAllPatientsLinked);
 
 export default userRouter;

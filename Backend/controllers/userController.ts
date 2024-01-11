@@ -1,9 +1,12 @@
 import User from '../data/model/user';
+import {FearModel}  from '../data/model/fearModel';
 import passport from 'passport';
 
 import { body, validationResult } from 'express-validator';
 import VerificationCode from "../data/model/verificationCode";
 import { v4 as uuidv4 } from 'uuid';
+
+
 
 /**
  * Get user params from request body
@@ -260,3 +263,39 @@ export async function getPatients(req, res) {
     const therapist = await User.findById(req.user._id).populate('patients');
     res.json({ success: true, patients: therapist.patients });
 }
+
+export async function getAllPatients (req, res) {
+    try {
+        const patients = await User.find({ role: 'patient' });
+         res.json(patients);
+    } catch (error) {
+        console.error('Error in getFears:', error);
+         res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+export async function getAllPatientsLinked(req, res) {
+    try {
+        const { fearId } = req.body;
+    
+        const fear = await FearModel.findById(fearId);
+    
+        if (!fear) {
+          return res.status(404).json({ error: 'Fear not found' });
+        }
+    
+        // Assuming you have a field named `users` in the Fear model which is an array of user IDs
+        if (!fear.users || !Array.isArray(fear.users)) {
+          return res.status(500).json({ error: 'Invalid data in Fear model' });
+        }
+    
+        const patients = await User.find({ _id: { $in: fear.users }, role: 'patient' });
+    
+        res.json(patients);
+      } catch (error) {
+        console.error('Error in getAllPatients:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+      }
+    
+  }
+  

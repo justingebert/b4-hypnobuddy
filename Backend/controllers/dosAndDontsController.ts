@@ -68,3 +68,14 @@ export const deleteFearAndDosAndDonts = async (req: Request, res: Response): Pro
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+export const getDosAndDontsForUser = async (req, res): Promise<void> => {
+  const { userId } = req.params;
+  try {
+    const fears = await FearModel.find({ users: userId }).populate('dosAndDonts');
+    const dosAndDonts = fears.flatMap(fear => fear.dosAndDonts);
+    res.json({ dosAndDonts });
+  } catch (error) {
+    console.error('Error in getDosAndDontsForUser:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
