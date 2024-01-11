@@ -1,4 +1,5 @@
 import User from '../data/model/user';
+import { FearModel } from '../data/model/fearModel';
 import passport from 'passport';
 
 import { body, validationResult } from 'express-validator';
@@ -260,7 +261,7 @@ export async function linkPatientToTherapist(req, res) {
 
         res.json({ success: true, message: 'Linked to therapist successfully' });
     } else {
-        if (verificationCode && verificationCode.uses >= verificationCode.useLimit){
+        if (verificationCode && verificationCode.uses >= verificationCode.useLimit) {
             res.status(400).json({ success: false, message: 'Code limit reached' });
         } else {
             res.status(400).json({ success: false, message: 'Invalid code' });
@@ -278,3 +279,39 @@ export async function getPatients(req, res) {
     const therapist = await User.findById(req.user._id).populate('patients');
     res.json({ success: true, patients: therapist.patients });
 }
+
+export async function getAllPatients(req, res) {
+    try {
+        const patients = await User.find({ role: 'patient' });
+        res.json(patients);
+    } catch (error) {
+        console.error('Error in getFears:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+export async function getAllPatientsLinked(req, res) {
+    try {
+        const { fearId } = req.body;
+
+        const fear = await FearModel.findById(fearId);
+
+        if (!fear) {
+            return res.status(404).json({ error: 'Fear not found' });
+        }
+
+        // Assuming you have a field named `users` in the Fear model which is an array of user IDs
+        if (!fear.users || !Array.isArray(fear.users)) {
+            return res.status(500).json({ error: 'Invalid data in Fear model' });
+        }
+
+        const patients = await User.find({ _id: { $in: fear.users }, role: 'patient' });
+
+        res.json(patients);
+    } catch (error) {
+        console.error('Error in getAllPatients:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+
+}
+
