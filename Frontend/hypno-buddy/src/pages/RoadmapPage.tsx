@@ -2,22 +2,25 @@ import React, {useState, useEffect} from 'react';
 import {useNavigate} from "react-router-dom";
 import {useGoals} from "../contexts/GoalContext.tsx";
 import {useAuth} from "../contexts/AuthContext.tsx";
+import GoalCommentForm from "../components/GoalCommentForm.tsx";
 
 import styles from '../styles/RoadmapPage.module.scss';
+import {RoadmapGoal} from "../types/Roadmap-Goal.ts";
+import GoalCreateForm from "../components/GoalCreateForm.tsx";
 
 function RoadmapPage() {
     const { goals, addGoal, setGoals,fetchGoals } = useGoals();
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const {user} = useAuth();
+    const [editingGoal, setEditingGoal] = useState<RoadmapGoal | null>(null);
+    const [showCommentForm, setShowCommentForm] = useState(false);
 
     const navigate = useNavigate();
 
     useEffect(() => {
         fetchGoals()
     },[]);
-
-
 
     const getStatusClass = (status) => {
         switch (status) {
@@ -38,6 +41,22 @@ function RoadmapPage() {
         }
         return dueDate;
     }
+
+    const onComment = (goal: RoadmapGoal) => {
+        setEditingGoal(goal);
+        setShowCommentForm(true);
+    };
+
+    const handleComment = async (comment: string, isVisible: boolean) => {
+        try {
+            //await updateGoal();
+            setEditingGoal(null);
+            //await fetchGoals();  ?? is fetch needed
+            setShowCommentForm(false);
+        } catch (error) {
+            console.error('Error updating goal with comment:', error);
+        }
+    };
 
     if (isLoading) return <div>Loading...</div>;
    //if (error) return <div>Error: {error}</div>;
@@ -62,6 +81,14 @@ function RoadmapPage() {
                                 <h5 className={`${styles.title}`}>{goal.title}</h5>
                                 <p className={`${styles.date}`}>{getDueDate(goal.dueDate)}</p>
                                 <p className={`${styles.description}`} dangerouslySetInnerHTML={{ __html: goal.description }} />
+
+                                {!showCommentForm && (<button className="btn btn-secondary mr-2" onClick={() => onComment(goal)}>Kommentieren</button>)}
+                                {showCommentForm && (
+                                    <GoalCommentForm
+                                        onSave={handleComment}
+                                        onClose={() => setShowCommentForm(false)}
+                                    />
+                                )}
                             </div>
                         </div>
                     ))}
