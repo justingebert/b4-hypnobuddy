@@ -80,7 +80,6 @@ function ProfilePage() {
     };
 
     const handleLinkSubmit = async (event) => {
-        console.log('linking')
         event.preventDefault();
 
         try {
