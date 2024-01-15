@@ -9,7 +9,7 @@ import {RoadmapGoal} from "../types/Roadmap-Goal.ts";
 import GoalCreateForm from "../components/GoalCreateForm.tsx";
 
 function RoadmapPage() {
-    const { goals, addGoal, setGoals,fetchGoals } = useGoals();
+    const { goals, addGoal, setGoals,fetchGoals, saveComment } = useGoals();
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const {user} = useAuth();
@@ -49,7 +49,8 @@ function RoadmapPage() {
 
     const handleComment = async (comment: string, isVisible: boolean) => {
         try {
-            //await updateGoal();
+            const commentData = {comment, isVisible, goalID: editingGoal._id, userID: user._id};
+            await saveComment(commentData);
             setEditingGoal(null);
             //await fetchGoals();  ?? is fetch needed
             setShowCommentForm(false);

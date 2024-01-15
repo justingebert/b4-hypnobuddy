@@ -1,5 +1,6 @@
 import RoadmapGoal from '../data/model/roadmapGoal';
 import User from '../data/model/user';
+import Comment from '../data/model/comment';
 
 import { body, validationResult } from 'express-validator';
 import { isValid, parseISO } from 'date-fns';
@@ -87,11 +88,10 @@ export const validate = [
 
 /**
  * Creates a new goal and saves it to the database
- * -
  * - userID saved within the goal document
  * - goalID saved within the user document
- * @param req {body: { userID, title, description, status, dueDate, isSubGoal, parentGoalId, subGoals }}
- * @param res {success: true, message: 'Successful Login', goal: savedRoadmapGoal, redirect: '/'}
+ * @param req - {body: { userID, title, description, status, dueDate, isSubGoal, parentGoalId, subGoals }}
+ * @param res - {success: true, message: 'Successful Login', goal: savedRoadmapGoal, redirect: '/'}
  * @param next
  */
 export async function createGoal (req, res, next) {
@@ -141,7 +141,7 @@ export async function getAllGoals(req, res, next) {
         //add goals in the correct order to the goals array
         const goals = [];
         for (const goalID of goalIDs.goalIDs) {
-            const goal = await RoadmapGoal.findOne({ _id: goalID });
+            const goal = await RoadmapGoal.findOne({ _id: goalID }).populate('comments');
             if (goal) {
                 goals.push(goal);
             }
@@ -312,6 +312,44 @@ export async function createSubGoal(req, res) {
         });
     } catch (error) {
         console.error('Error creating subgoal:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
+
+/**
+ * Creates a new comment and attaches it to a goal
+ * @param req - {body:{ userID, comment, visible, roadmapGoalID }}
+ * @param res - {success: true, message: 'Comment successfully created', comment: savedComment}
+ */
+export async function addComment(req, res) {
+    try {
+        const {comment, isVisible, goalID, userID } = req.body;
+
+        // Create a new comment
+        const newComment = new Comment({
+            userID,
+            comment,
+            isVisible,
+            goalID,
+        });
+        const savedComment = await newComment.save();
+
+        // update the goal to include this comment's ID
+        await RoadmapGoal.findByIdAndUpdate(
+            goalID,
+            { $push: { comments: savedComment._id } },
+            { new: true }
+        );
+
+        const goalWithComments = await RoadmapGoal.findById(goalID).populate('comments');
+
+        res.status(201).json({
+            success: true,
+            message: 'Comment successfully created',
+            goal: goalWithComments
+        });
+    } catch (error) {
+        console.error('Error creating comment:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 }

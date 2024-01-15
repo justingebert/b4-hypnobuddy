@@ -13,6 +13,7 @@ export type RoadmapGoal = {
     title: string;
     description: string;
     status: 'Geplant' | 'Umsetzung' | 'Erreicht';
+    comments: string[];
     creationDate: Date;
     dueDate?: Date;
     isSubGoal: boolean;

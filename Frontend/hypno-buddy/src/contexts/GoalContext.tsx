@@ -177,8 +177,31 @@ export const GoalsProvider: React.FC = ({ children }) => {
         }
     }, []);
 
+    const saveComment = useCallback(async (commentData:{ comment:string, isVisible:boolean, goalID:string, userID:string }) => {
+        try {
+            console.log('commentData:', commentData)
+            const response = await fetch('http://localhost:3000/goal/saveComment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+                body: JSON.stringify(commentData)
+            });
+
+            if (response.ok) {
+                const updatedGoalPromise = await response.json();
+                setGoals(prevGoals => prevGoals.map(goal => goal._id === commentData.goalID ? { ...goal, ...updatedGoalPromise.goal } : goal));
+            } else {
+                console.error('Failed to update goal:', response.status);
+            }
+        } catch (error) {
+            console.error('Error updating goal:', error);
+        }
+    },[]);
+
     return (
-        <GoalsContext.Provider value={{ goals, setGoals, addGoal, fetchGoals, createGoal, deleteGoal, updateGoal, updateGoalOrder, createSubGoal }}>
+        <GoalsContext.Provider value={{ goals, setGoals, addGoal, fetchGoals, createGoal, deleteGoal, updateGoal, updateGoalOrder, createSubGoal, saveComment }}>
             {children}
         </GoalsContext.Provider>
     );
