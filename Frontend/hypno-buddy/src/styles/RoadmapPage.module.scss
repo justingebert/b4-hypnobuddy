@@ -81,9 +81,34 @@ $timeline-thickness: 4px;
   color: #6c757d;
 }
 
-.title, .description, .date{
-  margin: 5px;
+
+.commentsContainer{
+  padding-top: 1rem;
+  border-top: 1px dashed #dee2e6;
 }
+
+.comment{
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.writer {
+  font-weight: bold;
+  color: #343a40;
+  margin-bottom: 3px;
+}
+
+.commentText{
+  margin-bottom: 0.5rem;
+}
+
+h6{
+  margin-bottom: 0.1rem;
+}
+
+
 
 //mobile
 @media screen and (max-width: 600px) {

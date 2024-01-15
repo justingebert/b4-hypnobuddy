@@ -1,3 +1,5 @@
+import {Comment} from "./Comment.ts";
+
 export type Roadmap = {
     id: string;
     title: string;
@@ -13,7 +15,7 @@ export type RoadmapGoal = {
     title: string;
     description: string;
     status: 'Geplant' | 'Umsetzung' | 'Erreicht';
-    comments: string[];
+    comments: Comment[];
     creationDate: Date;
     dueDate?: Date;
     isSubGoal: boolean;

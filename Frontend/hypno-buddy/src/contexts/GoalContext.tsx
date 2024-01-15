@@ -1,5 +1,6 @@
 import React, { createContext, useState, useContext, useCallback } from 'react';
 import { RoadmapGoal } from '../types/Roadmap-Goal';
+import {Comment} from "../types/Comment.ts";
 import {FlashContext} from "./FlashContext.tsx";
 
 interface GoalsContextType {
@@ -12,6 +13,7 @@ interface GoalsContextType {
     updateGoal: (goalId: string, updatedData: RoadmapGoal) => Promise<void>;
     updateGoalOrder: (newOrder: string[]) => Promise<void>
     createSubGoal: (subGoalData: { title: string; description: string; status: string; parentGoalId: string }) => Promise<void>;
+    saveComment: (commentData:{ comment:string, isVisible:boolean, goalID:string, userID:string }) => Promise<void>;
 }
 
 const GoalsContext = createContext<GoalsContextType | undefined>(undefined);

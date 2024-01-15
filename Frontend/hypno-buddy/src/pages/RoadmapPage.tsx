@@ -2,10 +2,11 @@ import React, {useState, useEffect} from 'react';
 import {useNavigate} from "react-router-dom";
 import {useGoals} from "../contexts/GoalContext.tsx";
 import {useAuth} from "../contexts/AuthContext.tsx";
-import GoalCommentForm from "../components/GoalCommentForm.tsx";
 
 import styles from '../styles/RoadmapPage.module.scss';
 import {RoadmapGoal} from "../types/Roadmap-Goal.ts";
+import {Comment} from "../types/Comment.ts";
+import GoalCommentForm from "../components/GoalCommentForm.tsx";
 import GoalCreateForm from "../components/GoalCreateForm.tsx";
 
 function RoadmapPage() {
@@ -31,15 +32,15 @@ function RoadmapPage() {
         }
     };
 
-    const getDueDate = (dueDate) => {
+    const getDate = (date) => {
         const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
-        if (dueDate instanceof Date) {
-            return dueDate.toLocaleDateString('de-DE', options);
+        if (date instanceof Date) {
+            return date.toLocaleDateString('de-DE', options);
         }
-        else if (typeof dueDate === 'string') {
-            return new Date(dueDate).toLocaleDateString('de-DE', options);
+        else if (typeof date === 'string') {
+            return new Date(date).toLocaleDateString('de-DE', options);
         }
-        return dueDate;
+        return date;
     }
 
     const onComment = (goal: RoadmapGoal) => {
@@ -80,16 +81,37 @@ function RoadmapPage() {
                             </div>
                             <div className={`${styles.textbox}`}>
                                 <h5 className={`${styles.title}`}>{goal.title}</h5>
-                                <p className={`${styles.date}`}>{getDueDate(goal.dueDate)}</p>
-                                <p className={`${styles.description}`} dangerouslySetInnerHTML={{ __html: goal.description }} />
+                                <p className={`${styles.date}`}>{getDate(goal.dueDate)}</p>
+                                <div className={`${styles.details}`}>
+                                    {/*TODO: make detials hideable*/}
+                                    <h6>Beschreibung:</h6>
+                                    <p className={`${styles.description}`} dangerouslySetInnerHTML={{ __html: goal.description }} />
 
-                                {!showCommentForm && (<button className="btn btn-secondary mr-2" onClick={() => onComment(goal)}>Kommentieren</button>)}
-                                {showCommentForm && (
-                                    <GoalCommentForm
-                                        onSave={handleComment}
-                                        onClose={() => setShowCommentForm(false)}
-                                    />
-                                )}
+                                    {goal.comments && goal.comments.length > 0 && (
+                                        <div className={`${styles.commentsContainer}`}>
+                                            <h6>Kommentare:</h6>
+                                            {goal.comments.map(c => (
+                                                <div className={`${styles.comment}`}>
+                                                    {c.userID === user._id ? (
+                                                        <p className={`${styles.writer}`}>Du:</p>
+                                                    ) : (
+                                                        <p className={`${styles.writer}`}>Dein Therapeut:</p>
+                                                    )}
+                                                    <p className={`${styles.date}`}>{getDate(c.creationDate)}</p>
+                                                    <p className={`${styles.commentText}`}>{c.comment}</p>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+
+                                    {!showCommentForm && (<button className="btn btn-secondary mr-2" onClick={() => onComment(goal)}>Kommentieren</button>)}
+                                    {showCommentForm && (
+                                        <GoalCommentForm
+                                            onSave={handleComment}
+                                            onClose={() => setShowCommentForm(false)}
+                                        />
+                                    )}
+                                </div>
                             </div>
                         </div>
                     ))}
