@@ -300,7 +300,7 @@ export async function createSubGoal(req, res) {
 
         // Create a new subgoal
         const newSubGoal = new RoadmapGoal(getGoalParams(req));
-
+newSubGoal.description = newSubGoal.description.replace(/\n/g, '<br>');
         const savedSubgoal = await newSubGoal.save();
 
         // Optionally, update the parent goal to include this subgoal's ID
