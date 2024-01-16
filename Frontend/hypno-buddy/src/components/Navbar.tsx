@@ -61,18 +61,24 @@ const NavbarComponent = () => {
                             Home
                         </Nav.Link>
                         {isAuthenticated && user ? (
-                        <NavDropdown title="Feature" id="collapsible-nav-dropdown">
-                            <NavDropdown.Item href="/dosanddonts" className={styles.navLink}>
-                                Dos&Donts
-                            </NavDropdown.Item>
-                            <NavDropdown.Item href="/roadmap" className={styles.navLink}>
-                                Roadmap
-                            </NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action/3.4">
-                                Separated link
-                            </NavDropdown.Item>
-                        </NavDropdown>
+                            <Nav>
+                                {user.role === 'therapist' ? (
+                                    <Nav.Link href="/dosanddonts/t"  className="nav-link active" aria-current="page">
+                                        Dos&Donts
+                                    </Nav.Link>
+                                ) : (
+                                    <Nav.Link href="/dosanddonts/p"  className="nav-link active" aria-current="page">
+                                        Dos&Donts
+                                    </Nav.Link>
+                                )}
+                                <Nav.Link href="/roadmap" className="nav-link active" aria-current="page">
+                                    Roadmap
+                                </Nav.Link>
+                                <Nav.Link href="/reflexion-add"className="nav-link active" aria-current="page">
+                                    Reflexion
+                                </Nav.Link>
+                            </Nav>
+
                         ) : null}
                     </Nav>
                     <Nav>
@@ -87,11 +93,11 @@ const NavbarComponent = () => {
                                             {" " + user.name.first + " " + user.name.last}
                                         </div>
                                     </Nav.Link>
-                                    <LogoutButton onLogout={handleLogoutClick}/>
-            </>
+                                    <LogoutButton onLogout={handleLogoutClick} />
+                                </>
                             ) : (
                                 <>
-                                    <LoginButton/>
+                                    <LoginButton />
                                 </>
                             )}
                         </Nav.Link>

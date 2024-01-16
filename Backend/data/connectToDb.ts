@@ -29,7 +29,7 @@ export async function disconnectDB() {
     }
 }
 export async function ensureVerificationCodes() {
-    try{
+    try {
         const requiredCodesCount = 10;
         const existingCodesCount = await VerificationCode.countDocuments({
             type: 'therapistVerification',

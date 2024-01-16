@@ -1,6 +1,6 @@
 import { BsArrowRightCircle } from "react-icons/bs";
 import Button from "react-bootstrap/Button";
-import React, { ReactElement, useState } from "react";
+import { ReactElement, useState } from "react";
 
 const SubmitButton = (): ReactElement => {
     const [isHovered, setIsHovered] = useState(false);

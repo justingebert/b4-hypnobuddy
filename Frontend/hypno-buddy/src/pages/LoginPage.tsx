@@ -51,17 +51,13 @@ const LoginPage = () => {
             const password = passwordInput.value;
 
             try {
-
-                const {success, redirect, message} = await handleLogin(email, password);
-
+                const { success, redirect, message } = await handleLogin(email, password);
 
                 if (success) {
                     flash(message);
                     navigate(redirect);
                 } else {
-
                     flash(message);
-
                 }
             } catch (error) {
                 flash('An error occurred while logging in');
@@ -89,28 +85,28 @@ const LoginPage = () => {
     return (
         <div className="loginPage">
             <div className="background-login-image">
-            <WelcomeHeading className="display-1">Willkommen</WelcomeHeading>
-            <div className="position-absolute top-0 start-0 end-0 bottom-0 d-flex flex-column justify-content-center align-items-center">
-                <div className="c_dark" style={{ flexDirection: 'column' }}>
-                    {isLogin ? (
-                        <div>
-                            <h1>Login</h1>
-                            <AuthForm onSubmit={handleLoginFromSubmit} isLogin />
-                        </div>
-                    ) : (
-                        <RegisterForm />
-                    )}
-                    {isLogin ? (
-                        <p className="mt-3">
-                            Du hast noch kein Account? <Link to="/register" className="link" onClick={toggleForm}>Registriere dich hier.</Link>
-                        </p>
-                    ) : (
-                        <p className="mt-3">
-                            Du hast bereits einen Account? <Link to="/loginsignin " className="link" onClick={toggleForm}>Login hier.</Link>
-                        </p>
-                    )}
+                <WelcomeHeading className="display-1">Willkommen</WelcomeHeading>
+                <div className="position-absolute top-0 start-0 end-0 bottom-0 d-flex flex-column justify-content-center align-items-center">
+                    <div className="c_dark" style={{ flexDirection: 'column' }}>
+                        {isLogin ? (
+                            <div>
+                                <h1>Login</h1>
+                                <AuthForm onSubmit={handleLoginFromSubmit} isLogin />
+                            </div>
+                        ) : (
+                            <RegisterForm />
+                        )}
+                        {isLogin ? (
+                            <p className="mt-3">
+                                Du hast noch kein Account? <Link to="/register" className="link" onClick={toggleForm}>Registriere dich hier.</Link>
+                            </p>
+                        ) : (
+                            <p className="mt-3">
+                                Du hast bereits einen Account? <Link to="/loginsignin " className="link" onClick={toggleForm}>Login hier.</Link>
+                            </p>
+                        )}
+                    </div>
                 </div>
-            </div>
             </div>
         </div>
     );
