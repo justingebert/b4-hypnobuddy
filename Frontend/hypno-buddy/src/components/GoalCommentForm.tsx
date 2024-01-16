@@ -9,14 +9,14 @@ interface GoalCommentFormProps {
 const GoalCommentForm: React.FC<GoalCommentFormProps> = ({onSave, onClose }) => {
     //TODO: const [writerID, setWriterID] = useState<string | undefined>(undefined);
     const [comment, setComment] = useState<string>('');
-    const [isVisible, setIsVisible] = useState<boolean>(false);
+    const [isPrivate, setIsPrivate] = useState<boolean>(false);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        onSave(comment, isVisible);
+        onSave(comment, isPrivate);
         //reset the form
         setComment('');
-        setIsVisible(false);
+        setIsPrivate(false);
     };
 
     return (
@@ -34,8 +34,8 @@ const GoalCommentForm: React.FC<GoalCommentFormProps> = ({onSave, onClose }) => 
                 <input
                     type="checkbox"
                     id="visibilityCheckbox"
-                    checked={isVisible}
-                    onChange={() => setIsVisible(!isVisible)}
+                    checked={isPrivate}
+                    onChange={() => setIsPrivate(!isPrivate)}
                 />
                 <label htmlFor="visibilityCheckbox">Privater Kommentar</label>
             </div>

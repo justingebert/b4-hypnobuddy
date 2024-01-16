@@ -13,7 +13,7 @@ interface GoalsContextType {
     updateGoal: (goalId: string, updatedData: RoadmapGoal) => Promise<void>;
     updateGoalOrder: (newOrder: string[]) => Promise<void>
     createSubGoal: (subGoalData: { title: string; description: string; status: string; parentGoalId: string }) => Promise<void>;
-    saveComment: (commentData:{ comment:string, isVisible:boolean, goalID:string, userID:string }) => Promise<void>;
+    saveComment: (commentData:{ comment:string, isPrivate:boolean, goalID:string, userID:string }) => Promise<void>;
 }
 
 const GoalsContext = createContext<GoalsContextType | undefined>(undefined);
@@ -179,9 +179,9 @@ export const GoalsProvider: React.FC = ({ children }) => {
         }
     }, []);
 
-    const saveComment = useCallback(async (commentData:{ comment:string, isVisible:boolean, goalID:string, userID:string }) => {
+    const saveComment = useCallback(async (commentData:{ comment:string, isPrivate:boolean, goalID:string, userID:string }) => {
         try {
-            console.log('commentData:', commentData)
+            console.log(commentData)
             const response = await fetch('http://localhost:3000/goal/saveComment', {
                 method: 'POST',
                 headers: {

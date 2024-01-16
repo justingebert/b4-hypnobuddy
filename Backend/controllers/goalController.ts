@@ -323,13 +323,13 @@ export async function createSubGoal(req, res) {
  */
 export async function addComment(req, res) {
     try {
-        const {comment, isVisible, goalID, userID } = req.body;
+        const {comment, isPrivate, goalID, userID } = req.body;
 
         // Create a new comment
         const newComment = new Comment({
             userID,
             comment,
-            isVisible,
+            isPrivate,
             goalID,
         });
         const savedComment = await newComment.save();

@@ -5,9 +5,8 @@ const commentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    isVisible: {
+    isPrivate: {
         type: Boolean,
-        default: true,
     },
     goalID: {
         type: mongoose.Schema.Types.ObjectId,

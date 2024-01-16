@@ -5,7 +5,6 @@ import {useAuth} from "../contexts/AuthContext.tsx";
 
 import styles from '../styles/RoadmapPage.module.scss';
 import {RoadmapGoal} from "../types/Roadmap-Goal.ts";
-import {Comment} from "../types/Comment.ts";
 import GoalCommentForm from "../components/GoalCommentForm.tsx";
 import GoalCreateForm from "../components/GoalCreateForm.tsx";
 
@@ -48,9 +47,9 @@ function RoadmapPage() {
         setShowCommentForm(true);
     };
 
-    const handleComment = async (comment: string, isVisible: boolean) => {
+    const handleComment = async (comment: string, isPrivate: boolean) => {
         try {
-            const commentData = {comment, isVisible, goalID: editingGoal._id, userID: user._id};
+            const commentData = {comment, isPrivate: isPrivate, goalID: editingGoal._id, userID: user._id};
             await saveComment(commentData);
             setEditingGoal(null);
             //await fetchGoals();  ?? is fetch needed
@@ -91,15 +90,16 @@ function RoadmapPage() {
                                         <div className={`${styles.commentsContainer}`}>
                                             <h6>Kommentare:</h6>
                                             {goal.comments.map(c => (
-                                                <div className={`${styles.comment}`}>
-                                                    {c.userID === user._id ? (
-                                                        <p className={`${styles.writer}`}>Du:</p>
-                                                    ) : (
-                                                        <p className={`${styles.writer}`}>Dein Therapeut:</p>
-                                                    )}
-                                                    <p className={`${styles.date}`}>{getDate(c.creationDate)}</p>
-                                                    <p className={`${styles.commentText}`}>{c.comment}</p>
-                                                </div>
+                                                (c.userID === user._id || c.isPrivate) ? (
+                                                    <div className={`${styles.comment}`}>
+                                                        <div>
+                                                            <span className={`${styles.writer}`}>{c.userID === user._id ? 'Du: ' : 'Dein Therapeut: '}</span>
+                                                            <span className={`${styles.date}`}>{getDate(c.creationDate)}</span>
+                                                        </div>
+                                                        {c.isPrivate ? (<div className={`${styles.date}`}><i>privater Kommentar</i></div>): null}
+                                                        <p className={`${styles.commentText}`}>{c.comment}</p>
+                                                    </div>
+                                                ) : null
                                             ))}
                                         </div>
                                     )}
