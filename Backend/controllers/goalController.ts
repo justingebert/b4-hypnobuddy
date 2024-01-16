@@ -199,9 +199,15 @@ export async function deleteGoal(req, res, next) {
     try {
         const goalId = req.params.goalId;
 
+
         const deletedGoal = await RoadmapGoal.findByIdAndDelete(goalId);
         if (!deletedGoal) {
             return res.status(404).json({ error: 'Goal not found' });
+        }
+
+        //delete comments
+        for (const comment of deletedGoal.comments) {
+            await Comment.findByIdAndDelete(comment._id);
         }
 
         //update the User to remove the goalID

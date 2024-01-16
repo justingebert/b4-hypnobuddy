@@ -19,7 +19,6 @@ const GoalCommentForm: React.FC<GoalCommentFormProps> = ({onSave, goalID }) => {
 
     return (
         <form onSubmit={handleSubmit} className="mt-3">
-            <label>Dein Kommentar:</label>
             <div className="d-flex justify-content-between">
                     <div className="form-group flex-grow-1 mr-2">
                         <textarea className="form-control"
