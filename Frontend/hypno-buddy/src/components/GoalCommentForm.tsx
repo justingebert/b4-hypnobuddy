@@ -1,48 +1,53 @@
 import React, { useState, useEffect } from 'react';
-import {RoadmapGoal} from "../types/Roadmap-Goal.ts";
 
 interface GoalCommentFormProps {
-    onSave: (comment: string, isVisible: boolean) => void;
-    onClose: () => void;
+    onSave: (comment: string, isVisible: boolean, goalID: any) => void;
+    goalID: string;
 }
 
-const GoalCommentForm: React.FC<GoalCommentFormProps> = ({onSave, onClose }) => {
-    //TODO: const [writerID, setWriterID] = useState<string | undefined>(undefined);
+const GoalCommentForm: React.FC<GoalCommentFormProps> = ({onSave, goalID }) => {
     const [comment, setComment] = useState<string>('');
     const [isPrivate, setIsPrivate] = useState<boolean>(false);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        onSave(comment, isPrivate);
+        onSave(comment, isPrivate, goalID);
         //reset the form
         setComment('');
         setIsPrivate(false);
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-                {/* Description Field */}
-                <div className="form-group">
-                    <label>Dein Kommentar:</label>
-                    <textarea className="form-control" value={comment} rows={1}
-                              onChange={e => setComment(e.target.value)}>
-                    </textarea>
+        <form onSubmit={handleSubmit} className="mt-3">
+            <label>Dein Kommentar:</label>
+            <div className="d-flex justify-content-between">
+                    <div className="form-group flex-grow-1 mr-2">
+                        <textarea className="form-control"
+                                  value={comment}
+                                  rows={1}
+                                  onChange={e => setComment(e.target.value)}>
+                        </textarea>
+                    </div>
+
+                <div className="form-group ">
+                    <button type="submit" className="btn btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chat-left" viewBox="0 0 16 16">
+                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                        </svg>
+                    </button>
                 </div>
+            </div>
 
             {/* Checkbox for Visibility */}
-            <div className="form-group">
+            <div className="form-group form-check">
                 <input
                     type="checkbox"
+                    className="form-check-input"
                     id="visibilityCheckbox"
                     checked={isPrivate}
                     onChange={() => setIsPrivate(!isPrivate)}
                 />
-                <label htmlFor="visibilityCheckbox">Privater Kommentar</label>
-            </div>
-
-            <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" onClick={onClose}>Zurück</button>
-                <button type="submit" className="btn btn-primary">Speichern</button>
+                <label className="form-check-label" htmlFor="visibilityCheckbox">Privater Kommentar</label>
             </div>
         </form>
     );

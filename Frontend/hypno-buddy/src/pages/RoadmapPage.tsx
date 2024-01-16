@@ -6,7 +6,6 @@ import {useAuth} from "../contexts/AuthContext.tsx";
 import styles from '../styles/RoadmapPage.module.scss';
 import {RoadmapGoal} from "../types/Roadmap-Goal.ts";
 import GoalCommentForm from "../components/GoalCommentForm.tsx";
-import GoalCreateForm from "../components/GoalCreateForm.tsx";
 
 function RoadmapPage() {
     const { goals, addGoal, setGoals,fetchGoals, saveComment } = useGoals();
@@ -14,7 +13,6 @@ function RoadmapPage() {
     const [error, setError] = useState(null);
     const {user} = useAuth();
     const [editingGoal, setEditingGoal] = useState<RoadmapGoal | null>(null);
-    const [showCommentForm, setShowCommentForm] = useState(false);
 
     const navigate = useNavigate();
 
@@ -42,18 +40,11 @@ function RoadmapPage() {
         return date;
     }
 
-    const onComment = (goal: RoadmapGoal) => {
-        setEditingGoal(goal);
-        setShowCommentForm(true);
-    };
-
-    const handleComment = async (comment: string, isPrivate: boolean) => {
+    const handleComment = async (comment: string, isPrivate: boolean, goalID: string) => {
         try {
-            const commentData = {comment, isPrivate: isPrivate, goalID: editingGoal._id, userID: user._id};
+            const commentData = {comment, isPrivate: isPrivate, goalID: goalID, userID: user._id};
             await saveComment(commentData);
             setEditingGoal(null);
-            //await fetchGoals();  ?? is fetch needed
-            setShowCommentForm(false);
         } catch (error) {
             console.error('Error updating goal with comment:', error);
         }
@@ -104,13 +95,8 @@ function RoadmapPage() {
                                         </div>
                                     )}
 
-                                    {!showCommentForm && (<button className="btn btn-secondary mr-2" onClick={() => onComment(goal)}>Kommentieren</button>)}
-                                    {showCommentForm && (
-                                        <GoalCommentForm
-                                            onSave={handleComment}
-                                            onClose={() => setShowCommentForm(false)}
-                                        />
-                                    )}
+                                    <GoalCommentForm onSave={handleComment} goalID={goal._id} />
+
                                 </div>
                             </div>
                         </div>
