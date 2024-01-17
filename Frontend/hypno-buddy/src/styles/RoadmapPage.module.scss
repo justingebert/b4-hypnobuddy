@@ -76,22 +76,26 @@ $timeline-thickness: 4px;
   box-shadow: 0 3px 10px rgba(0,0,0,0.2);
 }
 
+.detailsButton {
+  background-color: none;
+  border: none;
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+  padding: 0;
+}
+
 .date{
   font-size: 0.875rem;
   color: #6c757d;
-}
-
-
-.commentsContainer{
-  padding-top: 1rem;
-  border-top: 1px dashed #dee2e6;
+  margin: 0;
 }
 
 .comment{
   border: 1px rgb(127, 45, 245) solid;
   border-radius: 6px;
   padding: 0.5rem;
-  margin: 1.5rem 0;
+  margin: 1rem 0;
   font-size: 0.875rem;
 }
 

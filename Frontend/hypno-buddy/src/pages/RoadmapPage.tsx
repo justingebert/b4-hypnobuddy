@@ -6,6 +6,7 @@ import {useAuth} from "../contexts/AuthContext.tsx";
 import styles from '../styles/RoadmapPage.module.scss';
 import {RoadmapGoal} from "../types/Roadmap-Goal.ts";
 import GoalCommentForm from "../components/GoalCommentForm.tsx";
+import RoadmapGoalTextbox from "../components/RoadmapGoalTextbox.tsx";
 
 function RoadmapPage() {
     const { goals, addGoal, setGoals,fetchGoals, saveComment } = useGoals();
@@ -69,36 +70,8 @@ function RoadmapPage() {
                             <div className={`${styles.circle} ${getStatusClass(goal.status)}`}>
                                 {index + 1}
                             </div>
-                            <div className={`${styles.textbox}`}>
-                                <h5 className={`${styles.title}`}>{goal.title}</h5>
-                                <p className={`${styles.date}`}>{getDate(goal.dueDate)}</p>
-                                <div className={`${styles.details}`}>
-                                    {/*TODO: make detials hideable*/}
-                                    <h6>Beschreibung:</h6>
-                                    <p className={`${styles.description}`} dangerouslySetInnerHTML={{ __html: goal.description }} />
 
-                                    {goal.comments && goal.comments.length > 0 && (
-                                        <div className={`${styles.commentsContainer}`}>
-                                            <h6>Kommentare:</h6>
-                                            {goal.comments.map(c => (
-                                                (c.userID === user._id || c.isPrivate) ? (
-                                                    <div className={`${styles.comment}`}>
-                                                        <div>
-                                                            <span className={`${styles.writer}`}>{c.userID === user._id ? 'Du: ' : 'Dein Therapeut: '}</span>
-                                                            <span className={`${styles.date}`}>{getDate(c.creationDate)}</span>
-                                                        </div>
-                                                        {c.isPrivate ? (<div className={`${styles.date}`}><i>privater Kommentar</i></div>): null}
-                                                        <p className={`${styles.commentText}`}>{c.comment}</p>
-                                                    </div>
-                                                ) : null
-                                            ))}
-                                        </div>
-                                    )}
-
-                                    <GoalCommentForm onSave={handleComment} goalID={goal._id} />
-
-                                </div>
-                            </div>
+                            <RoadmapGoalTextbox goal={goal} handleComment={handleComment} />
                         </div>
                     ))}
                 </div>
