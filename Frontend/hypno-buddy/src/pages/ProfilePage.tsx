@@ -168,7 +168,7 @@ function ProfilePage() {
                             </Form>
                             {/* Link to Therapist Form */}
                             {data.user.role === 'patient' && (
-                                <Form as={Col} onSubmit={handleLinkSubmit}>
+                                <Form onSubmit={handleLinkSubmit}>
                                     <Row className="d-flex align-items-center submitLayout">
                                         <Col>
                                             <FormControl
