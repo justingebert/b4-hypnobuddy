@@ -11,6 +11,11 @@
       "dom"
     ]
   },
+  "compileOnSave": true,
+  "include": [
+    "src",
+    "test"
+  ],
   "exclude": [
     "node_modules",
     "tests/**/*"
