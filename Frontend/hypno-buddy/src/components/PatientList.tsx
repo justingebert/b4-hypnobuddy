@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../styles/TherapistCard.module.css';
 import {ListGroup } from 'react-bootstrap';
+import {useAuth} from "../contexts/AuthContext.tsx";
+import {User} from "../types/User.ts";
 
 
 function TherapistCard() {
     const [searchQuery, setSearchQuery] = useState('');
-    const [patients, setPatients] = useState<Array<{ _id: string; name: { first: string } }>>([]);
+    const [patients, setPatients] = useState<Array<User>>([]);
     const [addedPatients, setAddedPatients] = useState<Array<string>>([]);
+    const {selectedPatient, selectPatient} = useAuth();
 
     useEffect(() => {
         fetchPatients();
@@ -19,13 +22,13 @@ function TherapistCard() {
                 credentials: 'include',
             });
 
-            const responseData = await response.json();
-
             if (response.ok) {
-                console.log(responseData.patients);
+                const responseData = await response.json();
+                console.log(responseData)
                 setPatients(responseData.patients);
+                selectPatient(responseData.patients[0]);
             } else {
-                console.log(responseData.message);
+                console.error('Failed to get patients:', response.statusText);
             }
         } catch (error) {
             console.error('Error getting patients:', error);
@@ -54,8 +57,16 @@ function TherapistCard() {
                 <div className={"patientList"}>
                     <ListGroup className={`${styles.patientList} ${styles.scrollable}`}>
                         {filteredPatients.map((patient, index) => (
-                            <ListGroup.Item key={index}>
-                                <button className={"btn btn-light w-100"}>{patient.name.first} {patient.name.last}</button>
+                            <ListGroup.Item key={patient._id}>
+                                {patient._id === selectedPatient?._id ? (
+                                    <button className={"btn btn-outline-primary w-100"} onClick={() => selectPatient(patient)}>
+                                        {patient.name.first} {patient.name.last} selected
+                                    </button>
+                                ) : (
+                                    <button className={"btn btn-light w-100"} onClick={() => selectPatient(patient)}>
+                                        {patient.name.first} {patient.name.last}
+                                    </button>
+                                )}
                             </ListGroup.Item>
                         ))}
                     </ListGroup>

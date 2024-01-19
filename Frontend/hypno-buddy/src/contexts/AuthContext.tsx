@@ -13,6 +13,8 @@ interface AuthContextProps {
     checkLogin: () => Promise<void>;
     handleLogout: () => Promise<void>;
     handleLogin: (email: string, password: string)=> Promise<{ success: boolean; redirect: any; }>;
+    selectedPatient: User | null;
+    selectPatient: (user: User) => void;
 }
 
 //createContext() returns provider and consumer
@@ -36,6 +38,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
         user: null as User | null,
     });
     const {flash } = useContext(FlashContext);
+
+    //patient selection for therapists
+    const [selectedPatient, setSelectedPatient] = useState<User | null>(null);
+    const selectPatient = async (user: User) => {
+        if (user) {
+            setSelectedPatient(user);
+        }
+    };
 
     // Function to update the authentication state after a successful login or registration
     const updateLoginState = async (user: User) => {
@@ -130,7 +140,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
                 updateLoginState,
                 checkLogin,
                 handleLogout,
-                handleLogin
+                handleLogin,
+                selectedPatient,
+                selectPatient
 
             }}>
             {children}
