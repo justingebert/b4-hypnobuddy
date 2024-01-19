@@ -7,7 +7,6 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    height: 100vh;
     overflow-x: hidden;
     padding: 50px;
 }
@@ -137,4 +136,17 @@
     background-repeat: no-repeat;
     background-position: right;
     background-size: contain;
+}
+
+/*Mobile Version*/
+@media screen and (max-width: 800px) {
+    .dashboard-content-auth{
+        flex-direction: column;
+    }
+    .featureButtons{
+        width: 100%;
+    }
+    .listContainer{
+        min-width: 100%;
+    }
 }
