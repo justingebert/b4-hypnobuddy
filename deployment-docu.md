@@ -1,0 +1,25 @@
+- start with research on how to deploy and compared the big cloud providers
+- it was hard to understand the billig thats why i decided to use the free tier of google because it was the easiest to understand with 300$ free credit
+- now I did some reasearch on the different ways how to deploy an app on google cloud i found the follwojg options:
+  - **google app engine** - this is the easiest way to deploy an app on google cloud but it is not possible to use docker containers
+  - **google kubernetes engine** - this is the most complex way to deploy an app on google cloud but it is possible to use docker containers
+  - **google Compute Engine** - this is the most flexible way to deploy an app on google cloud but it is the most complex way to deploy an app on google cloud
+  - g**oogle cloud run** - this is the easiest way to deploy an app on google cloud with docker containers
+- there are also other ways to deploy an app on google cloud but these are the ones I considered
+- for mongodb i want to use mongodb atlas because it is the easiest way to deploy a mongodb database
+- for this whole project i want to use terraform
+
+- i feel like compute engine is the easiest way to deploy an app on google cloud because i can install everything there but getting HTTPS is more difficult
+- but i want to learn more that why i Will try the following:
+- i will deploy the backend using cloud run
+- i will deploy the frontend using static hosting with firebase hosting
+- i will deploy the database using mongodb atlas
+
+- i will start with the backend:
+- i will create a docker container for the backend
+- I use node slim to reduce the size of the container
+- first container 360mb biog now 162mb big
+- dockerignore is also used to reduce the size of the container
+- i need to adjust some typescritp stuff like the tsconfig.json and the package.json -> write tot dist and build script
+- -> container 200mb big -> use prune to reduce the size of the container
+- 
