@@ -9,11 +9,12 @@ function QueueList({ goals, onReorder, onEdit, onDelete, onCreateSubGoal }) {
         setLocalGoals(goals);
     }, [goals]);
 
-
-    //this used to prevent the strict mode error and now is previnting:
-    //Cannot find droppable entry with id [goals]
-    //idk why it should do the same as just palcing the droppable component like:
-    // <Droppable droppableId="goals" type="goal"> but somehow it doesnt
+    /**
+    this used to prevent the strict mode error and now is previnting:
+    Cannot find droppable entry with id [goals]
+    idk why it should do the same as just palcing the droppable component like:
+    <Droppable droppableId="goals" type="goal"> but somehow it doesnt
+     **/
     const StrictModeDroppable = ({ children, ...props }) => {
         /*const [enabled, setEnabled] = useState(false);
 

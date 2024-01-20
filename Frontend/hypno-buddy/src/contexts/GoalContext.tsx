@@ -112,6 +112,7 @@ export const GoalsProvider: React.FC = ({ children }) => {
 
     const updateGoal = useCallback(async (goalId: string, updatedData: RoadmapGoal) => {
         try {
+            console.log(goalId, updatedData);
             const response = await fetch(`http://localhost:3000/goal/update/${goalId}`, {
                 method: 'POST',
                 headers: {
@@ -122,14 +123,33 @@ export const GoalsProvider: React.FC = ({ children }) => {
             });
 
             if (response.ok) {
-                const updatedGoalPromise = await response.json();
-                setGoals(prevGoals => prevGoals.map(goal => goal._id === goalId ? { ...goal, ...updatedGoalPromise.goal } : goal));
+                const updatedGoalResponse = await response.json();
+                const updatedGoal = updatedGoalResponse.goal;
+
+                setGoals(prevGoals => {
+                    const newGoals = prevGoals.map(goal => {
+                        if (goal._id === goalId) {
+                            return { ...goal, ...updatedGoal };
+                        }
+                        if (goal.subGoals && goal.subGoals.some(subGoal => subGoal._id === goalId)) {
+                            return {
+                                ...goal,
+                                subGoals: goal.subGoals.map(subGoal =>
+                                    subGoal._id === goalId ? { ...subGoal, ...updatedGoal } : subGoal
+                                )
+                            };
+                        }
+                        return goal;
+                    });
+                    return newGoals;
+                });
             } else {
                 console.error('Failed to update goal:', response.status);
             }
         } catch (error) {
             console.error('Error updating goal:', error);
         }
+        console.log("newstate",goals)
     }, []);
 
     /**
