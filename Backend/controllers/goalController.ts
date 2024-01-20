@@ -202,6 +202,7 @@ export async function deleteGoal(req, res, next) {
         }
 
         //update the User to remove the goalID
+        // @ts-ignore
         await User.updateOne({ _id: deletedGoal.userID }, { $pull: { goalIDs: deletedGoal._id } });
 
         return res.json({

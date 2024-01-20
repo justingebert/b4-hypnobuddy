@@ -1,0 +1,22 @@
+version: '3'
+services:
+  backend:
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+
+  frontend:
+    build:
+      context: ./Frontend/hypno-buddy
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+
+  mongo:
+    image: "mongo:7"
+    ports:
+      - "27017:27017"
