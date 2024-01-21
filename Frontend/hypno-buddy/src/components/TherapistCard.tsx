@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styles from '../styles/TherapistCard.module.css';
+import styles from '../styles/TherapistCard.module.scss';
 import { Offcanvas, Button, ListGroup } from 'react-bootstrap';
 import LoginButton from "./LoginButton.tsx";
 

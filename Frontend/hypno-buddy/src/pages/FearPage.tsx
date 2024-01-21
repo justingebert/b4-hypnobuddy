@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { DoAndDont } from '../../../../Backend/data/model/dosAndDontsModel.ts';
 import TherapistCard from '../components/TherapistCard.tsx';
-import styles from '../styles/TherapistCard.module.css';
+import styles from '../styles/TherapistCard.module.scss';
 
 function FearPage() {
   const { fearId } = useParams();

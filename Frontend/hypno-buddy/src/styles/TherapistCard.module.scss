@@ -1,12 +1,13 @@
+@import 'colors';
 /* Custom styles for the therapist card */
 .therapistCard {
-  background-color: #7945A2;
+  background-color: $violet;
   border-radius: 30px;
   width: 70%;
   max-width: 80vw;
   min-height: 25rem;
   height: 60%;
-  color: #FFFFFF;
+  color: $light-creme;
   padding: 20px;
   text-align: center;
   position: relative;
@@ -25,12 +26,12 @@
 .editableTitle {
   width: 100%;
   padding: 10px;
-  background-color: #7945A2; 
+  background-color: $violet;
   border: none;
-  border-radius: 30px; 
-  color: #fff;
+  border-radius: 30px;
+  color: $light-creme;
   margin-bottom: 10px;
-  text-align: center; 
+  text-align: center;
   font-size: 1.5rem;
 }
 
@@ -38,8 +39,8 @@
   position: relative;
   background-color: transparent;
   border: none;
-  color: #fff; 
-  font-size: 2rem; 
+  color: $light-creme;
+  font-size: 2rem;
   cursor: pointer;
   margin: -40px -10px -50px -55px;
 }
@@ -65,14 +66,14 @@
 
 /* Custom styles for the subheading */
 .subheading {
-  color: #fff;
+  color: $white;
 }
 
 /* Custom styles for the cream-colored text field */
 .creamTextField {
   box-sizing: border-box;
-  background-color: #F4E7E8; 
-  color: #000;
+  background-color: $light-creme;
+  color: $dark-violet;
   min-height: 13em;
   width: 100%;
   resize: vertical;
@@ -83,7 +84,7 @@
 }
 
 .creamTextField.editable {
-  background-color: #F4E7E8;
+  background-color: $light-creme;
 }
 .creamTextField textarea {
   width: 100%;
@@ -97,8 +98,8 @@
 
 /* Custom styles for the button */
 .editSaveButton {
-  background-color: #F4E7E8; 
-  color: #7945A2; 
+  background-color: $light-creme;
+  color: $dark-violet;
   border: none;
   padding: 10px;
   cursor: pointer;
@@ -108,7 +109,7 @@
 }
 
 .editSaveButton:hover {
-  background-color: #C5B6F1;
+  background-color: $light-violet;
 }
 
 .cardContainer {
@@ -119,16 +120,18 @@
 }
 
 .card {
-  background-color: #8140a7;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: $light-creme;
+  box-shadow: 0 4px 8px rgba(62, 54, 141, 1);
   overflow: hidden;
   border-radius: 1rem;
   transition: box-shadow 0.3s;
   margin: 20px 20px 40px;
   width: 25vw;
   height: auto;
-  color: #FFFFFF;
   text-align: center;
+  h3{
+    color: $dark-violet
+  }
 }
 .cardContent {
   display: flex;
@@ -140,32 +143,29 @@
 }
 
 .card:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-.card a {
-  color: #fff; /* Set the font color to white */
-  text-decoration: inherit;
+  box-shadow: 0 8px 16px rgba(153, 153, 255, 0.2);
+  h3 {
+    color: $light-violet;
+  }
 }
 .card a:hover {
-  color: #ccc; /* Adjust the hover color as needed */
+  color: $light-violet; /* Adjust the hover color as needed */
 }
 
 .layout{
   flex-shrink: 0;
-  background: #FFFFFF url('../assets/backgroundTF.png') no-repeat center;
-  background-size: contain;
-  margin: 5rem;
-  padding-top: 5rem;
-  padding-bottom: 3rem;
+  background: $white url('../assets/background.png') no-repeat center;
+  background-size: cover;
 }
 .h1 {
   text-align: center;
   margin-bottom: 10px;
-  color: #2f015a;
+  color: $dark-violet;
+  font-weight: 800;
 }
 .button {
-  background-color: #8140a7;
-  color: white;
+  background-color: $dark-violet;
+  color: $light-creme;
   width: 10px;
   height: 45px;
   border-radius: 50%;
@@ -173,6 +173,10 @@
   align-items: center;
   justify-content: center;
   font-size: 1.2rem;
+}
+.button:hover {
+  box-shadow: 0 4px 8px rgba(62, 54, 141, 1);
+  color: $orange;
 }
 .confirmButton{
   margin-inline: 10px;
@@ -188,12 +192,12 @@
   text-align: center;
   margin: 20px;
   font-size: 1.5rem;
-  color: #333; /* Adjust color as needed */
+  color: $dark-violet; /* Adjust color as needed */
 }
 
 /* Wrapper for the welcome text */
 .welcomeContainer {
-  color: #2f015a;
+  color: $dark-grey;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -224,7 +228,7 @@
 
 /* Modal Container */
 .modal {
-  background-color: #8140a7;
+  background-color: $light-creme;
   max-width: 400px;
   width: 100%;
   padding: 20px;
@@ -234,7 +238,7 @@
 
 /* Modal Header */
 .modalHeader {
-  color: #FFFFFF;
+  color: $dark-violet;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -243,7 +247,7 @@
 
 /* Modal Body */
 .modalBody {
-  color: #FFFFFF;
+  color: $white;
   margin-bottom: 20px;
 }
 
@@ -255,29 +259,36 @@
 
 .toggleSidebarButton{
   margin: 2rem;
-  background-color:  #F4E7E8;
-  border-color: #F4E7E8;
-  color: #8140a7;
+  background-color:  $light-creme;
+  border-color: $light-creme;
+  color: $dark-violet;
 }
 .searchInput{
   margin: 1rem;
   width: 90%;
   border-radius: 5px;
   border-width: 1px;
-  border-color: #8140a7;
+  border-color: $violet;
 }
 .patientList{
+  background-color: $light-grey;
+  color: $dark-violet;
   margin-inline: 1rem;
   border: none;
 }
 .addButton {
   margin-right: 1rem;
-  background-color: #8140a7 !important;
-  border-color: #8140a7 !important;
+  background-color: $dark-violet !important;
+  border-color: $dark-violet !important;
 }
 .deleteButton{
-  background-color: #2f015a;
-  color: #FFFFFF;
+  background-color: $dark-violet;
+  color: $white;
+  margin: 1rem;
 
   font-size: small;
+}
+.deleteButton:hover{
+  box-shadow: 0 4px 8px rgba(62, 54, 141, 1);
+  background-color: $orange;
 }
