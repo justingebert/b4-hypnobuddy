@@ -2,6 +2,7 @@ import { app } from "./main";
 import { connectDB, createMockupData, ensureVerificationCodes } from './data/connectToDb';
 
 //start the server
+console.log('Starting server...');
 
 (async () => {
     try {

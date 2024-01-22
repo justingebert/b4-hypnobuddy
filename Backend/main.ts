@@ -13,6 +13,7 @@ import flash from 'express-flash';
 import cors from 'cors';
 //import models
 import User from './data/model/user';
+require('dotenv').config();
 
 export const app = express();
 
@@ -29,7 +30,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser('your secret'));
 
 // Configure session and store in MongoDB
-export const sessionStore = MongoStore.create({ mongoUrl: 'mongodb://127.0.0.1:27017/hypnobuddy' });
+export const sessionStore = MongoStore.create({ mongoUrl: process.env.MONGO_URL});
 app.use(session({
     secret: 'your_secret_key',
     resave: false,

@@ -22,4 +22,20 @@
 - dockerignore is also used to reduce the size of the container
 - i need to adjust some typescritp stuff like the tsconfig.json and the package.json -> write tot dist and build script
 - -> container 200mb big -> use prune to reduce the size of the container
+
+- i will try to use the google cloud code plugin to help me deploy and test cloud run locally
+- docker compose for testing docker containers -> becasue of mongodb connection error
+
+- i will get the same error when i try to deploy on google cloud run that why i need to deploy the db first
+- i will use mongodb atlas for this 
+- i wanted to do it with terraform but its only possible with a submitted payment method and i want to make sure that i dont get billed
+- so i createa a mondodb atlas cluster on the page 
+- had to do some adjustments on the app to make it work with mongodb atlas and the new connection string
+
+https://www.freecodecamp.org/news/how-to-deploy-a-react-app-with-firebase/
+- frontend setup: create firebase project
+- install firebase as dev dependency
+- build project -> a lot of typescipt errors
+- fireabse init -> hosting with github actions -> connect with github
+- for testing adjust the actions to use custom build with ignoring tsc errors
 - 
