@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {useAuth} from "../contexts/AuthContext.tsx";
+import {url, useAuth} from "../contexts/AuthContext.tsx";
 import styles from '../styles/DosAndDontsPatient.module.css';
 
 const DosAndDontsPatientPage = () => {
@@ -15,7 +15,7 @@ const DosAndDontsPatientPage = () => {
     useEffect(() => {
         const fetchDosAndDonts = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/dosAndDonts/dosAndDonts/user/${user?._id}`);
+                const response = await fetch(url + `/dosAndDonts/dosAndDonts/user/${user?._id}`);
                 const data = await response.json();
 
                 if (data) {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import CustomButton from "../components/CustomButton.tsx";
+import {url} from "../contexts/AuthContext.tsx";
 
 const ReflexionDescriptionPage: React.FC = () => {
   const { id } = useParams<Record<string, string | undefined>>();
@@ -12,7 +13,7 @@ const ReflexionDescriptionPage: React.FC = () => {
   useEffect(() => {
     const fetchMood = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/reflexion/reflexions/${id}`);
+        const response = await fetch(`url + /reflexion/reflexions/${id}`);
         if (!response.ok) {
           throw new Error('Failed to fetch reflexion');
         }
@@ -27,7 +28,7 @@ const ReflexionDescriptionPage: React.FC = () => {
 
   const saveDescription = async () => {
     try {
-      await fetch(`http://localhost:3000/reflexion/reflexions/${id}`, {
+      await fetch(url + `/reflexion/reflexions/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ description })

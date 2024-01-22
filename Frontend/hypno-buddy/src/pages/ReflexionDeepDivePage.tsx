@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import CustomButton from "../components/CustomButton.tsx";
+import {url} from "../contexts/AuthContext.tsx";
 
 const deepDiveQuestions = [
     "Was hat dich heute zum Lächeln gebracht?",
@@ -36,7 +37,7 @@ const deepDiveQuestions = [
     useEffect(() => {
         const fetchReflexion = async () => {
           try {
-            const response = await fetch(`http://localhost:3000/reflexion/reflexions/${id}`);
+            const response = await fetch(url + `/reflexion/reflexions/${id}`);
             const data = await response.json();
             setMood(data.mood);
           } catch (error) {
@@ -61,7 +62,7 @@ const deepDiveQuestions = [
 
   const handleSaveDeepDive = async () => {
     try {
-      await fetch(`http://localhost:3000/reflexion/reflexions/${id}`, {
+      await fetch(url + `/reflexion/reflexions/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ deepDiveQuestion, deepDiveAnswer })

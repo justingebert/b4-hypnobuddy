@@ -38,4 +38,7 @@ https://www.freecodecamp.org/news/how-to-deploy-a-react-app-with-firebase/
 - build project -> a lot of typescipt errors
 - fireabse init -> hosting with github actions -> connect with github
 - for testing adjust the actions to use custom build with ignoring tsc errors
-- 
+- maybe use functions for enviroment varaibles like backendurl
+- first rewrite all frontend fetch call to use the backendurl varaible - hardcoded right now
+
+-

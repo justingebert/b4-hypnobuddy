@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import AuthForm from '../components/AuthForm.tsx';
 import { FlashContext } from '../contexts/FlashContext';
 import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext.tsx';
+import {url, useAuth} from '../contexts/AuthContext.tsx';
 //import Lottie, { AnimationConfigWithData } from 'lottie-web';
 //import LoginAnimation from '../assets/LoginAnimation.json';
 import styled from 'styled-components';
@@ -30,7 +30,7 @@ const RegisterPage = () => {
         const { first, last, email, password } = event.target.elements;
 
         try {
-            const response = await fetch('http://localhost:3000/user/create', {
+            const response = await fetch(url + '/user/create', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

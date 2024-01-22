@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { DoAndDont } from '../../../../Backend/data/model/dosAndDontsModel.ts';
 import TherapistCard from '../components/TherapistCard.tsx';
 import styles from '../styles/TherapistCard.module.css';
+import {url} from "../contexts/AuthContext.tsx";
 
 function FearPage() {
   const { fearId } = useParams();
@@ -18,7 +19,7 @@ function FearPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/dosAndDonts/fears/${fearId}`);        const data = await response.json();
+        const response = await fetch(url + `/dosAndDonts/fears/${fearId}`);        const data = await response.json();
         if (data) {
           setFearData(data);
           setDosAndDonts(data.dosAndDonts || []);
@@ -43,7 +44,7 @@ function FearPage() {
   const handleSave = async () => {
     try {
       // Update fear title
-      await fetch(`http://localhost:3000/dosAndDonts/fears/${fearId}`, {
+      await fetch(url + `/dosAndDonts/fears/${fearId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -54,7 +55,7 @@ function FearPage() {
      // Update the "Do" entry
     const doEntry = dosAndDonts.find(entry => entry.type === 'Do');
     if (doEntry) {
-      await fetch(`http://localhost:3000/dosAndDonts/dosAndDonts/${doEntry._id}`, {
+      await fetch(url + `/dosAndDonts/dosAndDonts/${doEntry._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -63,7 +64,7 @@ function FearPage() {
       });
     } else {
       // Create a new "Do" entry for the fear
-      await fetch('http://localhost:3000/dosAndDonts/fears/addDoAndDont', {
+      await fetch(url + '/dosAndDonts/fears/addDoAndDont', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -75,7 +76,7 @@ function FearPage() {
     // Update the "Don't" entry
     const dontEntry = dosAndDonts.find(entry => entry.type === "Don't");
     if (dontEntry) {
-      await fetch(`http://localhost:3000/dosAndDonts/dosAndDonts/${dontEntry._id}`, {
+      await fetch(url + `/dosAndDonts/dosAndDonts/${dontEntry._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -84,7 +85,7 @@ function FearPage() {
       });
     } else {
       // Create a new "Don't" entry for the fear
-      await fetch('http://localhost:3000/dosAndDonts/fears/addDoAndDont', {
+      await fetch(url + '/dosAndDonts/fears/addDoAndDont', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -94,7 +95,7 @@ function FearPage() {
     }
 
       // Fetch updated data after save
-      const response = await fetch(`http://localhost:3000/dosAndDonts/fears/${fearId}`);
+      const response = await fetch(url + `/dosAndDonts/fears/${fearId}`);
       const data = await response.json();
       if (data) {
         setFearData(data);

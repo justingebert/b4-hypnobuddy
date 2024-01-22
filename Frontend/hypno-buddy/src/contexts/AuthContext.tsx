@@ -48,7 +48,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
     // Function to check the authentication status on component mount
     const checkLogin = async () => {
         try {
-            const response = await fetch('http://localhost:3000/user/currentUser', {
+            const response = await fetch(url + '/user/currentUser', {
                 method: 'GET',
                 credentials: 'include',
                 headers: {
@@ -69,7 +69,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
 
     const handleLogin = async(email: string, password: string) : Promise<{ success: boolean, redirect: string, message: string}> => {
         try {
-            const response = await fetch('http://localhost:3000/user/login', {
+            const response = await fetch(url + '/user/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -100,7 +100,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
     // Function to handle user logout
     const handleLogout = async () => {
         try {
-            const response = await fetch('http://localhost:3000/user/logout', {
+            const response = await fetch(url + '/user/logout', {
                 method: 'POST',
                 credentials: 'include'
             });
@@ -148,3 +148,5 @@ export const  useAuth = () => {
     return context;
 
 }
+
+export const url = 'http://localhost:3000';

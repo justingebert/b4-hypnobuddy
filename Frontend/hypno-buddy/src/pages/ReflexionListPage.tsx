@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CustomButton from "../components/CustomButton.tsx";
 import { BsArrowUpCircleFill } from "react-icons/bs";
+import {url} from "../contexts/AuthContext.tsx";
 
 interface Reflexion {
   _id: string;
@@ -26,7 +27,7 @@ const ReflexionList: React.FC = () => {
 
   const fetchReflexions = async () => {
     try {
-      const response = await fetch('http://localhost:3000/reflexion/reflexions');
+      const response = await fetch(url + '/reflexion/reflexions');
       const data = await response.json();
       setReflexions(data);
     } catch (error) {
@@ -36,7 +37,7 @@ const ReflexionList: React.FC = () => {
 
   const handleDelete = async (id: string) => {
     try {
-      await fetch(`http://localhost:3000/reflexion/reflexions/${id}`, { method: 'DELETE' });
+      await fetch(url + `/reflexion/reflexions/${id}`, { method: 'DELETE' });
       setReflexions(reflexions.filter(reflexion => reflexion._id !== id));
       setShowDeleteModal(false);
       setSelectedReflexionId(null);

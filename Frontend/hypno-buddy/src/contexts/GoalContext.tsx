@@ -1,6 +1,7 @@
 import React, { createContext, useState, useContext, useCallback } from 'react';
 import { RoadmapGoal } from '../types/Roadmap-Goal';
 import {FlashContext} from "./FlashContext.tsx";
+import {url} from "./AuthContext.tsx";
 
 interface GoalsContextType {
     goals: RoadmapGoal[];
@@ -39,7 +40,7 @@ export const GoalsProvider: React.FC = ({ children }) => {
 
     const fetchGoals = useCallback(async () => {
         try {
-            const response = await fetch('http://localhost:3000/goal/getAll', {
+            const response = await fetch(url + '/goal/getAll', {
                 method: "GET",
                 headers: {
                     'Content-Type': 'application/json',
@@ -59,7 +60,7 @@ export const GoalsProvider: React.FC = ({ children }) => {
 
     const createGoal = useCallback(async (goalData: { title: string; description: string; status: string }) => {
         try {
-            const response = await fetch('http://localhost:3000/goal/create', {
+            const response = await fetch(url + '/goal/create', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -83,7 +84,7 @@ export const GoalsProvider: React.FC = ({ children }) => {
 
     const deleteGoal = useCallback(async (goalId: string) => {
         try {
-            const response = await fetch(`http://localhost:3000/goal/delete/${goalId}`, {
+            const response = await fetch(url + `/goal/delete/${goalId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -103,7 +104,7 @@ export const GoalsProvider: React.FC = ({ children }) => {
 
     const updateGoal = useCallback(async (goalId: string, updatedData: RoadmapGoal) => {
         try {
-            const response = await fetch(`http://localhost:3000/goal/update/${goalId}`, {
+            const response = await fetch(url + `/goal/update/${goalId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -132,7 +133,7 @@ export const GoalsProvider: React.FC = ({ children }) => {
      */
     const updateGoalOrder = useCallback(async (newOrder: string[]) => {
         try {
-            const response = await fetch('http://localhost:3000/goal/reorder', {
+            const response = await fetch(url + '/goal/reorder', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -154,7 +155,7 @@ export const GoalsProvider: React.FC = ({ children }) => {
 
     const createSubGoal = useCallback(async (subGoalData: { title: string; description: string; status: string; parentGoalId: string }) => {
         try {
-            const response = await fetch('http://localhost:3000/goal/createSubGoal', {
+            const response = await fetch(url + '/goal/createSubGoal', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
