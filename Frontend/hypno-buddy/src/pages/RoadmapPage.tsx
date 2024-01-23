@@ -6,15 +6,23 @@ import {useAuth} from "../contexts/AuthContext.tsx";
 import styles from '../styles/RoadmapPage.module.scss';
 
 function RoadmapPage() {
-    const { goals, addGoal, setGoals,fetchGoals } = useGoals();
+    const { goals, addGoal, setGoals,fetchGoals, fetchGoalsOfPatient} = useGoals();
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
-    const {user} = useAuth();
+    const {isAuthenticated,user, selectedPatient} = useAuth();
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetchGoals()
+        if(isAuthenticated){
+            if(user?.role === 'therapist'){
+                console.log("therapists view goals of patient")
+                fetchGoalsOfPatient(selectedPatient?._id);
+            }else{
+                console.log("therapist view their own goals")
+                fetchGoals()
+            }
+        }
     },[]);
 
 

@@ -60,7 +60,7 @@ function TherapistCard() {
                             <ListGroup.Item key={patient._id}>
                                 {patient._id === selectedPatient?._id ? (
                                     <button className={"btn btn-outline-primary w-100"} onClick={() => selectPatient(patient)}>
-                                        {patient.name.first} {patient.name.last} selected
+                                        {patient.name.first} {patient.name.last}
                                     </button>
                                 ) : (
                                     <button className={"btn btn-light w-100"} onClick={() => selectPatient(patient)}>

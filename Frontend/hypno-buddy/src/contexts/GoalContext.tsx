@@ -7,6 +7,7 @@ interface GoalsContextType {
     setGoals: React.Dispatch<React.SetStateAction<RoadmapGoal[]>>;
     addGoal: (goal: RoadmapGoal) => void;
     fetchGoals: () => Promise<void>
+    fetchGoalsOfPatient: (patientID: string | undefined) => Promise<void>
     createGoal: (goalData: { title: string; description: string; status: string }) => Promise<void>;
     deleteGoal: (goalId: string) => Promise<void>;
     updateGoal: (goalId: string, updatedData: RoadmapGoal) => Promise<void>;
@@ -51,6 +52,26 @@ export const GoalsProvider: React.FC = ({ children }) => {
                 setGoals(data.goals);
             } else {
                 console.error('Failed to fetch goals:', response.status); //TODO set
+            }
+        } catch (error) {
+            console.error('Error fetching goals:', error);
+        }
+    }, []);
+
+    const fetchGoalsOfPatient = useCallback(async (patientID: string) => {
+        try {
+            const response = await fetch(`http://localhost:3000/goal/ofPatient/${patientID}`, {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: "include",
+            });
+            if (response.ok) {
+                const data = await response.json();
+                setGoals(data.goals);
+            } else {
+                console.error('Failed to fetch goals:', response.status);
             }
         } catch (error) {
             console.error('Error fetching goals:', error);
@@ -178,7 +199,7 @@ export const GoalsProvider: React.FC = ({ children }) => {
     }, []);
 
     return (
-        <GoalsContext.Provider value={{ goals, setGoals, addGoal, fetchGoals, createGoal, deleteGoal, updateGoal, updateGoalOrder, createSubGoal }}>
+        <GoalsContext.Provider value={{ goals, setGoals, addGoal, fetchGoals, fetchGoalsOfPatient, createGoal, deleteGoal, updateGoal, updateGoalOrder, createSubGoal }}>
             {children}
         </GoalsContext.Provider>
     );

@@ -159,6 +159,44 @@ export async function getAllGoals(req, res, next) {
 }
 
 /**
+ * Gets all goals for a given user
+ * - route: GET /goal/ofPatient/:patientID
+ * @param req
+ * @param res
+ * @param next
+ */
+export async function getGoalsOfPatient(req, res, next) {
+    if (req.skip) {
+        return next();
+    }
+    try {
+        //get order of goals form user document
+        const goalIDs = await User.findById(req.params.patientID).select('goalIDs');
+        //add goals in the correct order to the goals array
+        const goals = [];
+        for (const goalID of goalIDs.goalIDs) {
+            const goal = await RoadmapGoal.findById(goalID);
+            if (goal) {
+                goals.push(goal);
+            }
+        }
+
+        return res.json({
+            success: true,
+            message: 'Successfully retrieved goals',
+            goals: goals,
+            redirect: '/',
+        });
+
+    } catch (error) {
+        console.error('Error getting all roadmap goals:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+        next();
+    }
+
+}
+
+/**
  * Gets a goal by ID
  * - route: GET /goal/:goalId
  * @param req
