@@ -32,6 +32,7 @@ app.use(cookieParser('your secret'));
 // Configure session and store in MongoDB
 export const sessionStore = MongoStore.create({ mongoUrl: process.env.MONGO_URL});
 app.use(session({
+    name: '__session',
     secret: 'your_secret_key',
     resave: false,
     saveUninitialized: false,

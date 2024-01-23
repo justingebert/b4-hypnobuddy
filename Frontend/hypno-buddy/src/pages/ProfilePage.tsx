@@ -84,6 +84,14 @@ function ProfilePage() {
         event.preventDefault();
 
         try {
+            const response = await fetch(url + '/user/link', {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ patientCode: linkCode }),
+            });
 
             const responseData = await response.json();
 
@@ -189,12 +197,3 @@ function ProfilePage() {
 
 }
 export default ProfilePage;
-
-const response = await fetch(url + '/user/link', {
-    method: 'POST',
-    credentials: 'include',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ patientCode: linkCode }),
-});

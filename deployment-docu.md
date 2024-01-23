@@ -54,7 +54,9 @@ https://www.freecodecamp.org/news/how-to-deploy-a-react-app-with-firebase/
 - next issues was finding out the ip to grant acces to the database at mongodb atlas
 - vpc is not supported by free tier - so I will try to create a script that runs before the server is started to get the ip and grant access
 - in the frontend i dont have the problem because i can use the url of the service
-
+- the cloud run denied the reuest because it was not authenticated - how can I auth? actually the app was set that i need to auth - i was worried to change that because when i launched a frew requests from telegram bots were logged and I didnt want to slide into a payed tier
+- the communication works but somehow my passport auth  stuff is not working anymore 
+- i think it has something to do with cookies
 
 
 how to deploy:

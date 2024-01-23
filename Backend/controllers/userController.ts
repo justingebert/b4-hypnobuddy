@@ -74,6 +74,8 @@ export const authenticate = (req, res, next) => {
         req.logIn(user, function (err) {
             if (err) return next(err);
 
+            console.log(user.data)
+
             return res.json({
                 success: true,
                 message: 'Successful Login',
