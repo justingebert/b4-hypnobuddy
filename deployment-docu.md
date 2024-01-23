@@ -41,4 +41,26 @@ https://www.freecodecamp.org/news/how-to-deploy-a-react-app-with-firebase/
 - maybe use functions for enviroment varaibles like backendurl
 - first rewrite all frontend fetch call to use the backendurl varaible - hardcoded right now
 
--
+- backend how do i get enviroment varaibles into the container??
+- todo: set envirment variables before using deploy action
+- created t github action to build and push docker container to google cloud container registry
+- first test manually build and push to container registry: 
+  - docker build -t gcr.io/imi-b4/hypnobuddy-backend:test .
+  - i decided against GCR becasue pricing was wayto inraprent so I use dockerhub
+- problem with enviroment variables -> use google secret managers / could do it with github secrets but using the ui is easier
+- first i looked at the web ui to create a cloud run service and I found it really intimidating because there where options lile CPU allocation and pricing which i didnt find in the terraform docs
+- then i foudn the current google doc wich also provides terraform examples
+- couldnt understand how to use google secret manager with terraform so look up docu
+- next issues was finding out the ip to grant acces to the database at mongodb atlas
+- vpc is not supported by free tier - so I will try to create a script that runs before the server is started to get the ip and grant access
+- in the frontend i dont have the problem because i can use the url of the service
+
+
+
+how to deploy:
+- db -> mongodb atlas ui
+- frontend:
+  - firebase init
+  - firebase deploy
+- backend: 
+  - create secret manager secret

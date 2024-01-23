@@ -149,4 +149,4 @@ export const  useAuth = () => {
 
 }
 
-export const url = 'http://localhost:3000';
+export const url = 'https://hypnobuddy-backend-eoh6trr5sq-ew.a.run.app';
