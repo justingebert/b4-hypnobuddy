@@ -24,7 +24,6 @@ function TherapistCard() {
 
             if (response.ok) {
                 const responseData = await response.json();
-                console.log(responseData)
                 setPatients(responseData.patients);
                 selectPatient(responseData.patients[0]);
             } else {

@@ -36,14 +36,19 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
     const [authState, setAuthState] = useState({
         isAuthenticated: false,
         user: null as User | null,
+        selectedPatient: null as User | null
     });
     const {flash } = useContext(FlashContext);
 
     //patient selection for therapists
-    const [selectedPatient, setSelectedPatient] = useState<User | null>(null);
-    const selectPatient = async (user: User) => {
-        if (user) {
-            setSelectedPatient(user);
+    //const [selectedPatient, setSelectedPatient] = useState<User|null>(null);
+    const selectPatient = async (selectedUser: User) => {
+        if (selectedUser) {
+            //setSelectedPatient(selectedUser);
+            setAuthState(prevState => ({
+                ...prevState,
+                selectedPatient: selectedUser,
+            }));
         }
     };
 
@@ -51,7 +56,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
     const updateLoginState = async (user: User) => {
         const fetchedUser = await checkLogin();
         if (fetchedUser) {
-            setAuthState({isAuthenticated: true, user: fetchedUser});
+            //setAuthState({isAuthenticated: true, user: fetchedUser, selectedPatient: authState.selectedPatient});
+            setAuthState(prevState => ({
+                ...prevState,
+                isAuthenticated: true, user: fetchedUser
+            }));
         }
     };
 
@@ -66,14 +75,21 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
                 },
             });
             const data = await response.json();
-            if (data.isAuthenticated) {
-                setAuthState({ isAuthenticated: true, user: data.user });
-            } else {
-                setAuthState({ isAuthenticated: false, user: null });
-            }
+            console.log(authState.selectedPatient)
+            setAuthState((prevState) => ({
+                ...prevState,
+                isAuthenticated: data.isAuthenticated,
+                user: data.isAuthenticated ? data.user : null,
+            }));
         } catch (error) {
             console.error('Error fetching auth status: ', error);
-            setAuthState({ isAuthenticated: false, user: null });
+
+            setAuthState((prevState) => ({
+                ...prevState,
+                isAuthenticated: false,
+                user: null,
+                selectedPatient: null,
+            }));
         }
     };
 
@@ -115,7 +131,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
                 credentials: 'include'
             });
             if (response.ok) {
-                setAuthState({isAuthenticated: false, user: null});
+                setAuthState({isAuthenticated: false, user: null, selectedPatient: null});
             }
         } catch (error) {
             console.error('Logout failed: ', error);
@@ -141,7 +157,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
                 checkLogin,
                 handleLogout,
                 handleLogin,
-                selectedPatient,
+                selectedPatient: authState.selectedPatient,
                 selectPatient
 
             }}>

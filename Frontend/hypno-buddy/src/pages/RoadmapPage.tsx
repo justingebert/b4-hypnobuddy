@@ -1,29 +1,31 @@
 import React, {useState, useEffect} from 'react';
 import {useNavigate} from "react-router-dom";
-import {useGoals} from "../contexts/GoalContext.tsx";
 import {useAuth} from "../contexts/AuthContext.tsx";
+import {useGoals} from "../contexts/GoalContext.tsx";
 
 import styles from '../styles/RoadmapPage.module.scss';
 
 function RoadmapPage() {
-    const { goals, addGoal, setGoals,fetchGoals, fetchGoalsOfPatient} = useGoals();
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
-    const {isAuthenticated,user, selectedPatient} = useAuth();
+    const { isAuthenticated, user, selectedPatient} = useAuth();
+    const {goals, addGoal, setGoals,fetchGoals, fetchGoalsOf} = useGoals();
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(isAuthenticated){
-            if(user?.role === 'therapist'){
-                console.log("therapists view goals of patient")
-                fetchGoalsOfPatient(selectedPatient?._id);
-            }else{
-                console.log("therapist view their own goals")
-                fetchGoals()
-            }
+        console.log('user: ', user)
+        console.log('selected patient: ', selectedPatient)
+
+        if (selectedPatient && user.role === 'therapist') {
+            console.log('fetching goals of patient ')
+            console.log('selected patient: ', selectedPatient)
+            fetchGoalsOf(selectedPatient._id); //fetch patients goals
+        } else {
+            console.log('fetching own goals')
+            fetchGoalsOf(undefined) //fetch users own goals
         }
-    },[]);
+    },[isAuthenticated, user, selectedPatient]);
 
 
 
@@ -54,7 +56,7 @@ function RoadmapPage() {
         <>
             <div className="container mt-3">
                 <h1 className="text-center mb-4">Roadmap</h1>
-
+                <p>selected: {selectedPatient?.name.first}</p>
                 {/*<div className={`${styles.timeline} d-flex flex-column align-items-start`}>*/}
                 <div className={`${styles.timeline}`}>
                     {goals.length > 0 && goals.map((goal, index) => (

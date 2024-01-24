@@ -7,7 +7,7 @@ interface GoalsContextType {
     setGoals: React.Dispatch<React.SetStateAction<RoadmapGoal[]>>;
     addGoal: (goal: RoadmapGoal) => void;
     fetchGoals: () => Promise<void>
-    fetchGoalsOfPatient: (patientID: string | undefined) => Promise<void>
+    fetchGoalsOf: (selectedPatientID: string | undefined) => Promise<void>
     createGoal: (goalData: { title: string; description: string; status: string }) => Promise<void>;
     deleteGoal: (goalId: string) => Promise<void>;
     updateGoal: (goalId: string, updatedData: RoadmapGoal) => Promise<void>;
@@ -58,15 +58,28 @@ export const GoalsProvider: React.FC = ({ children }) => {
         }
     }, []);
 
-    const fetchGoalsOfPatient = useCallback(async (patientID: string) => {
+    const fetchGoalsOf = useCallback(async (selectedPatientID: string|undefined) => {
         try {
-            const response = await fetch(`http://localhost:3000/goal/ofPatient/${patientID}`, {
-                method: "GET",
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                credentials: "include",
-            });
+            let response: Response;
+            if (selectedPatientID) {
+                //therapist gets patients golas
+                response = await fetch(`http://localhost:3000/goal/of/${selectedPatientID}`, {
+                    method: "GET",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: "include",
+                });
+            }else{
+                //user gets own goals
+                response = await fetch(`http://localhost:3000/goal/getAll`, {
+                    method: "GET",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: "include",
+                });
+            }
             if (response.ok) {
                 const data = await response.json();
                 setGoals(data.goals);
@@ -199,7 +212,7 @@ export const GoalsProvider: React.FC = ({ children }) => {
     }, []);
 
     return (
-        <GoalsContext.Provider value={{ goals, setGoals, addGoal, fetchGoals, fetchGoalsOfPatient, createGoal, deleteGoal, updateGoal, updateGoalOrder, createSubGoal }}>
+        <GoalsContext.Provider value={{ goals, setGoals, addGoal, fetchGoals, fetchGoalsOf, createGoal, deleteGoal, updateGoal, updateGoalOrder, createSubGoal }}>
             {children}
         </GoalsContext.Provider>
     );
