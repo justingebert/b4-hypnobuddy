@@ -17,7 +17,7 @@ terraform {
 #}
 
 provider "google" {
-  credentials = jsondecode(var.gcp_credentials)
+  credentials = jsondecode(var.gcp_credentials)#file("imi-b4-a33134303325.json")
   project     = "imi-b4"
   region      = "europe-west1"
 }

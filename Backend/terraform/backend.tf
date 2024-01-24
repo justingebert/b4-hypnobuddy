@@ -1,11 +1,10 @@
 resource "google_cloud_run_v2_service" "backend" {
   name     = "hypnobuddy-backend"
   location = "europe-west1"
-#  ingress = "INGRESS_TRAFFIC_ALL"
 
   template {
     containers {
-      image = "justingebert/hypnobuddy:test13"
+      image = "justingebert/hypnobuddy:test14"
 #      resources {
 #        # If true, garbage-collect CPU when once a request finishes
 #        cpu_idle = false
@@ -16,6 +15,15 @@ resource "google_cloud_run_v2_service" "backend" {
       }
     }
   }
+}
+
+resource "google_cloud_run_service_iam_binding" "default" {
+  location = google_cloud_run_v2_service.backend.location
+  service  = google_cloud_run_v2_service.backend.name
+  role     = "roles/run.invoker"
+  members = [
+    "allUsers"
+  ]
 }
 
 
