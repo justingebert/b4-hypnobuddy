@@ -21,6 +21,12 @@ jobs:
         run: terraform init
 
       - name: 'Terraform Plan'
-        run: terraform plan
+        run: terraform plan -no-color | tee plan_output.txt
+
+      - name: Comment Terraform Plan on PR
+        uses: blinqas/tf-plan-pr-comment@v1.1.0
+        with:
+          output_file: 'plan_output.txt'
+          headline: '### Terraform Plan Output'
         env:
-          TF_VAR_gcp_credentials: ${{ secrets.GCP_CREDENTIALS_JSON }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
