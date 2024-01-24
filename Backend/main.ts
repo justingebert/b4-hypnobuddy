@@ -29,28 +29,23 @@ app.use(cors({
 //middleware setup
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser('your secret'));
+app.use(cookieParser('your_secret_key'));
 
 // Configure session and store in MongoDB
 export const sessionStore = MongoStore.create({ mongoUrl: process.env.MONGO_URL});
 app.use(session({
-    name: '__session',
+    name: 'session',
     secret: 'your_secret_key',
     resave: false,
     saveUninitialized: false,
     store: sessionStore,
     cookie: {
         httpOnly: true,
-        secure: false,
+        secure: true,
         //sameSite: 'none',
         maxAge: 24 * 60 * 60 * 1000
     }
 }));
-
-app.use((req, res, next) => {
-    res.setHeader('Cache-Control', 'private');
-    next();
-});
 
 //setup passport
 app.use(passport.initialize());

@@ -62,8 +62,9 @@ https://www.freecodecamp.org/news/how-to-deploy-a-react-app-with-firebase/
 - now i didnt get any logs anymore idk why - this was a big issue bcasue from the cli i got the lastest logs but not in the ui - even after redeploying it ididnt work
 - next idea do hosting an backend on the same domain becasue cookies get stipped by firebase
 - als naechstes: add cloud run to firebase hosting -> acrtivte coudl run api
+- doch eher switchen auf vercel fuer froontend hosting
 
-
+-vercel sem very easy to use but i had some issues with the vite directory structure
 how to deploy:
 - db -> mongodb atlas ui
 - frontend:

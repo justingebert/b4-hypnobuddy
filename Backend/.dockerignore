@@ -3,3 +3,4 @@ npm-debug.log
 tests
 .gitignore
 jest.config.json
+terraform
