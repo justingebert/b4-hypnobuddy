@@ -1,13 +1,13 @@
-name: 'Terraform Apply'
+name: 'Terraform Plan'
 
 on:
-  push:
+  pull_request:
     branches:
       - main
 
 jobs:
-  terraform-apply:
-    name: 'Terraform Apply'
+  terraform-plan:
+    name: 'Terraform Plan'
     runs-on: ubuntu-latest
 
     steps:
@@ -20,7 +20,7 @@ jobs:
       - name: 'Terraform Init'
         run: terraform init
 
-      - name: 'Terraform Apply'
-        run: terraform apply -auto-approve
+      - name: 'Terraform Plan'
+        run: terraform plan
         env:
           TF_VAR_gcp_credentials: ${{ secrets.GCP_CREDENTIALS_JSON }}

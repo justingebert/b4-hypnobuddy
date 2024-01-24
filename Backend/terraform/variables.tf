@@ -17,3 +17,8 @@ data "google_secret_manager_secret_version" "mongo_url" {
   secret = "mongo_url"
   version = "latest"
 }
+
+variable "gcp_credentials" {
+  description = "GCP JSON credentials"
+  type        = string
+}

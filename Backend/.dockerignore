@@ -4,3 +4,6 @@ tests
 .gitignore
 jest.config.json
 terraform
+.env
+dockerrun.bash
+dist
