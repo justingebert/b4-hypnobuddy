@@ -37,8 +37,30 @@ function DashboardPage() {
                 ) : (
                     // Dashboard after login
                     <div className="dashboard-content-auth">
-                        <p>selected: {selectedPatient?.name.first}</p>
-                        <PatientList />
+                        {user?.role === 'therapist' ? (
+                            <div>
+                                <p>selected: {selectedPatient?.name.first}</p>
+                                <PatientList/>
+                            </div>
+                        ):(
+                            <div className={"userInfo d-flex flex-column justify-content-center"}>
+                                <p>{new Date().toLocaleDateString()}</p>
+                                <a href="/profile" className={"btn btn-outline-dark d-flex flex-row align-self-center"}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-person-circle m-1" viewBox="0 0 16 16">
+                                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                                    </svg>
+                                    <span>{user?.name.first} {user?.name.last}</span>
+                                </a>
+                                <a href="/" className={"btn btn-outline-dark d-flex flex-row align-self-center m-3"}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-people-fill m-1" viewBox="0 0 16 16">
+                                        <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
+                                    </svg>
+                                    <span>Name Therapeut</span>
+                                </a>
+                            </div>
+                        )}
+
                         <div className={"featureButtons d-flex flex-column"}>
 
                             {user?.role === 'therapist' ? (
