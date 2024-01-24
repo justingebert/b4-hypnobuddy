@@ -64,6 +64,8 @@ export const validate = [
  *
  */
 export const authenticate = (req, res, next) => {
+    console.log(req.cookies)
+    console.log(req.headers)
     passport.authenticate('local', (err, user, info) => {
         if (err) {
             return res.status(500).json({ message: err.message });

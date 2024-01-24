@@ -40,12 +40,15 @@ app.use(session({
     saveUninitialized: false,
     store: sessionStore,
     cookie: {
+        proxy: true,
         httpOnly: true,
         secure: true,
-        //sameSite: 'none',
+        sameSite: 'none',
         maxAge: 24 * 60 * 60 * 1000
     }
 }));
+
+app.set('trust proxy', 1);
 
 //setup passport
 app.use(passport.initialize());
