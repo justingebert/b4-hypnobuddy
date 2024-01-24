@@ -64,7 +64,15 @@ https://www.freecodecamp.org/news/how-to-deploy-a-react-app-with-firebase/
 - als naechstes: add cloud run to firebase hosting -> acrtivte coudl run api
 - doch eher switchen auf vercel fuer froontend hosting
 
--vercel sem very easy to use but i had some issues with the vite directory structure
+-vercel sem very easy to use but i had some issues with the vite directory structure -> modifiy build command
+- after some more digging on stackoverflow i found a post that said i need to set the cookie proxy to true which made the hole thing work
+- now i wil ltry to deploy using firebase again becasue i have the github actions for it-> it works
+- removed vercel again usign cli
+- next step is gh action for docker build and push to dockerhub, terraform apply
+- then test those with a seprate branch
+- remove all the logs from the backend
+
+
 how to deploy:
 - db -> mongodb atlas ui
 - frontend:
