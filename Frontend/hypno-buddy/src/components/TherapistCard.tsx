@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../styles/TherapistCard.module.scss';
 import { Offcanvas, Button, ListGroup } from 'react-bootstrap';
-import LoginButton from "./LoginButton.tsx";
 
 interface TherapistCardProps {
   initialTitle?: string;
@@ -192,15 +191,16 @@ function TherapistCard({
         <Offcanvas show={showSidebar}
                    onHide={() => setShowSidebar(false)}
                    style={{
-                     backgroundColor: '#cccccc',
+                     backgroundColor: '#ededed',
                      border: '2px',
-                     padding: '1.5rem'
+                     padding: '1.5rem',
+                     color: '#3e368d'
                    }}
         >
-          <Offcanvas.Header closeButton style={{margin: '1rem', }}>
+          <Offcanvas.Header closeButton style={{margin: '1rem', color: '#3e368d' }}>
             <Offcanvas.Title><h2>Patienten</h2></Offcanvas.Title>
           </Offcanvas.Header>
-          <Offcanvas.Body style={{backgroundColor:'#FFFFFF'}}>
+          <Offcanvas.Body style={{backgroundColor:'#FFFFFF', borderRadius: '15px'}}>
             {/* Search Input */}
             <input
                 type="text"

@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import LogoutButton from './LogoutButton';
 import LoginButton from './LoginButton.tsx';
 import Logo from '../assets/hb.svg';
-import styles from '../styles/Navbar.module.css';
+import styles from '../styles/Navbar.module.scss';
 import { useAuth } from '../contexts/AuthContext.tsx';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -64,11 +64,11 @@ const NavbarComponent = () => {
                             <Nav>
                                 {user.role === 'therapist' ? (
                                     <Nav.Link href="/dosanddonts/t"  className="nav-link active" aria-current="page">
-                                        Dos&Donts
+                                        Dos & Don'ts
                                     </Nav.Link>
                                 ) : (
                                     <Nav.Link href="/dosanddonts/p"  className="nav-link active" aria-current="page">
-                                        Dos&Donts
+                                        Dos & Don'ts
                                     </Nav.Link>
                                 )}
                                 <Nav.Link href="/roadmap" className="nav-link active" aria-current="page">

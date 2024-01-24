@@ -1,3 +1,4 @@
+@import 'colors';
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -16,11 +17,11 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: $dark-violet;
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: $light-violet;
 }
 
 body {
@@ -43,12 +44,13 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: $dark-violet;
   cursor: pointer;
   transition: border-color 0.25s;
+  color: $light-creme
 }
 button:hover {
-  border-color: #646cff;
+  border-color: $light-violet;
 }
 button:focus,
 button:focus-visible {

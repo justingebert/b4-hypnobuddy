@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useAuth } from "../contexts/AuthContext.tsx";
-import '../styles/DashboardPage.css';
+import '../styles/DashboardPage.scss';
 import CardCarousel from "../components/CardCarousel.tsx";
 import {Row, Button, Col} from "react-bootstrap";
 

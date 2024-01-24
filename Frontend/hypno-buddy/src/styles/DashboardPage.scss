@@ -1,9 +1,10 @@
+@import 'colors';
 .body{
     margin: 0;
     padding-right: 0;
 }
 .background-image {
-    background-image: url('../assets/GradientHintergund.png');
+    background-image: url('../assets/backgroundH.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -26,7 +27,7 @@
 }
 
 .text{
-    color: #4F45DA;
+    color: $dark-violet;
     text-align: center;
     font: 400 30px/33px Inter, sans-serif;
     padding-bottom: 15px;
@@ -41,12 +42,16 @@
 }
 
 .button{
-    background: #4F45DA;
-    --bs-btn-hover-bg: #56c8c9;
+    background: $dark-violet;
     border: none;
 }
+.button:hover{
+    background-color: $light-creme;
+    color: $dark-violet;
+    box-shadow: 0 8px 16px rgba(62, 54, 141, 1);
+}
 .CardCarousel{
-    background: #f7e6e8;
+    background: $light-creme;
     height: 40vw;
     align-items: center;
     justify-content: center;
@@ -56,11 +61,11 @@
     display: inline-flex;
 }
 .eyeDiv{
-    background: #C9BAFD;
+    background: $light-violet;
     height: 350px;
 }
 .eyeBackground{
-    background: #542BD4;
+    background: $dark-violet;
     border-radius: 0 120px 120px 0;
     height: 100%;
     width: 50vw;
@@ -70,14 +75,14 @@
     align-items: center;
 }
 .eyeText{
-    color: #f7e6e8;
+    color: $light-creme;
     width: 25vw;
     margin-left: 20vw;
     vertical-align: middle;
 }
 .eyePic{
     height: 100%;
-    background-image: url('../assets/eye.png');
+    background-image: url('../assets/eye2.png');
     background-repeat: no-repeat;
     background-position: right;
     background-size: contain;

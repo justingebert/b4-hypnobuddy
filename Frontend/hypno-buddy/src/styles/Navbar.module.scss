@@ -1,7 +1,9 @@
+@import 'colors';
 .navbar {
     display: flex;
     align-items: center;
     width: 100%;
+    background-color: $dark-grey;
 }
 .navbar-nav1 {
     display: flex;
@@ -27,24 +29,34 @@ body {
     font-size: 2rem;
     margin: 0;
 }
+.nav-link.active{
+    color: $light-violet
+}
 
 .navLink {
     text-decoration: none;
-    color: #56c8c9;
+    color: $orange;
     font-weight: 500;
+    transition: color 0.3s;
+    &.active {
+        color: $light-violet
+    }
+}
+.navbar-item .nav-link:hover{
+    color: $light-violet !important;
 }
 
 .navLink:hover,
 .userEmail:hover {
-    color: #56c8c9;
+    color: $orange;
 }
 
 .userEmail {
     font-size: 0.9rem;
-    color: #4F45DA;
+    color: $light-violet;
     margin: 0 1rem 0 1rem;
 }
 
 .logoutButton:hover {
-    background-color: #56c8c9;
+    background-color: $orange;
 }
