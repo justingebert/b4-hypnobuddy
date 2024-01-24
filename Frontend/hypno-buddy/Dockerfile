@@ -1,8 +1,8 @@
-FROM node:latest
+FROM node:slim
 
 WORKDIR /Frontend/hypno-buddy
 
-COPY package*.json ./
+COPY package.json ./
 
 RUN npm install
 

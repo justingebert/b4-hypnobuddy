@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:slim
 
 WORKDIR /Backend
 
@@ -12,4 +12,4 @@ RUN npm run build
 
 EXPOSE 3000
 
-CMD ["npm", "start"]
+CMD ["npm", "start", "--host", "0.0.0.0"]
