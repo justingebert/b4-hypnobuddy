@@ -57,6 +57,11 @@ https://www.freecodecamp.org/news/how-to-deploy-a-react-app-with-firebase/
 - the cloud run denied the reuest because it was not authenticated - how can I auth? actually the app was set that i need to auth - i was worried to change that because when i launched a frew requests from telegram bots were logged and I didnt want to slide into a payed tier
 - the communication works but somehow my passport auth  stuff is not working anymore 
 - i think it has something to do with cookies
+- after setting cookies to secure and goignfrom my https i got a cors error
+- after solving the cors errror from teh deployment by using oriign true i still had the cookie issue
+- now i didnt get any logs anymore idk why - this was a big issue bcasue from the cli i got the lastest logs but not in the ui - even after redeploying it ididnt work
+- next idea do hosting an backend on the same domain becasue cookies get stipped by firebase
+- als naechstes: add cloud run to firebase hosting -> acrtivte coudl run api
 
 
 how to deploy:

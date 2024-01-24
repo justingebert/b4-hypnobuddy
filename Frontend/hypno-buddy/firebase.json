@@ -8,6 +8,13 @@
     ],
     "rewrites": [
       {
+        "source": "https://hypnobuddy-backend-eoh6trr5sq-ew.a.run.app",
+        "run": {
+          "serviceId": "hypnobuddy-810a4",
+          "region": "europe-west3"
+        }
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }

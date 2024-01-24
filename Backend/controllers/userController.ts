@@ -74,12 +74,9 @@ export const authenticate = (req, res, next) => {
         req.logIn(user, function (err) {
             if (err) return next(err);
 
-            console.log(user.data)
-
             return res.json({
                 success: true,
                 message: 'Successful Login',
-                user: user.data,
                 redirect: '/',
             });
         });
@@ -160,6 +157,7 @@ export async function logout(req, res, next) {
  * @param next
  */
 export async function currentUser(req, res, next) {
+    console.log(req.isAuthenticated())
     if (req.isAuthenticated()) {
         // // Assuming req.user holds the authenticated user information
         // res.json({
@@ -173,6 +171,8 @@ export async function currentUser(req, res, next) {
             const user = await User.findById(req.user._id)
                 .populate('patients')  // Populate 'patients' field if the user is a therapist
                 .populate('therapist'); // Populate 'therapist' field if the user is a patient
+
+            console.log(user.name)
 
             res.json({
                 isAuthenticated: true,

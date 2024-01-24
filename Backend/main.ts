@@ -19,9 +19,11 @@ export const app = express();
 
 //! Enable CORS for frontend Port - This is for development only!!
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: true,
     credentials: true,
-    "Access-Control-Allow-Credentials": true
+    "Access-Control-Allow-Credentials": true,
+    allowedHeaders:
+        'Origin, X-Requested-With, Content-Type, Accept, Authorization, Cookie',
 }));
 
 //middleware setup
@@ -40,9 +42,15 @@ app.use(session({
     cookie: {
         httpOnly: true,
         secure: false,
+        //sameSite: 'none',
         maxAge: 24 * 60 * 60 * 1000
     }
 }));
+
+app.use((req, res, next) => {
+    res.setHeader('Cache-Control', 'private');
+    next();
+});
 
 //setup passport
 app.use(passport.initialize());
