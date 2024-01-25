@@ -20,5 +20,5 @@ data "google_secret_manager_secret_version" "mongo_url" {
 
 variable "gcp_credentials" {
   description = "GCP JSON credentials"
-  type        = any
+  type        = string
 }
