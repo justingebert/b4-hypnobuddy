@@ -10,7 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: npm i && npm run build
+      - name: Change to frontend directory
+        run: cd Frontend/hypno-buddy
+
+      - name: Install dependencies and build
+        run: npm i && npm run build
+        working-directory: /Frontend/hypno-buddy
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'

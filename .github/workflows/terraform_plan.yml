@@ -18,11 +18,11 @@ jobs:
 
       - name: 'Terraform Init'
         run: terraform init
-        working-directory: ./backend/terraform
+        working-directory: /backend/terraform
 
       - name: 'Terraform Plan'
         run: terraform plan -no-color | tee plan_output.txt
-        working-directory: ./backend/terraform
+        working-directory: /backend/terraform
 
       - name: Comment Terraform Plan on PR
         uses: blinqas/tf-plan-pr-comment@v1.1.0
