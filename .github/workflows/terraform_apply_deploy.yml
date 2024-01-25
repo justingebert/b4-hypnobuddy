@@ -18,8 +18,10 @@ jobs:
 
       - name: 'Terraform Init'
         run: terraform init
+        working-directory: ./backend/terraform
 
       - name: 'Terraform Apply'
         run: terraform apply -auto-approve
+        working-directory: ./backend/terraform
         env:
           TF_VAR_gcp_credentials: ${{ secrets.GCP_CREDENTIALS_JSON }}
