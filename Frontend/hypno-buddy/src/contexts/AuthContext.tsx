@@ -13,6 +13,8 @@ interface AuthContextProps {
     checkLogin: () => Promise<void>;
     handleLogout: () => Promise<void>;
     handleLogin: (email: string, password: string)=> Promise<{ success: boolean; redirect: any; }>;
+    patients: User[];
+    fetchPatients: () => Promise<void>;
     selectedPatient: User | null;
     selectPatient: (user: User) => void;
 }
@@ -36,16 +38,49 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
     const [authState, setAuthState] = useState({
         isAuthenticated: false,
         user: null as User | null,
-        selectedPatient: null as User | null
     });
     const {flash } = useContext(FlashContext);
 
-    //patient selection for therapists
-    //const [selectedPatient, setSelectedPatient] = useState<User|null>(null);
+    const [therapistState, setTherapistState] = useState({
+        patients: [] as User[],
+        selectedPatient: null as User | null
+    });
+
+    const fetchPatients = async () => {
+        try {
+            const response = await fetch('http://localhost:3000/user/profile/patients', {
+                method: 'GET',
+                credentials: 'include',
+            });
+
+            if (response.ok) {
+                const responseData = await response.json();
+                setTherapistState(prevState => ({
+                    ...prevState,
+                    patients: responseData.patients,
+                }));
+
+                const storedPatientJSON = sessionStorage.getItem('selectedPatient');
+                if (storedPatientJSON) {
+                    const storedPatient = JSON.parse(storedPatientJSON);
+                    await selectPatient(storedPatient);
+                } else {
+                    sessionStorage.setItem('selectedPatient', JSON.stringify(responseData.patients[0]));
+                    await selectPatient(responseData.patients[0]);
+                }
+
+            } else {
+                console.error('Failed to get patients:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error getting patients:', error);
+        }
+    };
+
     const selectPatient = async (selectedUser: User) => {
         if (selectedUser) {
-            //setSelectedPatient(selectedUser);
-            setAuthState(prevState => ({
+            sessionStorage.setItem('selectedPatient', JSON.stringify(selectedUser));
+            setTherapistState(prevState => ({
                 ...prevState,
                 selectedPatient: selectedUser,
             }));
@@ -56,7 +91,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
     const updateLoginState = async (user: User) => {
         const fetchedUser = await checkLogin();
         if (fetchedUser) {
-            //setAuthState({isAuthenticated: true, user: fetchedUser, selectedPatient: authState.selectedPatient});
             setAuthState(prevState => ({
                 ...prevState,
                 isAuthenticated: true, user: fetchedUser
@@ -75,12 +109,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
                 },
             });
             const data = await response.json();
-            console.log(authState.selectedPatient)
             setAuthState((prevState) => ({
                 ...prevState,
                 isAuthenticated: data.isAuthenticated,
                 user: data.isAuthenticated ? data.user : null,
             }));
+            if(data.user.role === 'therapist') {
+                fetchPatients();
+            }
         } catch (error) {
             console.error('Error fetching auth status: ', error);
 
@@ -88,7 +124,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
                 ...prevState,
                 isAuthenticated: false,
                 user: null,
-                selectedPatient: null,
             }));
         }
     };
@@ -131,7 +166,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
                 credentials: 'include'
             });
             if (response.ok) {
-                setAuthState({isAuthenticated: false, user: null, selectedPatient: null});
+                setAuthState({isAuthenticated: false, user: null});
+                sessionStorage.removeItem('selectedPatient');
+                setTherapistState({ patients: [], selectedPatient: null});
             }
         } catch (error) {
             console.error('Logout failed: ', error);
@@ -148,6 +185,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
         console.log('Authentication state changed: ', authState);
     }, [authState]);
 
+    useEffect(() => {
+        console.log('therapist state changed: ', therapistState);
+    }, [therapistState]);
+
     return (
         <AuthContext.Provider
             value={{
@@ -157,9 +198,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
                 checkLogin,
                 handleLogout,
                 handleLogin,
-                selectedPatient: authState.selectedPatient,
+                patients: therapistState.patients,
+                selectedPatient: therapistState.selectedPatient,
+                fetchPatients,
                 selectPatient
-
             }}>
             {children}
         </AuthContext.Provider>

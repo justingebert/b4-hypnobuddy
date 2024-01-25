@@ -5,38 +5,14 @@ import {useAuth} from "../contexts/AuthContext.tsx";
 import {User} from "../types/User.ts";
 
 
-function TherapistCard() {
+function PatientList() {
     const [searchQuery, setSearchQuery] = useState('');
-    const [patients, setPatients] = useState<Array<User>>([]);
-    const [addedPatients, setAddedPatients] = useState<Array<string>>([]);
-    const {selectedPatient, selectPatient} = useAuth();
+    const {patients, selectedPatient, selectPatient} = useAuth();
 
-    useEffect(() => {
-        fetchPatients();
-    }, []);
-
-    const fetchPatients = async () => {
-        try {
-            const response = await fetch('http://localhost:3000/user/profile/patients', {
-                method: 'GET',
-                credentials: 'include',
-            });
-
-            if (response.ok) {
-                const responseData = await response.json();
-                setPatients(responseData.patients);
-                selectPatient(responseData.patients[0]);
-            } else {
-                console.error('Failed to get patients:', response.statusText);
-            }
-        } catch (error) {
-            console.error('Error getting patients:', error);
-        }
-    };
 
     const filteredPatients = patients.filter((patient) =>
-        !addedPatients.includes(patient._id) &&
-        patient.name.first.toLowerCase().includes(searchQuery.toLowerCase())
+        patient.name.first.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        patient.name.last.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     return(
@@ -74,4 +50,4 @@ function TherapistCard() {
         </>
     );
 }
-export default TherapistCard;
+export default PatientList;
