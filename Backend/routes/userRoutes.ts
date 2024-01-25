@@ -15,4 +15,6 @@ userRouter.post('/link', userController.isAuthenticated, userController.linkPati
 userRouter.get('/getAllPatients', userController.getAllPatients);
 userRouter.post('/getAllPatientsLinked', userController.getAllPatientsLinked);
 
+userRouter.get('/therapistOfPatient', userController.getTherapistOfPatient);
+
 export default userRouter;

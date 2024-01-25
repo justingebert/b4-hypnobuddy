@@ -17,6 +17,7 @@ interface AuthContextProps {
     fetchPatients: () => Promise<void>;
     selectedPatient: User | null;
     selectPatient: (user: User) => void;
+    therapistOfPatient: {_id: string; name:{first: string, last:string}}|null;
 }
 
 //createContext() returns provider and consumer
@@ -45,6 +46,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
         patients: [] as User[],
         selectedPatient: null as User | null
     });
+
+    const [therapistOfPatient, setTherapistOfPatient] = useState<{_id: string; name:{first: string, last:string}}|null>(null);
+
+
 
     const fetchPatients = async () => {
         try {
@@ -87,6 +92,26 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
         }
     };
 
+    const fetchTherapist = async () => {
+        try {
+            const response = await fetch('http://localhost:3000/user/therapistOfPatient', {
+                method: 'GET',
+                credentials: 'include',
+            });
+
+            if (response.ok) {
+                const responseData = await response.json();
+                console.log('res: ', responseData)
+                setTherapistOfPatient(responseData);
+            } else {
+                console.error('Failed to get therapist:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error getting therapist:', error);
+        }
+    };
+
+
     // Function to update the authentication state after a successful login or registration
     const updateLoginState = async (user: User) => {
         const fetchedUser = await checkLogin();
@@ -116,6 +141,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
             }));
             if(data.user.role === 'therapist') {
                 fetchPatients();
+            }else{
+                fetchTherapist();
             }
         } catch (error) {
             console.error('Error fetching auth status: ', error);
@@ -189,6 +216,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
         console.log('therapist state changed: ', therapistState);
     }, [therapistState]);
 
+    useEffect(() => {
+        console.log('therapist of patient : ', therapistOfPatient );
+    }, [therapistOfPatient]);
+
     return (
         <AuthContext.Provider
             value={{
@@ -201,7 +232,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
                 patients: therapistState.patients,
                 selectedPatient: therapistState.selectedPatient,
                 fetchPatients,
-                selectPatient
+                selectPatient,
+                therapistOfPatient: therapistOfPatient
             }}>
             {children}
         </AuthContext.Provider>
