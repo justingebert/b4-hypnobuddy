@@ -2,9 +2,11 @@ import React, {useState} from 'react';
 import styles from "../styles/RoadmapPage.module.scss";
 import GoalCommentForm from "./GoalCommentForm.tsx";
 import {useAuth} from "../contexts/AuthContext.tsx";
+import {useGoals} from "../contexts/GoalContext.tsx";
 
 function RoadmapGoalTextbox({ goal, handleComment }) {
     const {user} = useAuth();
+    const { updateGoal } = useGoals();
     const [showDetails, setShowDetails] = useState(false);
 
     const getDate = (dueDate) => {
@@ -18,30 +20,49 @@ function RoadmapGoalTextbox({ goal, handleComment }) {
         return dueDate;
     }
 
-    const isActiveStatus = (btnStatus: string) => {
+    type GoalStatus = 'Geplant' | 'Umsetzung' | 'Erreicht';
+    const isActiveStatus = (btnStatus: GoalStatus) => {
         if (btnStatus === 'Geplant') return btnStatus === goal.status ? 'border border-secondary' : ''
         else if (btnStatus === 'Umsetzung') return btnStatus === goal.status ? 'border border-primary' : ''
         else if (btnStatus === 'Erreicht') return btnStatus === goal.status ? 'border border-success' : ''
         else return btnStatus === goal.status ? 'border border-secondary' : '';
     };
 
+    const updateGoalStatus = async (status: GoalStatus) => {
+        try {
+            const updatedGoal = {...goal, status: status};
+            await updateGoal(goal._id, updatedGoal);
+        } catch (error) {
+            console.error('Error updating goal status:', error);
+        }
+    }
+
     return (
         <div className={`${styles.textbox}`}>
             <div className={`header d-flex flex-row justify-content-between`}>
                 <h5 className={`${styles.title}`}>{goal.title}</h5>
                 <div className={`statusIcons d-flex flex-row`}>
-                    <button className={`btn btn-light ${styles.statusBtn} ${isActiveStatus("Geplant")}`}>
+                    <button className={`btn btn-light ${styles.statusBtn} ${isActiveStatus("Geplant")}`}
+                            onClick={() => updateGoalStatus("Geplant")}
+                            title="Geplant"
+                    >
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className={`bi bi-three-dots text-secondary`} viewBox="0 0 16 16">
                             <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
                         </svg>
                     </button>
-                    <button className={`btn btn-light ${styles.statusBtn} ${isActiveStatus("Umsetzung")}`}>
+                    <button className={`btn btn-light ${styles.statusBtn} ${isActiveStatus("Umsetzung")}`}
+                            onClick={() => updateGoalStatus("Umsetzung")}
+                            title="Umsetzung"
+                    >
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className={`bi bi-arrow-repeat text-primary`} viewBox="0 0 16 16">
                             <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41m-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9"/>
                             <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5 5 0 0 0 8 3M3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9z"/>
                         </svg>
                     </button>
-                    <button className={`btn btn-light ${styles.statusBtn} ${isActiveStatus("Erreicht")}`}>
+                    <button className={`btn btn-light ${styles.statusBtn} ${isActiveStatus("Erreicht")}`}
+                            onClick={() => updateGoalStatus("Erreicht")}
+                            title="Erreicht"
+                    >
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className={`bi bi-check2-circle text-success`} viewBox="0 0 16 16">
                             <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0"/>
                             <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/>
