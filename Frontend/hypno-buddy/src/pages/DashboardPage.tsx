@@ -39,7 +39,6 @@ function DashboardPage() {
                     <div className="dashboard-content-auth">
                         {user?.role === 'therapist' ? (
                             <div>
-                                <p>selected: {selectedPatient?.name.first}</p>
                                 <PatientList/>
                             </div>
                         ):(

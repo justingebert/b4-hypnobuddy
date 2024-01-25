@@ -14,15 +14,9 @@ function RoadmapPage() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log('user: ', user)
-        console.log('selected patient: ', selectedPatient)
-
         if (selectedPatient && user.role === 'therapist') {
-            console.log('fetching goals of patient ')
-            console.log('selected patient: ', selectedPatient)
             fetchGoalsOf(selectedPatient._id); //fetch patients goals
         } else {
-            console.log('fetching own goals')
             fetchGoalsOf(undefined) //fetch users own goals
         }
     },[isAuthenticated, user, selectedPatient]);
@@ -56,7 +50,7 @@ function RoadmapPage() {
         <>
             <div className="container mt-3">
                 <h1 className="text-center mb-4">Roadmap</h1>
-                <p>selected: {selectedPatient?.name.first}</p>
+                <h4 className="text-center mb-4">{selectedPatient?.name.first} {selectedPatient?.name.last}</h4>
                 {/*<div className={`${styles.timeline} d-flex flex-column align-items-start`}>*/}
                 <div className={`${styles.timeline}`}>
                     {goals.length > 0 && goals.map((goal, index) => (
@@ -79,7 +73,9 @@ function RoadmapPage() {
 
                 <div className="text-center mt-4">
                     {/*<button className="btn btn-success" onClick={handleAddGoal}>Add Goal</button>*/}
-                    <button className="btn btn-primary m-3" onClick={() => navigate('/goalQueueView')}>Bearbeiten</button>
+                    {user?.role === 'patient' &&
+                        <button className="btn btn-primary m-3" onClick={() => navigate('/goalQueueView')}>Bearbeiten</button>
+                    }
                 </div>
 
             </div>

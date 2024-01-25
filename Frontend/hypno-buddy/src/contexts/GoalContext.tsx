@@ -62,8 +62,8 @@ export const GoalsProvider: React.FC = ({ children }) => {
         try {
             let response: Response;
             if (selectedPatientID) {
-                //therapist gets patients golas
-                response = await fetch(`http://localhost:3000/goal/of/${selectedPatientID}`, {
+                //therapist gets patients goals
+                response = await fetch(`http://localhost:3000/goal/ofPatient/${selectedPatientID}`, {
                     method: "GET",
                     headers: {
                         'Content-Type': 'application/json',
