@@ -30,6 +30,9 @@ function RoadmapGoalTextbox({ goal, handleComment }) {
 
     const updateGoalStatus = async (status: GoalStatus) => {
         try {
+            if (user.role === 'therapist') {
+                return; //therapist aren't allowed to change status
+            }
             const updatedGoal = {...goal, status: status};
             await updateGoal(goal._id, updatedGoal);
         } catch (error) {
@@ -37,12 +40,16 @@ function RoadmapGoalTextbox({ goal, handleComment }) {
         }
     }
 
+    const allowEdit = () => {
+        return user.role === 'patient' ? 'btn-light' : '';
+    }
+
     return (
         <div className={`${styles.textbox}`}>
             <div className={`header d-flex flex-row justify-content-between`}>
                 <h5 className={`${styles.title}`}>{goal.title}</h5>
                 <div className={`statusIcons d-flex flex-row`}>
-                    <button className={`btn btn-light ${styles.statusBtn} ${isActiveStatus("Geplant")}`}
+                    <button className={`btn ${allowEdit()} ${styles.statusBtn} ${isActiveStatus("Geplant")}`}
                             onClick={() => updateGoalStatus("Geplant")}
                             title="Geplant"
                     >
@@ -50,7 +57,7 @@ function RoadmapGoalTextbox({ goal, handleComment }) {
                             <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
                         </svg>
                     </button>
-                    <button className={`btn btn-light ${styles.statusBtn} ${isActiveStatus("Umsetzung")}`}
+                    <button className={`btn ${allowEdit()} ${styles.statusBtn} ${isActiveStatus("Umsetzung")}`}
                             onClick={() => updateGoalStatus("Umsetzung")}
                             title="Umsetzung"
                     >
@@ -59,7 +66,7 @@ function RoadmapGoalTextbox({ goal, handleComment }) {
                             <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5 5 0 0 0 8 3M3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9z"/>
                         </svg>
                     </button>
-                    <button className={`btn btn-light ${styles.statusBtn} ${isActiveStatus("Erreicht")}`}
+                    <button className={`btn ${allowEdit()} ${styles.statusBtn} ${isActiveStatus("Erreicht")}`}
                             onClick={() => updateGoalStatus("Erreicht")}
                             title="Erreicht"
                     >
