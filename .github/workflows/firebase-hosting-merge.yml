@@ -15,7 +15,7 @@ jobs:
 
       - name: Install dependencies and build
         run: npm i && npm run build
-        working-directory: /Frontend/hypno-buddy
+        working-directory: ./Frontend/hypno-buddy
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
