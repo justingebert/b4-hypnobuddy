@@ -14,8 +14,7 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
-      - name: List directory contents1
-        run: ls
+      - uses: actions/checkout@v4
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
@@ -25,8 +24,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: List directory contents
-        run: ls -l
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
