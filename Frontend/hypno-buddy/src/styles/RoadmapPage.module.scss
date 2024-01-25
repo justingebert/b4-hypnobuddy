@@ -85,16 +85,6 @@ $timeline-thickness: 4px;
   height: 30px;
   margin-left: 7px;
   padding: 0;
-
-  & .statusDone{
-    color: #28a745;
-  }
-  & .statusProgress{
-    color: #085bf6;
-  }
-  & .statusPending{
-      color: #5d5d5d;
-  }
 }
 
 .detailsButton {
