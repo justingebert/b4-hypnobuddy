@@ -30,6 +30,6 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: Backend
+          context: ./Backend
           push: true
           tags: ${{ env.USERNAME }}/${{ env.IMAGE_NAME }}:latest

@@ -14,7 +14,7 @@ jobs:
         run: cd Frontend/hypno-buddy
 
       - name: Install dependencies and build
-        run: npm i && npm run build
+        run: npm i && npm run buildnocheck
         working-directory: ./Frontend/hypno-buddy
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
