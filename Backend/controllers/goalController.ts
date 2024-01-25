@@ -108,7 +108,7 @@ export async function createGoal (req, res, next) {
             { _id: savedRoadmapGoal.userID },
             {$push: {goalIDs: {$each: [savedRoadmapGoal._id], $position: 0 }}}
         );
-        console.log(savedRoadmapGoal.description)
+
         return res.json({
             success: true,
             message: 'Successfully created goal',

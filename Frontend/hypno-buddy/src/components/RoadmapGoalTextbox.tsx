@@ -20,7 +20,29 @@ function RoadmapGoalTextbox({ goal, handleComment }) {
 
     return (
         <div className={`${styles.textbox}`}>
-            <h5 className={`${styles.title}`}>{goal.title}</h5>
+            <div className={`header d-flex flex-row justify-content-between`}>
+                <h5 className={`${styles.title}`}>{goal.title}</h5>
+                <div className={`statusIcons d-flex flex-row`}>
+                    <button className={`btn btn-light ${styles.statusBtn}`}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className={`bi bi-three-dots ${styles.statusPending}`} viewBox="0 0 16 16">
+                            <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
+                        </svg>
+                    </button>
+                    <button className={`btn btn-light ${styles.statusBtn}`}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className={`bi bi-arrow-repeat ${styles.statusProgress}`} viewBox="0 0 16 16">
+                            <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41m-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9"/>
+                            <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5 5 0 0 0 8 3M3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9z"/>
+                        </svg>
+                    </button>
+                    <button className={`btn btn-light ${styles.statusBtn}`}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className={`bi bi-check2-circle ${styles.statusDone}`} viewBox="0 0 16 16">
+                            <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0"/>
+                            <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
             <p className={`${styles.date}`}>{getDate(goal.dueDate)}</p>
             <button className={`btn ${styles.detailsButton}`} onClick={() => setShowDetails(!showDetails)}>
                 {showDetails ? (
