@@ -22,3 +22,4 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_HYPNOBUDDY_810A4 }}'
           channelId: live
           projectId: hypnobuddy-810a4
+          entrypoint: ./Frontend/hypno-buddy/
