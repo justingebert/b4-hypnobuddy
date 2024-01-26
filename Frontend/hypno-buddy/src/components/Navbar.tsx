@@ -90,7 +90,7 @@ const NavbarComponent = () => {
                                             <Navbar.Text>
                                                 Eingeloggt:
                                             </Navbar.Text>
-                                            {" " + user.name.first + " " + user.name.last}
+                                            <b>{" " + user.name.first + " " + user.name.last}</b>
                                         </div>
                                     </Nav.Link>
                                     <LogoutButton onLogout={handleLogoutClick} />

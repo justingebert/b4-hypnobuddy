@@ -1,23 +1,24 @@
+@import "colors";
+
 .reflectionDiv{
-    min-height: 100vh;
     align-items: center;
     justify-content: center;
     align-content: center;
-    background-color: #4F45DA;
+    background-color: $light-grey;
 
 }
 .reflectionCard{
-    background-color: #4F45DA;
+    background-image: url('../assets/background.png');
     padding-top: 100px;
 }
 .h2-refelxion{
     margin-top: 100px;
     margin-inline: 20%;
     margin-bottom: 0;
-    padding: 20px;
+    padding: 3% 20px 20px;
     text-align: center;
-    background-color: #C9BAFD;
-    color: #4F45DA;
+    background-color: $light-grey;
+    color: $dark-violet;
     align-content: center;
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
@@ -29,14 +30,14 @@
     margin-inline: 20%;
     align-items: center;
     justify-content: center;
-    background-color: #C9BAFD;
+    background-color: $light-grey;
 }
 .moodButton{
     margin: 15px;
     width: 100px;
     height: 50px;
-    background-color: white;
-    color: #4F45DA;
+    background-color: $light-violet;
+    color: $light-grey;
     border: none;
     cursor: pointer;
     display: flex;
@@ -56,21 +57,22 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #C9BAFD;
+    background-color: $light-grey;
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
 }
 
 .yesNoDiv{
     margin-inline: 20%;
-    background-color: #C9BAFD;
-    color: #4F45DA;
+    margin-bottom: 2rem;
+    background-color: $light-grey;
+    color: $dark-violet;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     justify-content: center;
-    padding-block: 5%;
+    padding-block: 3%;
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
 }
@@ -80,18 +82,19 @@
 }
 .inputText{
     border-radius: 5px;
+    border-color: $light-violet;
     width: 60%;
     height: 150px;
-    background-color: #F7E6E8;
+    background-color: $light-grey;
     padding: 15px;
     margin: 15px;
-    color: #4F45DA;
+    color: $dark-violet;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .inputText:focus {
     background-color: white;
-    color: #4F45DA;
+    color: $dark-violet;
 }
 
 .reflextionEntry{
@@ -99,12 +102,12 @@
     align-items: center;
     justify-content: center;
     padding-block: 3%;
-    background: linear-gradient(#4F45DA 30%, #8C80EC 70%,#C9BAFD);
+    background: linear-gradient($light-creme 10%, $light-violet 40%,#C9BAFD);
 }
 
 .singleEntry{
-    background-color: #C9BAFD;
-    color: #4F45DA;
+    background-color: $light-grey;
+    color: $dark-violet;
     padding: 2%;margin-bottom: 30px;
     border-radius: 15px;
 }
@@ -117,7 +120,7 @@
 .circle{
     width: 100%;
     height: 100%;
-    background-color: #4F45DA;
+    background-color: $dark-violet;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -142,7 +145,7 @@
 .datum{
     display: flex;
     justify-content: center;
-    color: #D3FFB4;
+    color: $violet;
 }
 .datumTime{
     display: flex;
@@ -152,12 +155,10 @@
     padding: 15px;
     padding-inline: 30px;
     margin-block: 15px;
-    background-color: #B6A1FC;
     border-radius: 15px;
 }
 .buttonScrollToTop:hover{
-    border: none;
-    border-color: transparent;
+    border: none transparent;
     color: #8140a7;
 }
 .bunnyImageDiv {

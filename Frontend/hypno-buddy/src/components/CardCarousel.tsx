@@ -15,7 +15,7 @@ function CardCarousel() {
     const itemStyle = {
         width: '100%',
         height: '100%',
-        background: 'radial-gradient(circle at bottom, #3e368d,#9999ff,#9999ff, #f2e1ec ,#f2e1ec)',
+        background: 'radial-gradient(circle at bottom, #ff6641,#f2e1ec ,#f2e1ec,#9999ff)',
         display: 'flex',
         flexDirection: 'column' as 'column',
         justifyContent: 'center',
