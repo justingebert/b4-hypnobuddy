@@ -14,8 +14,8 @@ const SubmitButton = (): ReactElement => {
     };
 
     const buttonStyle = {
-        backgroundColor: isHovered ? '#56c8c9' : '#4F45DA',
-        borderColor: isHovered ? '#56c8c9' : '#4F45DA',
+        backgroundColor: isHovered ? '#ff6641' : '#3e368d',
+        borderColor: isHovered ? '#ff6641' : '#3e368d',
     };
 
     const iconStyle = {
