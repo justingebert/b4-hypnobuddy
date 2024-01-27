@@ -12,7 +12,9 @@ const ReflexionDescriptionPage: React.FC = () => {
   useEffect(() => {
     const fetchMood = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/reflexion/reflexions/${id}`);
+        const response = await fetch(`http://localhost:3000/reflexion/reflexions/${id}`, {
+          credentials: 'include'
+        });
         if (!response.ok) {
           throw new Error('Failed to fetch reflexion');
         }
@@ -30,6 +32,7 @@ const ReflexionDescriptionPage: React.FC = () => {
       await fetch(`http://localhost:3000/reflexion/reflexions/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ description })
       });
       navigate(`/reflexion-deep-dive/${id}`);
