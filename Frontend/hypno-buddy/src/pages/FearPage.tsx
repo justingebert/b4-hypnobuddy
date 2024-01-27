@@ -142,18 +142,21 @@ function FearPage() {
   };
 
   return (
-    <TherapistCard
-      initialTitle={fearTitle}
-      leftTextField={leftTextField}
-      rightTextField={rightTextField}
-      isEditMode={editMode}
-      isLeftField={isLeftField}
-      onEditToggle={handleEditToggle}
-      onSave={handleSave}
-      onTitleChange={handleTitleChange}
-      onTextAreaChange={handleTextAreaChange}
-      onClose={handleClose}
-    />
+      <div className={styles.layout2}>
+        <TherapistCard
+            initialTitle={fearTitle}
+            leftTextField={leftTextField}
+            rightTextField={rightTextField}
+            isEditMode={editMode}
+            isLeftField={isLeftField}
+            onEditToggle={handleEditToggle}
+            onSave={handleSave}
+            onTitleChange={handleTitleChange}
+            onTextAreaChange={handleTextAreaChange}
+            onClose={handleClose}
+        />
+      </div>
+
   );
 }
 

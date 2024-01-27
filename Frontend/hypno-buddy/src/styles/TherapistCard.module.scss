@@ -1,35 +1,51 @@
 @import 'colors';
+.layout{
+  padding-top: 15%;
+  flex-shrink: 0;
+  background: url('../assets/background.png') no-repeat center;
+  background-size: cover;
+}
+.layout2 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('../assets/backgroundTransp.png') no-repeat center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 /* Custom styles for the therapist card */
 .therapistCard {
-  background-color: $violet;
+  background-color: $light-grey;
   border-radius: 30px;
   width: 70%;
   max-width: 80vw;
   min-height: 25rem;
-  height: 60%;
-  color: $light-creme;
+  height: auto;
+  color: $dark-violet;
   padding: 20px;
   text-align: center;
   position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-55%, 20%);
-  margin: 3% 5% 10%;
+  margin: 15% 5% 10%;
 }
 
 /* Custom styles for the therapist card title */
 .therapistCardTitle {
   margin-top: 0;
+  z-index: 2;
 }
 
 /* Custom styles for the editable title */
 .editableTitle {
   width: 100%;
   padding: 10px;
-  background-color: $violet;
+  background-color: $light-grey;
   border: none;
   border-radius: 30px;
-  color: $light-creme;
+  color: $dark-violet;
   margin-bottom: 10px;
   text-align: center;
   font-size: 1.5rem;
@@ -39,10 +55,11 @@
   position: relative;
   background-color: transparent;
   border: none;
-  color: $light-creme;
+  color: $light-violet;
   font-size: 2rem;
   cursor: pointer;
   margin: -40px -10px -50px -55px;
+  z-index: 2;
 }
 
 .therapistCardHeader {
@@ -74,13 +91,15 @@
   box-sizing: border-box;
   background-color: $light-creme;
   color: $dark-violet;
-  min-height: 13em;
+  min-height: 16em;
   width: 100%;
   resize: vertical;
   overflow-y: auto;
   padding: 10px;
   line-height: 1.2;
   border-radius: 10px;
+  border-color: $dark-grey;
+  border-width: 0.5px;
 }
 
 .creamTextField.editable {
@@ -98,9 +117,9 @@
 
 /* Custom styles for the button */
 .editSaveButton {
-  background-color: $light-creme;
+  background-color: $light-violet;
   color: $dark-violet;
-  border: none;
+  border-color: $light-violet;
   padding: 10px;
   cursor: pointer;
   border-radius: 30px;
@@ -109,7 +128,8 @@
 }
 
 .editSaveButton:hover {
-  background-color: $light-violet;
+  background-color: $light-creme;
+  border-color: $dark-violet;
 }
 
 .cardContainer {
@@ -152,11 +172,6 @@
   color: $light-violet; /* Adjust the hover color as needed */
 }
 
-.layout{
-  flex-shrink: 0;
-  background: $white url('../assets/background.png') no-repeat center;
-  background-size: cover;
-}
 .h1 {
   text-align: center;
   margin-bottom: 10px;
@@ -211,6 +226,10 @@
   .welcomeText {
     font-size: 1.3rem;
   }
+  .therapistCard{
+    width: 90%;
+    max-width: 70vw;
+  }
 }
 
 .modalOverlay {
@@ -259,9 +278,13 @@
 
 .toggleSidebarButton{
   margin: 2rem;
-  background-color:  $light-creme;
-  border-color: $light-creme;
+  background-color:  $light-violet;
+  border-color: $light-violet;
   color: $dark-violet;
+  z-index: 1;
+  &:hover{
+    border-color: $dark-violet;
+  }
 }
 .searchInput{
   margin: 1rem;
