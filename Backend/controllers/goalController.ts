@@ -184,7 +184,7 @@ export async function getGoal(req, res, next) {
         return next();
     }
     try {
-        const goal = await RoadmapGoal.findById(req.params.goalId);
+        const goal = await RoadmapGoal.findById(req.params.goalId).populate('subGoals');
         if(!goal){
             return res.status(404).json({error: 'Goal not found'});
         }
@@ -242,7 +242,7 @@ export async function updateGoal(req, res, next) {
             updatedData.description = updatedData.description.replace(/\n/g, '<br>'); //makes multiline description possible
         }
 
-        const updatedGoal = await RoadmapGoal.findByIdAndUpdate(goalId, updatedData, { new: true });
+        const updatedGoal = await RoadmapGoal.findByIdAndUpdate(goalId, updatedData, { new: true }).populate('subGoals');
         if (!updatedGoal) {
             return res.status(404).json({ error: 'Goal not found' });
         }

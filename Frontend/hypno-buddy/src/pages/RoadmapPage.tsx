@@ -52,7 +52,6 @@ function RoadmapPage() {
                     {goals.length > 0 && goals.map((goal, index) => (
                         <div
                             key={goal._id}
-                            // className={`${index % 2 === 0 ? styles.sectionRight : styles.sectionLeft} d-flex align-items-center ${index < goals.length - 1 ? 'mb-3' : ''}`}
                             className={`${index % 2 === 0 ? styles.sectionRight : styles.sectionLeft}`}
                         >
                             <div className={`${styles.circle} ${getStatusClass(goal.status)}`}>
@@ -63,6 +62,23 @@ function RoadmapPage() {
                                 <p className={`${styles.date}`}>{getDueDate(goal.dueDate)}</p>
                                 <p className={`${styles.description}`} dangerouslySetInnerHTML={{ __html: goal.description }} />
                             </div>
+
+                            {/* Add this section to render subgoals */}
+                            {goal.subGoals && goal.subGoals.map((subgoal, subIndex) => (
+                                <div
+                                    key={subgoal._id}
+                                    className={`${index % 2 === 0 ? styles.subSectionRight : styles.subSectionLeft}`}
+                                >
+                                    <div className={`${styles.circle} ${getStatusClass(subgoal.status)}`}>
+                                        {subIndex + 1}
+                                    </div>
+                                    <div className={`${styles.textbox}`}>
+                                        <h5 className={`${styles.title}`}>{subgoal.title}</h5>
+                                        <p className={`${styles.date}`}>{getDueDate(subgoal.dueDate)}</p>
+                                        <p className={`${styles.description}`} dangerouslySetInnerHTML={{ __html: subgoal.description }} />
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     ))}
                 </div>

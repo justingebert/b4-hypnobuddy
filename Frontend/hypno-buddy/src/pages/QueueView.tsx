@@ -12,6 +12,7 @@ const QueueView: React.FC = () => {
     const [error, setError] = useState(null);
     const [editingGoal, setEditingGoal] = useState<RoadmapGoal | null>(null);
     const [showCreateModal, setShowCreateModal] = useState(false);
+    const [actionType, setActionType] = useState(null);
 
     const navigate = useNavigate();
 
@@ -50,6 +51,7 @@ const QueueView: React.FC = () => {
     const handleEditGoal = (goal: RoadmapGoal) => {
         setEditingGoal(goal);
         setShowCreateModal(true);
+        setActionType('edit');
     };
 
     //TODO add delete subgoal form parent
@@ -76,6 +78,7 @@ const QueueView: React.FC = () => {
         };
         setEditingGoal(newSubGoal);
         setShowCreateModal(true);
+        setActionType('createSubGoal');
     }
 
     const goToRoadmap = () => {
@@ -92,7 +95,7 @@ const QueueView: React.FC = () => {
                 {showCreateModal && (
                     <GoalCreateForm
                         goalData={editingGoal}
-                        onSave={editingGoal && !editingGoal.isSubGoal ? handleUpdateGoal : handleCreateNewGoal}
+                        onSave={actionType === 'edit' ? handleUpdateGoal : handleCreateNewGoal}
                         onClose={() => setShowCreateModal(false)}
                     />
                 )}
