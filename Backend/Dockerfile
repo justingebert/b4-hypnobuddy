@@ -1,15 +1,14 @@
-FROM node:slim
+FROM node:alpine
 
 WORKDIR /Backend
 
-COPY package.json ./
-
-RUN npm install
-
+COPY package*.json ./
 COPY . .
 
-RUN npm run build
+RUN npm install && \
+    npm run build && \
+    npm prune --production
 
 EXPOSE 3000
 
-CMD ["npm", "start", "--host", "0.0.0.0"]
+CMD ["npm", "start"]

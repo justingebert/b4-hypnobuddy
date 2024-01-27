@@ -1,8 +1,8 @@
-FROM node:slim
+FROM node:alpine
 
 WORKDIR /Frontend/hypno-buddy
 
-COPY package.json ./
+COPY package*.json ./
 
 RUN npm install
 
@@ -12,4 +12,4 @@ RUN npm run vite-build
 
 EXPOSE 5173
 
-CMD ["npm", "start"]
+CMD ["npm", "start", "--host", "0.0.0.0"]
