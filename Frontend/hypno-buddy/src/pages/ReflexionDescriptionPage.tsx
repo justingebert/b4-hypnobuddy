@@ -12,7 +12,7 @@ const ReflexionDescriptionPage: React.FC = () => {
   useEffect(() => {
     const fetchMood = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/reflexion/reflexions/${id}`, {
+        const response = await fetch(`http://localhost:3000/reflexion/getById/${id}`, {
           credentials: 'include'
         });
         if (!response.ok) {
@@ -29,7 +29,7 @@ const ReflexionDescriptionPage: React.FC = () => {
 
   const saveDescription = async () => {
     try {
-      await fetch(`http://localhost:3000/reflexion/reflexions/${id}`, {
+      await fetch(`http://localhost:3000/reflexion/update/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

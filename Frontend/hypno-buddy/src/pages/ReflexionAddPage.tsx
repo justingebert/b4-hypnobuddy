@@ -15,7 +15,7 @@ const AddingReflexionPage: React.FC = () => {
 
   const handleMoodClick = async (selectedMood: string) => {
     try {
-      const response = await fetch('http://localhost:3000/reflexion/reflexions', {
+      const response = await fetch('http://localhost:3000/reflexion/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

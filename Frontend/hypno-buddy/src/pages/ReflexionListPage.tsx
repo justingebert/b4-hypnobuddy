@@ -22,27 +22,10 @@ const ReflexionList: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (!user) {
-  //     return;
-  //   }
-  //   fetchReflexions();
-  // }, [user]);
-
-  // const fetchReflexions = async () => {
-  //   try {
-  //     const response = await fetch('http://localhost:3000/reflexion/reflexions');
-  //     const data = await response.json();
-  //     setReflexions(data);
-  //   } catch (error) {
-  //     console.error('Error fetching reflexions:', error);
-  //   }
-  // };
-
   useEffect(() => {
     const fetchReflexions = async () => {
       try {
-        const response = await fetch('http://localhost:3000/reflexion/reflexions', {
+        const response = await fetch('http://localhost:3000/reflexion/getAll', {
           credentials: 'include'
         });
         if (response.ok) {
@@ -62,7 +45,10 @@ const ReflexionList: React.FC = () => {
 
   const handleDelete = async (id: string) => {
     try {
-      await fetch(`http://localhost:3000/reflexion/reflexions/${id}`, { method: 'DELETE' });
+        await fetch(`http://localhost:3000/reflexion/delete/${id}`, { 
+        method: 'DELETE',
+        credentials: 'include' 
+      });
       setReflexions(reflexions.filter(reflexion => reflexion._id !== id));
       setShowDeleteModal(false);
       setSelectedReflexionId(null);
