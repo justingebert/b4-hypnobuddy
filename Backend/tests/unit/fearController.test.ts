@@ -1,4 +1,3 @@
-// Importing dependencies
 import { Request, Response } from 'express';
 import { FearModel } from '../../data/model/fearModel';
 import { DoAndDontModel } from '../../data/model/dosAndDontsModel';
@@ -9,7 +8,6 @@ import {
         addDoAndDontToFear, 
         updateFearName } from '../path/to/your/controller';
 
-// Mocking FearModel and DoAndDontModel methods
 jest.mock('../data/model/fearModel', () => ({
   FearModel: {
     find: jest.fn(),
@@ -25,7 +23,6 @@ jest.mock('../data/model/dosAndDontsModel', () => ({
   },
 }));
 
-// Helper functions to create mock Request and Response objects
 const mockRequest = (data) => ({
   ...data,
 });
@@ -48,8 +45,6 @@ describe('getFearById', () => {
       expect(FearModel.findById).toHaveBeenCalledWith('fear123');
       expect(res.json).toHaveBeenCalledWith({ /* expected fear data */ });
     });
-  
-    // Add tests for cases like fear not found, or internal server errors
   });
 
   describe('saveFear', () => {
@@ -64,8 +59,6 @@ describe('getFearById', () => {
       expect(FearModel.prototype.save).toHaveBeenCalled();
       expect(res.json).toHaveBeenCalledWith({ /* expected saved fear data */ });
     });
-  
-    // Add tests for cases like fear already exists, unauthorized user, etc.
   });
 
   describe('addDoAndDontToFear', () => {
@@ -81,8 +74,6 @@ describe('getFearById', () => {
       expect(FearModel.findById).toHaveBeenCalledWith('fear123');
       expect(res.json).toHaveBeenCalled();
     });
-  
-    // Add tests for cases like fear not found, or internal server errors
   });
 
   describe('updateFearName', () => {
@@ -101,7 +92,5 @@ describe('getFearById', () => {
       );
       expect(res.json).toHaveBeenCalledWith({ _id: 'fearId123', name: 'Updated Fear Name' });
     });
-  
-    // Add tests for cases like fear not found, or internal server errors
   });
   
