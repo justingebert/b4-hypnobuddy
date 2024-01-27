@@ -180,7 +180,7 @@ export async function getGoalsOfPatient(req, res, next) {
         //add goals in the correct order to the goals array
         const goals = [];
         for (const goalID of goalIDs.goalIDs) {
-            const goal = await RoadmapGoal.findById(goalID);
+            const goal = await RoadmapGoal.findById(goalID).populate("comments");
             if (goal) {
                 goals.push(goal);
             }

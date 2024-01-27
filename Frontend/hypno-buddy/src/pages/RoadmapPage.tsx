@@ -3,8 +3,6 @@ import React, {useState, useEffect} from 'react';
 import {useNavigate} from "react-router-dom";
 import {useGoals} from "../contexts/GoalContext.tsx";
 import {useAuth} from "../contexts/AuthContext.tsx";
-
-import styles from '../styles/RoadmapPage.module.scss';
 import {RoadmapGoal} from "../types/Roadmap-Goal.ts";
 import GoalCommentForm from "../components/GoalCommentForm.tsx";
 import RoadmapGoalTextbox from "../components/RoadmapGoalTextbox.tsx";
@@ -14,7 +12,6 @@ function RoadmapPage() {
     const [error, setError] = useState(null);
     const { isAuthenticated, user, selectedPatient} = useAuth();
     const {goals, addGoal, setGoals,fetchGoals, fetchGoalsOf, saveComment } = useGoals();
-    const {user} = useAuth();
     const [editingGoal, setEditingGoal] = useState<RoadmapGoal | null>(null);
     const navigate = useNavigate();
 
@@ -75,7 +72,7 @@ const handleComment = async (comment: string, isPrivate: boolean, goalID: string
                                 {index + 1}
                             </div>
 
-                            <RoadmapGoalTextbox goal={goal} handleComment={handleComment} />
+                            <RoadmapGoalTextbox goal={goal} handleComment={handleComment}/>
                         </div>
                     ))}
                 </div>
@@ -83,7 +80,8 @@ const handleComment = async (comment: string, isPrivate: boolean, goalID: string
                 <div className="text-center mt-4">
                     {/*<button className="btn btn-success" onClick={handleAddGoal}>Add Goal</button>*/}
                     {user?.role === 'patient' &&
-                        <button className="btn btn-primary m-3" onClick={() => navigate('/goalQueueView')}>Bearbeiten</button>
+                        <button className="btn btn-primary m-3"
+                                onClick={() => navigate('/goalQueueView')}>Bearbeiten</button>
                     }
                 </div>
 

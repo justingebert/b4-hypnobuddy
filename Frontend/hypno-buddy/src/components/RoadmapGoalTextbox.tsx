@@ -4,7 +4,7 @@ import GoalCommentForm from "./GoalCommentForm.tsx";
 import {useAuth} from "../contexts/AuthContext.tsx";
 
 function RoadmapGoalTextbox({ goal, handleComment }) {
-    const {user} = useAuth();
+    const {user,selectedPatient} = useAuth();
     const [showDetails, setShowDetails] = useState(false);
 
     const getDate = (dueDate) => {
@@ -44,12 +44,12 @@ function RoadmapGoalTextbox({ goal, handleComment }) {
                         {goal.comments &&
                             goal.comments.length > 0 &&
                             goal.comments.map((c) =>
-                                    c.userID === user._id || c.isPrivate ? (
+                                    !c.isPrivate ? (
                                         <div className={`${styles.comment}`} key={c.commentID}>
                                             <div>
                                                   <span className={`${styles.writer}`}>
                                                     {c.userID === user._id ? 'Du: ' :
-                                                        user.role === 'patient' ? 'Dein Therapeut: ' : 'Patient: '
+                                                        user.role === 'patient' ? 'Dein Therapeut: ' : `${selectedPatient?.name.first} ${selectedPatient?.name.last}:`
                                                     }
                                                   </span>
                                                 <span className={`${styles.date}`}>{getDate(c.creationDate)}</span>
