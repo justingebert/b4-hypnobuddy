@@ -92,7 +92,7 @@ const QueueView: React.FC = () => {
                 {showCreateModal && (
                     <GoalCreateForm
                         goalData={editingGoal}
-                        onSave={editingGoal ? handleUpdateGoal : handleCreateNewGoal}
+                        onSave={editingGoal && !editingGoal.isSubGoal ? handleUpdateGoal : handleCreateNewGoal}
                         onClose={() => setShowCreateModal(false)}
                     />
                 )}
