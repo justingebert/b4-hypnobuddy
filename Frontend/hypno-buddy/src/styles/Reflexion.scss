@@ -4,15 +4,15 @@
     align-items: center;
     justify-content: center;
     align-content: center;
-    background-color: $light-grey;
-
+    background: linear-gradient($light-creme 10%, $light-violet 40%,#C9BAFD);
+    min-height: 100vh;
 }
 .reflectionCard{
     background-image: url('../assets/background.png');
     padding-top: 100px;
 }
 .h2-refelxion{
-    margin-top: 100px;
+    margin-top: 10%;
     margin-inline: 20%;
     margin-bottom: 0;
     padding: 3% 20px 20px;
@@ -102,7 +102,7 @@
     align-items: center;
     justify-content: center;
     padding-block: 3%;
-    background: linear-gradient($light-creme 10%, $light-violet 40%,#C9BAFD);
+    //background: linear-gradient($light-creme 10%, $light-violet 40%,#C9BAFD);
 }
 
 .singleEntry{
