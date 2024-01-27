@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { RoadmapGoal } from "../types/Roadmap-Goal.ts";
 import styles from '../styles/GoalForm.module.scss';
+import {useGoals} from "../contexts/GoalContext.tsx";
 
 interface GoalCreateFormProps {
     goalData: RoadmapGoal | null;
@@ -8,7 +9,7 @@ interface GoalCreateFormProps {
     onClose: () => void;
 }
 
-const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClose }) => {
+const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClose, actionType }) => {
     const [id, setId] = useState<string | undefined>(undefined);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -16,6 +17,9 @@ const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClo
     const [status, setStatus] = useState('Geplant');
     const [isSubGoal, setIsSubGoal] = useState<boolean>(false);
     const [parentGoalId, setParentGoalId] = useState<string | undefined>(undefined);
+    const [parentGoalTitle, setParentGoalTitle] = useState<string | undefined>(undefined);
+
+    const { getLocalGoalById } = useGoals();
 
     useEffect(() => {
         if (goalData) {
@@ -26,6 +30,7 @@ const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClo
             setStatus(goalData.status);
             setIsSubGoal(goalData.isSubGoal || false);
             setParentGoalId(goalData.parentGoalId || undefined);
+            setParentGoalTitle(getLocalGoalById(goalData.parentGoalId || '')?.title || undefined);
         } else {
             setId(undefined);
             setTitle('');
@@ -47,12 +52,11 @@ const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClo
             status,
             isSubGoal,
             parentGoalId,
-            // You can add subGoals handling based on your application logic
         });
         onClose();
     };
 
-    const isEditing = goalData !== null;
+    const isEditing = goalData !== null && !goalData.isSubGoal;
 
     return (
         <div className="modal show" tabIndex={-1} role="dialog" style={{ display: 'block' }}>
@@ -97,23 +101,21 @@ const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClo
                                         <option value="Erreicht">Erreicht</option>
                                     </select>
                                 </div>
-                                {  /* TODO: include again when subgoals are implemented
-                                   /* IsSubGoal Checkbox (??only makes sense in edit mode??)
+                                {/*//this is hidden but values need to be read //TODO remove later*/}
                                 {isEditing && (
                                     <div className="form-check">
-                                        <input className="form-check-input" type="checkbox" checked={isSubGoal}
+                                        <input className="form-check-input visually-hidden" type="checkbox" checked={isSubGoal}
                                                onChange={e => setIsSubGoal(e.target.checked)} id="isSubGoalCheck" />
-                                        <label className="form-check-label" htmlFor="isSubGoalCheck">
+                                        <label className="form-check-label visually-hidden" htmlFor="isSubGoalCheck">
                                             Is Sub Goal
                                         </label>
                                     </div>
                                 )}
-                                */}
                                 {/* Parent Goal ID Field */}
                                 {parentGoalId && (
                                     <div className="form-group">
                                         <label>Parent Goal ID</label>
-                                        <p className="form-control-plaintext">{parentGoalId}</p>
+                                        <p className="form-control-plaintext">{parentGoalTitle}</p>
                                     </div>
                                 )}
                             </div>

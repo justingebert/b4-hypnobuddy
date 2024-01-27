@@ -16,8 +16,8 @@ export const getGoalParams = request => {
         description: request.body.description,
         status: request.body.status,
         dueDate: request.body.dueDate,
-        isSubGoal: false,
-        parentGoalId: null,
+        isSubGoal: request.body.isSubGoal,
+        parentGoalId: request.body.parentGoalId,
         subGoals: []
     }
 }
@@ -109,7 +109,7 @@ export async function createGoal (req, res, next) {
             { _id: savedRoadmapGoal.userID },
             {$push: {goalIDs: {$each: [savedRoadmapGoal._id], $position: 0 }}}
         );
-
+        console.log(savedRoadmapGoal.description)
         return res.json({
             success: true,
             message: 'Successfully created goal',
@@ -139,11 +139,22 @@ export async function getAllGoals(req, res, next) {
     try {
         //get order of goals form user document
         const goalIDs = await User.findOne({ _id: req.user._id }).select('goalIDs');
-        //add goals in the correct order to the goals array
+
         const goals = [];
         for (const goalID of goalIDs.goalIDs) {
-            const goal = await RoadmapGoal.findOne({ _id: goalID }).populate('comments');
+            const goal = await RoadmapGoal.findById(goalID).populate('comments');
             if (goal) {
+                const subGoals = Array.isArray(goal.subGoals) ? goal.subGoals : [];
+                const populatedSubGoals = [];
+
+                for (const subGoalID of subGoals) {
+                    const subGoal = await RoadmapGoal.findById(subGoalID);
+                    if (subGoal) {
+                        populatedSubGoals.push(subGoal);
+                    }
+                }
+
+                goal.subGoals = populatedSubGoals;
                 goals.push(goal);
             }
         }
@@ -182,6 +193,17 @@ export async function getGoalsOfPatient(req, res, next) {
         for (const goalID of goalIDs.goalIDs) {
             const goal = await RoadmapGoal.findById(goalID).populate("comments");
             if (goal) {
+                const subGoals = Array.isArray(goal.subGoals) ? goal.subGoals : [];
+                const populatedSubGoals = [];
+
+                for (const subGoalID of subGoals) {
+                    const subGoal = await RoadmapGoal.findById(subGoalID);
+                    if (subGoal) {
+                        populatedSubGoals.push(subGoal);
+                    }
+                }
+
+                goal.subGoals = populatedSubGoals;
                 goals.push(goal);
             }
         }
@@ -213,7 +235,7 @@ export async function getGoal(req, res, next) {
         return next();
     }
     try {
-        const goal = await RoadmapGoal.findById(req.params.goalId);
+        const goal = await RoadmapGoal.findById(req.params.goalId).populate('subGoals');
         if(!goal){
             return res.status(404).json({error: 'Goal not found'});
         }
@@ -238,7 +260,6 @@ export async function deleteGoal(req, res, next) {
     }
     try {
         const goalId = req.params.goalId;
-
 
         const deletedGoal = await RoadmapGoal.findByIdAndDelete(goalId);
         if (!deletedGoal) {
@@ -277,7 +298,7 @@ export async function updateGoal(req, res, next) {
             updatedData.description = updatedData.description.replace(/\n/g, '<br>'); //makes multiline description possible
         }
 
-        const updatedGoal = await RoadmapGoal.findByIdAndUpdate(goalId, updatedData, { new: true });
+        const updatedGoal = await RoadmapGoal.findByIdAndUpdate(goalId, updatedData, { new: true }).populate('subGoals');
         if (!updatedGoal) {
             return res.status(404).json({ error: 'Goal not found' });
         }
@@ -331,18 +352,12 @@ export async function updateGoalOrder(req, res, next) {
  */
 export async function createSubGoal(req, res) {
     try {
-        const { title, description, status, parentGoalId } = req.body;
+        const { title, description, status, isSubGoal, parentGoalId } = req.body;
 
         // Create a new subgoal
-        const newSubgoal = new RoadmapGoal({
-            title,
-            description,
-            status,
-            isSubGoal: true,
-            parentGoalId,
-        });
-
-        const savedSubgoal = await newSubgoal.save();
+        const newSubGoal = new RoadmapGoal(getGoalParams(req));
+newSubGoal.description = newSubGoal.description.replace(/\n/g, '<br>');
+        const savedSubgoal = await newSubGoal.save();
 
         // Optionally, update the parent goal to include this subgoal's ID
         await RoadmapGoal.findByIdAndUpdate(
