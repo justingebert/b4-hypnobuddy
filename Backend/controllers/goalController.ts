@@ -190,21 +190,23 @@ export async function getGoalsOfPatient(req, res, next) {
         const goalIDs = await User.findById(req.params.patientID).select('goalIDs');
         //add goals in the correct order to the goals array
         const goals = [];
-        for (const goalID of goalIDs.goalIDs) {
-            const goal = await RoadmapGoal.findById(goalID).populate("comments");
-            if (goal) {
-                const subGoals = Array.isArray(goal.subGoals) ? goal.subGoals : [];
-                const populatedSubGoals = [];
+        if(goalIDs){
+            for (const goalID of goalIDs.goalIDs) {
+                const goal = await RoadmapGoal.findById(goalID).populate("comments");
+                if (goal) {
+                    const subGoals = Array.isArray(goal.subGoals) ? goal.subGoals : [];
+                    const populatedSubGoals = [];
 
-                for (const subGoalID of subGoals) {
-                    const subGoal = await RoadmapGoal.findById(subGoalID);
-                    if (subGoal) {
-                        populatedSubGoals.push(subGoal);
+                    for (const subGoalID of subGoals) {
+                        const subGoal = await RoadmapGoal.findById(subGoalID);
+                        if (subGoal) {
+                            populatedSubGoals.push(subGoal);
+                        }
                     }
-                }
 
-                goal.subGoals = populatedSubGoals;
-                goals.push(goal);
+                    goal.subGoals = populatedSubGoals;
+                    goals.push(goal);
+                }
             }
         }
 
