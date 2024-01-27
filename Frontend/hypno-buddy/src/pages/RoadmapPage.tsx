@@ -1,16 +1,21 @@
+import styles from '../styles/RoadmapPage.module.scss';
 import React, {useState, useEffect} from 'react';
 import {useNavigate} from "react-router-dom";
-import {useAuth} from "../contexts/AuthContext.tsx";
 import {useGoals} from "../contexts/GoalContext.tsx";
+import {useAuth} from "../contexts/AuthContext.tsx";
 
 import styles from '../styles/RoadmapPage.module.scss';
+import {RoadmapGoal} from "../types/Roadmap-Goal.ts";
+import GoalCommentForm from "../components/GoalCommentForm.tsx";
+import RoadmapGoalTextbox from "../components/RoadmapGoalTextbox.tsx";
 
 function RoadmapPage() {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const { isAuthenticated, user, selectedPatient} = useAuth();
-    const {goals, addGoal, setGoals,fetchGoals, fetchGoalsOf} = useGoals();
-
+    const {goals, addGoal, setGoals,fetchGoals, fetchGoalsOf, saveComment } = useGoals();
+    const {user} = useAuth();
+    const [editingGoal, setEditingGoal] = useState<RoadmapGoal | null>(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -21,30 +26,37 @@ function RoadmapPage() {
         }
     },[isAuthenticated, user, selectedPatient]);
 
-
-
-    const getStatusClass = (status) => {
-        switch (status) {
-            case 'Geplant': return 'bg-secondary';
-            case 'Umsetzung': return 'bg-primary';
-            case 'Erreicht': return 'bg-success';
-            default: return 'bg-secondary';
-        }
-    };
-
-    const getDueDate = (dueDate) => {
-        const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
-        if (dueDate instanceof Date) {
-            return dueDate.toLocaleDateString('de-DE', options);
-        }
-        else if (typeof dueDate === 'string') {
-            return new Date(dueDate).toLocaleDateString('de-DE', options);
-        }
-        return dueDate;
+const getStatusClass = (status) => {
+    switch (status) {
+        case 'Geplant': return 'bg-secondary';
+        case 'Umsetzung': return 'bg-primary';
+        case 'Erreicht': return 'bg-success';
+        default: return 'bg-secondary';
     }
+};
+
+const getDate = (date) => {
+    const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+    if (date instanceof Date) {
+        return date.toLocaleDateString('de-DE', options);
+    }
+    else if (typeof date === 'string') {
+        return new Date(date).toLocaleDateString('de-DE', options);
+    }
+    return date;
+}
+
+const handleComment = async (comment: string, isPrivate: boolean, goalID: string) => {
+    try {
+        const commentData = {comment, isPrivate: isPrivate, goalID: goalID, userID: user._id};
+        await saveComment(commentData);
+        setEditingGoal(null);
+    } catch (error) {
+        console.error('Error updating goal with comment:', error);
+    }
+};
 
     if (isLoading) return <div>Loading...</div>;
-   //if (error) return <div>Error: {error}</div>;
 
     return (
         <>
@@ -62,11 +74,8 @@ function RoadmapPage() {
                             <div className={`${styles.circle} ${getStatusClass(goal.status)}`}>
                                 {index + 1}
                             </div>
-                            <div className={`${styles.textbox}`}>
-                                <h5 className={`${styles.title}`}>{goal.title}</h5>
-                                <p className={`${styles.date}`}>{getDueDate(goal.dueDate)}</p>
-                                <p className={`${styles.description}`}>{goal.description}</p>
-                            </div>
+
+                            <RoadmapGoalTextbox goal={goal} handleComment={handleComment} />
                         </div>
                     ))}
                 </div>

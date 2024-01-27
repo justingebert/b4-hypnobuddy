@@ -1,5 +1,6 @@
 import React, { createContext, useState, useContext, useCallback } from 'react';
 import { RoadmapGoal } from '../types/Roadmap-Goal';
+import {Comment} from "../types/Comment.ts";
 import {FlashContext} from "./FlashContext.tsx";
 
 interface GoalsContextType {
@@ -13,6 +14,7 @@ interface GoalsContextType {
     updateGoal: (goalId: string, updatedData: RoadmapGoal) => Promise<void>;
     updateGoalOrder: (newOrder: string[]) => Promise<void>
     createSubGoal: (subGoalData: { title: string; description: string; status: string; parentGoalId: string }) => Promise<void>;
+    saveComment: (commentData:{ comment:string, isPrivate:boolean, goalID:string, userID:string }) => Promise<void>;
 }
 
 const GoalsContext = createContext<GoalsContextType | undefined>(undefined);
@@ -211,8 +213,31 @@ export const GoalsProvider: React.FC = ({ children }) => {
         }
     }, []);
 
+    const saveComment = useCallback(async (commentData:{ comment:string, isPrivate:boolean, goalID:string, userID:string }) => {
+        try {
+            console.log(commentData)
+            const response = await fetch('http://localhost:3000/goal/saveComment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+                body: JSON.stringify(commentData)
+            });
+
+            if (response.ok) {
+                const updatedGoalPromise = await response.json();
+                setGoals(prevGoals => prevGoals.map(goal => goal._id === commentData.goalID ? { ...goal, ...updatedGoalPromise.goal } : goal));
+            } else {
+                console.error('Failed to update goal:', response.status);
+            }
+        } catch (error) {
+            console.error('Error updating goal:', error);
+        }
+    },[]);
+
     return (
-        <GoalsContext.Provider value={{ goals, setGoals, addGoal, fetchGoals, fetchGoalsOf, createGoal, deleteGoal, updateGoal, updateGoalOrder, createSubGoal }}>
+        <GoalsContext.Provider value={{ goals, setGoals, addGoal, fetchGoals, createGoal, deleteGoal, updateGoal, updateGoalOrder, createSubGoal, fetchGoalsOf, saveComment }}>
             {children}
         </GoalsContext.Provider>
     );

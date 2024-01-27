@@ -27,11 +27,10 @@ function App() {
     const { checkLogin } = useAuth();
     useEffect(() => { checkLogin(); }, []);
 
-
     return (
         <FlashProvider>
             <Router>
-                <Navbar />
+                <Navbar/>
                 <Routes>
                     <Route path="/" element={<DashboardPage />} />
                     <Route path="/register" element={<RegisterPage />} />
@@ -60,6 +59,7 @@ function App() {
         </FlashProvider>
     );
 }
+//TODO move away from APP.tsx
 function DosAndDontsRoutes() {
     const { user } = useAuth();
 
