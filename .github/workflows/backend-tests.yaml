@@ -37,7 +37,7 @@ jobs:
 
     - name: Start MongoDB using Docker Compose
       run: |
-        docker-compose -f docker-compose.yml up -d
+        docker-compose -f docker-compose.yaml up -d
 
     - name: Install dependencies
       run: |
