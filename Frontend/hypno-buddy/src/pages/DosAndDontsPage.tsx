@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import { Fear } from '../../../../Backend/data/model/fearModel.ts';
 import DeleteConfirmationModal from '../components/DeleteConfirmationModal';
-import styles from '../styles/TherapistCard.module.css';
+import styles from '../styles/TherapistCard.module.scss';
 import {FlashContext} from "../contexts/FlashContext.tsx";
 import NewFearModal from "../components/NewFearModal.tsx";
 import {useAuth} from "../contexts/AuthContext.tsx";
@@ -152,7 +152,7 @@ function DosAndDontsPage() {
         )}
         <br></br>
         {fears.length> 0 && (
-            <button onClick={handleDeleteModeToggle} className="btn btn-danger">
+            <button onClick={handleDeleteModeToggle} className={styles.deleteButton}>
               {isDeleteMode ? 'Abbrechen' : 'Angst löschen'}
             </button>
         )}

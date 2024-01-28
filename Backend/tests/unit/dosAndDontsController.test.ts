@@ -8,8 +8,8 @@ import {
 import { DoAndDontModel } from '../../data/model/dosAndDontsModel';
 import { FearModel } from '../../data/model/fearModel';
 
-jest.mock('../data/model/dosAndDontsModel');
-jest.mock('../data/model/fearModel');
+jest.mock('../../data/model/dosAndDontsModel');
+jest.mock('../../data/model/fearModel');
 
 describe('dosAndDontsController', () => {
   let req: Partial<Request>;

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { DoAndDont } from '../../../../Backend/data/model/dosAndDontsModel.ts';
 import TherapistCard from '../components/TherapistCard.tsx';
-import styles from '../styles/TherapistCard.module.css';
+import styles from '../styles/TherapistCard.module.scss';
 
 function FearPage() {
   const { fearId } = useParams();
@@ -18,8 +18,7 @@ function FearPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/dosAndDonts/fears/${fearId}`);
-        const data = await response.json();
+        const response = await fetch(`http://localhost:3000/dosAndDonts/fears/${fearId}`);        const data = await response.json();
         if (data) {
           setFearData(data);
           setDosAndDonts(data.dosAndDonts || []);
@@ -143,18 +142,21 @@ function FearPage() {
   };
 
   return (
-    <TherapistCard
-      initialTitle={fearTitle}
-      leftTextField={leftTextField}
-      rightTextField={rightTextField}
-      isEditMode={editMode}
-      isLeftField={isLeftField}
-      onEditToggle={handleEditToggle}
-      onSave={handleSave}
-      onTitleChange={handleTitleChange}
-      onTextAreaChange={handleTextAreaChange}
-      onClose={handleClose}
-    />
+      <div className={styles.layout2}>
+        <TherapistCard
+            initialTitle={fearTitle}
+            leftTextField={leftTextField}
+            rightTextField={rightTextField}
+            isEditMode={editMode}
+            isLeftField={isLeftField}
+            onEditToggle={handleEditToggle}
+            onSave={handleSave}
+            onTitleChange={handleTitleChange}
+            onTextAreaChange={handleTextAreaChange}
+            onClose={handleClose}
+        />
+      </div>
+
   );
 }
 

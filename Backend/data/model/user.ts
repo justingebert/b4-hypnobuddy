@@ -45,6 +45,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         unique: false, //TODO should be unique except when its null
     },
+    goalIDs: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'RoadmapGoal'
+    }],
 }, {
     timestamps: true
 })

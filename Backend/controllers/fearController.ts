@@ -1,16 +1,16 @@
-import {Request, Response } from 'express';
+import { Request as ExpressRequest, Response } from 'express';
+import mongoose from 'mongoose';
+import { FearModel, Fear } from "../data/model/fearModel";
+import { DoAndDontModel } from "../data/model/dosAndDontsModel";
 import User from '../data/model/user';
-import {FearModel, Fear} from "../data/model/fearModel";
-import {DoAndDontModel} from "../data/model/dosAndDontsModel";
 
-/**
- * Retrieves a list of fears associated with a given therapist.
- * 
- * @param {Request} req - The Express request object, expecting a therapistId in the query.
- * @param {Response} res - The Express response object used to return the fetched data or an error message.
- * @returns {Promise<void>} - A promise resolving to void.
- */
-export const getFears = async (req: Request, res: Response): Promise<void> => {
+interface RequestWithUser extends ExpressRequest {
+    user?: {
+        _id: mongoose.Types.ObjectId;
+    };
+}
+
+export const getFears = async (req: RequestWithUser, res: Response): Promise<void> => {
     try {
         const therapistId = req.query.therapistId as string;
         if (!therapistId) {
@@ -22,35 +22,37 @@ export const getFears = async (req: Request, res: Response): Promise<void> => {
         res.json(fears);
     } catch (error) {
         console.error('Error in getFears:', error);
-        res.status(500).json({ error: 'Internal Server Error'});
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 };
 
-/**
- * Retrieves a specific fear by its ID.
- * 
- * @param {Request} req - The Express request object, expecting a fearId in the parameters.
- * @param {Response} res - The Express response object used to return the fetched fear or an error message.
- * @returns {Promise<void>} - A promise resolving to void.
- */
-export const getFearById = async (req: Request, res: Response): Promise<void> => {
-    const {fearId} = req.params;
+export const getFearById = async (req: RequestWithUser, res: Response): Promise<void> => {
+    const { fearId } = req.params;
     try {
-        const fear = await FearModel.findById(fearId).populate('dosAndDonts');
-        console.log(fear);
-        res.json(fear);
+        // Fetch fear data without populating 'dosAndDonts' and 'users'
+        const fear = await FearModel.findById(fearId).populate("dosAndDonts").select('-__v');
+        if (!fear) {
+            res.status(404).json({ error: 'Fear not found' });
+            return;
+        }
+
+        // Fetch user data based on the user IDs stored in the fear model
+        const userIds = fear.users.map(userId => new mongoose.Types.ObjectId(userId));
+        const users = await User.find({ _id: { $in: userIds } });
+
+        // Combine fear data with user data
+        const result: Fear & { users: any[] } = {
+            ...fear.toObject(),
+            users,
+        };
+        res.json(result);
     } catch (error) {
-        res.status(500).json({error: 'Internal Server Error'});
+        console.error('Error fetching fear:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 };
 
-/**
- * Saves a new fear to the database.
- * 
- * @param {Request} req - The Express request object, containing the name of the fear in the body and the therapist's ID in the user session.
- * @param {Response} res - The Express response object used to return the saved fear or an error message.
- * @returns {Promise<void>} - A promise resolving to void.
- */
+
 export const saveFear = async (req, res): Promise<void> => {
     const { name } = req.body;
     const therapistId = req.user ? req.user._id : null;
@@ -76,23 +78,16 @@ export const saveFear = async (req, res): Promise<void> => {
     }
 };
 
-/**
- * Adds a 'Do and Don't' entry to a specific fear.
- * 
- * @param {Request} req - The Express request object, containing the fearId, type, and text of the 'Do and Don't' in the body.
- * @param {Response} res - The Express response object used to return the updated fear or an error message.
- * @returns {Promise<void>} - A promise resolving to void.
- */
-export const addDoAndDontToFear = async (req: Request, res: Response): Promise<void> => {
-    const {fearId, type, text} = req.body;
+export const addDoAndDontToFear = async (req: RequestWithUser, res: Response): Promise<void> => {
+    const { fearId, type, text } = req.body;
     console.log(fearId, text);
     try {
-        const newDoAndDont = new DoAndDontModel({type, text, fearId});
+        const newDoAndDont = new DoAndDontModel({ type, text, fearId });
         const savedDoAndDont = await newDoAndDont.save();
 
         const fear = await FearModel.findById(fearId);
         if (!fear) {
-            res.status(404).json({error: 'Fear not found'});
+            res.status(404).json({ error: 'Fear not found' });
             return;
         }
 
@@ -101,37 +96,79 @@ export const addDoAndDontToFear = async (req: Request, res: Response): Promise<v
         res.json(fear);
     } catch (error) {
         console.error('Error in addDoAndDontToFear:', error);
-        res.status(500).json({error: 'Internal Server Error'});
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 };
 
-/**
- * Updates the name of an existing fear.
- * 
- * @param {Request} req - The Express request object, containing the new name of the fear in the body and the fearId in the parameters.
- * @param {Response} res - The Express response object used to return the updated fear or an error message.
- * @returns {Promise<void>} - A promise resolving to void.
- */
-export const updateFearName = async (req: Request, res: Response): Promise<void> => {
+export const updateFearName = async (req: RequestWithUser, res: Response): Promise<void> => {
     const { fearId } = req.params;
     const { name } = req.body;
     console.log(fearId, name);
-  
+
     try {
-      const updatedFear = await FearModel.findByIdAndUpdate(
-        { _id: fearId },
-        { name },
-        { new: true } // Return the updated document
-      );
-      console.log(updatedFear);
-      
-      if (!updatedFear) {
-        res.status(404).json({ error: 'Fear not found' });
-        return;
-      }
-      
-      res.json(updatedFear);
+        const updatedFear = await FearModel.findByIdAndUpdate(
+            { _id: fearId },
+            { name },
+            { new: true } // Return the updated document
+        );
+        console.log(updatedFear);
+
+        if (!updatedFear) {
+            res.status(404).json({ error: 'Fear not found' });
+            return;
+        }
+        res.json(updatedFear);
     } catch (error) {
-      res.status(500).json({ error: 'Internal Server Error' });
+        res.status(500).json({ error: 'Internal Server Error' });
     }
-  };
+};
+
+export const addUserToFear = async (req: RequestWithUser, res: Response): Promise<void> => {
+    const { fearId,userId, type, text } = req.body;
+    console.log(fearId, userId);
+    try {
+        const user = await User.findById(userId);
+        console.log(user);
+
+        const fear = await FearModel.findById(fearId);
+        console.log(fear);
+
+        if (!fear) {
+            res.status(404).json({ error: 'Fear not found' });
+            return;
+        }
+
+        fear.users.push(user._id);
+        await fear.save();
+        res.json(fear);
+    } catch (error) {
+        console.error('Error in addUserToFear:', error);
+
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+export const deleteUserToFear = async (req: RequestWithUser, res: Response): Promise<void> => {
+    const { fearId,userId, type, text } = req.body;
+    console.log(fearId, userId);
+    try {
+        const user = await User.findById(userId);
+        console.log(user);
+
+        const fear = await FearModel.findById(fearId);
+        console.log(fear);
+
+        if (!fear) {
+            res.status(404).json({ error: 'Fear not found' });
+            return;
+        }
+
+        fear.users.pull(user?._id);
+        await fear.save();
+        res.json(fear);
+    } catch (error) {
+        console.error('Error in addUserToFear:', error);
+
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};

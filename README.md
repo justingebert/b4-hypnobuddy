@@ -25,6 +25,11 @@
          npm run dev
          ```
 
+# Issues with packages?
+- delete node_modules folder
+- delete package-lock.json
+- run npm i again
+
 # pickung up work again after some time:
 
 
