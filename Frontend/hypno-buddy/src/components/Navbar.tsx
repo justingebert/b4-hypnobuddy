@@ -15,7 +15,7 @@ const NavbarComponent = () => {
     const navigate = useNavigate();
     const handleLogoutClick = async () => {
         await handleLogout();
-        navigate('/');
+        navigate("/");
     };
 
     const [prevScrollPos, setPrevScrollPos] = useState(0);
@@ -63,18 +63,18 @@ const NavbarComponent = () => {
                         {isAuthenticated && user ? (
                             <Nav>
                                 {user.role === 'therapist' ? (
-                                    <Nav.Link href="/dosanddonts/t"  className="nav-link active" aria-current="page">
+                                    <Nav.Link href="/dosanddonts/t" className="nav-link active" aria-current="page">
                                         Dos & Don'ts
                                     </Nav.Link>
                                 ) : (
-                                    <Nav.Link href="/dosanddonts/p"  className="nav-link active" aria-current="page">
+                                    <Nav.Link href="/dosanddonts/p" className="nav-link active" aria-current="page">
                                         Dos & Don'ts
                                     </Nav.Link>
                                 )}
                                 <Nav.Link href="/roadmap" className="nav-link active" aria-current="page">
                                     Roadmap
                                 </Nav.Link>
-                                <Nav.Link href="/reflexion-add"className="nav-link active" aria-current="page">
+                                <Nav.Link href="/reflexion-add" className="nav-link active" aria-current="page">
                                     Reflexion
                                 </Nav.Link>
                             </Nav>
@@ -82,6 +82,7 @@ const NavbarComponent = () => {
                         ) : null}
                     </Nav>
                     <Nav>
+                        //TODO What is #deets?
                         <Nav.Link href="#deets" className="d-flex">
                             {isAuthenticated && user ? (
                                 <>

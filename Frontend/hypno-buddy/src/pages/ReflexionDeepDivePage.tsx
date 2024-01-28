@@ -37,7 +37,9 @@ const deepDiveQuestions = [
     useEffect(() => {
         const fetchReflexion = async () => {
           try {
-            const response = await fetch(`http://localhost:3000/reflexion/reflexions/${id}`);
+            const response = await fetch(`http://localhost:3000/reflexion/getById/${id}`, {
+              credentials: 'include'
+            });
             const data = await response.json();
             setMood(data.mood);
           } catch (error) {
@@ -62,9 +64,10 @@ const deepDiveQuestions = [
 
   const handleSaveDeepDive = async () => {
     try {
-      await fetch(`http://localhost:3000/reflexion/reflexions/${id}`, {
+      await fetch(`http://localhost:3000/reflexion/update/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ deepDiveQuestion, deepDiveAnswer })
       });
       navigate('/reflexion-final');
