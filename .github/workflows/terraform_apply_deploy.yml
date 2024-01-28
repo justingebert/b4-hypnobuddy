@@ -2,7 +2,7 @@ name: 'Terraform Apply'
 
 on:
   push:
-    branches: [ main, deployment ]
+    branches: [ main ]
 
 jobs:
   terraform-apply:

@@ -2,9 +2,9 @@ name: Build and Push to Dockerhub
 
 on:
   push:
-    branches: [ main, deployment ]
+    branches: [ main ]
   pull_request:
-    branches: [ main, deployment ]
+    branches: [ main ]
 
 env:
   USERNAME: justingebert
@@ -24,9 +24,17 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Determine tag
+        id: prep
+        run: |
+          if [[ $GITHUB_EVENT_NAME == 'pull_request' ]]; then
+            echo ::set-output name=tag::pr-${{ github.event.number }}
+          else
+            echo ::set-output name=tag::latest
+          fi
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
           context: ./Backend
           push: true
-          tags: ${{ env.USERNAME }}/${{ env.IMAGE_NAME }}:latest
+          tags: ${{ env.USERNAME }}/${{ env.IMAGE_NAME }}:${{ steps.prep.outputs.tag }}
