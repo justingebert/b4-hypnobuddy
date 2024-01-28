@@ -26,6 +26,10 @@ jobs:
         env:
           TF_VAR_gcp_credentials: ${{ secrets.GCP_CREDENTIALS_JSON }}
 
+      - name: 'List files in Terraform directory'
+        run: ls -l ./Backend/terraform
+        working-directory: ./Backend/terraform
+
       - name: Comment Terraform Plan on PR
         uses: blinqas/tf-plan-pr-comment@v1.1.0
         with:
