@@ -7,8 +7,14 @@
     background: linear-gradient($light-creme 10%, $light-violet 40%,#C9BAFD);
     min-height: 100vh;
 }
+.reflection{
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+}
 .reflectionCard{
     background-image: url('../assets/background.png');
+    height: auto;
     padding-top: 100px;
 }
 .h2-refelxion{

@@ -45,7 +45,7 @@ const AddingReflexionPage: React.FC = () => {
 
   return (
     <div>
-      <div className="reflectionDiv">
+      <div className="reflection">
         <div className="reflectionCard">
           <h2 className="h2-refelxion">Wie fühlst du dich heute?</h2>
           <div className="moodDiv">
