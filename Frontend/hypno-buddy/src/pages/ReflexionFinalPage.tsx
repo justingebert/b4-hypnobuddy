@@ -8,7 +8,7 @@ const ReflexionFinalPage: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="reflectionDiv">
+    <div className="reflection">
         <div className="reflectionCard">
             <h2 className="h2-refelxion">Das hast du super gemacht!</h2>
             <div className="yesNoDiv">
