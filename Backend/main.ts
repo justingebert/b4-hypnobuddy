@@ -1,17 +1,11 @@
-//import base
 const express = require('express');
 import router from './routes/index';
 import MongoStore from 'connect-mongo';
-import { connectDB, ensureVerificationCodes } from './data/connectToDb';
-//import passport
 import passport from 'passport';
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
-//import flash
 import flash from 'express-flash';
-//import other
 import cors from 'cors';
-//import models
 import User from './data/model/user';
 require('dotenv').config();
 
