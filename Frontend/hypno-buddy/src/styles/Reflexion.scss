@@ -1,0 +1,184 @@
+@import "colors";
+
+.reflectionDiv{
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    background: linear-gradient($light-creme 10%, $light-violet 40%,#C9BAFD);
+    min-height: 100vh;
+}
+.reflection{
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+}
+.reflectionCard{
+    background-image: url('../assets/background.png');
+    height: auto;
+    padding-top: 100px;
+}
+.h2-refelxion{
+    margin-top: 10%;
+    margin-inline: 20%;
+    margin-bottom: 0;
+    padding: 3% 20px 20px;
+    text-align: center;
+    background-color: $light-grey;
+    color: $dark-violet;
+    align-content: center;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+
+}
+.moodDiv{
+    display: flex;
+    padding: 50px;
+    margin-inline: 20%;
+    align-items: center;
+    justify-content: center;
+    background-color: $light-grey;
+}
+.moodButton{
+    margin: 15px;
+    width: 100px;
+    height: 50px;
+    background-color: $light-violet;
+    color: black;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+.moodButtonImg {
+    width: 100%;
+    height: auto;
+    display: block;
+    padding: 10%;
+}
+.previousButtonDiv{
+    padding: 50px;
+    margin-inline: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $light-grey;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+.yesNoDiv{
+    margin-inline: 20%;
+    margin-bottom: 2rem;
+    background-color: $light-grey;
+    color: $dark-violet;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    padding-block: 3%;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+.yesNoButton{
+    display: inline;
+    align-content: center;
+}
+.inputText{
+    border-radius: 5px;
+    border-color: $light-violet;
+    width: 60%;
+    height: 150px;
+    background-color: $light-grey;
+    padding: 15px;
+    margin: 15px;
+    color: $dark-violet;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.inputText:focus {
+    background-color: white;
+    color: $dark-violet;
+}
+
+.reflextionEntry{
+    display: block;
+    align-items: center;
+    justify-content: center;
+    padding-block: 3%;
+    //background: linear-gradient($light-creme 10%, $light-violet 40%,#C9BAFD);
+}
+
+.singleEntry{
+    background-color: $light-grey;
+    color: $dark-violet;
+    padding: 2%;margin-bottom: 30px;
+    border-radius: 15px;
+}
+.circleDiv{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.circle{
+    width: 100%;
+    height: 100%;
+    background-color: $dark-violet;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.circle img {
+    width: 150%;
+    height: auto;
+    border-radius: 50%;
+}
+.moodText{
+    text-align: center;
+}
+.buttonScrollToTop {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: transparent;
+    color: #ffffff;
+    transform: scale(2.5);
+    cursor: pointer;
+}
+.datum{
+    display: flex;
+    justify-content: center;
+    color: $violet;
+}
+.datumTime{
+    display: flex;
+    justify-content: right;
+}
+.eintrag{
+    padding: 15px;
+    padding-inline: 30px;
+    margin-block: 15px;
+    border-radius: 15px;
+}
+.buttonScrollToTop:hover{
+    border: none transparent;
+    color: #8140a7;
+}
+.bunnyImageDiv {
+    display: flex;
+    justify-content: center;
+    padding-top: 30px;
+}
+
+.textInspoDiv {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+.textInspo{
+    font-size: 50px;
+    font-weight: bolder;
+}

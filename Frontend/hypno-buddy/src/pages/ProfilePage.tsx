@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { FlashContext } from "../contexts/FlashContext.tsx";
 import { useNavigate } from "react-router-dom";
-import '../styles/Profil.css';
+import '../styles/Profile.scss';
 import SubmitButton from "../components/SubmitButton.tsx";
 import { Form, FormControl, Button, Row, Col } from 'react-bootstrap';
 
@@ -126,8 +126,6 @@ function ProfilePage() {
                             {data.user.role === 'therapist' && (
                                 <>
                                     <p><strong className="textProfil">Code zur Weitergabe an Patienten:</strong> {data.user.patientLinkingCode}</p>
-
-                                    <Button onClick={getPatients} className="p-1 m-2">Siehe verlinkte Patienten</Button>
                                 </>
                             )}
                             <br />

@@ -101,30 +101,27 @@ const promptDelete = (id: string) => {
 
   return (
     <div className="reflectionDiv">
-      <div className="reflectionCard">
-        <h2 className="h2-refelxion">Deine Einträge</h2>
+      <div className="reflextionEntry">
+        <h2 className="h2-refelxion"><b>Deine Einträge</b></h2>
         <div className="yesNoDiv">
           <CustomButton
               buttonText="Neuer Eintrag"
-              backgroundColor="#4F45DA"
-              hoverColor="#56c8c9"
-              borderColor="#4F45DA"
-              borderHoverColor="#56c8c9"
+              backgroundColor="#3e368d"
+              hoverColor="#ff6641"
+              borderColor="#3e368d"
+              borderHoverColor="#ff6641"
               handleClick={() => {navigate('/reflexion-add')
               }}
           />
           <CustomButton
               buttonText= {isDeleteMode ? 'Zurück' : 'Löschen'}
-              backgroundColor="#958ae8"
-              hoverColor="#56c8c9"
-              borderColor="#958ae8"
-              borderHoverColor="#56c8c9"
+              backgroundColor="#9999ff"
+              hoverColor="#ff6641"
+              borderColor="#9999ff"
+              borderHoverColor="#ff6641"
               handleClick = {cancelButton}
           ></CustomButton>
         </div>
-      </div>
-
-      <div className="reflextionEntry">
         <div style={{marginInline:'20%'}}>
           {reflexions.map((reflexion, index, array) => {
             const currentDate = new Date(reflexion.date).toLocaleDateString();
@@ -144,28 +141,28 @@ const promptDelete = (id: string) => {
                       </p>
                       {isDeleteMode &&   <CustomButton
                           buttonText= "Löschen"
-                          backgroundColor="#958ae8"
-                          hoverColor="#56c8c9"
-                          borderColor="#958ae8"
-                          borderHoverColor="#56c8c9"
+                          backgroundColor="#ff6641"
+                          hoverColor="#9999ff"
+                          borderColor="#ff6641"
+                          borderHoverColor="#9999ff"
                           handleClick = {() => promptDelete(reflexion._id)}/>}
                       {showDeleteModal && selectedReflexionId === reflexion._id && (
                       <div>
                         <p>Bist du dir sicher, den Beitrag zu löschen?</p>
                           <CustomButton
                               buttonText= "Ja"
-                              backgroundColor="#958ae8"
-                              hoverColor="#56c8c9"
-                              borderColor="#958ae8"
-                              borderHoverColor="#56c8c9"
+                              backgroundColor="#ff6641"
+                              hoverColor="#9999ff"
+                              borderColor="#ff6641"
+                              borderHoverColor="#9999ff"
                               handleClick = {confirmDelete}
                           />
                           <CustomButton
                               buttonText= "Nein"
-                              backgroundColor="#958ae8"
-                              hoverColor="#56c8c9"
-                              borderColor="#958ae8"
-                              borderHoverColor="#56c8c9"
+                              backgroundColor="#9999ff"
+                              hoverColor="#8140a7"
+                              borderColor="#9999ff"
+                              borderHoverColor="#8140a7"
                               handleClick = {cancelDelete}/>
                         </div>
                       )}
@@ -184,28 +181,28 @@ const promptDelete = (id: string) => {
                     </p>
                     {isDeleteMode &&   <CustomButton
                         buttonText= "Löschen"
-                        backgroundColor="#958ae8"
-                        hoverColor="#56c8c9"
-                        borderColor="#958ae8"
-                        borderHoverColor="#56c8c9"
+                        backgroundColor="#ff6641"
+                        hoverColor="#9999ff"
+                        borderColor="#ff6641"
+                        borderHoverColor="#9999ff"
                         handleClick = {() => promptDelete(reflexion._id)}/>}
                     {showDeleteModal && selectedReflexionId === reflexion._id && (
                         <div>
                           <p>Bist du dir sicher, den Beitrag zu löschen?</p>
                           <CustomButton
                               buttonText= "Ja"
-                              backgroundColor="#958ae8"
-                              hoverColor="#56c8c9"
-                              borderColor="#958ae8"
-                              borderHoverColor="#56c8c9"
+                              backgroundColor="#ff6641"
+                              hoverColor="#9999ff"
+                              borderColor="#ff6641"
+                              borderHoverColor="#9999ff"
                               handleClick = {confirmDelete}
                           />
                           <CustomButton
                               buttonText= "Nein"
-                              backgroundColor="#958ae8"
-                              hoverColor="#56c8c9"
-                              borderColor="#958ae8"
-                              borderHoverColor="#56c8c9"
+                              backgroundColor="#9999ff"
+                              hoverColor="#8140a7"
+                              borderColor="#9999ff"
+                              borderHoverColor="#8140a7"
                               handleClick = {cancelDelete}/>
                         </div>
                     )}

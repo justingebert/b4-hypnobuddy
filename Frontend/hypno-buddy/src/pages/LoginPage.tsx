@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import RegisterForm from './RegisterPage';
 import styled from 'styled-components';
 import { Container, Row, Col } from 'react-bootstrap';
-import '../styles/LoginSignin.css';
+import '../styles/LoginSignin.scss';
 
 const WelcomeHeading = styled.div`
     color: #f4e7e8;
@@ -85,12 +85,12 @@ const LoginPage = () => {
     return (
         <div className="loginPage">
             <div className="background-login-image">
-                <WelcomeHeading className="display-1">Willkommen</WelcomeHeading>
-                <div className="position-absolute top-0 start-0 end-0 bottom-0 d-flex flex-column justify-content-center align-items-center">
+
+                <div className="centered-container">
                     <div className="c_dark" style={{ flexDirection: 'column' }}>
                         {isLogin ? (
                             <div>
-                                <h1>Login</h1>
+                                <h1><b>Login</b></h1>
                                 <AuthForm onSubmit={handleLoginFromSubmit} isLogin />
                             </div>
                         ) : (

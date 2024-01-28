@@ -3,8 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import LogoutButton from './LogoutButton';
 import LoginButton from './LoginButton.tsx';
 import Logo from '../assets/hb.svg';
-import styles from '../styles/Navbar.module.css';
-import { useAuth } from "../contexts/AuthContext.tsx";
+import styles from '../styles/Navbar.module.scss';
+import { useAuth } from '../contexts/AuthContext.tsx';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -63,18 +63,18 @@ const NavbarComponent = () => {
                         {isAuthenticated && user ? (
                             <Nav>
                                 {user.role === 'therapist' ? (
-                                    <Nav.Link href="/dosanddonts/t"  className="nav-link active" aria-current="page">
-                                        Dos&Donts
+                                    <Nav.Link href="/dosanddonts/t" className="nav-link active" aria-current="page">
+                                        Dos & Don'ts
                                     </Nav.Link>
                                 ) : (
-                                    <Nav.Link href="/dosanddonts/p"  className="nav-link active" aria-current="page">
-                                        Dos&Donts
+                                    <Nav.Link href="/dosanddonts/p" className="nav-link active" aria-current="page">
+                                        Dos & Don'ts
                                     </Nav.Link>
                                 )}
                                 <Nav.Link href="/roadmap" className="nav-link active" aria-current="page">
                                     Roadmap
                                 </Nav.Link>
-                                <Nav.Link href="/reflexion-add"className="nav-link active" aria-current="page">
+                                <Nav.Link href="/reflexion-add" className="nav-link active" aria-current="page">
                                     Reflexion
                                 </Nav.Link>
                             </Nav>
@@ -91,7 +91,7 @@ const NavbarComponent = () => {
                                             <Navbar.Text>
                                                 Eingeloggt:
                                             </Navbar.Text>
-                                            {" " + user.name.first + " " + user.name.last}
+                                            <b>{" " + user.name.first + " " + user.name.last}</b>
                                         </div>
                                     </Nav.Link>
                                     <LogoutButton onLogout={handleLogoutClick} />

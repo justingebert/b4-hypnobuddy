@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styles from '../styles/TherapistCard.module.css';
+import styles from '../styles/TherapistCard.module.scss';
 import {ListGroup } from 'react-bootstrap';
 import {useAuth} from "../contexts/AuthContext.tsx";
 import {User} from "../types/User.ts";
@@ -18,7 +18,7 @@ function PatientList() {
     return(
         <>
             <div className={"listContainer w-25"}>
-                <div className={"listTitle"}><h2>Patienten</h2></div>
+                <div className={"listTitle"}><h2>PatientInnen</h2></div>
                 <div className={"patientSearchInput"}>
                     <input
                         type="text"
@@ -34,7 +34,7 @@ function PatientList() {
                         {filteredPatients.map((patient, index) => (
                             <ListGroup.Item key={patient._id}>
                                 {patient._id === selectedPatient?._id ? (
-                                    <button className={"btn btn-outline-primary w-100"} onClick={() => selectPatient(patient)}>
+                                    <button className={`btn ${styles['custom-border-color']} w-100`} onClick={() => selectPatient(patient)}>
                                         {patient.name.first} {patient.name.last}
                                     </button>
                                 ) : (
