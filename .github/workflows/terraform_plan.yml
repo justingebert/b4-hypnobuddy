@@ -23,6 +23,8 @@ jobs:
       - name: 'Terraform Plan'
         run: terraform plan -no-color | tee plan_output.txt
         working-directory: ./Backend/terraform
+        env:
+          TF_VAR_gcp_credentials: ${{ secrets.GCP_CREDENTIALS_JSON }}
 
       - name: Comment Terraform Plan on PR
         uses: blinqas/tf-plan-pr-comment@v1.1.0
