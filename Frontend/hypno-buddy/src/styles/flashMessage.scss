@@ -1,0 +1,10 @@
+@import 'colors';
+.flashMessage {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  margin-top: 5%; /* Adjust the margin based on your navbar height */
+  margin-bottom: 0 !important;
+  z-index: 10;
+}
