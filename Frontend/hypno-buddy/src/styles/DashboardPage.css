@@ -7,15 +7,14 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    height: 100vh;
     overflow-x: hidden;
+    padding: 50px;
 }
-.dashboard-content{
-    padding-top: 50px;
+.dashboard-content-not-auth{
     text-align: center;
 }
 
-.titel{
+.dashboard-content-not-auth .titel{
     padding: 30px;
     text-transform: uppercase;
     color: #f7e6e8;
@@ -25,10 +24,10 @@
     padding-left: 15%;
 }
 
-.text{
+.dashboard-content-not-auth .text{
     color: #4F45DA;
     text-align: center;
-    font: 400 30px/33px Inter, sans-serif;
+    font: 300 30px/30px Inter, sans-serif;
     padding-bottom: 15px;
 }
 
@@ -45,6 +44,62 @@
     --bs-btn-hover-bg: #56c8c9;
     border: none;
 }
+
+
+
+.dashboard-content-auth{
+    padding-top: 100px;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+/*Patient List*/
+.listContainer{
+    background: rgba(159, 128, 236, 0.82);
+    border-radius: 20px;
+    padding: 20px;
+    min-width: 250px;
+}
+.listContainer .listTitle h2 {
+    color: white;
+    font: 600 30px/30px Inter, sans-serif;
+}
+.patientSearchInput input{
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+
+/*Feature Buttons*/
+.featureButtons{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 50px;
+    width: 70%;
+}
+.featureButtons .button{
+    margin-bottom: 20px;
+    height: 100px;
+    font: 600 30px/30px Inter, sans-serif;
+    border-radius: 20px;
+    border: none;
+    background: #4F45DA;
+    color: white;
+}
+.featureButtons .button:hover{
+    box-shadow: 0 3px 10px rgba(79, 79, 79, 0.89);
+}
+
+.icon{
+    color: #56c8c9;
+}
+
+
+
+/*CardCarousel*/
 .CardCarousel{
     background: #f7e6e8;
     height: 40vw;
@@ -81,4 +136,17 @@
     background-repeat: no-repeat;
     background-position: right;
     background-size: contain;
+}
+
+/*Mobile Version*/
+@media screen and (max-width: 800px) {
+    .dashboard-content-auth{
+        flex-direction: column;
+    }
+    .featureButtons{
+        width: 100%;
+    }
+    .listContainer{
+        min-width: 100%;
+    }
 }

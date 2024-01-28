@@ -1,7 +1,7 @@
-import express from 'express';
+import { Router } from 'express';
 import * as ReflexionController from '../controllers/reflexionController';
 
-const reflexionRouter = express.Router();
+const reflexionRouter = Router();
 
 reflexionRouter.post('/create', ReflexionController.createReflexion);
 reflexionRouter.get('/getAll', ReflexionController.getReflexions);

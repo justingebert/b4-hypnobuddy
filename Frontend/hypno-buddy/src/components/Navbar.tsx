@@ -4,7 +4,7 @@ import LogoutButton from './LogoutButton';
 import LoginButton from './LoginButton.tsx';
 import Logo from '../assets/hb.svg';
 import styles from '../styles/Navbar.module.css';
-import { useAuth } from '../contexts/AuthContext.tsx';
+import { useAuth } from "../contexts/AuthContext.tsx";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -15,7 +15,7 @@ const NavbarComponent = () => {
     const navigate = useNavigate();
     const handleLogoutClick = async () => {
         await handleLogout();
-        navigate('/');
+        navigate("/");
     };
 
     const [prevScrollPos, setPrevScrollPos] = useState(0);
@@ -82,6 +82,7 @@ const NavbarComponent = () => {
                         ) : null}
                     </Nav>
                     <Nav>
+                        //TODO What is #deets?
                         <Nav.Link href="#deets" className="d-flex">
                             {isAuthenticated && user ? (
                                 <>
