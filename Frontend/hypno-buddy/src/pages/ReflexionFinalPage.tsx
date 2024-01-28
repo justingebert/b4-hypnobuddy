@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import CustomButton from "../components/CustomButton.tsx";
 import topBunnyImage from "../assets/topBunny.png";
+import bunny from "../assets/bunny.png";
 
 const ReflexionFinalPage: React.FC = () => {
   const navigate = useNavigate();
@@ -18,21 +19,23 @@ const ReflexionFinalPage: React.FC = () => {
                 </div>
                 <CustomButton
                     buttonText="Neuer Eintrag"
-                    backgroundColor="#4F45DA"
-                    hoverColor="#56c8c9"
-                    borderColor="#4F45DA"
-                    borderHoverColor="#56c8c9"
+                    backgroundColor="#3e368d"
+                    hoverColor="#9999ff"
+                    borderColor="#3e368d"
+                    borderHoverColor="#9999ff"
                     handleClick= {() => navigate('/reflexion-add')}
                 />
                 <CustomButton
                     buttonText="Frühere Einträge"
-                    backgroundColor="#4F45DA"
-                    hoverColor="#56c8c9"
-                    borderColor="#4F45DA"
-                    borderHoverColor="#56c8c9"
+                    backgroundColor="#3e368d"
+                    hoverColor="#9999ff"
+                    borderColor="#3e368d"
+                    borderHoverColor="#9999ff"
                     handleClick= {() => navigate('/previous-reflexions')}
                 />
             </div>
+            <img src={bunny} className="bunnyImage" alt="bunny"/>
+
         </div>
     </div>
   );
