@@ -15,14 +15,15 @@ function CardCarousel() {
     const itemStyle = {
         width: '100%',
         height: '100%',
-        background: 'radial-gradient(circle at bottom, #ff6641,#f2e1ec ,#f2e1ec,#9999ff)',
+        //background: 'radial-gradient(circle at bottom, #ff6641,#f2e1ec ,#f2e1ec,#9999ff)',
+        background: 'rgba(237, 237, 237, 0.5)',
         display: 'flex',
         flexDirection: 'column' as 'column',
         justifyContent: 'center',
         alignItems: 'center',
         padding: '10px',
         borderRadius: '30px',
-        boxShadow: '0 8px 16px rgba(62, 54, 141, 1)'
+        boxShadow: '0 8px 16px rgba(62, 54, 141, 1)',
     };
 
     const carouselItems = [
@@ -50,9 +51,9 @@ function CardCarousel() {
                 {carouselItems.map((item, idx) => (
                     <Carousel.Item key={idx} className="carouselItem">
                         <div style={{ ...itemStyle, width: '40vw', height: '400px', marginBottom:'80px', padding: '40px', margin:'5vw'}} >
-                            <h2 style={{color:'#3e368d', textAlign:'center', paddingBottom:'60px'}}>{item.title}</h2>
+                            <h2 style={{color:'#3e368d', textAlign:'center', paddingBottom:'60px', fontSize: '2rem'}}>{item.title}</h2>
 
-                            <p style={{color:'#3e368d', textAlign:'center', width:'28vw'}}>{item.text}</p>
+                            <p style={{color:'#3e368d', textAlign:'center', width:'28vw', fontSize: '1.5rem'}}>{item.text}</p>
                         </div>
 
                     </Carousel.Item>

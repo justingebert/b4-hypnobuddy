@@ -38,11 +38,12 @@
 }
 
 .text {
-    color: $light-creme;
+    color: $white;
     text-align: center;
-    font-size: 1.5rem;
-    font-style: normal;
+    font-size: 32px;
     font-weight: 400;
+    font-family: Inter, sans-serif;
+    font-style: normal;
     line-height: normal;
     padding: 5%;
     margin-inline: 15%;
@@ -99,12 +100,12 @@
 
 .inDos{
     background: url("../assets/bunny_dont.png") center $light-grey no-repeat;
-    background-size: 150%;
+    background-size: 100%;
     transform: translateX(100%);
 }
 .inDonts{
     background: url("../assets/bunny_do.png") center $light-grey no-repeat;
-    background-size: 160%;
+    background-size: 100%;
     transform: translateX(0);
 
 }
