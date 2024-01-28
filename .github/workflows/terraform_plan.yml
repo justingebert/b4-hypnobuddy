@@ -27,7 +27,7 @@ jobs:
           TF_VAR_gcp_credentials: ${{ secrets.GCP_CREDENTIALS_JSON }}
 
       - name: 'List files in Terraform directory'
-        run: ls -l ./Backend/terraform
+        run: ls -l
         working-directory: ./Backend/terraform
 
       - name: Comment Terraform Plan on PR
