@@ -45,7 +45,8 @@ const DosAndDontsPatientPage = () => {
 
             <div className={styles.container}>
                 <div className={`${styles.rectangle} ${isInDos ? styles.inDonts : styles.inDos}`}
-                     onClick={handleSliderClick}></div>
+                     onClick={handleSliderClick}
+                     data-testid="slider-rectangle"></div>
                 <div className={styles.column} id="donts">
                     <ul>
                         {dosAndDonts

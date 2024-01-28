@@ -1,5 +1,5 @@
 describe('DosAndDontsPatientPage Slider', () => {
-    it('toggles between dos and donts', () => {
+    beforeEach(() => {
       cy.visit('http://localhost:5173/login'); 
 
       cy.get('input[name="email"]').type('johndoe@example.com');
@@ -10,6 +10,13 @@ describe('DosAndDontsPatientPage Slider', () => {
       cy.wait(500);
 
       cy.visit('http://localhost:5173/dosanddonts/p');
+    });
+    afterEach(() => {
+      cy.clearCookies();
+      cy.clearLocalStorage();
+      cy.contains('Logout').click();
+    });
+    it('toggles between dos and donts', () => {
   
       cy.get('#dos').should('be.visible');
       //cy.get('#donts').should('not.be.visible');
