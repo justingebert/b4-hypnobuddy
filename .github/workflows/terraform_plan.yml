@@ -29,7 +29,7 @@ jobs:
       - name: Comment Terraform Plan on PR
         uses: blinqas/tf-plan-pr-comment@v1.1.0
         with:
-          output_file: 'plan_output.txt'
+          output_file: './Backend/terraform/plan_output.txt'
           headline: '### Terraform Plan Output'
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
