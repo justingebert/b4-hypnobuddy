@@ -8,15 +8,17 @@ import notSoGoodImage from '../assets/schlecht.png';
 import badImage from '../assets/Sehr schlecht.png';
 import CustomButton from "../components/CustomButton.tsx";
 import bunny from "../assets/bunny.png";
+
 const AddingReflexionPage: React.FC = () => {
   const navigate = useNavigate();
   const [hoveredButton, setHoveredButton] = useState<string | null>(null);
 
   const handleMoodClick = async (selectedMood: string) => {
     try {
-      const response = await fetch('http://localhost:3000/reflexion/reflexions', {
+      const response = await fetch('http://localhost:3000/reflexion/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ mood: selectedMood })
       });
       const data = await response.json();

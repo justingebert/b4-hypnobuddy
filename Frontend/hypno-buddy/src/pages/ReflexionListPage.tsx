@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from "../contexts/AuthContext";
 import CustomButton from "../components/CustomButton.tsx";
 import { BsArrowUpCircleFill } from "react-icons/bs";
 
@@ -13,6 +14,7 @@ interface Reflexion {
 }
 
 const ReflexionList: React.FC = () => {
+  const { user } = useAuth();
   const [reflexions, setReflexions] = useState<Reflexion[]>([]);
   const [isDeleteMode, setIsDeleteMode] = useState<boolean>(false);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
@@ -21,22 +23,32 @@ const ReflexionList: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchReflexions();
-  }, []);
-
-  const fetchReflexions = async () => {
-    try {
-      const response = await fetch('http://localhost:3000/reflexion/reflexions');
-      const data = await response.json();
-      setReflexions(data);
-    } catch (error) {
-      console.error('Error fetching reflexions:', error);
+    const fetchReflexions = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/reflexion/getAll', {
+          credentials: 'include'
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setReflexions(data);
+        } else {
+          console.error('Failed to fetch reflexions:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error fetching reflexions:', error);
+      }
+    };
+    if (user) {
+      fetchReflexions();
     }
-  };
+  }, [user]);
 
   const handleDelete = async (id: string) => {
     try {
-      await fetch(`http://localhost:3000/reflexion/reflexions/${id}`, { method: 'DELETE' });
+        await fetch(`http://localhost:3000/reflexion/delete/${id}`, { 
+        method: 'DELETE',
+        credentials: 'include' 
+      });
       setReflexions(reflexions.filter(reflexion => reflexion._id !== id));
       setShowDeleteModal(false);
       setSelectedReflexionId(null);

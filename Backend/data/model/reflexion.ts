@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 interface IReflexion {
+  user: mongoose.Schema.Types.ObjectId;
   mood: string;
   description?: string;
   deepDiveQuestion?: string;
@@ -9,6 +10,7 @@ interface IReflexion {
 }
 
 const ReflexionSchema = new mongoose.Schema<IReflexion>({
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   mood: { type: String, required: true },
   description: { type: String, required: false },
   deepDiveQuestion: { type: String, required: false },
