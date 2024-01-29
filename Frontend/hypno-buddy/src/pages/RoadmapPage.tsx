@@ -56,9 +56,9 @@ const handleComment = async (comment: string, isPrivate: boolean, goalID: string
     if (isLoading) return <div>Loading...</div>;
 
     return (
-        <>
+        <div className={styles.roadmap}>
             <div className="container mt-3">
-                <h1 className="text-center mb-4">Roadmap</h1>
+                <h1 className={styles.header}>Roadmap</h1>
                 <h4 className="text-center mb-4">{selectedPatient?.name.first} {selectedPatient?.name.last}</h4>
                 {/*<div className={`${styles.timeline} d-flex flex-column align-items-start`}>*/}
                 <div className={`${styles.timeline}`}>
@@ -100,7 +100,7 @@ const handleComment = async (comment: string, isPrivate: boolean, goalID: string
                 </div>
 
             </div>
-        </>
+        </div>
     );
 }
 
