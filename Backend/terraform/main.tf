@@ -9,12 +9,11 @@ terraform {
       version = "5.12.0"
     }
   }
-  backend "remote" {
-    hostname     = "app.terraform.io"
-    organization = "<Your_Terraform_Cloud_Organization>"
+  cloud {
+    organization = "hypnobuddy"
 
     workspaces {
-      name = "<Your_Terraform_Cloud_Workspace>"
+      name = "hypnobuddy"
     }
   }
 }
