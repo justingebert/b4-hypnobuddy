@@ -21,6 +21,8 @@ RUN npm install --only=production
 
 COPY --from=build /usr/src/app/dist ./dist
 
+ENV NODE_ENV=production
+
 EXPOSE 8080
 
 CMD ["node", "dist/server.js"]

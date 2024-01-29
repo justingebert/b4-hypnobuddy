@@ -250,4 +250,6 @@ export const  useAuth = () => {
     return context;
 
 }
-export const url = 'https://hypnobuddy-backend-eoh6trr5sq-ew.a.run.app';
+
+
+const url = import.meta.env.BACKEND_URL || 'http://localhost:8080';

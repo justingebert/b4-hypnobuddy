@@ -16,7 +16,10 @@ jobs:
 
       - name: Install dependencies and build
         run: npm i && npm run buildnocheck
+        env:
+          BACKEND_URL: ${{ secrets.BACKEND_URL }}
         working-directory: ./Frontend/hypno-buddy
+
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
