@@ -22,3 +22,5 @@ jobs:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_HYPNOBUDDY_810A4 }}'
           projectId: hypnobuddy-810a4
+          channelId: pr-${{ github.event.pull_request.number }}
+          entrypoint: ./Frontend/hypno-buddy/
