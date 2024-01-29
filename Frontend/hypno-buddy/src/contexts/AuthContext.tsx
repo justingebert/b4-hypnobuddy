@@ -53,7 +53,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
 
     const fetchPatients = async () => {
         try {
-            const response = await fetch('http://localhost:3000/user/profile/patients', {
+            const response = await fetch(url +'/user/profile/patients', {
                 method: 'GET',
                 credentials: 'include',
             });
@@ -94,7 +94,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
 
     const fetchTherapist = async () => {
         try {
-            const response = await fetch('http://localhost:3000/user/therapistOfPatient', {
+            const response = await fetch(url+ '/user/therapistOfPatient', {
                 method: 'GET',
                 credentials: 'include',
             });

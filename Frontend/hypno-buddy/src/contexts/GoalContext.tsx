@@ -89,7 +89,7 @@ export const GoalsProvider: React.FC = ({ children }) => {
             let response: Response;
             if (selectedPatientID) {
                 //therapist gets patients goals
-                response = await fetch(`http://localhost:3000/goal/ofPatient/${selectedPatientID}`, {
+                response = await fetch(url +`/goal/ofPatient/${selectedPatientID}`, {
                     method: "GET",
                     headers: {
                         'Content-Type': 'application/json',
@@ -98,7 +98,7 @@ export const GoalsProvider: React.FC = ({ children }) => {
                 });
             }else{
                 //user gets own goals
-                response = await fetch(`http://localhost:3000/goal/getAll`, {
+                response = await fetch(url+`/goal/getAll`, {
                     method: "GET",
                     headers: {
                         'Content-Type': 'application/json',
@@ -246,7 +246,7 @@ export const GoalsProvider: React.FC = ({ children }) => {
     const saveComment = useCallback(async (commentData:{ comment:string, isPrivate:boolean, goalID:string, userID:string }) => {
         try {
             console.log(commentData)
-            const response = await fetch('http://localhost:3000/goal/saveComment', {
+            const response = await fetch(url+ '/goal/saveComment', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
