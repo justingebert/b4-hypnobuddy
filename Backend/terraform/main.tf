@@ -9,6 +9,13 @@ terraform {
       version = "5.12.0"
     }
   }
+  cloud {
+    organization = "hypnobuddy"
+
+    workspaces {
+      name = "hypnobuddy"
+    }
+  }
 }
 
 #provider "mongodbatlas" {

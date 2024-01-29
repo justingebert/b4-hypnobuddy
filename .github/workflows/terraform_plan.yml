@@ -14,20 +14,34 @@ jobs:
         uses: actions/checkout@v4
 
       - name: 'Setup Terraform'
-        uses: hashicorp/setup-terraform@v1
+        uses: hashicorp/setup-terraform@v3
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
       - name: 'Terraform Init'
         run: terraform init
         working-directory: ./Backend/terraform
 
       - name: 'Terraform Plan'
-        run: terraform plan -no-color | tee plan_output.txt
+        id: plan
+        run: terraform plan -no-color
         working-directory: ./Backend/terraform
-
-      - name: Comment Terraform Plan on PR
-        uses: blinqas/tf-plan-pr-comment@v1.1.0
-        with:
-          output_file: 'plan_output.txt'
-          headline: '### Terraform Plan Output'
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          TF_VAR_gcp_credentials: ${{ secrets.GCP_CREDENTIALS_JSON }}
+          TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
+
+      - name: 'Comment PR with Terraform Plan'
+        uses: actions/github-script@v4
+        if: github.event_name == 'pull_request'
+        with:
+          github-token: ${{ secrets.GH_TOKEN }}
+          script: |
+            const output = `Terraform Plan Output:\n\`\`\`${process.env.PLAN_OUTPUT}\`\`\``;
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
+        env:
+          PLAN_OUTPUT: ${{ steps.plan.outputs.stdout }}
