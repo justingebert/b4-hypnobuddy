@@ -1,45 +1,45 @@
-name: Backend CI
+# name: Backend CI
 
-on:
-  push:
-    branches:
-      - main
-      - docker-images # test
-  pull_request:
-    branches:
-      - main
-      - docker-images # test
+# on:
+#   push:
+#     branches:
+#       - main
+#       - docker-images # test
+#   pull_request:
+#     branches:
+#       - main
+#       - docker-images # test
 
-jobs:
-  build:
+# jobs:
+#   build:
 
-    runs-on: ubuntu-latest
+#     runs-on: ubuntu-latest
 
-    steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
+#     steps:
+#     - name: Checkout Repository
+#       uses: actions/checkout@v2
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 20.9
+#     - name: Setup Node.js
+#       uses: actions/setup-node@v3
+#       with:
+#         node-version: 20.9
 
-    - name: Start MongoDB
-      uses: supercharge/mongodb-github-action@1.10.0
-      with:
-        mongodb-version: 7.0.2
+#     - name: Start MongoDB
+#       uses: supercharge/mongodb-github-action@1.10.0
+#       with:
+#         mongodb-version: 7.0.2
 
-    - name: Install dependencies
-      run: |
-        cd Backend
-        npm ci
+#     - name: Install dependencies
+#       run: |
+#         cd Backend
+#         npm ci
 
-    - name: Build TypeScript
-      run: |
-        cd Backend
-        npm run build
+#     - name: Build TypeScript
+#       run: |
+#         cd Backend
+#         npm run build
 
-    - name: Run Backend Tests
-      run: |
-        cd Backend
-        npm run test
+#     - name: Run Backend Tests
+#       run: |
+#         cd Backend
+#         npm run test
