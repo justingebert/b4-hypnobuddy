@@ -26,7 +26,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser('your_secret_key'));
 
 // Configure session and store in MongoDB
-export const sessionStore = MongoStore.create({ mongoUrl: process.env.MONGO_URL});
+export const sessionStore = MongoStore.create({ mongoUrl: process.env.MONGO_URL || 'mongodb://127.0.0.1:27017/hypnobuddy'});
+
 app.use(session({
     name: 'session',
     secret: 'your_secret_key',

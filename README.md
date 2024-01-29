@@ -13,6 +13,7 @@
     - ```console 
         npm run dev
         ```
+- go into AuthContext.tsx and go to the bottom and change the url to your localhost and your backend port -> **localhost:8080**
 - start Frontend Service:
     - open Terminal
     - ```console 
@@ -32,6 +33,29 @@
 
 # pickung up work again after some time:
 
+
+# available Fonts:
+- Oscine
+- FinalSix
+- Input Serif
+- Bebas Neue SemiRounded
+- Novecento Sans
+## How to use:
+- use vars: type $ -> intellisense will show you the available vars
+- for family use: 
+  - $oscine-family
+  - $finalsix-family
+  - $input-serif-family
+  - $bebas-neue-semirounded-family
+  - $novecento-sans-family
+- for weight use:
+  - $oscine-light-weight
+  - $oscine-regular-weight
+  - $oscine-bold-weight
+  - $finalsix-light-weight
+  - $finalsix-medium-weight
+  - $finalsix-semibold-weight
+  - $finalsix-bold-weight
 
 
 # Hypno-Buddy (In progress)
