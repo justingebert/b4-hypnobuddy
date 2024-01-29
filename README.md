@@ -13,7 +13,6 @@
     - ```console 
         npm run dev
         ```
-- go into AuthContext.tsx and go to the bottom and change the url to your localhost and your backend port -> **localhost:8080**
 - start Frontend Service:
     - open Terminal
     - ```console 
