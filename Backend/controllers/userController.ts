@@ -106,9 +106,6 @@ export function isAuthenticated(req, res, next) {
  *
  */
 export async function create(req, res, next) {
-    if (req.skip) {
-        return next();
-    }
     let newUser = new User(getUserParams(req.body));
     User.register(newUser, req.body.password, (error, user) => {
         if (user) {
@@ -118,7 +115,6 @@ export async function create(req, res, next) {
                 redirect: '/login',
                 message: messages,
             });
-            next();
         } else {
             console.log(error.message)
             const messages = error.message
@@ -127,7 +123,6 @@ export async function create(req, res, next) {
                 redirect: '/register',
                 message: messages,
             });
-            next();
         }
     });
 }

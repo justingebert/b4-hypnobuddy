@@ -1,6 +1,7 @@
 import {createContext, ReactNode, useContext, useEffect, useState} from 'react';
 import { User } from "../types/User.ts";
 import {FlashContext} from "./FlashContext.tsx";
+import {isAuthenticated} from "../../../../Backend/controllers/userController.ts";
 //import {useNavigate} from "react-router-dom";
 
 //this file provides a centralized state management system for
@@ -139,10 +140,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
                 isAuthenticated: data.isAuthenticated,
                 user: data.isAuthenticated ? data.user : null,
             }));
-            if(data.user.role === 'therapist') {
-                fetchPatients();
-            }else{
-                fetchTherapist();
+            if(authState.isAuthenticated) {
+                if(data.user.role === 'therapist') {
+                    fetchPatients();
+                }else{
+                    fetchTherapist();
+                }
             }
         } catch (error) {
             console.error('Error fetching auth status: ', error);
