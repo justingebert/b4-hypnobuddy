@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import CustomButton from "../components/CustomButton.tsx";
 import {url} from "../contexts/AuthContext.tsx";
+import bunny from "../assets/bunny.png";
 
 const ReflexionDescriptionPage: React.FC = () => {
   const { id } = useParams<Record<string, string | undefined>>();
@@ -13,7 +14,9 @@ const ReflexionDescriptionPage: React.FC = () => {
   useEffect(() => {
     const fetchMood = async () => {
       try {
-        const response = await fetch(`url + /reflexion/reflexions/${id}`);
+        const response = await fetch(url + `/reflexion/getById/${id}`, {
+          credentials: 'include'
+        });
         if (!response.ok) {
           throw new Error('Failed to fetch reflexion');
         }
@@ -28,9 +31,10 @@ const ReflexionDescriptionPage: React.FC = () => {
 
   const saveDescription = async () => {
     try {
-      await fetch(url + `/reflexion/reflexions/${id}`, {
+      await fetch(url + `/reflexion/update/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ description })
       });
       navigate(`/reflexion-deep-dive/${id}`);
@@ -50,18 +54,18 @@ const ReflexionDescriptionPage: React.FC = () => {
             <div className="yesNoButton">
               <CustomButton
                   buttonText="Ja"
-                  backgroundColor="#4F45DA"
-                  hoverColor="#56c8c9"
-                  borderColor="#4F45DA"
-                  borderHoverColor="#56c8c9"
+                  backgroundColor="#3e368d"
+                  hoverColor="#ff6641"
+                  borderColor="#3e368d"
+                  borderHoverColor="#ff6641"
                   handleClick= {() => setShowDescriptionField(true)}
               />
               <CustomButton
                   buttonText="Nein"
-                  backgroundColor="#4F45DA"
-                  hoverColor="#56c8c9"
-                  borderColor="#4F45DA"
-                  borderHoverColor="#56c8c9"
+                  backgroundColor="#3e368d"
+                  hoverColor="#ff6641"
+                  borderColor="#3e368d"
+                  borderHoverColor="#ff6641"
                   handleClick= {() => navigate('/reflexion-final')}
               />
             </div>
@@ -76,24 +80,25 @@ const ReflexionDescriptionPage: React.FC = () => {
             <div>
               <CustomButton
                   buttonText="Speichern"
-                  backgroundColor="#4F45DA"
-                  hoverColor="#56c8c9"
-                  borderColor="#4F45DA"
-                  borderHoverColor="#56c8c9"
+                  backgroundColor="#3e368d"
+                  hoverColor="#ff6641"
+                  borderColor="#3e368d"
+                  borderHoverColor="#ff6641"
                   handleClick={saveDescription}
               />
               <CustomButton
                   buttonText="Abbruch"
-                  backgroundColor="#958ae8"
-                  hoverColor="#56c8c9"
-                  borderColor="#958ae8"
-                  borderHoverColor="#56c8c9"
+                  backgroundColor="#9999ff"
+                  hoverColor="#ff6641"
+                  borderColor="#9999ff"
+                  borderHoverColor="#ff6641"
                   handleClick={() => navigate('/reflexion-final')}
               />
             </div>
           </div>
         </>
       )}
+        <img src={bunny} className="bunnyImage" alt="bunny"/>
       </div>
     </div>
   );

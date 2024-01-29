@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import CustomButton from "../components/CustomButton.tsx";
 import {url} from "../contexts/AuthContext.tsx";
+import bunny from "../assets/bunny.png";
 
 const deepDiveQuestions = [
     "Was hat dich heute zum Lächeln gebracht?",
@@ -37,7 +38,7 @@ const deepDiveQuestions = [
     useEffect(() => {
         const fetchReflexion = async () => {
           try {
-            const response = await fetch(url + `/reflexion/reflexions/${id}`);
+            const response = await fetch(url + `/reflexion/getById/${id}`);
             const data = await response.json();
             setMood(data.mood);
           } catch (error) {
@@ -62,9 +63,10 @@ const deepDiveQuestions = [
 
   const handleSaveDeepDive = async () => {
     try {
-      await fetch(url + `/reflexion/reflexions/${id}`, {
+      await fetch(url + `/reflexion/update/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ deepDiveQuestion, deepDiveAnswer })
       });
       navigate('/reflexion-final');
@@ -76,69 +78,70 @@ const deepDiveQuestions = [
   return (
     <div className="reflectionDiv">
         <div className="reflectionCard">
-      <h2 className="h2-refelxion">Wie du dich fühlst: {mood}</h2>
-      {!showDeepDive && (
-        <>
-            <div className="yesNoDiv">
-                <h3>Magst du deine Gefühle mehr vertiefen und verstehen?</h3>
-                <div>
-                    <CustomButton
-                        buttonText="Ja"
-                        backgroundColor="#4F45DA"
-                        hoverColor="#56c8c9"
-                        borderColor="#4F45DA"
-                        borderHoverColor="#56c8c9"
-                        handleClick= {() => handleContinueReflection(true)}
+          <h2 className="h2-refelxion">Wie du dich fühlst: {mood}</h2>
+          {!showDeepDive && (
+            <>
+                <div className="yesNoDiv">
+                    <h3>Magst du deine Gefühle mehr vertiefen und verstehen?</h3>
+                    <div>
+                        <CustomButton
+                            buttonText="Ja"
+                            backgroundColor="#3e368d"
+                            hoverColor="#ff6641"
+                            borderColor="#3e368d"
+                            borderHoverColor="#ff6641"
+                            handleClick= {() => handleContinueReflection(true)}
 
-                    />
-                    <CustomButton
-                        buttonText="Nein"
-                        backgroundColor="#4F45DA"
-                        hoverColor="#56c8c9"
-                        borderColor="#4F45DA"
-                        borderHoverColor="#56c8c9"
-                        handleClick= {() => handleContinueReflection(false)}
+                        />
+                        <CustomButton
+                            buttonText="Nein"
+                            backgroundColor="#3e368d"
+                            hoverColor="#ff6641"
+                            borderColor="#3e368d"
+                            borderHoverColor="#ff6641"
+                            handleClick= {() => handleContinueReflection(false)}
 
-                    />
+                        />
+                    </div>
                 </div>
-            </div>
-        </>
-      )}
-      {showDeepDive && (
-        <>
-            <div className="yesNoDiv">
-                <p>{deepDiveQuestion}</p>
-                <CustomButton
-                    buttonText="Andere Frage"
-                    backgroundColor="#4F45DA"
-                    hoverColor="#56c8c9"
-                    borderColor="#4F45DA"
-                    borderHoverColor="#56c8c9"
-                    handleClick= {() => setDeepDiveQuestion(getRandomQuestion())}
-                />
-                <textarea value={deepDiveAnswer} onChange={(e) => setDeepDiveAnswer(e.target.value)}
-                          className="inputText"/>
-                <div>
+            </>
+          )}
+          {showDeepDive && (
+            <>
+                <div className="yesNoDiv">
+                    <p>{deepDiveQuestion}</p>
                     <CustomButton
-                        buttonText="Speichern"
-                        backgroundColor="#4F45DA"
-                        hoverColor="#56c8c9"
-                        borderColor="#4F45DA"
-                        borderHoverColor="#56c8c9"
-                        handleClick= {handleSaveDeepDive}
+                        buttonText="Andere Frage"
+                        backgroundColor="#3e368d"
+                        hoverColor="#ff6641"
+                        borderColor="#3e368d"
+                        borderHoverColor="#ff6641"
+                        handleClick= {() => setDeepDiveQuestion(getRandomQuestion())}
                     />
-                    <CustomButton
-                        buttonText="Abbruch"
-                        backgroundColor="#958ae8"
-                        hoverColor="#56c8c9"
-                        borderColor="#958ae8"
-                        borderHoverColor="#56c8c9"
-                        handleClick={() => navigate('/reflexion-final')}
-                    />
+                    <textarea value={deepDiveAnswer} onChange={(e) => setDeepDiveAnswer(e.target.value)}
+                              className="inputText"/>
+                    <div>
+                        <CustomButton
+                            buttonText="Speichern"
+                            backgroundColor="#3e368d"
+                            hoverColor="#ff6641"
+                            borderColor="#3e368d"
+                            borderHoverColor="#ff6641"
+                            handleClick= {handleSaveDeepDive}
+                        />
+                        <CustomButton
+                            buttonText="Abbruch"
+                            backgroundColor="#ff6641"
+                            hoverColor="#3e368d"
+                            borderColor="#ff6641"
+                            borderHoverColor="#3e368d"
+                            handleClick={() => navigate('/reflexion-final')}
+                        />
+                    </div>
                 </div>
-            </div>
-        </>
-      )}
+            </>
+          )}
+            <img src={bunny} className="bunnyImage" alt="bunny"/>
         </div>
     </div>
   );

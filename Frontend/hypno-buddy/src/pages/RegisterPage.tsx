@@ -6,7 +6,7 @@ import {url, useAuth} from '../contexts/AuthContext.tsx';
 //import Lottie, { AnimationConfigWithData } from 'lottie-web';
 //import LoginAnimation from '../assets/LoginAnimation.json';
 import styled from 'styled-components';
-import '../styles/LoginSignin.css';
+import '../styles/LoginSignin.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const WelcomeHeading = styled.div`
@@ -74,12 +74,11 @@ const RegisterPage = () => {
     return (
         <div className="loginPage">
             <div className="background-login-image">
-            <WelcomeHeading className="display-1">Willkommen</WelcomeHeading>
             <div className="position-absolute top-0 start-0 end-0 bottom-0 d-flex flex-column justify-content-center align-items-center">
                 <div className="c_dark" style={{ flexDirection: 'column' }}>
                     {isLogin ? (
                         <div>
-                            <h1>Register</h1>
+                            <h1><b>Register</b></h1>
                             <AuthForm onSubmit={handleRegister} />
                         </div>
                     ) : (
@@ -87,7 +86,7 @@ const RegisterPage = () => {
                     )}
                     {isLogin ? (
                         <p className="mt-3">
-                            Du hast bereits einen Account? <Link to="/login" className="link" onClick={toggleForm}>Login hier.</Link>
+                            Du hast bereits einen Account? <Link to="/login" className="link" onClick={toggleForm}><b>Login</b></Link>
                         </p>
                     ) : (
                         <p className="mt-3">

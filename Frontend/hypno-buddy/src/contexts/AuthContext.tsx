@@ -13,6 +13,11 @@ interface AuthContextProps {
     checkLogin: () => Promise<void>;
     handleLogout: () => Promise<void>;
     handleLogin: (email: string, password: string)=> Promise<{ success: boolean; redirect: any; }>;
+    patients: User[];
+    fetchPatients: () => Promise<void>;
+    selectedPatient: User | null;
+    selectPatient: (user: User) => void;
+    therapistOfPatient: {_id: string; name:{first: string, last:string}}|null;
 }
 
 //createContext() returns provider and consumer
@@ -37,11 +42,84 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
     });
     const {flash } = useContext(FlashContext);
 
+    const [therapistState, setTherapistState] = useState({
+        patients: [] as User[],
+        selectedPatient: null as User | null
+    });
+
+    const [therapistOfPatient, setTherapistOfPatient] = useState<{_id: string; name:{first: string, last:string}}|null>(null);
+
+
+
+    const fetchPatients = async () => {
+        try {
+            const response = await fetch('http://localhost:3000/user/profile/patients', {
+                method: 'GET',
+                credentials: 'include',
+            });
+
+            if (response.ok) {
+                const responseData = await response.json();
+                setTherapistState(prevState => ({
+                    ...prevState,
+                    patients: responseData.patients,
+                }));
+
+                const storedPatientJSON = sessionStorage.getItem('selectedPatient');
+                if (storedPatientJSON) {
+                    const storedPatient = JSON.parse(storedPatientJSON);
+                    await selectPatient(storedPatient);
+                } else {
+                    sessionStorage.setItem('selectedPatient', JSON.stringify(responseData.patients[0]));
+                    await selectPatient(responseData.patients[0]);
+                }
+
+            } else {
+                console.error('Failed to get patients:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error getting patients:', error);
+        }
+    };
+
+    const selectPatient = async (selectedUser: User) => {
+        if (selectedUser) {
+            sessionStorage.setItem('selectedPatient', JSON.stringify(selectedUser));
+            setTherapistState(prevState => ({
+                ...prevState,
+                selectedPatient: selectedUser,
+            }));
+        }
+    };
+
+    const fetchTherapist = async () => {
+        try {
+            const response = await fetch('http://localhost:3000/user/therapistOfPatient', {
+                method: 'GET',
+                credentials: 'include',
+            });
+
+            if (response.ok) {
+                const responseData = await response.json();
+                console.log('res: ', responseData)
+                setTherapistOfPatient(responseData);
+            } else {
+                console.error('Failed to get therapist:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error getting therapist:', error);
+        }
+    };
+
+
     // Function to update the authentication state after a successful login or registration
     const updateLoginState = async (user: User) => {
         const fetchedUser = await checkLogin();
         if (fetchedUser) {
-            setAuthState({isAuthenticated: true, user: fetchedUser});
+            setAuthState(prevState => ({
+                ...prevState,
+                isAuthenticated: true, user: fetchedUser
+            }));
         }
     };
 
@@ -56,14 +134,24 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
                 },
             });
             const data = await response.json();
-            if (data.isAuthenticated) {
-                setAuthState({ isAuthenticated: true, user: data.user });
-            } else {
-                setAuthState({ isAuthenticated: false, user: null });
+            setAuthState((prevState) => ({
+                ...prevState,
+                isAuthenticated: data.isAuthenticated,
+                user: data.isAuthenticated ? data.user : null,
+            }));
+            if(data.user.role === 'therapist') {
+                fetchPatients();
+            }else{
+                fetchTherapist();
             }
         } catch (error) {
             console.error('Error fetching auth status: ', error);
-            setAuthState({ isAuthenticated: false, user: null });
+
+            setAuthState((prevState) => ({
+                ...prevState,
+                isAuthenticated: false,
+                user: null,
+            }));
         }
     };
 
@@ -106,6 +194,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
             });
             if (response.ok) {
                 setAuthState({isAuthenticated: false, user: null});
+                sessionStorage.removeItem('selectedPatient');
+                setTherapistState({ patients: [], selectedPatient: null});
             }
         } catch (error) {
             console.error('Logout failed: ', error);
@@ -122,6 +212,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
         console.log('Authentication state changed: ', authState);
     }, [authState]);
 
+    useEffect(() => {
+        console.log('therapist state changed: ', therapistState);
+    }, [therapistState]);
+
+    useEffect(() => {
+        console.log('therapist of patient : ', therapistOfPatient );
+    }, [therapistOfPatient]);
+
     return (
         <AuthContext.Provider
             value={{
@@ -130,8 +228,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
                 updateLoginState,
                 checkLogin,
                 handleLogout,
-                handleLogin
-
+                handleLogin,
+                patients: therapistState.patients,
+                selectedPatient: therapistState.selectedPatient,
+                fetchPatients,
+                selectPatient,
+                therapistOfPatient: therapistOfPatient
             }}>
             {children}
         </AuthContext.Provider>

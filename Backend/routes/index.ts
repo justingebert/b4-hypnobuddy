@@ -10,6 +10,7 @@ router.use('/user', userRoutes);
 router.use('/dosAndDonts', dosAndDontsRouter);
 router.use('/goal', goalRoutes)
 router.use('/reflexion', reflexionRoutes)
+router.use('/user', userRoutes)
+router.use('/goal', goalRoutes)
 
-
-export default router;
+export default router

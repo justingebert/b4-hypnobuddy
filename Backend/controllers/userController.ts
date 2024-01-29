@@ -314,3 +314,22 @@ export async function getAllPatientsLinked(req, res) {
 
 }
 
+export async function getTherapistOfPatient(req, res) {
+    try {
+        const patientId = req.user._id
+
+        const therapist = await User.findOne(
+            {
+                role: 'therapist',
+                patients: patientId,
+            },
+            { _id: 1, name: 1 }
+        );
+
+        res.json(therapist);
+    } catch (error) {
+    console.error('Error getting therapist data:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
+
