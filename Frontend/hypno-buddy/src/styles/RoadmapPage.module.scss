@@ -24,10 +24,11 @@ $timeline-thickness: 5px;
   width: $timeline-thickness;
   background-color: $light-grey;
   border-radius: 6px;
-  top: 0;
+  top: 50%;
   bottom: 0;
   left: 50%;
   margin-left: calc(-1* $timeline-thickness/2);
+  z-index: 100;
 }
 
 @mixin section {
@@ -161,9 +162,9 @@ h6 {
 .header {
   color: $dark-violet;
   font-size: 3.5rem;
-  font-weight: bold;
+  font-weight: 800;
   text-align: center;
-
+  margin: 1.5rem;
 
 }
 
