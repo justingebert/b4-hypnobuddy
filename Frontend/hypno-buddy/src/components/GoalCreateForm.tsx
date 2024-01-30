@@ -44,6 +44,10 @@ const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClo
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        if (description.trim() === '' || title.trim() === '') {
+            console.error('Description and/or title cannot be empty!');
+            return;
+        }
         onSave({
             _id: id,
             title,
@@ -80,7 +84,7 @@ const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClo
                                 {/* Description Field */}
                                 <div className="form-group">
                                     <label>Beschreibung</label>
-                                    <textarea className="form-control" value={description}
+                                    <textarea className="form-control" value={description} required
                                               onChange={e => setDescription(e.target.value)}></textarea>
                                 </div>
                                 {/* DueDate Field */}
