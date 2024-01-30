@@ -2,7 +2,7 @@ describe('User Registration', () => {
   afterEach(() => {
     cy.clearCookies();
     cy.clearLocalStorage();
-    cy.contains('Logout').click();
+    // cy.contains('Logout').click();
   });
   it('registers a new user', () => {
     cy.visit('http://localhost:5173/register'); 
