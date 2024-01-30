@@ -1,14 +1,9 @@
 name: Backend Tests CI
 
 on:
-  push:
-    branches:
-      - main
-      - docker-images # test
   pull_request:
     branches:
       - main
-      - docker-images # test
 jobs:
   build:
 
