@@ -4,7 +4,7 @@ resource "google_cloud_run_v2_service" "backend" {
 
   template {
     containers {
-      image = "justingebert/hypnobuddy:test14"
+      image = "justingebert/hypnobuddy:latest"
 #      resources {
 #        # If true, garbage-collect CPU when once a request finishes
 #        cpu_idle = false
