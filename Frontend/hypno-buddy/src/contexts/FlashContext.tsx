@@ -27,9 +27,11 @@ export function FlashProvider({ children }: FlashProviderProps) {
     return (
         <FlashContext.Provider value={{ flash }}>
             {message && (
-                <Alert variant="light" className="flashMessage">
-                    {message}
-                </Alert>
+                <div className="flashMessage">
+                    <Alert variant="light" >
+                        {message}
+                    </Alert>
+                </div>
             )}
             {children}
         </FlashContext.Provider>
