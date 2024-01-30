@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import styles from "../styles/RoadmapPage.module.scss";
 import GoalCommentForm from "./GoalCommentForm.tsx";
 import {useAuth} from "../contexts/AuthContext.tsx";
 import {useGoals} from "../contexts/GoalContext.tsx";
+import {FlashContext} from "../contexts/FlashContext.tsx";
 
 function RoadmapGoalTextbox({ goal, handleComment }) {
     const {user,selectedPatient} = useAuth();
@@ -102,7 +103,7 @@ function RoadmapGoalTextbox({ goal, handleComment }) {
                             goal.comments.length > 0 &&
                             goal.comments.map((c) =>
                                     !c.isPrivate || (c.userID === user._id) ? (
-                                        <div className={"d-flex flex-row"}>
+                                        <div key={c._id} className={"d-flex flex-row commentBox"}>
                                             <div className={`${styles.comment}`} key={c.commentID}>
                                                 <div>
                                                       <span className={`${styles.writer}`}>
