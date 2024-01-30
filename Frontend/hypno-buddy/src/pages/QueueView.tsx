@@ -4,6 +4,7 @@ import { RoadmapGoal } from '../types/Roadmap-Goal.ts';
 import GoalCreateForm from '../components/GoalCreateForm';
 import {useNavigate} from "react-router-dom";
 import {useGoals} from "../contexts/GoalContext.tsx"; // Assuming you have a form for adding/editing goals
+import styles from "../styles/QueueView.module.scss";
 
 const QueueView: React.FC = () => {
 
@@ -87,10 +88,15 @@ const QueueView: React.FC = () => {
 
     return (
         <>
-            <div className="container my-4">
-                <button className="btn btn-secondary m-3" onClick={goToRoadmap}>← Roadmap</button>
-                <h1 className="mb-3">Goals Queue</h1>
-                <button className="btn btn-success m-3" onClick={() => setShowCreateModal(true)}>+ neues Ziel</button>
+            <div className="container">
+                    <div className="d-flex justify-content-center">
+                        <button className={`${styles.btn} btn btn-secondary box align-self-center`} onClick={goToRoadmap}>← Roadmap</button>
+                        <h1 className={`m-5 box ${styles.heading}`}>Goals Queue</h1>
+                        <button className={`${styles.btn} btn btn-success box align-self-center`} onClick={() => setShowCreateModal(true)}>+ neues
+                            Ziel
+                        </button>
+                    </div>
+
                 <QueueList goals={goals} onReorder={onReorder} onEdit={handleEditGoal} onDelete={handleDeleteGoal}
                            onCreateSubGoal={handleCreateSubGoal}/>
 
