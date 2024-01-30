@@ -262,18 +262,20 @@ export async function deleteGoal(req, res, next) {
     try {
         const goalId = req.params.goalId;
 
-        const deletedGoal = await RoadmapGoal.findByIdAndDelete(goalId);
-        if (!deletedGoal) {
+        const deleteGoal = await RoadmapGoal.findById(goalId);
+        if (!deleteGoal) {
             return res.status(404).json({ error: 'Goal not found' });
         }
 
         //delete comments
-        for (const comment of deletedGoal.comments) {
+        for (const comment of deleteGoal.comments) {
             await Comment.findByIdAndDelete(comment._id);
         }
 
         //update the User to remove the goalID
-        await User.updateOne({ _id: deletedGoal.userID }, { $pull: { goalIDs: deletedGoal._id } });
+        await User.updateOne({ _id: deleteGoal.userID }, { $pull: { goalIDs: deleteGoal._id } });
+
+        await RoadmapGoal.findByIdAndDelete(goalId);
 
         return res.json({
             success: true,

@@ -8,7 +8,7 @@ import { sampleTherapists, samplePatients } from "./mockupData";
 // connect to mongodb
 export async function connectDB() {
     try {
-        await mongoose.connect('mongodb://127.0.0.1:27017/hypnobuddy', {
+        await mongoose.connect(process.env.MONGO_URL || 'mongodb://127.0.0.1:27017/hypnobuddy', {
             //useNewUrlParser: true, //TODO this is not working why?
         });
         console.log('MongoDB connected successfully');
@@ -98,6 +98,12 @@ export async function createMockupData() {
 }
 
 const distributePatients = (therapists, patients) => {
+    therapists.forEach(therapist => {
+        therapist.patients = therapist.patients.filter(patientId =>
+            !patients.some(mockupPatient => mockupPatient._id.equals(patientId)));
+    });
+
+    patients.forEach(patient => patient.therapist = null);
     // Example distribution logic
     let patientIndex = 0;
     for (const therapist of therapists) {
