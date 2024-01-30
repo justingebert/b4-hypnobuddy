@@ -21,25 +21,25 @@ $timeline-thickness: 4px;
   margin-left: calc(-1* $timeline-thickness/2);
 }
 
-@mixin section{
+@mixin section {
   position: relative;
   padding: 10px 40px;
   width: 50%;
   //background: rgba(83, 91, 242, 0.54);
 }
 
-.sectionLeft{
+.sectionLeft {
   @include section;
   left: 0;
 }
 
-.sectionRight{
+.sectionRight {
   @include section;
   left: 50%;
 
-    .circle{
-      left: calc(-1 * $circle-size / 2);
-    }
+  .circle {
+    left: calc(-1 * $circle-size / 2);
+  }
 }
 
 @mixin circle($size, $color: #ccc) {
@@ -47,7 +47,7 @@ $timeline-thickness: 4px;
   width: $size;
   height: $size;
   border-radius: 50%;
-  top:10px;
+  top: 10px;
   // uncomment the following lines to center the circle vertically
   // top: 50%;
   // transform: translateY(-50%);
@@ -68,12 +68,27 @@ $timeline-thickness: 4px;
   // e.g., colors based on status, border, etc.
 }
 
-.textbox{
+@mixin textbox {
   position: relative;
   padding: 10px 20px;
   background: #fff;
   border-radius: 6px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  margin-bottom: 7px;
+}
+
+.textbox {
+  @include textbox;
+}
+
+.sectionLeft .subgoalBox {
+  @include textbox;
+  margin-right: 17px;
+}
+
+.sectionRight .subgoalBox {
+  @include textbox;
+  margin-left: 17px;
 }
 
 .statusBtn {
@@ -108,13 +123,13 @@ $timeline-thickness: 4px;
   padding: 0;
 }
 
-.date{
+.date {
   font-size: 0.875rem;
   color: #6c757d;
   margin: 0;
 }
 
-.comment{
+.comment {
   border: 1px rgb(127, 45, 245) solid;
   border-radius: 6px;
   padding: 0.5rem;
@@ -127,11 +142,11 @@ $timeline-thickness: 4px;
   color: #343a40;
 }
 
-.commentText{
+.commentText {
   margin: 0.5rem 0;
 }
 
-h6{
+h6 {
   margin-bottom: 0.1rem;
 }
 
@@ -156,4 +171,3 @@ h6{
     left: calc(30px - $circle-size/2);
   }
 }
-
