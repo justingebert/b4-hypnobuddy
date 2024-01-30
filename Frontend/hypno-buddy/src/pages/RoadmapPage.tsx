@@ -75,16 +75,9 @@ const handleComment = async (comment: string, isPrivate: boolean, goalID: string
                             {goal.subGoals && goal.subGoals.map((subgoal, subIndex) => (
                                 <div
                                     key={subgoal._id}
-                                    className={`${index % 2 === 0 ? styles.subSectionRight : styles.subSectionLeft}`}
+                                    className={`${index % 2 === 0 ? styles.subSectionRight : styles.subSectionLeft} ${styles.subSection}`}
                                 >
-                                    <div className={`${styles.circle} ${getStatusClass(subgoal.status)}`}>
-                                        {subIndex + 1}
-                                    </div>
-                                    <div className={`${styles.textbox}`}>
-                                        <h5 className={`${styles.title}`}>{subgoal.title}</h5>
-                                        <p className={`${styles.date}`}>{getDate(subgoal.dueDate)}</p>
-                                        <p className={`${styles.description}`} dangerouslySetInnerHTML={{ __html: subgoal.description }} />
-                                    </div>
+                                    <RoadmapGoalTextbox goal={subgoal} handleComment={handleComment}/>
                                 </div>
                             ))}
                         </div>
