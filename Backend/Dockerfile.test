@@ -1,0 +1,15 @@
+FROM node:16
+
+RUN apt-get install libcurl4
+
+WORKDIR /Backend
+
+COPY package*.json ./
+COPY . .
+
+USER node
+
+RUN npm ci && \
+    npm run build
+
+ENTRYPOINT ["npm", "run", "test"]

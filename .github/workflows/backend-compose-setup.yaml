@@ -32,7 +32,7 @@ jobs:
 
     - name: Start MongoDB using Docker Compose
       run: |
-        docker-compose -f docker-compose.yaml up -d
+        docker-compose -f docker-compose.yaml up -d backend fronend mongo
 
     - name: Install dependencies
       run: |
@@ -43,11 +43,6 @@ jobs:
       run: |
         cd Backend
         npm run build
-
-    # - name: Run Backend Tests
-    #   run: |
-    #     cd Backend
-    #     npm run test
 
     - name: Shutdown MongoDB
       run: docker-compose -f docker-compose.yaml down

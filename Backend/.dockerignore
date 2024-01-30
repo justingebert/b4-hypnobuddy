@@ -10,10 +10,6 @@ Dockerfile
 .git
 .gitignore
 
-# Tests
-tests
-jest.config.json
-
 terraform
 .env
 dockerrun.bash
