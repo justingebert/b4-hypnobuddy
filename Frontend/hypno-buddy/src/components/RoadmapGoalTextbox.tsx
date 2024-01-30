@@ -101,7 +101,7 @@ function RoadmapGoalTextbox({ goal, handleComment }) {
                         {goal.comments &&
                             goal.comments.length > 0 &&
                             goal.comments.map((c) =>
-                                    !c.isPrivate ? (
+                                    !c.isPrivate || (c.userID === user._id) ? (
                                         <div className={"d-flex flex-row"}>
                                             <div className={`${styles.comment}`} key={c.commentID}>
                                                 <div>
