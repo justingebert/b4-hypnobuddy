@@ -2,6 +2,7 @@ import React, { createContext, useState, useContext, useCallback } from 'react';
 import { RoadmapGoal } from '../types/Roadmap-Goal';
 import {Comment} from "../types/Comment.ts";
 import {FlashContext} from "./FlashContext.tsx";
+import {url} from "./AuthContext.tsx";
 
 interface GoalsContextType {
     goals: RoadmapGoal[];
@@ -43,7 +44,7 @@ export const GoalsProvider: React.FC = ({ children }) => {
 
     const fetchGoals = useCallback(async () => {
         try {
-            const response = await fetch('http://localhost:3000/goal/getAll', {
+            const response = await fetch(url + '/goal/getAll', {
                 method: "GET",
                 headers: {
                     'Content-Type': 'application/json',
@@ -63,7 +64,7 @@ export const GoalsProvider: React.FC = ({ children }) => {
 
     const createGoal = useCallback(async (goalData: RoadmapGoal) => {
         try {
-            const response = await fetch('http://localhost:3000/goal/create', {
+            const response = await fetch(url + '/goal/create', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -88,7 +89,7 @@ export const GoalsProvider: React.FC = ({ children }) => {
             let response: Response;
             if (selectedPatientID) {
                 //therapist gets patients goals
-                response = await fetch(`http://localhost:3000/goal/ofPatient/${selectedPatientID}`, {
+                response = await fetch(url +`/goal/ofPatient/${selectedPatientID}`, {
                     method: "GET",
                     headers: {
                         'Content-Type': 'application/json',
@@ -97,7 +98,7 @@ export const GoalsProvider: React.FC = ({ children }) => {
                 });
             }else{
                 //user gets own goals
-                response = await fetch(`http://localhost:3000/goal/getAll`, {
+                response = await fetch(url+`/goal/getAll`, {
                     method: "GET",
                     headers: {
                         'Content-Type': 'application/json',
@@ -118,7 +119,7 @@ export const GoalsProvider: React.FC = ({ children }) => {
 
     const deleteGoal = useCallback(async (goalId: string) => {
         try {
-            const response = await fetch(`http://localhost:3000/goal/delete/${goalId}`, {
+            const response = await fetch(url + `/goal/delete/${goalId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -147,7 +148,7 @@ export const GoalsProvider: React.FC = ({ children }) => {
 
     const updateGoal = useCallback(async (goalId: string, updatedData: RoadmapGoal) => {
         try {
-            const response = await fetch(`http://localhost:3000/goal/update/${goalId}`, {
+            const response = await fetch(url + `/goal/update/${goalId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -194,7 +195,7 @@ export const GoalsProvider: React.FC = ({ children }) => {
      */
     const updateGoalOrder = useCallback(async (newOrder: string[]) => {
         try {
-            const response = await fetch('http://localhost:3000/goal/reorder', {
+            const response = await fetch(url + '/goal/reorder', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -215,7 +216,7 @@ export const GoalsProvider: React.FC = ({ children }) => {
 
     const createSubGoal = useCallback(async (subGoalData: RoadmapGoal) => {
         try {
-            const response = await fetch('http://localhost:3000/goal/createSubGoal', {
+            const response = await fetch(url + '/goal/createSubGoal', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -245,7 +246,7 @@ export const GoalsProvider: React.FC = ({ children }) => {
     const saveComment = useCallback(async (commentData:{ comment:string, isPrivate:boolean, goalID:string, userID:string }) => {
         try {
             console.log(commentData)
-            const response = await fetch('http://localhost:3000/goal/saveComment', {
+            const response = await fetch(url+ '/goal/saveComment', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

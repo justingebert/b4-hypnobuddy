@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import CustomButton from "../components/CustomButton.tsx";
+import {url} from "../contexts/AuthContext.tsx";
 import bunny from "../assets/bunny.png";
 
 const ReflexionDescriptionPage: React.FC = () => {
@@ -13,7 +14,7 @@ const ReflexionDescriptionPage: React.FC = () => {
   useEffect(() => {
     const fetchMood = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/reflexion/getById/${id}`, {
+        const response = await fetch(url + `/reflexion/getById/${id}`, {
           credentials: 'include'
         });
         if (!response.ok) {
@@ -30,7 +31,7 @@ const ReflexionDescriptionPage: React.FC = () => {
 
   const saveDescription = async () => {
     try {
-      await fetch(`http://localhost:3000/reflexion/update/${id}`, {
+      await fetch(url + `/reflexion/update/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
