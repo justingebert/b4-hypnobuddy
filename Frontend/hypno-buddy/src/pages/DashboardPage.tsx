@@ -41,7 +41,7 @@ function DashboardPage() {
                             <PatientList/>
                         </div>
                     ):(
-                        <div className={"userInfo d-flex flex-column justify-content-center"}>
+                        <div className={"userInfo d-flex flex-column justify-content-center"} style={{marginLeft:'10vw'}}>
                             <p>{new Date().toLocaleDateString()}</p>
                             <a href="/profile" className={"btn btn-outline-dark d-flex flex-row align-self-center"}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-person-circle m-1" viewBox="0 0 16 16">
