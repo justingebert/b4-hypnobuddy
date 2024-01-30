@@ -146,42 +146,45 @@ function ProfilePage() {
                                     )}
                                 </>
                             )}
-                            {/* Verification Form */}
-                            <Form onSubmit={handleVerifySubmit}>
-                                <Row className=" d-flex align-items-center submitLayout">
-                                    <Col>
-                                        <FormControl
-                                            type="text"
-                                            value={code}
-                                            onChange={(e) => setCode(e.target.value)}
-                                            placeholder="Verifizierungscode eingeben"
-                                            id="Verifizierungscode"
-                                            className="form"
-                                        />
-                                    </Col>
-                                    <Col>
-                                        <SubmitButton></SubmitButton>
-                                    </Col>
-                                </Row>
-                            </Form>
-                            {/* Link to Therapist Form */}
+
                             {data.user.role === 'patient' && (
-                                <Form onSubmit={handleLinkSubmit}>
-                                    <Row className="d-flex align-items-center submitLayout">
-                                        <Col>
-                                            <FormControl
-                                                type="text"
-                                                value={linkCode}
-                                                onChange={(e) => setLinkCode(e.target.value)}
-                                                placeholder="Link zum Therapeuten-Code eingeben"
-                                                className="form"
-                                            />
-                                        </Col>
-                                        <Col>
-                                            <SubmitButton></SubmitButton>
-                                        </Col>
-                                    </Row>
-                                </Form>
+                                <>
+                                    {/* Verification Form */}
+                                    <Form onSubmit={handleVerifySubmit}>
+                                        <Row className=" d-flex align-items-center submitLayout">
+                                            <Col>
+                                                <FormControl
+                                                    type="text"
+                                                    value={code}
+                                                    onChange={(e) => setCode(e.target.value)}
+                                                    placeholder="Verifizierungscode eingeben"
+                                                    id="Verifizierungscode"
+                                                    className="form"
+                                                />
+                                            </Col>
+                                            <Col>
+                                                <SubmitButton></SubmitButton>
+                                            </Col>
+                                        </Row>
+                                    </Form>
+                                    {/* Link to Therapist Form */}
+                                    <Form onSubmit={handleLinkSubmit}>
+                                        <Row className="d-flex align-items-center submitLayout">
+                                            <Col>
+                                                <FormControl
+                                                    type="text"
+                                                    value={linkCode}
+                                                    onChange={(e) => setLinkCode(e.target.value)}
+                                                    placeholder="Link zum Therapeuten-Code eingeben"
+                                                    className="form"
+                                                />
+                                            </Col>
+                                            <Col>
+                                                <SubmitButton></SubmitButton>
+                                            </Col>
+                                        </Row>
+                                    </Form>
+                                </>
                             )}
                         </div>
                     </div>
