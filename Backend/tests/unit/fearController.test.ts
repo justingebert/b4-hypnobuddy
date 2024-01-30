@@ -6,7 +6,10 @@ import FearModel from "../../data/model/fearModel";
 import { app, sessionStore } from "../../main";
 import { cleanDatabase, prepareTherapist } from "./baseTest";
 
-const dosAndDontsRoute = "/dosAndDonts/fears";
+const fearsRoute = "/dosAndDonts/fears";
+const dosAndDontsRoute = "/addDoAndDont";
+
+const mockFearId = "65b81cc56adcc9e503a61110";
 
 const exampleLogin = {
   email: "therapist@example.com",
@@ -55,7 +58,7 @@ describe("Fear Creation", () => {
 
   it("should save a new fear", async () => {
     const response = await request(app)
-      .post(dosAndDontsRoute)
+      .post(fearsRoute)
       .set("Cookie", therapistBody.userCookie)
       .send({ name: "New Fear" });
 
@@ -64,7 +67,7 @@ describe("Fear Creation", () => {
 
   it("should reject new fear with the existed name", async () => {
     const response = await request(app)
-      .post(dosAndDontsRoute)
+      .post(fearsRoute)
       .set("Cookie", therapistBody.userCookie)
       .send({ name: "New Fear" });
 
@@ -76,7 +79,7 @@ describe("Fear Creation", () => {
 
   it("should reject new fear by unauthorized user", async () => {
     const response = await request(app)
-      .post(dosAndDontsRoute)
+      .post(fearsRoute)
       .send({ name: "New Fear 1" });
 
     expect(response.status).toBe(401);
@@ -92,7 +95,7 @@ describe("Receive Fear list", () => {
     let response;
     for (let i = 0; i < 2; ++i) {
       response = await request(app)
-        .post(dosAndDontsRoute)
+        .post(fearsRoute)
         .set("Cookie", therapistBody.userCookie)
         .send({ name: "New Fear " + i });
 
@@ -100,7 +103,7 @@ describe("Receive Fear list", () => {
     }
 
     response = await request(app)
-      .get(dosAndDontsRoute + "?therapistId=" + therapistBody.user._id)
+      .get(fearsRoute + "?therapistId=" + therapistBody.user._id)
       .set("Cookie", therapistBody.userCookie);
 
     expect(response.status).toBe(200);
@@ -113,13 +116,13 @@ describe("Receive Fear list", () => {
   });
 });
 
-describe("Receive Fear by User Id", () => {
+describe("Receive Fear by Id", () => {
   afterAll(cleanDatabase);
   beforeAll(() => prepareTherapist(exampleLogin, therapistBody));
 
   it("should find fear by id", async () => {
     let response = await request(app)
-      .post(dosAndDontsRoute)
+      .post(fearsRoute)
       .set("Cookie", therapistBody.userCookie)
       .send({ name: "New Fear" });
 
@@ -127,7 +130,7 @@ describe("Receive Fear by User Id", () => {
 
     const fear = new FearModel(response.body);
 
-    response = await request(app).get(dosAndDontsRoute + "/" + fear._id);
+    response = await request(app).get(fearsRoute + "/" + fear._id);
 
     expect(response.status).toBe(200);
     expect(new FearModel(response.body).name).toContain(fear.name);
@@ -135,10 +138,82 @@ describe("Receive Fear by User Id", () => {
 
   it("should reject request with an invalid code", async () => {
     let response = await request(app).get(
-      dosAndDontsRoute + "/" + "65b81cc56adcc9e503a61110"
+      fearsRoute + "/" + mockFearId
     );
 
     expect(response.status).toBe(404);
     expect(response.body.error).toContain("Fear not found");
   });
+});
+
+describe("Adding Do and Don't to Fear", () => {
+  afterAll(cleanDatabase);
+  beforeAll(() => prepareTherapist(exampleLogin, therapistBody));
+
+  it("should add 'do' to Fear", async () => {
+    let response = await request(app)
+      .post(fearsRoute)
+      .set("Cookie", therapistBody.userCookie)
+      .send({ name: "New Fear" });
+
+    expect(response.status).toBe(200);
+
+    const fear = new FearModel(response.body);
+
+    const doAndDont = new DoAndDontModel({
+      fearId: fear._id,
+      type: "Do",
+      text: "test test",
+    });
+
+    response = await request(app)
+      .post(fearsRoute + dosAndDontsRoute)
+      .set("Cookie", therapistBody.userCookie)
+      .send({fearId: doAndDont.fearId, type: doAndDont.type, text: doAndDont.text});
+
+    expect(response.status).toBe(200);
+  });
+
+
+  it("should add 'dont' to Fear", async () => {
+    let response = await request(app)
+      .post(fearsRoute)
+      .set("Cookie", therapistBody.userCookie)
+      .send({ name: "New Fear 1" });
+
+    expect(response.status).toBe(200);
+
+    const fear = new FearModel(response.body);
+
+    const doAndDont = new DoAndDontModel({
+      fearId: fear._id,
+      type: "Don\'t",
+      text: "test test",
+    });
+
+    response = await request(app)
+      .post(fearsRoute + dosAndDontsRoute)
+      .set("Cookie", therapistBody.userCookie)
+      .send({fearId: doAndDont.fearId, type: doAndDont.type, text: doAndDont.text});
+
+    expect(response.status).toBe(200);
+  });
+
+  it("should reject request to add doAndDont to Fear", async () => {
+    const doAndDont = new DoAndDontModel({
+      fearId: mockFearId,
+      type: "Don\'t",
+      text: "test test",
+    });
+
+    let response = await request(app)
+      .post(fearsRoute + dosAndDontsRoute)
+      .set("Cookie", therapistBody.userCookie)
+      .send({fearId: doAndDont.fearId, type: doAndDont.type, text: doAndDont.text});
+
+    expect(response.status).toBe(404);
+    expect(response.body.error).toContain('Fear not found');
+  });
+
+  
 });

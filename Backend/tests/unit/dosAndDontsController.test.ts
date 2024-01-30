@@ -1,166 +1,129 @@
-import { Request, Response } from 'express';
-import {
-  getDosAndDonts,
-  getDoOrDontById,
-  updateDoAndDont,
-  deleteFearAndDosAndDonts,
-} from '../../controllers/dosAndDontsController';
-import { DoAndDontModel } from '../../data/model/dosAndDontsModel';
-import { FearModel } from '../../data/model/fearModel';
+import request from "supertest";
+import { DoAndDontModel } from "../../data/model/dosAndDontsModel";
+import { FearModel } from "../../data/model/fearModel";
+import { MongoMemoryServer } from "mongodb-memory-server";
+import mongoose from "mongoose";
+import { app, sessionStore } from "../../main";
+import { cleanDatabase, prepareTherapist } from "./baseTest";
 
-jest.mock('../../data/model/dosAndDontsModel');
-jest.mock('../../data/model/fearModel');
+const fearsRoute = "/fears";
+const addDosAndDontsRoute = "/addDoAndDont";
+const dosAndDontsRoute = "/dosAndDonts";
+const userRoute = "/user";
 
-/*describe('dosAndDontsController', () => {
-  let req: Partial<Request>;
-  let res: Partial<Response>;
+const mockFearId = "65b81cc56adcc9e503a61110";
 
-  beforeEach(() => {
-    req = {
-      params: {},
-      body: {},
-    };
-    res = {
-      json: jest.fn(),
-      status: jest.fn().mockReturnThis(),
-    };
-  });
+const exampleLogin = {
+  email: "therapist@example.com",
+  password: "password123",
+};
+let therapistBody = {
+  therapist: null,
+  verificationCode: null,
+  userCookie: null,
+  user: null,
+};
 
-  describe('getDosAndDonts', () => {
-    it('should retrieve all dos and don\'ts from the database', async () => {
-      const mockedDosAndDonts = [{ id: '1', text: 'Do something' }];
-      (DoAndDontModel.find as jest.Mock).mockResolvedValueOnce(mockedDosAndDonts);
+/**
+ * Connect to a new mockup database before running any tests.
+ */
+let mongoServer;
+beforeAll(async () => {
+  await mongoose.disconnect();
+  mongoServer = await MongoMemoryServer.create();
+  const mongoUri = mongoServer.getUri();
+  await mongoose.connect(mongoUri);
+});
 
-      await getDosAndDonts(req as Request, res as Response);
+/**
+ * close the db connection after all tests
+ */
+afterAll(async () => {
+  await mongoose.connection.close();
+  await mongoose.disconnect();
+  await mongoServer.stop();
+  await sessionStore.close();
+});
 
-      expect(res.json).toHaveBeenCalledWith(mockedDosAndDonts);
+/**
+ * clear all mocks after each test
+ * clear all timers after each test
+ */
+afterEach(() => {
+  jest.restoreAllMocks();
+  jest.clearAllTimers();
+});
+
+describe("Receive All do and donts for User", () => {
+  afterAll(cleanDatabase);
+  beforeAll(() => prepareTherapist(exampleLogin, therapistBody));
+
+  it("should get 'do' and 'don't' for user", async () => {
+    let response = await request(app)
+      .post(dosAndDontsRoute + fearsRoute)
+      .set("Cookie", therapistBody.userCookie)
+      .send({ name: "New Fear" });
+
+    expect(response.status).toBe(200);
+
+    const fear = new FearModel(response.body);
+
+    let doAndDont = new DoAndDontModel({
+      fearId: fear._id,
+      type: "Do",
+      text: "test test",
     });
 
-    it('should handle errors and return a 500 status', async () => {
-      (DoAndDontModel.find as jest.Mock).mockRejectedValueOnce(new Error('Database error'));
-
-      await getDosAndDonts(req as Request, res as Response);
-
-      expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.json).toHaveBeenCalledWith({ error: 'Internal Server Error' });
-    });
-  });
-
-  describe('getDoOrDontById', () => {
-    it('should retrieve a specific do or don\'t by its ID from the database', async () => {
-      const mockedDoAndDont = { id: '1', text: 'Do something' };
-      (DoAndDontModel.findById as jest.Mock).mockResolvedValueOnce(mockedDoAndDont);
-      req.params = { id: '1' };
-
-      await getDoOrDontById(req as Request, res as Response);
-
-      expect(res.json).toHaveBeenCalledWith(mockedDoAndDont);
-    });
-
-    it('should handle not found case and return a 404 status', async () => {
-      (DoAndDontModel.findById as jest.Mock).mockResolvedValueOnce(null);
-      req.params = { id: '1' };
-
-      await getDoOrDontById(req as Request, res as Response);
-
-      expect(res.status).toHaveBeenCalledWith(404);
-      expect(res.json).toHaveBeenCalledWith({ error: 'Do and Dont not found' });
-    });
-
-    it('should handle errors and return a 500 status', async () => {
-      (DoAndDontModel.findById as jest.Mock).mockRejectedValueOnce(new Error('Database error'));
-      req.params = { id: '1' };
-
-      await getDoOrDontById(req as Request, res as Response);
-
-      expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.json).toHaveBeenCalledWith({ error: 'Internal Server Error' });
-    });
-  });
-
-  describe('updateDoAndDont', () => {
-    it('should update a specific do or don\'t by its ID in the database', async () => {
-      const mockedUpdatedDoAndDont = { id: '1', text: 'Updated text' };
-      (DoAndDontModel.findByIdAndUpdate as jest.Mock).mockResolvedValueOnce(
-        mockedUpdatedDoAndDont
-      );
-      req.params = { id: '1' };
-      req.body = { text: 'Updated text' };
-
-      await updateDoAndDont(req as Request, res as Response);
-
-      expect(res.json).toHaveBeenCalledWith(mockedUpdatedDoAndDont);
-    });
-
-    it('should handle not found case and return a 404 status', async () => {
-      (DoAndDontModel.findByIdAndUpdate as jest.Mock).mockResolvedValueOnce(null);
-      req.params = { id: '1' };
-      req.body = { text: 'Updated text' };
-
-      await updateDoAndDont(req as Request, res as Response);
-
-      expect(res.status).toHaveBeenCalledWith(404);
-      expect(res.json).toHaveBeenCalledWith({ error: 'DoAndDont not found' });
-    });
-
-    it('should handle errors and return a 500 status', async () => {
-      (DoAndDontModel.findByIdAndUpdate as jest.Mock).mockRejectedValueOnce(
-        new Error('Database error')
-      );
-      req.params = { id: '1' };
-      req.body = { text: 'Updated text' };
-
-      await updateDoAndDont(req as Request, res as Response);
-
-      expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.json).toHaveBeenCalledWith({ error: 'Internal Server Error' });
-    });
-  });
-
-  describe('deleteFearAndDosAndDonts', () => {
-    it('should delete a specific fear and its associated dos and don\'ts from the database', async () => {
-      const mockedFear = { id: '1' };
-      (FearModel.findByIdAndDelete as jest.Mock).mockResolvedValueOnce(mockedFear);
-      (DoAndDontModel.deleteMany as jest.Mock).mockResolvedValueOnce(undefined);
-      req.params = { fearId: '1' };
-
-      await deleteFearAndDosAndDonts(req as Request, res as Response);
-
-      expect(res.json).toHaveBeenCalledWith({
-        message: 'Fear and associated Do and Dont entries deleted successfully',
+    response = await request(app)
+      .post(dosAndDontsRoute + fearsRoute + addDosAndDontsRoute)
+      .set("Cookie", therapistBody.userCookie)
+      .send({
+        fearId: doAndDont.fearId,
+        type: doAndDont.type,
+        text: doAndDont.text,
       });
+
+    expect(response.status).toBe(200);
+    console.error(JSON.stringify(response));
+
+    doAndDont = new DoAndDontModel({
+      fearId: fear._id,
+      type: "Don't",
+      text: "test test",
     });
 
-    it('should handle not found case for fear and return a 404 status', async () => {
-      (FearModel.findByIdAndDelete as jest.Mock).mockResolvedValueOnce(null);
-      req.params = { fearId: '1' };
+    response = await request(app)
+      .post(dosAndDontsRoute + fearsRoute + addDosAndDontsRoute)
+      .set("Cookie", therapistBody.userCookie)
+      .send({
+        fearId: doAndDont.fearId,
+        type: doAndDont.type,
+        text: doAndDont.text,
+      });
 
-      await deleteFearAndDosAndDonts(req as Request, res as Response);
+    expect(response.status).toBe(200);
+    console.error(JSON.stringify(response));
 
-      expect(res.status).toHaveBeenCalledWith(404);
-      expect(res.json).toHaveBeenCalledWith({ error: 'Fear not found' });
-    });
+    const dosAndDonts = response.body.dosAndDonts.map(
+      (doAndDontData: any) => new String(doAndDontData)
+    );
 
-    it('should handle errors and return a 500 status', async () => {
-      (FearModel.findByIdAndDelete as jest.Mock).mockRejectedValueOnce(new Error('Database error'));
-      req.params = { fearId: '1' };
+    //response = request(app).get(dosAndDontsRoute + userRoute + "/" + therapistBody.user._id);
+    //response = request(app).get(dosAndDontsRoute + dosAndDontsRoute + userRoute + "/" + therapistBody.user._id);
+    response = request(app).get(
+      dosAndDontsRoute + dosAndDontsRoute + "/" + dosAndDonts[0]
+    );
+    console.error(JSON.stringify(response));
+    response = request(app).get(
+      dosAndDontsRoute + dosAndDontsRoute + "/" + dosAndDonts[1]
+    );
+    console.error(JSON.stringify(response));
+    response = request(app).get(dosAndDontsRoute + dosAndDontsRoute);
 
-      await deleteFearAndDosAndDonts(req as Request, res as Response);
+    const dosAndDontss = response.body.map(
+      (doAndDontData: any) => new DoAndDontModel(doAndDontData)
+    );
 
-      expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.json).toHaveBeenCalledWith({ error: 'Internal Server Error' });
-    });
-
-    it('should handle errors in deleteMany and return a 500 status', async () => {
-      const mockedFear = { id: '1' };
-      (FearModel.findByIdAndDelete as jest.Mock).mockResolvedValueOnce(mockedFear);
-      (DoAndDontModel.deleteMany as jest.Mock).mockRejectedValueOnce(new Error('Database error'));
-      req.params = { fearId: '1' };
-
-      await deleteFearAndDosAndDonts(req as Request, res as Response);
-
-      expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.json).toHaveBeenCalledWith({ error: 'Internal Server Error' });
-    });
+    expect(doAndDont.length).toBe(2);
   });
-});*/
+});
