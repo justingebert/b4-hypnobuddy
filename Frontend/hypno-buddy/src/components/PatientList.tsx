@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styles from '../styles/TherapistCard.module.scss';
 import {ListGroup } from 'react-bootstrap';
 import {useAuth} from "../contexts/AuthContext.tsx";
-import {User} from "../types/User.ts";
+//import {User} from "../types/User.ts";
 
 
 function PatientList() {
@@ -17,15 +17,15 @@ function PatientList() {
 
     return(
         <>
-            <div className={"listContainer w-25"}>
-                <div className={"listTitle"}><h2>PatientInnen</h2></div>
+            <div className={"listContainer w-25"} style={{boxShadow: '0 10px 15px rgba(62, 54, 141, 0.5)', backgroundColor: 'rgba(237, 237, 237, 0.5)',}}>
+                <div className={"listTitle"}><h2 style={{color:'#3e368d'}}>Patient:Innen</h2></div>
                 <div className={"patientSearchInput"}>
                     <input
                         type="text"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         onClick={(e) => e.stopPropagation()}
-                        placeholder="PatientInnen suchen..."
+                        placeholder="Patient:Innen suchen..."
                         className={styles.searchInput}
                     />
                 </div>

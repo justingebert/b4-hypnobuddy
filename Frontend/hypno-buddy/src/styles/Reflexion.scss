@@ -24,7 +24,7 @@
     margin-bottom: 0;
     padding: 3% 20px 20px;
     text-align: center;
-    background-color: $light-grey;
+    background-color: rgb(237,237,237,0.5);
     color: $dark-violet;
     align-content: center;
     border-top-left-radius: 30px;
@@ -37,7 +37,7 @@
     margin-inline: 20%;
     align-items: center;
     justify-content: center;
-    background-color: $light-grey;
+    background-color: rgb(237,237,237,0.5);
 }
 .moodButton{
     margin: 15px;
@@ -64,7 +64,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: $light-grey;
+    background-color: rgb(237,237,237,0.5);
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
 }
@@ -72,7 +72,7 @@
 .yesNoDiv{
     margin-inline: 20%;
     margin-bottom: 2rem;
-    background-color: $light-grey;
+    background-color: rgb(237,237,237,0.5);
     color: $dark-violet;
     display: flex;
     flex-direction: column;
@@ -172,6 +172,7 @@
 .bunnyImageDiv {
     display: flex;
     justify-content: center;
+    align-content: center;
     padding-top: 30px;
 }
 

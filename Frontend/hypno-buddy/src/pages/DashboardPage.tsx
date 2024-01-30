@@ -37,7 +37,7 @@ function DashboardPage() {
                 // Dashboard after login
                 <div className="dashboard-content-auth">
                     {user?.role === 'therapist' ? (
-                        <div>
+                        <div style={{marginLeft:'5vw'}}>
                             <PatientList/>
                         </div>
                     ):(
@@ -110,9 +110,13 @@ function DashboardPage() {
             <Row>
                 {isAuthenticated && user ? (
                     <div>
-                        <div className="CardCarousel" style={{display:'flex'}}>
-                            <CardCarousel></CardCarousel>
-                        </div>
+                        <Row>
+                            <Col>
+                                <div className="CardCarousel" style={{ display: 'flex', flexDirection: 'column' }}>
+                                    <CardCarousel></CardCarousel>
+                                </div>
+                            </Col>
+                        </Row>
                         <Row className="eyeDiv">
                             <Col className="eyeBackground">
                                 <p className="eyeText">
