@@ -4,7 +4,8 @@
     margin: 0;
     padding-right: 0;
 }
-.dashboard-div{
+
+.dashboard-div {
     min-height: 100%;
 }
 
@@ -25,6 +26,8 @@
     background-position: center;
     overflow-x: hidden;
     padding: 50px;
+    min-height: 100vh;
+
 }
 
 .dashboard-content-not-auth .titel {
@@ -64,8 +67,7 @@
 
 .dashboard-content-auth {
     background-image: url('../assets/backgroundGrad.png');
-    margin-top: 2%;
-    padding-top: 10%;
+    padding-top: 13%;
     text-align: center;
     display: flex;
     flex-direction: row;

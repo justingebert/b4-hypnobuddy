@@ -14,8 +14,9 @@
 }
 .reflectionCard{
     background-image: url('../assets/background.png');
-    height: auto;
+    background-size: cover;
     padding-top: 100px;
+    min-height: 94vh;
 }
 .h2-refelxion{
     margin-top: 10%;
@@ -150,8 +151,9 @@
 }
 .datum{
     display: flex;
-    justify-content: center;
     color: $violet;
+    text-align: left;
+    padding-left: 3%;
 }
 .datumTime{
     display: flex;
