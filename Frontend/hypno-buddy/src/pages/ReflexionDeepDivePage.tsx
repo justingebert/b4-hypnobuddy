@@ -77,7 +77,7 @@ const deepDiveQuestions = [
   };  
 
   return (
-    <div className="reflectionDiv">
+    <div className="reflection">
         <div className="reflectionCard">
           <h2 className="h2-refelxion">Wie du dich fühlst: {mood}</h2>
           {!showDeepDive && (
