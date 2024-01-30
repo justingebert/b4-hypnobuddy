@@ -269,7 +269,7 @@ export const GoalsProvider: React.FC = ({ children }) => {
 
     const deleteComment = useCallback(async (commentData:{ _id: string, comment:string, isPrivate:boolean, goalID:string, userID:string }) => {
         try {
-            const response = await fetch(`http://localhost:3000/goal/deleteComment/${commentData._id}`, {
+            const response = await fetch(url + `/goal/deleteComment/${commentData._id}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
