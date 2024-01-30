@@ -42,8 +42,28 @@ const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClo
         }
     }, [goalData]);
 
+
+    const handleClose = () => {
+        setId(undefined);
+        setTitle('');
+        setDescription('');
+        setDueDate(undefined);
+        setStatus('Geplant');
+        setIsSubGoal(false);
+        setParentGoalId(undefined);
+        setParentGoalTitle(undefined);
+
+        onClose();
+    };
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (title.trim() === '' || description.trim() === '') {
+            alert('Please fill in the required fields');
+            return;
+        }
+
         onSave({
             _id: id,
             title,
@@ -53,7 +73,7 @@ const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClo
             isSubGoal,
             parentGoalId,
         });
-        onClose();
+        handleClose();
     };
 
     const isEditing = goalData !== null && !goalData.isSubGoal;
@@ -65,7 +85,7 @@ const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClo
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title">{isEditing ? 'Ziel Bearbeiten' : 'Neues Ziel'}</h5>
-                            <button type="button" className="close bg-secondary" data-dismiss="modal" aria-label="Close" onClick={onClose}>
+                            <button type="button" className="close bg-secondary" data-dismiss="modal" aria-label="Close" onClick={handleClose}>
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -74,13 +94,13 @@ const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClo
                                 {/* Title Field */}
                                 <div className="form-group">
                                     <label>Titel</label>
-                                    <input type="text" className="form-control" value={title}
+                                    <input type="text" className="form-control" value={title} required={true}
                                            onChange={e => setTitle(e.target.value)} />
                                 </div>
                                 {/* Description Field */}
                                 <div className="form-group">
                                     <label>Beschreibung</label>
-                                    <textarea className="form-control" value={description}
+                                    <textarea className="form-control" value={description} required={true}
                                               onChange={e => setDescription(e.target.value)}></textarea>
                                 </div>
                                 {/* DueDate Field */}
@@ -120,7 +140,7 @@ const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClo
                                 )}
                             </div>
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" onClick={onClose}>Zurück</button>
+                                <button type="button" className="btn btn-secondary" onClick={handleClose}>Zurück</button>
                                 <button type="submit" className="btn btn-primary">{isEditing ? 'Speichern' : 'Hinzufügen'}</button>
                             </div>
                         </form>
