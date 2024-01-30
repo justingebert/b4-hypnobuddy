@@ -16,6 +16,7 @@ interface GoalsContextType {
     createSubGoal: (subGoalData: RoadmapGoal) => Promise<void>;
     getLocalGoalById: (goalId: string) => RoadmapGoal | undefined;
     saveComment: (commentData:{ comment:string, isPrivate:boolean, goalID:string, userID:string }) => Promise<void>;
+    deleteComment: (commentData:{ comment:string, commentID:string, goalID:string }) => Promise<void>;
 }
 
 const GoalsContext = createContext<GoalsContextType | undefined>(undefined);
@@ -265,13 +266,34 @@ export const GoalsProvider: React.FC = ({ children }) => {
         }
     },[]);
 
+    const deleteComment = useCallback(async (commentData:{ _id: string, comment:string, isPrivate:boolean, goalID:string, userID:string }) => {
+        try {
+            const response = await fetch(`http://localhost:3000/goal/deleteComment/${commentData._id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+            });
+
+            if (response.ok) {
+                setGoals(prevGoals => prevGoals.map(goal => goal._id === commentData.goalID ? { ...goal, comments: goal.comments?.filter(comment => comment._id !== commentData._id) } : goal));
+            } else {
+                console.error('Failed to update goal:', response.status);
+            }
+        } catch (error) {
+            console.error('Error updating goal:', error);
+        }
+    },[]);
+
     const getLocalGoalById = useCallback((goalId: (string | undefined)) => {
         return goals.find(goal => goal._id === goalId);
 
     }, []);
 
+
     return (
-        <GoalsContext.Provider value={{ goals, setGoals, addGoal, fetchGoals, createGoal, deleteGoal, updateGoal, updateGoalOrder, createSubGoal, fetchGoalsOf, saveComment, getLocalGoalById }}>
+        <GoalsContext.Provider value={{ goals, setGoals, addGoal, fetchGoals, createGoal, deleteGoal, updateGoal, updateGoalOrder, createSubGoal, fetchGoalsOf, saveComment, deleteComment, getLocalGoalById }}>
             {children}
         </GoalsContext.Provider>
     );

@@ -6,7 +6,7 @@ import {useGoals} from "../contexts/GoalContext.tsx";
 
 function RoadmapGoalTextbox({ goal, handleComment }) {
     const {user,selectedPatient} = useAuth();
-    const { updateGoal } = useGoals();
+    const { updateGoal, deleteComment } = useGoals();
     const [showDetails, setShowDetails] = useState(false);
 
     const getDate = (dueDate) => {
@@ -120,8 +120,8 @@ function RoadmapGoalTextbox({ goal, handleComment }) {
                                                 <p className={`${styles.commentText}`}>{c.comment}</p>
                                             </div>
                                             {c.userID === user._id && (
-                                                <button className={`btn align-self-center ${allowEdit()} ${styles.statusBtn} ${styles.deleteBtn}${isActiveStatus("Geplant")}`}
-                                                        title="Löschen"
+                                                <button className={`btn btn-light align-self-center ${styles.statusBtn} ${styles.deleteBtn}`}
+                                                        title="Löschen" onClick={() => deleteComment(c)}
                                                 >
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
                                                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
