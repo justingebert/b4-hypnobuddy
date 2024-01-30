@@ -1,7 +1,6 @@
 import {createContext, ReactNode, useContext, useEffect, useState} from 'react';
 import { User } from "../types/User.ts";
 import {FlashContext} from "./FlashContext.tsx";
-import {isAuthenticated} from "../../../../Backend/controllers/userController.ts";
 //import {useNavigate} from "react-router-dom";
 
 //this file provides a centralized state management system for
@@ -140,11 +139,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
                 isAuthenticated: data.isAuthenticated,
                 user: data.isAuthenticated ? data.user : null,
             }));
-            if(authState.isAuthenticated) {
+            if(data.isAuthenticated) {
                 if(data.user.role === 'therapist') {
-                    fetchPatients();
+                    await fetchPatients();
                 }else{
-                    fetchTherapist();
+                    await fetchTherapist();
                 }
             }
         } catch (error) {
