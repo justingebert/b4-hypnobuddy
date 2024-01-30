@@ -58,7 +58,7 @@ const handleComment = async (comment: string, isPrivate: boolean, goalID: string
     return (
         <div className={styles.roadmap}>
             <div className="container mt-3">
-                <h1 className={styles.header}>Roadmap</h1>
+                <h1 className={styles.header}>ROADMAP</h1>
                 <h4 className="text-center mb-4">{selectedPatient?.name.first} {selectedPatient?.name.last}</h4>
                 {/*<div className={`${styles.timeline} d-flex flex-column align-items-start`}>*/}
                 <div className={`${styles.timeline}`}>
@@ -89,15 +89,17 @@ const handleComment = async (comment: string, isPrivate: boolean, goalID: string
                             ))}
                         </div>
                     ))}
+
+                    <div className="mt-4">
+                        {/*<button className="btn btn-success" onClick={handleAddGoal}>Add Goal</button>*/}
+                        {user?.role === 'patient' &&
+                            <button className="btn btn-primary m-3"
+                                    onClick={() => navigate('/goalQueueView')}>Bearbeiten</button>
+                        }
+                    </div>
                 </div>
 
-                <div className="text-center mt-4">
-                    {/*<button className="btn btn-success" onClick={handleAddGoal}>Add Goal</button>*/}
-                    {user?.role === 'patient' &&
-                        <button className="btn btn-primary m-3"
-                                onClick={() => navigate('/goalQueueView')}>Bearbeiten</button>
-                    }
-                </div>
+
 
             </div>
         </div>
