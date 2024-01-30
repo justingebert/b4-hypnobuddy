@@ -1,0 +1,33 @@
+# name: Build and Push Docker Image
+
+# on:
+#   push:
+#     branches:
+#       - main
+#       - docker-images # test
+#   pull_request:
+#     branches:
+#       - main
+
+# env:
+#   DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+#   DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
+
+# jobs:
+#   build-and-push:
+#     runs-on: ubuntu-22.04
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
+
+#       - name: Build Docker image
+#         run: docker build -t nataliiaremezova/b4-hypnobuddy:$GITHUB_SHA ./Backend
+
+#       - name: Login to Docker Hub
+#         uses: docker/login-action@v1
+#         with:
+#           username: ${{ env.DOCKER_HUB_USERNAME }}
+#           password: ${{ env.DOCKER_HUB_PASSWORD }}
+
+#       - name: Push Docker image
+#         run: docker push nataliiaremezova/b4-hypnobuddy:$GITHUB_SHA
