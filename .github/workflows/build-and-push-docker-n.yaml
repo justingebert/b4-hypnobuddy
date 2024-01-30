@@ -1,10 +1,6 @@
 name: Build and Push Docker Image
 
 on:
-  push:
-    branches:
-      - main
-      - docker-images # test
   pull_request:
     branches:
       - main
