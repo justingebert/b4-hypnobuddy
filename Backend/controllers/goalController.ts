@@ -429,13 +429,15 @@ export async function deleteComment(req, res) {
     try {
         const commentId = req.params.commentId;
 
-        const deletedComment = await Comment.findByIdAndDelete(commentId);
-        if (!deletedComment) {
+        const deleteComment = await Comment.findById(commentId);
+        if (!deleteComment) {
             return res.status(404).json({ error: 'Comment not found' });
         }
 
         //update the Goal to remove the commentID
-        await RoadmapGoal.updateOne({ _id: deletedComment.goalID }, { $pull: { comments: deletedComment._id } });
+        await RoadmapGoal.updateOne({ _id: deleteComment.goalID }, { $pull: { comments: deleteComment._id } });
+
+        await Comment.findByIdAndDelete(commentId);
 
         return res.json({
             success: true,
