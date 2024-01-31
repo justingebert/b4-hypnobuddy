@@ -2,7 +2,7 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
 import request from "supertest";
 import { DoAndDontModel } from "../../data/model/dosAndDontsModel";
-import FearModel from "../../data/model/fearModel";
+import { FearModel } from "../../data/model/fearModel";
 import { app, sessionStore } from "../../main";
 import { cleanDatabase, prepareTherapist } from "./baseTest";
 
