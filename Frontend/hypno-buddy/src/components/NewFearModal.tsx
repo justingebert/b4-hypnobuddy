@@ -31,7 +31,7 @@ function NewFearModal({ isOpen, onClose, onSave, fearTitle, onTitleChange }) {
                     </label>
                 </div>
                 <div className={styles.modalFooter}>
-                    <button onClick={handleSaveClick}>Save</button>
+                    <button onClick={handleSaveClick}>Speichern</button>
                 </div>
             </div>
         </div>

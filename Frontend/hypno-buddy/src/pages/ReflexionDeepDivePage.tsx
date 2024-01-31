@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import CustomButton from "../components/CustomButton.tsx";
+import {url} from "../contexts/AuthContext.tsx";
 import bunny from "../assets/bunny.png";
 
 const deepDiveQuestions = [
@@ -37,9 +38,7 @@ const deepDiveQuestions = [
     useEffect(() => {
         const fetchReflexion = async () => {
           try {
-            const response = await fetch(`http://localhost:3000/reflexion/getById/${id}`, {
-              credentials: 'include'
-            });
+            const response = await fetch(url + `/reflexion/getById/${id}`);
             const data = await response.json();
             setMood(data.mood);
           } catch (error) {
@@ -64,7 +63,7 @@ const deepDiveQuestions = [
 
   const handleSaveDeepDive = async () => {
     try {
-      await fetch(`http://localhost:3000/reflexion/update/${id}`, {
+      await fetch(url + `/reflexion/update/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -77,7 +76,7 @@ const deepDiveQuestions = [
   };  
 
   return (
-    <div className="reflectionDiv">
+    <div className="reflection">
         <div className="reflectionCard">
           <h2 className="h2-refelxion">Wie du dich fühlst: {mood}</h2>
           {!showDeepDive && (

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from "../contexts/AuthContext";
 import CustomButton from "../components/CustomButton.tsx";
 import { BsArrowUpCircleFill } from "react-icons/bs";
+import {url} from "../contexts/AuthContext.tsx";
 
 interface Reflexion {
   _id: string;
@@ -25,7 +26,7 @@ const ReflexionList: React.FC = () => {
   useEffect(() => {
     const fetchReflexions = async () => {
       try {
-        const response = await fetch('http://localhost:3000/reflexion/getAll', {
+        const response = await fetch(url + '/reflexion/getAll', {
           credentials: 'include'
         });
         if (response.ok) {
@@ -45,9 +46,9 @@ const ReflexionList: React.FC = () => {
 
   const handleDelete = async (id: string) => {
     try {
-        await fetch(`http://localhost:3000/reflexion/delete/${id}`, { 
+      await fetch(url + `/reflexion/delete/${id}`, {
         method: 'DELETE',
-        credentials: 'include' 
+        credentials: 'include'
       });
       setReflexions(reflexions.filter(reflexion => reflexion._id !== id));
       setShowDeleteModal(false);

@@ -53,7 +53,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
 
     const fetchPatients = async () => {
         try {
-            const response = await fetch('http://localhost:3000/user/profile/patients', {
+            const response = await fetch(url +'/user/profile/patients', {
                 method: 'GET',
                 credentials: 'include',
             });
@@ -94,7 +94,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
 
     const fetchTherapist = async () => {
         try {
-            const response = await fetch('http://localhost:3000/user/therapistOfPatient', {
+            const response = await fetch(url+ '/user/therapistOfPatient', {
                 method: 'GET',
                 credentials: 'include',
             });
@@ -126,7 +126,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
     // Function to check the authentication status on component mount
     const checkLogin = async () => {
         try {
-            const response = await fetch('http://localhost:3000/user/currentUser', {
+            const response = await fetch(url + '/user/currentUser', {
                 method: 'GET',
                 credentials: 'include',
                 headers: {
@@ -139,10 +139,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
                 isAuthenticated: data.isAuthenticated,
                 user: data.isAuthenticated ? data.user : null,
             }));
-            if(data.user.role === 'therapist') {
-                fetchPatients();
-            }else{
-                fetchTherapist();
+            if(data.isAuthenticated) {
+                if(data.user.role === 'therapist') {
+                    await fetchPatients();
+                }else{
+                    await fetchTherapist();
+                }
             }
         } catch (error) {
             console.error('Error fetching auth status: ', error);
@@ -157,7 +159,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
 
     const handleLogin = async(email: string, password: string) : Promise<{ success: boolean, redirect: string, message: string}> => {
         try {
-            const response = await fetch('http://localhost:3000/user/login', {
+            const response = await fetch(url + '/user/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -188,7 +190,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
     // Function to handle user logout
     const handleLogout = async () => {
         try {
-            const response = await fetch('http://localhost:3000/user/logout', {
+            const response = await fetch(url + '/user/logout', {
                 method: 'POST',
                 credentials: 'include'
             });
@@ -250,3 +252,6 @@ export const  useAuth = () => {
     return context;
 
 }
+
+
+export const url = import.meta.env.BACKEND_URL || 'http://localhost:8080';
