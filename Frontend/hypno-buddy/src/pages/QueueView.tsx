@@ -3,13 +3,13 @@ import QueueList from '../components/QueueList';
 import { RoadmapGoal } from '../types/Roadmap-Goal.ts';
 import GoalCreateForm from '../components/GoalCreateForm';
 import {useNavigate} from "react-router-dom";
-import {useGoals} from "../contexts/GoalContext.tsx"; // Assuming you have a form for adding/editing goals
+import {useGoals} from "../contexts/GoalContext.tsx";
 
 const QueueView: React.FC = () => {
 
     const { goals, setGoals, fetchGoals, createGoal, updateGoal, deleteGoal, updateGoalOrder, createSubGoal } = useGoals();
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
+    //const [isLoading, setIsLoading] = useState(true);
+    //const [error, setError] = useState(null);
     const [editingGoal, setEditingGoal] = useState<RoadmapGoal | null>(null);
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [actionType, setActionType] = useState(null);

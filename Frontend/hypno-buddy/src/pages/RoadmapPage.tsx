@@ -1,15 +1,14 @@
 import styles from '../styles/RoadmapPage.module.scss';
-import React, {useState, useEffect} from 'react';
+import  {useState, useEffect} from 'react';
 import {useNavigate} from "react-router-dom";
 import {useGoals} from "../contexts/GoalContext.tsx";
 import {useAuth} from "../contexts/AuthContext.tsx";
 import {RoadmapGoal} from "../types/Roadmap-Goal.ts";
-import GoalCommentForm from "../components/GoalCommentForm.tsx";
 import RoadmapGoalTextbox from "../components/RoadmapGoalTextbox.tsx";
 
 function RoadmapPage() {
     const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState(null);
+    //const [error, setError] = useState(null);
     const { isAuthenticated, user, selectedPatient} = useAuth();
     const {goals, addGoal, setGoals,fetchGoals, fetchGoalsOf, saveComment } = useGoals();
     const [editingGoal, setEditingGoal] = useState<RoadmapGoal | null>(null);
@@ -33,7 +32,7 @@ const getStatusClass = (status) => {
 };
 
 const getDate = (date) => {
-    const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+    const options : Intl.DateTimeFormatOptions = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
     if (date instanceof Date) {
         return date.toLocaleDateString('de-DE', options);
     }

@@ -21,7 +21,6 @@ function TherapistCard({
   leftTextField,
   rightTextField,
   isEditMode,
-  isLeftField,
   onEditToggle,
   onSave,
   onTitleChange,
@@ -31,11 +30,12 @@ function TherapistCard({
   const [showSidebar, setShowSidebar] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [patients, setPatients] = useState<Array<{ _id: string; name: { first: string } }>>([]);
-  const [newPatient, setNewPatient] = useState('');
+  //const [newPatient, setNewPatient] = useState('');
   const [searchQueryLinked, setSearchQueryLinked] = useState('');
   const [PatientsLinked, setPatientsLinked] = useState([]);
   const [loadingLinked, setLoadingLinked] = useState(false);
-  const [addedPatients, setAddedPatients] = useState<Array<string>>([]);
+  //const [addedPatients, setAddedPatients] = useState<Array<string>>([]);
+  const [addedPatients] = useState<Array<string>>([]);
 
   useEffect(() => {
     fetchPatients();

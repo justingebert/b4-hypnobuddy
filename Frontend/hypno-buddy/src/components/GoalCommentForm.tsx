@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState} from 'react';
 
 interface GoalCommentFormProps {
     onSave: (comment: string, isVisible: boolean, goalID: any) => void;

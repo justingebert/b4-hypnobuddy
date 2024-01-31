@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import  { useState } from 'react';
 import styles from '../styles/TherapistCard.module.scss';
 import {ListGroup } from 'react-bootstrap';
 import {useAuth} from "../contexts/AuthContext.tsx";
-import {User} from "../types/User.ts";
 
 
 function PatientList() {
@@ -31,7 +30,7 @@ function PatientList() {
                 </div>
                 <div className={"patientList"}>
                     <ListGroup className={`${styles.patientList} ${styles.scrollable}`}>
-                        {filteredPatients.map((patient, index) => (
+                        {filteredPatients.map((patient) => (
                             <ListGroup.Item key={patient._id}>
                                 {patient._id === selectedPatient?._id ? (
                                     <button className={`btn ${styles['custom-border-color']} w-100`} onClick={() => selectPatient(patient)}>

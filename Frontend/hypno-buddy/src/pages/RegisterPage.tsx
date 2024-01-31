@@ -1,24 +1,10 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import AuthForm from '../components/AuthForm.tsx';
 import { FlashContext } from '../contexts/FlashContext';
 import { useNavigate, Link } from 'react-router-dom';
 import {url, useAuth} from '../contexts/AuthContext.tsx';
-//import Lottie, { AnimationConfigWithData } from 'lottie-web';
-//import LoginAnimation from '../assets/LoginAnimation.json';
-import styled from 'styled-components';
 import '../styles/LoginSignin.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-const WelcomeHeading = styled.div`
-    color: #f4e7e8;
-    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    margin: auto 0;
-    font: 700 90px/109px Inter, sans-serif;
-
-    position: absolute;
-    top: 350px;
-    left: 95px;
-`;
 
 const RegisterPage = () => {
     const { flash } = useContext(FlashContext);
@@ -61,16 +47,7 @@ const RegisterPage = () => {
     const toggleForm = () => {
         setIsLogin((prevIsLogin) => !prevIsLogin);
     };
-/*
-    const defaultOptions: AnimationConfigWithData<'svg'> = {
-        loop: true,
-        autoplay: true,
-        animationData: LoginAnimation,
-        rendererSettings: {
-            preserveAspectRatio: 'xMidYMid slice',
-        },
-    };
-*/
+
     return (
         <div className="loginPage">
             <div className="background-login-image">

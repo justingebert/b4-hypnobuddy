@@ -1,7 +1,5 @@
 import React, { createContext, useState, useContext, useCallback } from 'react';
 import { RoadmapGoal } from '../types/Roadmap-Goal';
-import {Comment} from "../types/Comment.ts";
-import {FlashContext} from "./FlashContext.tsx";
 import {url} from "./AuthContext.tsx";
 
 interface GoalsContextType {
@@ -37,7 +35,6 @@ export const useGoals = () => {
  */
 export const GoalsProvider: React.FC = ({ children }) => {
     const [goals, setGoals] = useState<RoadmapGoal[]>([]);
-    const { flash } = useContext(FlashContext);
 
     const addGoal = useCallback((newGoal: RoadmapGoal) => {
         setGoals((prevGoals) => [...prevGoals, newGoal]);

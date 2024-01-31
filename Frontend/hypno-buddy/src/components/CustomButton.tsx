@@ -1,5 +1,4 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 
 interface ButtonProps {
     buttonText: string;
@@ -19,7 +18,6 @@ const CustomButton: React.FC<ButtonProps> = ({
                                                  borderHoverColor,
 
                                              }: ButtonProps) => {
-    const navigate = useNavigate();
 
     const handleMouseOver = (e: React.MouseEvent<HTMLButtonElement>): void => {
         const target = e.target as HTMLButtonElement;

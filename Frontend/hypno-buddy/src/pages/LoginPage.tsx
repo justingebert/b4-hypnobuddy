@@ -6,34 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext.tsx';
 import { Link } from 'react-router-dom';
 import RegisterForm from './RegisterPage';
-import styled from 'styled-components';
-import { Container, Row, Col } from 'react-bootstrap';
 import '../styles/LoginSignin.scss';
-
-const WelcomeHeading = styled.div`
-    color: #f4e7e8;
-    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    margin: auto 0;
-    font: 700 90px/109px Inter, sans-serif;
-
-    position: absolute;
-    top: 45%;
-    left: 15%;
-
-  @media (max-width: 768px) {
-    font-size: 60px;
-  }
-
-  @media (max-width: 480px) {
-    font-size: 40px;
-  }
-`;
-
-const ContainerStyl = styled.div`
-    width: 100vw;
-    height: 100vh;
-    position: relative;
-`;
 
 const LoginPage = () => {
     const { flash } = useContext(FlashContext);
@@ -72,16 +45,7 @@ const LoginPage = () => {
     const toggleForm = () => {
         setIsLogin((prevIsLogin) => !prevIsLogin);
     };
-    /*
-    const defaultOptions: AnimationConfigWithData<'svg'> = {
-        loop: true,
-        autoplay: true,
-        animationData: LoginAnimation,
-        rendererSettings: {
-            preserveAspectRatio: 'xMidYMid slice',
-        },
-    };
-*/
+
     return (
         <div className="loginPage">
             <div className="background-login-image">

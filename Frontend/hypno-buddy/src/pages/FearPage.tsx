@@ -7,6 +7,7 @@ import {url} from "../contexts/AuthContext.tsx";
 
 function FearPage() {
   const { fearId } = useParams();
+  // @ts-ignore
   const [fearData, setFearData] = useState({});
   const [dosAndDonts, setDosAndDonts] = useState<DoAndDont[]>([]);
   const [fearTitle, setFearTitle] = useState('');

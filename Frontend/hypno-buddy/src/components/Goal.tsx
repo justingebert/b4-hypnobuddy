@@ -1,5 +1,3 @@
-import React from 'react';
-
 function GoalItem({ goal, onEdit, onDelete, onCreateSubGoal }) {
     const getStatusClass = (status) => {
         switch (status) {
@@ -11,7 +9,7 @@ function GoalItem({ goal, onEdit, onDelete, onCreateSubGoal }) {
     };
 
     const getDueDate = (dueDate) => {
-        const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+        const options: Intl.DateTimeFormatOptions = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
         if (dueDate instanceof Date) {
             return dueDate.toLocaleDateString('de-DE', options);
         }

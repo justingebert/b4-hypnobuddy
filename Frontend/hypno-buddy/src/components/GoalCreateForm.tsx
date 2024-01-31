@@ -9,7 +9,7 @@ interface GoalCreateFormProps {
     onClose: () => void;
 }
 
-const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClose, actionType }) => {
+const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClose }) => {
     const [id, setId] = useState<string | undefined>(undefined);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');

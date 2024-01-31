@@ -4,11 +4,9 @@ import '../styles/DashboardPage.scss';
 import CardCarousel from "../components/CardCarousel.tsx";
 import {Row, Button, Col} from "react-bootstrap";
 import PatientList from "../components/PatientList.tsx";
-import {useState} from "react";
-
 
 function DashboardPage() {
-    const { isAuthenticated, user, selectedPatient, therapistOfPatient} = useAuth();
+    const { isAuthenticated, user, therapistOfPatient} = useAuth();
 
     return (
         <div className="dashboard-div">

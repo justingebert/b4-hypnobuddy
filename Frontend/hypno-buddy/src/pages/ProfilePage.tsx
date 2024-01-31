@@ -1,9 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import { FlashContext } from "../contexts/FlashContext.tsx";
-import { useNavigate } from "react-router-dom";
 import '../styles/Profile.scss';
 import SubmitButton from "../components/SubmitButton.tsx";
-import { Form, FormControl, Button, Row, Col } from 'react-bootstrap';
+import { Form, FormControl, Row, Col } from 'react-bootstrap';
 import {url} from "../contexts/AuthContext.tsx";
 
 function ProfilePage() {
@@ -13,8 +12,6 @@ function ProfilePage() {
     const [patients, setPatients] = useState([])
 
     const { flash } = useContext(FlashContext);
-    const navigate = useNavigate();
-
 
     useEffect(() => {
         const fetchData = async () => {
