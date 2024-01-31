@@ -246,7 +246,6 @@ export const GoalsProvider: React.FC = ({ children }) => {
 
     const saveComment = useCallback(async (commentData:{ comment:string, isPrivate:boolean, goalID:string, userID:string }) => {
         try {
-            console.log(commentData)
             const response = await fetch(url+ '/goal/saveComment', {
                 method: 'POST',
                 headers: {
