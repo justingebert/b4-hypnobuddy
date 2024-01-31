@@ -71,7 +71,7 @@ function RoadmapPage() {
                                 {index + 1}
                             </div>
 
-                            <RoadmapGoalTextbox goal={goal} handleComment={handleComment} />
+                            <RoadmapGoalTextbox key={goal._id} goal={goal} handleComment={handleComment} />
                             {goal.subGoals && goal.subGoals.map((subgoal, subIndex) => (
                                 <div
                                     key={subgoal._id}
