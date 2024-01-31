@@ -23,7 +23,7 @@ function GoalItem({ goal, onEdit, onDelete, onCreateSubGoal }) {
     }
 
     return (
-        <div className={`card  ${styles.cardCustom} border-2 ${getStatusClass(goal.status)} mb-3`}>
+        <div className={`card  border-2 ${getStatusClass(goal.status)}  ${styles.cardCustom} mb-3`}>
             <div className={` card-body`}>
                 <h5 className="card-title">{goal.title}</h5>
                 <p className="card-text small text-muted">{getDueDate(goal.dueDate)}</p>
