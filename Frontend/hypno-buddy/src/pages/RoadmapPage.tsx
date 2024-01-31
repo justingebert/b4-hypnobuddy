@@ -71,15 +71,12 @@ const handleComment = async (comment: string, isPrivate: boolean, goalID: string
                                 {index + 1}
                             </div>
 
-                            <RoadmapGoalTextbox goal={goal} handleComment={handleComment}/>
+                            <RoadmapGoalTextbox key={goal._id} goal={goal} handleComment={handleComment}/>
                             {goal.subGoals && goal.subGoals.map((subgoal, subIndex) => (
                                 <div
                                     key={subgoal._id}
                                     className={`${index % 2 === 0 ? styles.subSectionRight : styles.subSectionLeft}`}
                                 >
-                                    <div className={`${styles.circle} ${getStatusClass(subgoal.status)}`}>
-                                        {subIndex + 1}
-                                    </div>
                                     <div className={`${styles.textbox}`}>
                                         <h5 className={`${styles.title}`}>{subgoal.title}</h5>
                                         <p className={`${styles.date}`}>{getDate(subgoal.dueDate)}</p>

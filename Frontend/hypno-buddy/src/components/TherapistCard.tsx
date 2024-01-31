@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../styles/TherapistCard.module.scss';
 import { Offcanvas, Button, ListGroup } from 'react-bootstrap';
+import {url} from "../contexts/AuthContext.tsx";
 
 interface TherapistCardProps {
   initialTitle?: string;
@@ -42,7 +43,7 @@ function TherapistCard({
 
   const fetchPatients = async () => {
     try {
-      const response = await fetch('http://localhost:3000/user/profile/patients', {
+      const response = await fetch(url + '/user/profile/patients', {
         method: 'GET',
         credentials: 'include',
       });
@@ -67,7 +68,7 @@ function TherapistCard({
     try {
       setLoadingLinked(true);
 
-      const response = await fetch('http://localhost:3000/user/getAllPatientsLinked', {
+      const response = await fetch(url + '/user/getAllPatientsLinked', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -120,7 +121,7 @@ function TherapistCard({
 
     try {
 
-      const response = await fetch('http://localhost:3000/dosAndDonts/fears/addUserToFear', {
+      const response = await fetch(url + '/dosAndDonts/fears/addUserToFear', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -152,7 +153,7 @@ function TherapistCard({
     const fearId = fullUrl.substring(lastSlashIndex + 1);
     try {
 
-      const response = await fetch('http://localhost:3000/dosAndDonts/fears/deleteUserToFear', {
+      const response = await fetch(url + '/dosAndDonts/fears/deleteUserToFear', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
