@@ -51,21 +51,122 @@ afterEach(() => {
   jest.clearAllTimers();
 });
 
-async function createReflexion() {
-    const response = await request(app)
-      .post(reflexionRoute + createRoute)
-      .set("Cookie", patientBody.userCookie)
-      .send({ mood: "Sehr gut", description: "testy", deepDiveQuestion: "testchen", deepDiveAnswer: "testtest" });
-
-    expect(response.status).toBe(200);
-    return response;
-}
-
 describe("Create reflexion of user", () => {
   afterAll(cleanDatabase);
   beforeAll(() => preparePatient(exampleLogin, patientBody));
 
   it("should create a new reflexion of user with fully filled body of reflexion", async () => {
-    let response = createReflexion();
+    let response = await request(app)
+      .post(reflexionRoute + createRoute)
+      .set("Cookie", patientBody.userCookie)
+      .send({
+        mood: "Sehr gut",
+        description: "testy",
+        deepDiveQuestion: "testchen",
+        deepDiveAnswer: "testtest",
+      });
+
+    expect(response.status).toBe(200);
+  });
+
+  it("should create a new reflexion of user without part deepDiveQuestion in body of reflexion", async () => {
+    let response = await request(app)
+      .post(reflexionRoute + createRoute)
+      .set("Cookie", patientBody.userCookie)
+      .send({
+        mood: "Sehr gut",
+        description: "testy",
+        deepDiveAnswer: "testtest",
+      });
+
+    expect(response.status).toBe(200);
+  });
+
+  it("should create a new reflexion of user without part deepDiveAnswer in body of reflexion", async () => {
+    let response = await request(app)
+      .post(reflexionRoute + createRoute)
+      .set("Cookie", patientBody.userCookie)
+      .send({
+        mood: "Sehr gut",
+        description: "testy",
+        deepDiveQuestion: "testchen",
+      });
+
+    expect(response.status).toBe(200);
+  });
+
+  it("should create a new reflexion of user without part description in body of reflexion", async () => {
+    let response = await request(app)
+      .post(reflexionRoute + createRoute)
+      .set("Cookie", patientBody.userCookie)
+      .send({
+        mood: "Sehr gut",
+        deepDiveQuestion: "testchen",
+        deepDiveAnswer: "testtest",
+      });
+
+    expect(response.status).toBe(200);
+  });
+
+  it("should reject a new reflexion of unauthorized user", async () => {
+    let response = await request(app)
+      .post(reflexionRoute + createRoute)
+      .send({
+        mood: "Sehr gut",
+        description: "testy",
+        deepDiveQuestion: "testchen",
+        deepDiveAnswer: "testtest",
+      });
+
+    expect(response.status).toBe(401);
+  });
+});
+
+describe("Getting reflexion of user", () => {
+  afterAll(cleanDatabase);
+  beforeAll(() => preparePatient(exampleLogin, patientBody));
+
+  it("should create a new reflexion of user with fully filled body of reflexion", async () => {
+    let response = await request(app)
+      .post(reflexionRoute + createRoute)
+      .set("Cookie", patientBody.userCookie)
+      .send({
+        mood: "Sehr gut",
+        description: "testy",
+        deepDiveQuestion: "testchen",
+        deepDiveAnswer: "testtest",
+      });
+
+    expect(response.status).toBe(200);
+
+    response = await request(app)
+    .post(reflexionRoute + createRoute)
+    .set("Cookie", patientBody.userCookie)
+    .send({
+      mood: "Sehr gut",
+      description: "testy2",
+      deepDiveQuestion: "testchen2",
+      deepDiveAnswer: "testtest2",
+    });
+
+  expect(response.status).toBe(200);
+    
+    response = request(app)
+      .get(reflexionRoute + getAllRoute)
+      .set("Cookie", patientBody.userCookie);
+
+      expect(response.status).toBe(200);
+
+      const reflexions = response.body.map(
+        (reflexionData: any) => new Reflexion(reflexionData)
+      );
+
+      expect(reflexions.length).toBe(2);
+  });
+
+  it("should reject request of unauthorized user", async () => {
+    let response = await request(app).get(reflexionRoute + getAllRoute);
+
+    expect(response.status).toBe(401);
   });
 });
