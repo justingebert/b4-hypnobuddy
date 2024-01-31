@@ -1,0 +1,28 @@
+@import '../vars';
+
+.queueView{
+  background-image: url('../../assets/backgroundR.png');
+  padding-top: 8%;
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+}
+
+//TODO needed?
+.queueViewTop {
+  position: sticky;
+  top: 25px;
+  z-index: 1; // This ensures the sticky element stays on top of other elements
+}
+
+.heading{
+  font-family: $oscine-family;
+  font-weight: $oscine-bold-weight;
+}
+
+.centeredRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+

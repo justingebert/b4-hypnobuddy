@@ -1,4 +1,6 @@
 @import 'vars';
+@import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+
 :root {
   font-family: finalsix, sans-serif;
   line-height: 1.5;
@@ -56,3 +58,19 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+
+$theme-colors: (
+        "primary": $light-violet,
+        "secondary": $light-creme,
+        "success": $light-creme,
+        "info": $violet,
+        "warning": $orange,
+        "danger": $dark-violet,
+        "light": $white,
+        "dark": $dark-grey,
+        "body": $white,
+  // other colors as needed
+);
+
+// Importing Bootstrap SCSS
+@import '../../node_modules/bootstrap/scss/bootstrap';

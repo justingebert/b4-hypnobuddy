@@ -4,13 +4,12 @@ import { RoadmapGoal } from '../types/Roadmap-Goal.ts';
 import GoalCreateForm from '../components/GoalCreateForm';
 import {useNavigate} from "react-router-dom";
 import {useGoals} from "../contexts/GoalContext.tsx"; // Assuming you have a form for adding/editing goals
-import styles from "../styles/QueueView.module.scss";
+import styles from "../styles/Roadmap/Queueview.module.scss";
+import styles2 from "../styles/GoalForm.module.scss";
 
 const QueueView: React.FC = () => {
 
     const { goals, setGoals, fetchGoals, createGoal, updateGoal, deleteGoal, updateGoalOrder, createSubGoal } = useGoals();
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
     const [editingGoal, setEditingGoal] = useState<RoadmapGoal | null>(null);
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [actionType, setActionType] = useState(null);
@@ -23,10 +22,12 @@ const QueueView: React.FC = () => {
 
     //TODO should be split into two functions
     const handleCreateNewGoal = async (goalData: RoadmapGoal) => {
+
         //if not s a subgoal
         if (!goalData.isSubGoal) {
             await createGoal(goalData);
             setShowCreateModal(false);
+            window.scrollTo(0, 0);
             return;
         }
         //if it is a subgoal
@@ -88,11 +89,11 @@ const QueueView: React.FC = () => {
 
     return (
         <>
-            <div className="container">
-                    <div className="d-flex justify-content-center">
+            <div className={`container ${styles.queueView} `}>
+                    <div className={`${styles.queueViewTop} d-flex justify-content-center`}>
                         <button className={`${styles.btn} btn btn-secondary box align-self-center`} onClick={goToRoadmap}>← Roadmap</button>
                         <h1 className={`m-5 box ${styles.heading}`}>Goals Queue</h1>
-                        <button className={`${styles.btn} btn btn-success box align-self-center`} onClick={() => setShowCreateModal(true)}>+ neues
+                        <button className={`btn btn-primary box align-self-center`} onClick={() => setShowCreateModal(true)}>+ neues
                             Ziel
                         </button>
                     </div>

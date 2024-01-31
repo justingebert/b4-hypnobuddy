@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from '../styles/Roadmap/Goal.module.scss';
 
 function GoalItem({ goal, onEdit, onDelete, onCreateSubGoal }) {
     const getStatusClass = (status) => {
@@ -22,15 +23,15 @@ function GoalItem({ goal, onEdit, onDelete, onCreateSubGoal }) {
     }
 
     return (
-        <div className={`card border-2 ${getStatusClass(goal.status)} mb-3`}>
-            <div className="card-body">
+        <div className={`card  ${styles.cardCustom} border-2 ${getStatusClass(goal.status)} mb-3`}>
+            <div className={` card-body`}>
                 <h5 className="card-title">{goal.title}</h5>
                 <p className="card-text small text-muted">{getDueDate(goal.dueDate)}</p>
                 <p className="card-text" dangerouslySetInnerHTML={{ __html: goal.description }} />
-                <button className="btn btn-primary mr-2" onClick={() => onEdit(goal)}>Bearbeiten</button>
+                <button className={`btn btn-secondary ${styles.btnPrimaryCustom} mr-2`} onClick={() => onEdit(goal)}>Bearbeiten</button>
                 <button className="btn btn-danger m-2" onClick={() => onDelete(goal._id)}>Löschen</button>
                 {!goal.isSubGoal && (
-                    <button className="btn btn-secondary" onClick={() => onCreateSubGoal(goal._id)}>neues
+                    <button className="btn btn-primary" onClick={() => onCreateSubGoal(goal._id)}>+
                         Zwischenziel</button>
                 )}
 
