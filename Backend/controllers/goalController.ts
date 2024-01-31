@@ -405,7 +405,7 @@ export async function addComment(req, res) {
             { new: true }
         );
 
-        const goalWithComments = await RoadmapGoal.findById(goalID).populate('comments');
+        const goalWithComments = await RoadmapGoal.findById(goalID).populate('comments').populate('subGoals');
 
         res.status(201).json({
             success: true,

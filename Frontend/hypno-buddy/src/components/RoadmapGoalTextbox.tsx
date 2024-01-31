@@ -113,7 +113,7 @@ function RoadmapGoalTextbox({ goal, handleComment }) {
                                                     <div>
                                                         <span className={`${styles.writer}`}>
                                                             {c.userID === user._id ? 'Du: ' :
-                                                                user.role === 'patient' ? 'Dein Therapeut: ' : `${selectedPatient?.name.first} ${selectedPatient?.name.last}:`
+                                                                user.role === 'patient' ? 'Dein Therapeut: ' : `${selectedPatient?.name.first} ${selectedPatient?.name.last}: `
                                                             }
                                                         </span>
                                                         <span className={`${styles.date}`}>{getDate(c.creationDate)}</span>

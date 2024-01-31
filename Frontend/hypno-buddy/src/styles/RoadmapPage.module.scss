@@ -1,5 +1,5 @@
 //Variables
-@import 'colors';
+@import 'vars';
 $circle-size: 40px;
 $timeline-thickness: 5px;
 
@@ -175,7 +175,7 @@ h6{
 
 
 //mobile
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 991px) {
   .timeline::after {
     left: 30px;
   }

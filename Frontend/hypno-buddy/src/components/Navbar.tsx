@@ -81,7 +81,6 @@ const NavbarComponent = () => {
                         ) : null}
                     </Nav>
                     <Nav>
-                        //TODO What is #deets?
                         <Nav.Link href="#deets" className="d-flex">
                             {isAuthenticated && user ? (
                                 <>

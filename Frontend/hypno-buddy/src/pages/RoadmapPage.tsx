@@ -67,9 +67,7 @@ function RoadmapPage() {
                             key={goal._id}
                             className={`${index % 2 === 0 ? styles.sectionRight : styles.sectionLeft}`}
                         >
-                            <div className={`${styles.circle} ${getStatusClass(goal.status)}`}>
-                                {index + 1}
-                            </div>
+                            <div className={`${styles.circle} ${getStatusClass(goal.status)}`}></div>
 
                             <RoadmapGoalTextbox key={goal._id} goal={goal} handleComment={handleComment} />
                             {goal.subGoals && goal.subGoals.map((subgoal, subIndex) => (
