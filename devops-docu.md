@@ -93,6 +93,7 @@ This is my path of creating my project, I jumped between different topics and ha
     - use terraform for the database deployment
     - terraform plan change to pr dockerfile
     - deploy test backend container to cloud run to test Pullrequest app fully (not only frontend) - i didnt do that because i was worried about costs
+    - make script for whitelisting ip for mongodb atlas - not whitelist all ips
 
 16. **What I would do differently**:
     - figma link: https://www.figma.com/file/yVnwSy4HVDZioFTdOb0ZAb/Devops-Project?type=whiteboard&node-id=0%3A1&t=tOjXEp9mIJ5yYqf1-1
