@@ -1,20 +1,26 @@
 //Variables
 @import 'vars';
-$circle-size: 40px;
-$timeline-thickness: 5px;
 
-.roadmap{
+$circle-size: 40px;
+$timeline-thickness: 7px;
+
+.roadmap {
   background-image: url('../assets/backgroundR.png');
   padding-top: 8%;
+  padding-inline: 5%;
   min-height: 100vh;
   background-size: cover;
   background-position: center;
+  font: $oscine-bold-weight 30px/30px $oscine-family;
 
 }
+
 .timeline {
   position: relative;
-  max-width: 1200px;
-  margin: 50px auto;
+  width: 100%;
+  margin-top: 50px;
+  min-height: 90vh;
+  bottom: 0;
 }
 
 // timeline line
@@ -27,37 +33,53 @@ $timeline-thickness: 5px;
   top: 0;
   bottom: 0;
   left: 50%;
-  margin-left: calc(-1* $timeline-thickness/2);
-  //z-index: 100;
+  margin-left: calc(-1 * $timeline-thickness / 2);
+  margin-top: 1%;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  &.planned {
+    background-color: $light-grey;
+  }
+
+  &.doing {
+    background-color: $dark-violet;
+  }
+
+  &.reached {
+    background-color: $light-violet;
+  }
 }
 
-@mixin section{
+@mixin section {
   position: relative;
   padding: 10px 40px;
   width: 50%;
   //background: rgba(83, 91, 242, 0.54);
 }
 
-.sectionLeft{
+.sectionLeft {
   @include section;
   left: 0;
 }
 
-.sectionRight{
+.sectionRight {
   @include section;
   left: 50%;
 
-    .circle{
-      left: calc(-1 * $circle-size / 2);
-    }
+  .button{
+    left: 50%;
+    margin-right: 3%;
+  }
+
+  .circle {
+    left: calc(-1 * $circle-size / 2);
+  }
 }
 
-@mixin circle($size, $color: #ccc) {
+@mixin circle($size, $color: $light-grey) {
   position: absolute;
   width: $size;
   height: $size;
   border-radius: 50%;
-  top:10px;
   // uncomment the following lines to center the circle vertically
   // top: 50%;
   // transform: translateY(-50%);
@@ -65,6 +87,7 @@ $timeline-thickness: 5px;
   z-index: 10;
   background-color: $color;
   color: #fff;
+
 
   display: flex;
   align-items: center;
@@ -74,17 +97,31 @@ $timeline-thickness: 5px;
 .circle {
   @include circle($circle-size);
 
-  // Additional styling specific to the circle
-  // e.g., colors based on status, border, etc.
+}
+.planned {
+  background-color: $light-grey;
+}
+
+.doing {
+  background-color: $dark-violet;
+}
+
+.reached {
+  background-color: $light-violet;
 }
 
 @mixin textbox{
   position: relative;
   padding: 10px 20px;
-  background: #fff;
+  background: $light-grey;
   border-radius: 6px;
   box-shadow: 0 3px 10px rgba(0,0,0,0.2);
   margin-bottom: 7px;
+  color: $dark-violet;
+  font: $oscine-light-weight 30px/30px $oscine-family;
+  h5{
+    font-weight: bold;
+  }
 }
 .textbox{
   @include textbox;
@@ -109,13 +146,25 @@ $timeline-thickness: 5px;
   padding: 0;
 }
 
-
 .deleteBtn:hover {
   color: red;
 }
+.button{
+  background-color: $orange;
+  position: fixed;
+  font-size: 1rem;
+  bottom: 0;
+  right: 0;
+  margin: 6% 8% 7% 8%;
+  z-index: 1;
+}
+.btn{
+  background-color: $dark-violet;
+  padding: 3px;
+  padding-inline: 12px;
+}
 
 //TODO CHECK IF NEEDED
-/*
 .date{
   font-size: 0.875rem;
   color: #6c757d;
@@ -124,7 +173,7 @@ $timeline-thickness: 5px;
 .title, .description, .date{
   margin: 5px;
 }
-*/
+
 
 .detailsButton {
   background-color: none;
@@ -150,6 +199,23 @@ $timeline-thickness: 5px;
   font-size: 0.875rem;
   width: 90%;
 }
+.userComment {
+  border: 1px solid $violet;
+  border-radius: 6px;
+  padding: 0.5rem;
+  margin: 0.3rem 0.3rem 0.3rem 0;
+  font-size: 0.875rem;
+  width: 90%;
+}
+
+.therapistComment {
+  border: 1px solid $orange;
+  border-radius: 6px;
+  padding: 0.5rem;
+  margin: 0.3rem 0.3rem 0.3rem 0;
+  font-size: 0.875rem;
+  width: 90%;
+}
 
 .writer {
   font-weight: bold;
@@ -172,8 +238,6 @@ h6{
 
 }
 
-
-
 //mobile
 @media screen and (max-width: 991px) {
   .timeline::after {
@@ -193,4 +257,6 @@ h6{
     left: calc(30px - $circle-size/2);
   }
 }
-
+p, label {
+  font-size: 1rem;
+}
