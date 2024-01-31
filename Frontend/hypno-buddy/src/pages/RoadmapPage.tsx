@@ -25,13 +25,37 @@ function RoadmapPage() {
 
     const getStatusClass = (status) => {
         switch (status) {
-            case 'Geplant': return 'bg-secondary';
-            case 'Umsetzung': return 'bg-primary';
-            case 'Erreicht': return 'bg-success';
+            case 'Geplant': return `${styles.planned}`;
+            case 'Umsetzung': return `${styles.doing}`;
+            case 'Erreicht': return `${styles.reached}`;
             default: return 'bg-secondary';
         }
     };
 
+    const sortedGoals = goals.slice().sort((a, b) => {
+        // Define the order of goal states (you can adjust based on your needs)
+        const stateOrder = { 'Erreicht': 1, 'Umsetzung': 2, 'Geplant': 3 };
+
+        // Get the order for each goal
+        const orderA = stateOrder[a.status] || 0;
+        const orderB = stateOrder[b.status] || 0;
+
+        // Compare the goals based on their state order
+        return orderB - orderA;
+    });
+
+    const getTimelineColor = (status) => {
+        switch (status) {
+            case 'Geplant':
+                return styles.planned;
+            case 'Umsetzung':
+                return styles.doing;
+            case 'Erreicht':
+                return styles.reached;
+            default:
+                return styles.defaultColor; // Define a default color class
+        }
+    };
     const getDate = (date) => {
         const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
         if (date instanceof Date) {
@@ -57,37 +81,32 @@ function RoadmapPage() {
 
     return (
         <div className={styles.roadmap}>
-            <div className="container mt-3">
-                <h1 className={styles.header}>ROADMAP</h1>
-                <h4 className="text-center mb-4">{selectedPatient?.name.first} {selectedPatient?.name.last}</h4>
-                {/*<div className={`${styles.timeline} d-flex flex-column align-items-start`}>*/}
-                <div className={`${styles.timeline}`}>
-                    {goals.length > 0 && goals.map((goal, index) => (
-                        <div
-                            key={goal._id}
-                            className={`${index % 2 === 0 ? styles.sectionRight : styles.sectionLeft}`}
-                        >
-                            <div className={`${styles.circle} ${getStatusClass(goal.status)}`}></div>
-
-                            <RoadmapGoalTextbox key={goal._id} goal={goal} handleComment={handleComment} />
-                            {goal.subGoals && goal.subGoals.map((subgoal, subIndex) => (
-                                <div
-                                    key={subgoal._id}
-                                    className={`${index % 2 === 0 ? styles.subSectionRight : styles.subSectionLeft} ${styles.subSection}`}
-                                >
-                                    <RoadmapGoalTextbox goal={subgoal} handleComment={handleComment} />
-                                </div>
-                            ))}
-                        </div>
-                    ))}
-
-                    <div className="mt-4">
-                        {/*<button className="btn btn-success" onClick={handleAddGoal}>Add Goal</button>*/}
-                        {user?.role === 'patient' &&
-                            <button className="btn btn-primary m-3"
-                                onClick={() => navigate('/goalQueueView')}>Bearbeiten</button>
-                        }
+            <h1 className={styles.header}>ROADMAP</h1>
+            <h4 className="text-center mb-4">{selectedPatient?.name.first} {selectedPatient?.name.last}</h4>
+            <div className={`${styles.timeline} ${getTimelineColor(sortedGoals[0]?.status)}\``}>
+                {sortedGoals.length > 0 && sortedGoals.map((goal, index) => (
+                    <div
+                        key={goal._id}
+                        className={`${index % 2 === 0 ? styles.sectionRight : styles.sectionLeft}`}
+                    >
+                        <div className={`${styles.circle} ${getStatusClass(goal.status)}`}></div>
+                        <RoadmapGoalTextbox key={goal._id} goal={goal} handleComment={handleComment} />
+                        {goal.subGoals && goal.subGoals.map((subgoal, subIndex) => (
+                            <div
+                                key={subgoal._id}
+                                className={`${index % 2 === 0 ? styles.subSectionRight : styles.subSectionLeft} ${styles.subSection}`}
+                            >
+                                <RoadmapGoalTextbox goal={subgoal} handleComment={handleComment} />
+                            </div>
+                        ))}
                     </div>
+                ))}
+                <div className="mt-4">
+                    {user?.role === 'patient' &&
+                        <button className={styles.button} onClick={() => navigate('/goalQueueView')}>
+                            Bearbeiten
+                        </button>
+                    }
                 </div>
 
 

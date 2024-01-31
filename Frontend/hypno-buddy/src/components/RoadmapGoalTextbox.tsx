@@ -109,7 +109,7 @@ function RoadmapGoalTextbox({ goal, handleComment }) {
                                     goal.comments.map((c) =>
                                         !c.isPrivate || (c.userID === user._id) ? (
                                             <div key={c._id} className={"d-flex flex-row commentBox"}>
-                                                <div className={`${styles.comment}`} key={c.commentID}>
+                                                <div className={`${c.userID === user._id ? styles.userComment : styles.therapistComment}`} key={c.commentID}>
                                                     <div>
                                                         <span className={`${styles.writer}`}>
                                                             {c.userID === user._id ? 'Du: ' :
