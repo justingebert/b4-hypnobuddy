@@ -1,4 +1,6 @@
 import { createContext, useState, ReactNode } from 'react';
+import { Alert } from 'react-bootstrap';
+import '../styles/flashMessage.scss'
 
 type FlashContextType = {
     flash: (msg: string) => void;
@@ -24,8 +26,14 @@ export function FlashProvider({ children }: FlashProviderProps) {
 
     return (
         <FlashContext.Provider value={{ flash }}>
+            {message && (
+                <div className="flashMessage">
+                    <Alert variant="light" >
+                        {message}
+                    </Alert>
+                </div>
+            )}
             {children}
-            {message && <div className="flash-message">{message}</div>}
         </FlashContext.Provider>
     );
 }

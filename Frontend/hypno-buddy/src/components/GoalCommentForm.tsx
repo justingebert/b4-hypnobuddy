@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 
 interface GoalCommentFormProps {
     onSave: (comment: string, isVisible: boolean, goalID: any) => void;
@@ -11,6 +11,12 @@ const GoalCommentForm: React.FC<GoalCommentFormProps> = ({onSave, goalID }) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        // Check if the comment is empty
+        if (comment.trim() === '') {
+            // You can show an error message or handle it in any way you prefer
+            console.error('Comment cannot be empty!');
+            return;
+        }
         onSave(comment, isPrivate, goalID);
         //reset the form
         setComment('');

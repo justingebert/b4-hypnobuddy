@@ -174,7 +174,6 @@ export async function getAllGoals(req, res, next) {
 }
 
 /**
-<<<<<<< HEAD
  * Gets all goals for a given user
  * - route: GET /goal/ofPatient/:patientID
  * @param req
@@ -263,18 +262,20 @@ export async function deleteGoal(req, res, next) {
     try {
         const goalId = req.params.goalId;
 
-        const deletedGoal = await RoadmapGoal.findByIdAndDelete(goalId);
-        if (!deletedGoal) {
+        const deleteGoal = await RoadmapGoal.findById(goalId);
+        if (!deleteGoal) {
             return res.status(404).json({ error: 'Goal not found' });
         }
 
         //delete comments
-        for (const comment of deletedGoal.comments) {
+        for (const comment of deleteGoal.comments) {
             await Comment.findByIdAndDelete(comment._id);
         }
 
         //update the User to remove the goalID
-        await User.updateOne({ _id: deletedGoal.userID }, { $pull: { goalIDs: deletedGoal._id } });
+        await User.updateOne({ _id: deleteGoal.userID }, { $pull: { goalIDs: deleteGoal._id } });
+
+        await RoadmapGoal.findByIdAndDelete(goalId);
 
         return res.json({
             success: true,
@@ -413,6 +414,38 @@ export async function addComment(req, res) {
         });
     } catch (error) {
         console.error('Error creating comment:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
+
+
+/**
+ * Deletes a comment and removes it from the goal
+ * Route: POST /goal/deleteComment/:commentId
+ * @param req
+ * @param res
+ */
+export async function deleteComment(req, res) {
+    try {
+        const commentId = req.params.commentId;
+
+        const deleteComment = await Comment.findById(commentId);
+        if (!deleteComment) {
+            return res.status(404).json({ error: 'Comment not found' });
+        }
+
+        //update the Goal to remove the commentID
+        await RoadmapGoal.updateOne({ _id: deleteComment.goalID }, { $pull: { comments: deleteComment._id } });
+
+        await Comment.findByIdAndDelete(commentId);
+
+        return res.json({
+            success: true,
+            message: 'Successfully deleted comment',
+            redirect: '/'
+        });
+    } catch (error) {
+        console.error('Error deleting comment:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 }
