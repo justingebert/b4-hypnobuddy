@@ -1,0 +1,325 @@
+@import 'vars';
+.layout{
+  padding-top: 15%;
+  flex-shrink: 0;
+  background: url('../assets/background.png') no-repeat center;
+  background-size: cover;
+  min-height: 100vh;
+
+}
+.layout2 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('../assets/backgroundTransp.png') no-repeat center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* Custom styles for the therapist card */
+.therapistCard {
+  background-color: $light-grey;
+  border-radius: 30px;
+  width: 70%;
+  max-width: 80vw;
+  min-height: 25rem;
+  height: auto;
+  color: $dark-violet;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  margin: 15% 5% 10%;
+}
+
+/* Custom styles for the therapist card title */
+.therapistCardTitle {
+  margin-top: 0;
+  z-index: 2;
+}
+
+/* Custom styles for the editable title */
+.editableTitle {
+  width: 100%;
+  padding: 10px;
+  background-color: $light-grey;
+  border: none;
+  border-radius: 30px;
+  color: $dark-violet;
+  margin-bottom: 10px;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.closeButton {
+  position: relative;
+  background-color: transparent;
+  border: none;
+  color: $light-violet;
+  font-size: 2rem;
+  cursor: pointer;
+  margin: -40px -10px -50px -55px;
+  z-index: 2;
+}
+
+.therapistCardHeader {
+  position: relative;
+}
+
+
+/* Custom styles for the therapist card container */
+.therapistCardContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  height: auto;
+}
+
+/* Custom styles for the therapist card left and right containers */
+.therapistCardLeft,
+.therapistCardRight {
+  width: 80%;
+}
+
+/* Custom styles for the subheading */
+.subheading {
+  color: $white;
+}
+
+/* Custom styles for the cream-colored text field */
+.creamTextField {
+  box-sizing: border-box;
+  background-color: $light-creme;
+  color: $dark-violet;
+  min-height: 16em;
+  width: 100%;
+  resize: vertical;
+  overflow-y: auto;
+  padding: 10px;
+  line-height: 1.2;
+  border-radius: 10px;
+  border-color: $dark-grey;
+  border-width: 0.5px;
+}
+
+.creamTextField.editable {
+  background-color: $light-creme;
+}
+.creamTextField textarea {
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding: 10px;
+  margin: 10rem;
+  box-sizing: border-box;
+  outline: none;
+}
+
+/* Custom styles for the button */
+.editSaveButton {
+  background-color: $light-violet;
+  color: $dark-violet;
+  border-color: $light-violet;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 30px;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.editSaveButton:hover {
+  background-color: $light-creme;
+  border-color: $dark-violet;
+}
+
+.cardContainer {
+  display: flex;
+  flex-wrap: wrap; /* Allow cards to wrap to the next row */
+  justify-content: space-around; /* Adjust as needed */
+
+}
+
+.card {
+  background-color: $light-creme;
+  box-shadow: 0 4px 8px rgba(62, 54, 141, 1);
+  overflow: hidden;
+  border-radius: 1rem;
+  transition: box-shadow 0.3s;
+  margin: 20px 20px 40px;
+  width: 25vw;
+  height: auto;
+  text-align: center;
+  h3{
+    color: $dark-violet
+  }
+}
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 14% 14% 10%;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px rgba(153, 153, 255, 0.2);
+  h3 {
+    color: $light-violet;
+  }
+}
+.card a:hover {
+  color: $light-violet; /* Adjust the hover color as needed */
+}
+
+.h1 {
+  text-align: center;
+  margin-bottom: 10px;
+  color: $dark-violet;
+  font-weight: 800;
+}
+.button {
+  background-color: $dark-violet;
+  color: $light-creme;
+  width: 10px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+.button:hover {
+  box-shadow: 0 4px 8px rgba(62, 54, 141, 1);
+  color: $orange;
+}
+.confirmButton{
+  margin-inline: 10px;
+}
+.centerContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.welcomeText {
+  text-align: center;
+  margin: 20px;
+  font-size: 1.5rem;
+  color: $dark-violet; /* Adjust color as needed */
+}
+
+/* Wrapper for the welcome text */
+.welcomeContainer {
+  color: $dark-grey;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+  padding: 20px;
+}
+
+/* Adjust as needed */
+@media (min-width: 768px) {
+  .welcomeText {
+    font-size: 1.3rem;
+  }
+  .therapistCard{
+    width: 90%;
+    max-width: 70vw;
+  }
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+/* Modal Container */
+.modal {
+  background-color: $light-creme;
+  max-width: 400px;
+  width: 100%;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Modal Header */
+.modalHeader {
+  color: $dark-violet;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* Modal Body */
+.modalBody {
+  color: $white;
+  margin-bottom: 20px;
+}
+
+/* Modal Footer */
+.modalFooter {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.toggleSidebarButton{
+  margin: 2rem;
+  background-color:  $light-violet;
+  border-color: $light-violet;
+  color: $dark-violet;
+  z-index: 1;
+  &:hover{
+    border-color: $dark-violet;
+  }
+}
+.searchInput{
+  margin: 1rem;
+  width: 90%;
+  border-radius: 5px;
+  border-width: 1px;
+  border-color: $violet;
+}
+.patientList{
+  background-color: $light-grey;
+  color: $dark-violet;
+  margin-inline: 1rem;
+  border: none;
+}
+.addButton {
+  margin-right: 1rem;
+  background-color: $dark-violet !important;
+  border-color: $dark-violet !important;
+}
+.deleteButton{
+  background-color: $dark-violet;
+  color: $white;
+  margin: 1rem;
+
+  font-size: small;
+}
+.deleteButton:hover{
+  box-shadow: 0 4px 8px rgba(62, 54, 141, 1);
+  background-color: $orange;
+}
+.custom-border-color {
+  border-color: $dark-violet;
+}
+.custom-border-color:hover {
+  background-color: $light-violet;
+}
