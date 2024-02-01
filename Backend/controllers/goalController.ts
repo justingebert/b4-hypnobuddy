@@ -312,7 +312,7 @@ export async function updateGoal(req, res, next) {
             updatedData.description = updatedData.description.replace(/\n/g, '<br>'); //makes multiline description possible
         }
 
-        const updatedGoal = await RoadmapGoal.findByIdAndUpdate(goalId, updatedData, { new: true }).populate('subGoals');
+        const updatedGoal = await RoadmapGoal.findByIdAndUpdate(goalId, updatedData, { new: true }).populate('subGoals').populate('comments')
         if (!updatedGoal) {
             return res.status(404).json({ error: 'Goal not found' });
         }
