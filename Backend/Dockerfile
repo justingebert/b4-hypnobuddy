@@ -21,7 +21,7 @@ RUN npm install --only=production
 
 COPY --from=build /usr/src/app/dist ./dist
 
-ENV NODE_ENV=production
+ENV NODE_ENV='production'
 
 EXPOSE 8080
 
