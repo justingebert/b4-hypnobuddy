@@ -254,4 +254,5 @@ export const  useAuth = () => {
 }
 
 
-export const url = import.meta.env.BACKEND_URL || 'http://localhost:8080';
+//CHANGE BASED ON DEV OR PROD
+export const url = import.meta.env. VITE_APP_BACKEND_URL || 'http://localhost:8080';
