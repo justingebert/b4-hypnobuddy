@@ -67,6 +67,11 @@ const QueueView: React.FC = () => {
         setGoals(reorderedGoals);
     };
 
+    const onClose = async () => {
+        setEditingGoal(null);
+        setShowCreateModal(false);
+    };
+
     const handleCreateSubGoal = async (parentGoalId: string) => {
         // Initialize a new subgoal with the parentGoalId
         const newSubGoal = {
@@ -96,7 +101,7 @@ const QueueView: React.FC = () => {
                     <GoalCreateForm
                         goalData={editingGoal}
                         onSave={actionType === 'edit' ? handleUpdateGoal : handleCreateNewGoal}
-                        onClose={() => setShowCreateModal(false)}
+                        onClose={onClose}
                     />
                 )}
             </div>
