@@ -33,15 +33,13 @@ app.use(session({
     saveUninitialized: false,
     store: sessionStore,
     cookie: {
-        proxy: true,//process.env.NODE_ENV === 'production',
+        proxy: process.env.NODE_ENV === 'production',
         httpOnly: true,
-        secure: true, //process.env.NODE_ENV === 'production',
+        secure: process.env.NODE_ENV === 'production',
         sameSite: 'none',
         maxAge: 24 * 60 * 60 * 1000
     }
 }));
-//test
-
 
 app.set('trust proxy', 1);
 
