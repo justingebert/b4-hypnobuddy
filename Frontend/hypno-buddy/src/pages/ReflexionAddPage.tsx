@@ -9,6 +9,8 @@ import badImage from '../assets/Sehr schlecht.png';
 import CustomButton from "../components/CustomButton.tsx";
 import bunny from "../assets/bunny.png";
 import {url} from "../contexts/AuthContext.tsx";
+
+
 const AddingReflexionPage: React.FC = () => {
   const navigate = useNavigate();
   const [hoveredButton, setHoveredButton] = useState<string | null>(null);
