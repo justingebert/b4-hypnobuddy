@@ -96,42 +96,4 @@ describe('QueueView Delete Goal', () => {
       cy.contains('Updated Goal Title').should('not.exist');
     });
 });
-
-  
-// describe('RoadmapPage Functionality', () => {
-//     beforeEach(() => {
-//         cy.visit('http://localhost:5173/login'); 
-
-//         cy.get('input[name="email"]').type('johndoe@example.com');
-//         cy.get('input[name="password"]').type('password123');
-
-//         cy.get('form').submit();
-//         cy.wait(500);
-
-//         cy.visit('http://localhost:5173/roadmap'); 
-//     });
-
-//     afterEach(() => {
-//         cy.clearCookies();
-//         cy.clearLocalStorage();
-//         cy.contains('Logout').click();
-//     });
-
-//     it('displays goals and sub-goals correctly', () => {
-//         // Check if the goals are displayed
-//         cy.get('.container').should('contain', 'Roadmap');
-//         cy.get('[data-testid="goal-item"]').should('have.length.at.least', 1); // Ensure there's at least one goal
-
-//         // Check for the presence of sub-goals if applicable
-//         cy.get('[data-testid="subgoal-item"]').should('have.length.at.least', 1); // Modify this based on your actual DOM structure
-//     });
-
-//     it('displays the correct status for goals', () => {
-//         // Check for different statuses (modify selectors based on actual implementation)
-//         cy.get('.bg-secondary').should('exist');
-//         cy.get('.bg-primary').should('exist');
-//         cy.get('.bg-success').should('exist');
-//     });
-//     // You can add more tests for other functionalities like handling comments, navigating to other pages, etc.
-// });
   
