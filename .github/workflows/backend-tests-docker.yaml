@@ -1,15 +1,10 @@
 name: Docker Compose CI
 
 on:
-  push:
-    branches:
-      - main
-      - docker-images # test
   pull_request:
     branches:
       - main
-      - docker-images # test
-      
+
 jobs:
   build:
 
@@ -52,8 +47,7 @@ jobs:
     - name: Run Backend Tests
       run: |
         cd Backend
-        npm run test -- userController.test.ts
-        npm run test -- goalController.test.ts
+        npm run test
 
     - name: Shutdown MongoDB
       run: docker-compose -f docker-compose.yaml down
