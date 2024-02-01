@@ -47,8 +47,7 @@ jobs:
     - name: Run Backend Tests
       run: |
         cd Backend
-        npm run test -- userController.test.js
-        npm run test -- goalController.test.js
+        npm run test
 
     - name: Shutdown MongoDB
       run: docker-compose -f docker-compose.yaml down
