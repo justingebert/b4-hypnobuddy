@@ -73,15 +73,16 @@ const NavbarComponent = () => {
                                 <Nav.Link href="/roadmap" className="nav-link active" aria-current="page">
                                     Roadmap
                                 </Nav.Link>
-                                <Nav.Link href="/reflexion-add" className="nav-link active" aria-current="page">
-                                    Reflexion
-                                </Nav.Link>
+                                {user.role === 'patient' ? (
+                                    <Nav.Link href="/reflexion-add" className="nav-link active" aria-current="page">
+                                        Reflexion
+                                    </Nav.Link>
+                                ) : null}
                             </Nav>
 
                         ) : null}
                     </Nav>
                     <Nav>
-                        //TODO What is #deets?
                         <Nav.Link href="#deets" className="d-flex">
                             {isAuthenticated && user ? (
                                 <>
