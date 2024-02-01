@@ -1,4 +1,4 @@
-name: Docker Compose CI
+name: Docker Compose setup (no tests)
 
 on:
   pull_request:

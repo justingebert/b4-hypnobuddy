@@ -1,4 +1,4 @@
-name: Frontend CI
+name: Frontend compilation check
 
 on:
   pull_request:
