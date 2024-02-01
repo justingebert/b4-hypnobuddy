@@ -1,8 +1,8 @@
 export const sampleTherapists = [
-    { name: { first: "Therapist", last: "One" }, email: "therapist1@example.com", role: "therapist", password: "password123" },
-    { name: { first: "Therapist", last: "Two" }, email: "therapist2@example.com", role: "therapist", password: "password123" },
-    { name: { first: "Therapist", last: "Three" }, email: "therapist3@example.com", role: "therapist", password: "password123" },
-    { name: { first: "Therapist", last: "Four" }, email: "therapist4@example.com", role: "therapist", password: "password123" },
+    { name: { first: "Therapist", last: "One" }, email: "therapist1@example.com", role: "therapist", password: "password123", patientLinkingCode:"1"},
+    { name: { first: "Therapist", last: "Two" }, email: "therapist2@example.com", role: "therapist", password: "password123", patientLinkingCode: "2" },
+    { name: { first: "Therapist", last: "Three" }, email: "therapist3@example.com", role: "therapist", password: "password123", patientLinkingCode: "3"},
+    { name: { first: "Therapist", last: "Four" }, email: "therapist4@example.com", role: "therapist", password: "password123", patientLinkingCode: "4"},
 ];
 
 export const samplePatients = [

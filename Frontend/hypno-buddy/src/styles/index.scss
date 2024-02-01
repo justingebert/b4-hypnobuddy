@@ -1,6 +1,7 @@
 @import 'vars';
+
 :root {
-  font-family: finalsix, sans-serif;
+  font-family: $finalsix-family, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -20,6 +21,7 @@ a {
   color: $dark-violet;
   text-decoration: inherit;
 }
+
 a:hover {
   color: $light-violet;
 }
@@ -49,9 +51,11 @@ button {
   transition: border-color 0.25s;
   color: $light-creme
 }
+
 button:hover {
   border-color: $light-violet;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;

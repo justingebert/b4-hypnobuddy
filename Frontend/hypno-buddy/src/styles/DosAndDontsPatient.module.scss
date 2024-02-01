@@ -5,6 +5,7 @@
     flex-shrink: 0;
     background-image: url('../assets/backgroundPa.png');
     background-size: cover;
+    font: $oscine-bold-weight 30px/30px $oscine-family;
 }
 .background_eclipse{
     height: 93vh;
@@ -31,18 +32,16 @@
     height: auto;
     color: #fff;
     text-align: center;
-    font: 400 32px Inter, sans-serif;
+    font-size: 1rem;
     padding: 2%;
     margin-inline-start: 40%;
     margin-inline-end: 5%;
 }
 
 .text {
+    font-size: 1rem;
     color: $white;
     text-align: center;
-    font-size: 32px;
-    font-weight: 400;
-    font-family: Inter, sans-serif;
     font-style: normal;
     line-height: normal;
     padding: 5%;

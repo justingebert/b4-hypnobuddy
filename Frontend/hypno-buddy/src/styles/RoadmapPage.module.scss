@@ -1,11 +1,25 @@
 //Variables
+@import 'vars';
+
 $circle-size: 40px;
-$timeline-thickness: 4px;
+$timeline-thickness: 7px;
+
+.roadmap {
+  background-image: url('../assets/backgroundR.png');
+  padding-top: 8%;
+  padding-inline: 5%;
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  font: $oscine-bold-weight 30px/30px $oscine-family;
+}
 
 .timeline {
   position: relative;
-  max-width: 1200px;
-  margin: 50px auto;
+  width: 100%;
+  margin-top: 50px;
+  min-height: 90vh;
+  bottom: 0;
 }
 
 // timeline line
@@ -13,41 +27,59 @@ $timeline-thickness: 4px;
   content: '';
   position: absolute;
   width: $timeline-thickness;
-  background-color: rgba(152, 152, 152, 0.49);
+  background-color: $light-grey;
   border-radius: 6px;
   top: 0;
   bottom: 0;
   left: 50%;
-  margin-left: calc(-1* $timeline-thickness/2);
+  margin-left: calc(-1 * $timeline-thickness / 2);
+  margin-top: 1%;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+
+  &.planned {
+    background-color: $light-grey;
+  }
+
+  &.doing {
+    background-color: $dark-violet;
+  }
+
+  &.reached {
+    background-color: $light-violet;
+  }
 }
 
-@mixin section{
+@mixin section {
   position: relative;
   padding: 10px 40px;
   width: 50%;
   //background: rgba(83, 91, 242, 0.54);
 }
 
-.sectionLeft{
+.sectionLeft {
   @include section;
   left: 0;
 }
 
-.sectionRight{
+.sectionRight {
   @include section;
   left: 50%;
 
-    .circle{
-      left: calc(-1 * $circle-size / 2);
-    }
+  .button {
+    left: 50%;
+    margin-right: 3%;
+  }
+
+  .circle {
+    left: calc(-1 * $circle-size / 2);
+  }
 }
 
-@mixin circle($size, $color: #ccc) {
+@mixin circle($size, $color: $light-grey) {
   position: absolute;
   width: $size;
   height: $size;
   border-radius: 50%;
-  top:10px;
   // uncomment the following lines to center the circle vertically
   // top: 50%;
   // transform: translateY(-50%);
@@ -55,6 +87,7 @@ $timeline-thickness: 4px;
   z-index: 10;
   background-color: $color;
   color: #fff;
+
 
   display: flex;
   align-items: center;
@@ -65,12 +98,45 @@ $timeline-thickness: 4px;
   @include circle($circle-size);
 }
 
-.textbox{
+.planned {
+  background-color: $light-grey;
+}
+
+.doing {
+  background-color: $dark-violet;
+}
+
+.reached {
+  background-color: $light-violet;
+}
+
+@mixin textbox {
   position: relative;
   padding: 10px 20px;
-  background: #fff;
+  background: rgba($light-grey, 0.5);
   border-radius: 6px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  margin-bottom: 7px;
+  color: $dark-violet;
+  font: $oscine-light-weight 30px/30px $oscine-family;
+
+  h5 {
+    font-weight: bold;
+  }
+}
+
+.textbox {
+  @include textbox;
+}
+
+.sectionLeft .subgoalBox {
+  @include textbox;
+  margin-right: 17px;
+}
+
+.sectionRight .subgoalBox {
+  @include textbox;
+  margin-left: 17px;
 }
 
 .statusBtn {
@@ -84,22 +150,36 @@ $timeline-thickness: 4px;
   padding: 0;
 }
 
-
 .deleteBtn:hover {
   color: red;
 }
 
+.button {
+  right: 8%;
+  z-index: 1;
+  position: fixed;
+  top: 8rem;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.btn {
+  background-color: $dark-violet;
+  padding: 3px;
+  padding-inline: 12px;
+}
+
 //TODO CHECK IF NEEDED
-/*
-.date{
+.date {
   font-size: 0.875rem;
   color: #6c757d;
 }
 
-.title, .description, .date{
+.title,
+.description,
+.date {
   margin: 5px;
 }
-*/
+
 
 .detailsButton {
   background-color: none;
@@ -110,13 +190,13 @@ $timeline-thickness: 4px;
   padding: 0;
 }
 
-.date{
+.date {
   font-size: 0.875rem;
   color: #6c757d;
   margin: 0;
 }
 
-.comment{
+.comment {
   border: 1px rgb(127, 45, 245) solid;
   border-radius: 6px;
   padding: 0.5rem;
@@ -126,23 +206,48 @@ $timeline-thickness: 4px;
   width: 90%;
 }
 
+.userComment {
+  border: 1px solid $violet;
+  border-radius: 6px;
+  padding: 0.5rem;
+  margin: 0.3rem 0.3rem 0.3rem 0;
+  font-size: 0.875rem;
+  width: 90%;
+}
+
+.therapistComment {
+  border: 1px solid $orange;
+  border-radius: 6px;
+  padding: 0.5rem;
+  margin: 0.3rem 0.3rem 0.3rem 0;
+  font-size: 0.875rem;
+  width: 90%;
+}
+
 .writer {
   font-weight: bold;
   color: #343a40;
 }
 
-.commentText{
+.commentText {
   margin: 0.5rem 0;
 }
 
-h6{
+h6 {
   margin-bottom: 0.1rem;
 }
 
+.header {
+  color: $dark-violet;
+  font-size: 3.5rem;
+  font-weight: 800;
+  text-align: center;
+  margin: 1.5rem;
 
+}
 
 //mobile
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 991px) {
   .timeline::after {
     left: 30px;
   }
@@ -161,3 +266,7 @@ h6{
   }
 }
 
+p,
+label {
+  font-size: 1rem;
+}

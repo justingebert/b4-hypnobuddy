@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { RoadmapGoal } from "../types/Roadmap-Goal.ts";
-import styles from '../styles/GoalForm.module.scss';
+import styles from '../styles/Roadmap/GoalForm.module.scss';
 import {useGoals} from "../contexts/GoalContext.tsx";
+import style from '../styles/Roadmap/buttons.module.scss';
 
 interface GoalCreateFormProps {
     goalData: RoadmapGoal | null;
@@ -42,8 +43,28 @@ const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClo
         }
     }, [goalData]);
 
+
+    const handleClose = () => {
+        setId(undefined);
+        setTitle('');
+        setDescription('');
+        setDueDate(undefined);
+        setStatus('Geplant');
+        setIsSubGoal(false);
+        setParentGoalId(undefined);
+        setParentGoalTitle(undefined);
+
+        onClose();
+    };
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (title.trim() === '' || description.trim() === '') {
+            alert('Please fill in the required fields');
+            return;
+        }
+
         onSave({
             _id: id,
             title,
@@ -53,34 +74,34 @@ const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClo
             isSubGoal,
             parentGoalId,
         });
-        onClose();
+        handleClose();
     };
 
     const isEditing = goalData !== null && !goalData.isSubGoal;
 
     return (
-        <div className="modal show" tabIndex={-1} role="dialog" style={{ display: 'block' }}>
-            <div className={styles.modalOverlay}>
-                <div className={`modal-dialog ${styles.modal}`} role="document">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h5 className="modal-title">{isEditing ? 'Ziel Bearbeiten' : 'Neues Ziel'}</h5>
-                            <button type="button" className="close bg-secondary" data-dismiss="modal" aria-label="Close" onClick={onClose}>
-                                <span aria-hidden="true">&times;</span>
+        <div className={`modal show `} tabIndex={-1} role="dialog" style={{ display: 'block' }}>
+            <div className={`${styles.modalOverlay}`}>
+                <div className={`modal-dialog ${styles.modalCustom}`} role="document">
+                    <div className={`modal-content  ${styles.modalCustom}`}>
+                        <div className={`modal-header ${styles.modalTitleCustom}`}>
+                            <h5 className={`modal-title`}>{isEditing ? 'Ziel Bearbeiten' : 'Neues Ziel'}</h5>
+                            <button type="button" className={`close ${style.btnDeleteCustom}`} data-dismiss="modal" aria-label="Close" onClick={handleClose}>
+                                <span aria-hidden="true" >&times;</span>
                             </button>
                         </div>
                         <form onSubmit={handleSubmit}>
-                            <div className="modal-body">
+                            <div className={`modal-body`}>
                                 {/* Title Field */}
                                 <div className="form-group">
                                     <label>Titel</label>
-                                    <input type="text" className="form-control" value={title}
+                                    <input type="text" className="form-control" value={title} required={true}
                                            onChange={e => setTitle(e.target.value)} />
                                 </div>
                                 {/* Description Field */}
                                 <div className="form-group">
                                     <label>Beschreibung</label>
-                                    <textarea className="form-control" value={description}
+                                    <textarea className="form-control" value={description} required={true}
                                               onChange={e => setDescription(e.target.value)}></textarea>
                                 </div>
                                 {/* DueDate Field */}
@@ -120,8 +141,8 @@ const GoalCreateForm: React.FC<GoalCreateFormProps> = ({ goalData, onSave, onClo
                                 )}
                             </div>
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" onClick={onClose}>Zurück</button>
-                                <button type="submit" className="btn btn-primary">{isEditing ? 'Speichern' : 'Hinzufügen'}</button>
+                                <button type="button" className={`btn btn-secondary ${style.btnDeleteCustom}`} onClick={handleClose}>Zurück</button>
+                                <button type="submit" className={`btn btn-primary ${style.btnPrimaryCustom}` }>{isEditing ? 'Speichern' : 'Hinzufügen'}</button>
                             </div>
                         </form>
                     </div>

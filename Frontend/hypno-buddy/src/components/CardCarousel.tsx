@@ -1,4 +1,4 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import { Carousel } from 'react-bootstrap';
 
 /**
@@ -40,14 +40,17 @@ function CardCarousel() {
 
     return (
         <div>
-            <Carousel data-bs-theme="dark" activeIndex={index} onSelect={handleSelect} className="carousel" style={{display:'inline-block'}}>
+            <Carousel data-bs-theme="dark" activeIndex={index} onSelect={handleSelect} className="carousel" style={{ display: 'inline-block' }}>
                 {carouselItems.map((item, idx) => (
                     <Carousel.Item key={idx} className="carouselItem">
-                        <div  style={{...itemStyle, width: '40vw', minHeight: '400px', marginBottom: '80px', padding: '40px', margin: '5vw', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center',
+                        <div style={{
+                            ...itemStyle, width: '40vw', minHeight: '400px', marginBottom: '80px', padding: '40px', margin: '5vw', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center',
                         }}>
-                            <h2 style={{color: '#3e368d', textAlign: 'center', paddingBottom: '60px', fontSize: '2rem', ...(window.innerWidth <= 768 && smallScreenStyles), overflow: 'hidden',
+                            <h2 style={{
+                                color: '#3e368d', textAlign: 'center', paddingBottom: '60px', fontSize: '2rem', ...(window.innerWidth <= 768 && smallScreenStyles), overflow: 'hidden', fontFamily: 'oscine', fontWeight: '700'
                             }}>{item.title}</h2>
-                            <p style={{color: '#3e368d', textAlign: 'center', width: '28vw', fontSize: '1.2rem', ...(window.innerWidth <= 768 && smallScreenStyles), overflow: 'hidden',
+                            <p style={{
+                                color: '#3e368d', textAlign: 'center', width: '28vw', fontSize: '1.2rem', ...(window.innerWidth <= 768 && smallScreenStyles), overflow: 'hidden',
                             }}>{item.text}</p>
                         </div>
 

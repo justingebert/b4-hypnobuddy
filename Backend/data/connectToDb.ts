@@ -68,6 +68,7 @@ export async function createMockupData() {
         const therapistDocs = [];
         for (const therapistData of sampleTherapists) {
             const therapist = await findOrCreateUser(therapistData);
+            therapist.patientLinkingCode = therapistData.patientLinkingCode;
             therapistDocs.push(therapist);
         }
 

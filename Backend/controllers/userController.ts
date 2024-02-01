@@ -161,6 +161,7 @@ export async function currentUser(req, res, next) {
         try {
             const user = await User.findById(req.user._id)
                 .populate('patients')  // Populate 'patients' field if the user is a therapist
+                .populate('patientLinkingCode')
                 .populate('therapist'); // Populate 'therapist' field if the user is a patient
 
             res.json({
