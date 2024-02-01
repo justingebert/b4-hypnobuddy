@@ -15,7 +15,7 @@ const Footer = () => {
                              </a>
                         </Col>
                         <Col>
-                            <small className="ms-2">&copy; HypnoBuddy, 2023. All rights reserved.</small>
+                            <small className="ms-2">&copy; HypnoBuddy, 2024. All rights reserved.</small>
                         </Col>
                     </Row>
                 </Container>
