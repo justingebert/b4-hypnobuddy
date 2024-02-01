@@ -8,7 +8,7 @@ describe('Login Functionality', () => {
     it('successfully logs in with valid credentials', () => {
       cy.visit('http://localhost:5173/login'); 
   
-      cy.get('input[name="email"]').type('johndoe@example.com'); 
+      cy.get('input[name="email"]').type('patient1@example.com'); 
       cy.get('input[name="password"]').type('password123'); 
   
       cy.get('form').submit();
