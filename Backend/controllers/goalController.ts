@@ -1,5 +1,6 @@
 import RoadmapGoal from '../data/model/roadmapGoal';
 import User from '../data/model/user';
+import Comment from '../data/model/comment';
 
 import { body, validationResult } from 'express-validator';
 import { isValid, parseISO } from 'date-fns';
@@ -15,8 +16,8 @@ export const getGoalParams = request => {
         description: request.body.description,
         status: request.body.status,
         dueDate: request.body.dueDate,
-        isSubGoal: false,
-        parentGoalId: null,
+        isSubGoal: request.body.isSubGoal,
+        parentGoalId: request.body.parentGoalId,
         subGoals: []
     }
 }
@@ -101,11 +102,14 @@ export async function createGoal (req, res, next) {
 
     try {
         const newRoadmapGoal = new RoadmapGoal(getGoalParams(req));
+        newRoadmapGoal.description = newRoadmapGoal.description.replace(/\n/g, '<br>'); //makes multiline description possible
         const savedRoadmapGoal = await newRoadmapGoal.save();
+
         await User.findOneAndUpdate(
             { _id: savedRoadmapGoal.userID },
             {$push: {goalIDs: {$each: [savedRoadmapGoal._id], $position: 0 }}}
         );
+        console.log(savedRoadmapGoal.description)
         return res.json({
             success: true,
             message: 'Successfully created goal',
@@ -135,11 +139,22 @@ export async function getAllGoals(req, res, next) {
     try {
         //get order of goals form user document
         const goalIDs = await User.findOne({ _id: req.user._id }).select('goalIDs');
-        //add goals in the correct order to the goals array
+
         const goals = [];
         for (const goalID of goalIDs.goalIDs) {
-            const goal = await RoadmapGoal.findOne({ _id: goalID });
+            const goal = await RoadmapGoal.findById(goalID).populate('comments');
             if (goal) {
+                const subGoals = Array.isArray(goal.subGoals) ? goal.subGoals : [];
+                const populatedSubGoals = [];
+
+                for (const subGoalID of subGoals) {
+                    const subGoal = await RoadmapGoal.findById(subGoalID);
+                    if (subGoal) {
+                        populatedSubGoals.push(subGoal);
+                    }
+                }
+
+                goal.subGoals = populatedSubGoals;
                 goals.push(goal);
             }
         }
@@ -159,6 +174,57 @@ export async function getAllGoals(req, res, next) {
 }
 
 /**
+ * Gets all goals for a given user
+ * - route: GET /goal/ofPatient/:patientID
+ * @param req
+ * @param res
+ * @param next
+ */
+export async function getGoalsOfPatient(req, res, next) {
+    if (req.skip) {
+        return next();
+    }
+    try {
+        //get order of goals form user document
+        const goalIDs = await User.findById(req.params.patientID).select('goalIDs');
+        //add goals in the correct order to the goals array
+        const goals = [];
+        if(goalIDs){
+            for (const goalID of goalIDs.goalIDs) {
+                const goal = await RoadmapGoal.findById(goalID).populate("comments");
+                if (goal) {
+                    const subGoals = Array.isArray(goal.subGoals) ? goal.subGoals : [];
+                    const populatedSubGoals = [];
+
+                    for (const subGoalID of subGoals) {
+                        const subGoal = await RoadmapGoal.findById(subGoalID);
+                        if (subGoal) {
+                            populatedSubGoals.push(subGoal);
+                        }
+                    }
+
+                    goal.subGoals = populatedSubGoals;
+                    goals.push(goal);
+                }
+            }
+        }
+
+        return res.json({
+            success: true,
+            message: 'Successfully retrieved goals',
+            goals: goals,
+            redirect: '/',
+        });
+
+    } catch (error) {
+        console.error('Error getting all roadmap goals:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+        next();
+    }
+
+}
+
+/**
  * Gets a goal by ID
  * - route: GET /goal/:goalId
  * @param req
@@ -170,7 +236,7 @@ export async function getGoal(req, res, next) {
         return next();
     }
     try {
-        const goal = await RoadmapGoal.findById(req.params.goalId);
+        const goal = await RoadmapGoal.findById(req.params.goalId).populate('subGoals');
         if(!goal){
             return res.status(404).json({error: 'Goal not found'});
         }
@@ -196,14 +262,20 @@ export async function deleteGoal(req, res, next) {
     try {
         const goalId = req.params.goalId;
 
-        const deletedGoal = await RoadmapGoal.findByIdAndDelete(goalId);
-        if (!deletedGoal) {
+        const deleteGoal = await RoadmapGoal.findById(goalId);
+        if (!deleteGoal) {
             return res.status(404).json({ error: 'Goal not found' });
         }
 
+        //delete comments
+        for (const comment of deleteGoal.comments) {
+            await Comment.findByIdAndDelete(comment._id);
+        }
+
         //update the User to remove the goalID
-        // @ts-ignore
-        await User.updateOne({ _id: deletedGoal.userID }, { $pull: { goalIDs: deletedGoal._id } });
+        await User.updateOne({ _id: deleteGoal.userID }, { $pull: { goalIDs: deleteGoal._id } });
+
+        await RoadmapGoal.findByIdAndDelete(goalId);
 
         return res.json({
             success: true,
@@ -225,8 +297,11 @@ export async function updateGoal(req, res, next) {
     try {
         const goalId = req.params.goalId;
         const updatedData = req.body;
+        if(updatedData.description) {
+            updatedData.description = updatedData.description.replace(/\n/g, '<br>'); //makes multiline description possible
+        }
 
-        const updatedGoal = await RoadmapGoal.findByIdAndUpdate(goalId, updatedData, { new: true });
+        const updatedGoal = await RoadmapGoal.findByIdAndUpdate(goalId, updatedData, { new: true }).populate('subGoals');
         if (!updatedGoal) {
             return res.status(404).json({ error: 'Goal not found' });
         }
@@ -280,18 +355,12 @@ export async function updateGoalOrder(req, res, next) {
  */
 export async function createSubGoal(req, res) {
     try {
-        const { title, description, status, parentGoalId } = req.body;
+        const { title, description, status, isSubGoal, parentGoalId } = req.body;
 
         // Create a new subgoal
-        const newSubgoal = new RoadmapGoal({
-            title,
-            description,
-            status,
-            isSubGoal: true,
-            parentGoalId,
-        });
-
-        const savedSubgoal = await newSubgoal.save();
+        const newSubGoal = new RoadmapGoal(getGoalParams(req));
+newSubGoal.description = newSubGoal.description.replace(/\n/g, '<br>');
+        const savedSubgoal = await newSubGoal.save();
 
         // Optionally, update the parent goal to include this subgoal's ID
         await RoadmapGoal.findByIdAndUpdate(
@@ -307,6 +376,76 @@ export async function createSubGoal(req, res) {
         });
     } catch (error) {
         console.error('Error creating subgoal:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
+
+/**
+ * Creates a new comment and attaches it to a goal
+ * @param req - {body:{ userID, comment, visible, roadmapGoalID }}
+ * @param res - {success: true, message: 'Comment successfully created', comment: savedComment}
+ */
+export async function addComment(req, res) {
+    try {
+        const {comment, isPrivate, goalID, userID } = req.body;
+
+        // Create a new comment
+        const newComment = new Comment({
+            userID,
+            comment,
+            isPrivate,
+            goalID,
+        });
+        const savedComment = await newComment.save();
+
+        // update the goal to include this comment's ID
+        await RoadmapGoal.findByIdAndUpdate(
+            goalID,
+            { $push: { comments: savedComment._id } },
+            { new: true }
+        );
+
+        const goalWithComments = await RoadmapGoal.findById(goalID).populate('comments');
+
+        res.status(201).json({
+            success: true,
+            message: 'Comment successfully created',
+            goal: goalWithComments
+        });
+    } catch (error) {
+        console.error('Error creating comment:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
+
+
+/**
+ * Deletes a comment and removes it from the goal
+ * Route: POST /goal/deleteComment/:commentId
+ * @param req
+ * @param res
+ */
+export async function deleteComment(req, res) {
+    try {
+        const commentId = req.params.commentId;
+
+        const deleteComment = await Comment.findById(commentId);
+        if (!deleteComment) {
+            return res.status(404).json({ error: 'Comment not found' });
+        }
+
+        //update the Goal to remove the commentID
+        await RoadmapGoal.updateOne({ _id: deleteComment.goalID }, { $pull: { comments: deleteComment._id } });
+
+        await Comment.findByIdAndDelete(commentId);
+
+        return res.json({
+            success: true,
+            message: 'Successfully deleted comment',
+            redirect: '/'
+        });
+    } catch (error) {
+        console.error('Error deleting comment:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 }

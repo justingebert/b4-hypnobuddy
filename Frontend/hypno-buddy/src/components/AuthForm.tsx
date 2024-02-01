@@ -1,13 +1,13 @@
-//import '../styles/AuthForm.css';
+import '../styles/LoginSignin.scss';
 
 function AuthForm({ onSubmit, isLogin }:any) {
     return (
-        <form onSubmit={onSubmit}>
+        <form onSubmit={onSubmit} className="auth-form">
             {!isLogin && (
                 <>
-                    <input type="text" name="first" placeholder="First Name" required />
+                    <input type="text" name="first" placeholder="Vorname" required />
                     <br />
-                    <input type="text" name="last" placeholder="Last Name" required />
+                    <input type="text" name="last" placeholder="Nachname" required />
                 </>
             )}
             <br />
@@ -16,7 +16,7 @@ function AuthForm({ onSubmit, isLogin }:any) {
             <input
                 type="password"
                 name="password"
-                placeholder="Password"
+                placeholder="Passwort"
                 required
             />
             <br />

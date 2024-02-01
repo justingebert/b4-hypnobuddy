@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../styles/TherapistCard.module.css';
+import styles from '../styles/TherapistCard.module.scss';
 
 interface DeleteConfirmationModalProps {
   isOpen: boolean;

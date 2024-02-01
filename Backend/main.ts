@@ -1,46 +1,46 @@
-//import base
 const express = require('express');
 import router from './routes/index';
 import MongoStore from 'connect-mongo';
-import { connectDB, ensureVerificationCodes } from './data/connectToDb';
-//import passport
 import passport from 'passport';
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
-//import flash
 import flash from 'express-flash';
-//import other
 import cors from 'cors';
-//import models
 import User from './data/model/user';
+require('dotenv').config();
 
 export const app = express();
 
 //! Enable CORS for frontend Port - This is for development only!!
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: true,
     credentials: true,
-    "Access-Control-Allow-Credentials": true
+    "Access-Control-Allow-Credentials": true,
+    allowedHeaders:
+        'Origin, X-Requested-With, Content-Type, Accept, Authorization, Cookie',
 }));
 
 //middleware setup
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser('your secret'));
+app.use(cookieParser('your_secret_key'));
 
-// Configure session and store in MongoDB
 export const sessionStore = MongoStore.create({ mongoUrl: process.env.MONGO_URL || 'mongodb://127.0.0.1:27017/hypnobuddy' });
 app.use(session({
+    name: 'session',
     secret: 'your_secret_key',
     resave: false,
     saveUninitialized: false,
     store: sessionStore,
     cookie: {
+        proxy: process.env.NODE_ENV === 'production',
         httpOnly: true,
-        secure: false,
+        secure: process.env.NODE_ENV === 'production',
         maxAge: 24 * 60 * 60 * 1000
     }
 }));
+
+app.set('trust proxy', 1);
 
 //setup passport
 app.use(passport.initialize());

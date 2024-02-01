@@ -32,6 +32,10 @@ const roadmapGoalSchema = new mongoose.Schema({
         type: Boolean,
         required: true
     },
+    comments: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Comment'
+    }],
     parentGoalId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'RoadmapGoal',

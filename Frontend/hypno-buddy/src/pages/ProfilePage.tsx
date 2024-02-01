@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
 import { FlashContext } from "../contexts/FlashContext.tsx";
 import { useNavigate } from "react-router-dom";
-import '../styles/Profil.css';
+import '../styles/Profile.scss';
 import SubmitButton from "../components/SubmitButton.tsx";
 import { Form, FormControl, Button, Row, Col } from 'react-bootstrap';
+import {url} from "../contexts/AuthContext.tsx";
 
 function ProfilePage() {
     const [data, setData] = useState(null);
@@ -18,7 +19,7 @@ function ProfilePage() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:3000/user/profile/data', {
+                const response = await fetch(url + '/user/profile/data', {
                     method: 'GET',
                     credentials: 'include',
                 });
@@ -36,7 +37,7 @@ function ProfilePage() {
 
     const getPatients = async () => {
         try {
-            const response = await fetch('http://localhost:3000/user/profile/patients', {
+            const response = await fetch(url + '/user/profile/patients', {
                 method: 'GET',
                 credentials: 'include',
             });
@@ -58,7 +59,7 @@ function ProfilePage() {
         event.preventDefault(); // Prevent default form submission behavior
 
         try {
-            const response = await fetch('http://localhost:3000/user/verify', {
+            const response = await fetch(url + '/user/verify', {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
@@ -83,7 +84,7 @@ function ProfilePage() {
         event.preventDefault();
 
         try {
-            const response = await fetch('http://localhost:3000/user/link', {
+            const response = await fetch(url + '/user/link', {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
@@ -103,11 +104,10 @@ function ProfilePage() {
             console.error('Error sending link to therapist code:', error);
         }
     };
-
     if (!data) {
+
         return <div>Profile Loading...</div>;
     }
-
     return (
         <div className="profile-page">
             <div className="background">
@@ -126,8 +126,6 @@ function ProfilePage() {
                             {data.user.role === 'therapist' && (
                                 <>
                                     <p><strong className="textProfil">Code zur Weitergabe an Patienten:</strong> {data.user.patientLinkingCode}</p>
-
-                                    <Button onClick={getPatients} className="p-1 m-2">Siehe verlinkte Patienten</Button>
                                 </>
                             )}
                             <br />
@@ -194,6 +192,6 @@ function ProfilePage() {
             </div>
         </div >
     );
-}
 
+}
 export default ProfilePage;

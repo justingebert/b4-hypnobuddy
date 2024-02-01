@@ -2,10 +2,10 @@ import React, {useContext, useEffect, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import { Fear } from '../../../../Backend/data/model/fearModel.ts';
 import DeleteConfirmationModal from '../components/DeleteConfirmationModal';
-import styles from '../styles/TherapistCard.module.css';
+import styles from '../styles/TherapistCard.module.scss';
 import {FlashContext} from "../contexts/FlashContext.tsx";
 import NewFearModal from "../components/NewFearModal.tsx";
-import {useAuth} from "../contexts/AuthContext.tsx";
+import {url, useAuth} from "../contexts/AuthContext.tsx";
 
 function DosAndDontsPage() {
   const {user} = useAuth();
@@ -22,7 +22,7 @@ function DosAndDontsPage() {
     const fetchData = async () => {
       try {
         if (user) {
-          const fearResponse = await fetch(`http://localhost:3000/dosAndDonts/fears?therapistId=${user._id}`);
+          const fearResponse = await fetch(url + `/dosAndDonts/fears?therapistId=${user._id}`);
           const fearData = await fearResponse.json();
 
           setFears(fearData);
@@ -43,7 +43,7 @@ function DosAndDontsPage() {
       setIsAddButtonDisabled(true);
 
       // Make a DELETE request to your backend endpoint to delete the fear and its associated entries
-      await fetch(`http://localhost:3000/dosAndDonts/fears/${fearId}`, {
+      await fetch(url + `/dosAndDonts/fears/${fearId}`, {
         method: 'DELETE',
       });
 
@@ -88,7 +88,7 @@ function DosAndDontsPage() {
         flash('Bitte geben Sie einen Titel ein.');
         return;
       }
-      const response = await fetch(`http://localhost:3000/dosAndDonts/fears`, {
+      const response = await fetch(url + `/dosAndDonts/fears`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

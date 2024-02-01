@@ -77,7 +77,6 @@ export const authenticate = (req, res, next) => {
             return res.json({
                 success: true,
                 message: 'Successful Login',
-                user: user.data,
                 redirect: '/',
             });
         });
@@ -107,9 +106,6 @@ export function isAuthenticated(req, res, next) {
  *
  */
 export async function create(req, res, next) {
-    if (req.skip) {
-        return next();
-    }
     let newUser = new User(getUserParams(req.body));
     User.register(newUser, req.body.password, (error, user) => {
         if (user) {
@@ -119,7 +115,6 @@ export async function create(req, res, next) {
                 redirect: '/login',
                 message: messages,
             });
-            next();
         } else {
             console.log(error.message)
             const messages = error.message
@@ -128,7 +123,6 @@ export async function create(req, res, next) {
                 redirect: '/register',
                 message: messages,
             });
-            next();
         }
     });
 }
@@ -313,5 +307,24 @@ export async function getAllPatientsLinked(req, res) {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 
+}
+
+export async function getTherapistOfPatient(req, res) {
+    try {
+        const patientId = req.user._id
+
+        const therapist = await User.findOne(
+            {
+                role: 'therapist',
+                patients: patientId,
+            },
+            { _id: 1, name: 1 }
+        );
+
+        res.json(therapist);
+    } catch (error) {
+    console.error('Error getting therapist data:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+    }
 }
 

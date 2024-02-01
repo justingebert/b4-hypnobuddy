@@ -1,5 +1,4 @@
-import React from 'react';
-import styles from '../styles/TherapistCard.module.css'
+import styles from '../styles/TherapistCard.module.scss'
 
 function NewFearModal({ isOpen, onClose, onSave, fearTitle, onTitleChange }) {
     if (!isOpen) {
@@ -27,11 +26,12 @@ function NewFearModal({ isOpen, onClose, onSave, fearTitle, onTitleChange }) {
                                value={fearTitle}
                                onChange={handleTitleChange}
                                placeholder="Titel"
-                               required={true}/>
+                               required={true}
+                               style={{ width: '180%' }}/>
                     </label>
                 </div>
                 <div className={styles.modalFooter}>
-                    <button onClick={handleSaveClick}>Save</button>
+                    <button onClick={handleSaveClick}>Speichern</button>
                 </div>
             </div>
         </div>

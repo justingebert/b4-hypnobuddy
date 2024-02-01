@@ -5,7 +5,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import { FlashProvider } from './contexts/FlashContext';
 import { AuthProvider, useAuth } from "./contexts/AuthContext.tsx";
-import './styles/App.css';
+import './styles/App.scss';
 import DashboardPage from "./pages/DashboardPage.tsx";
 import ProfilePage from "./pages/ProfilePage.tsx";
 import DosAndDontsPage from "./pages/DosAndDontsPage.tsx";
@@ -27,11 +27,10 @@ function App() {
     const { checkLogin } = useAuth();
     useEffect(() => { checkLogin(); }, []);
 
-
     return (
         <FlashProvider>
             <Router>
-                <Navbar />
+                <Navbar/>
                 <Routes>
                     <Route path="/" element={<DashboardPage />} />
                     <Route path="/register" element={<RegisterPage />} />
@@ -60,6 +59,7 @@ function App() {
         </FlashProvider>
     );
 }
+//TODO move away from APP.tsx
 function DosAndDontsRoutes() {
     const { user } = useAuth();
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import styles from '../styles/TherapistCard.module.css';
+import styles from '../styles/TherapistCard.module.scss';
 import { Offcanvas, Button, ListGroup } from 'react-bootstrap';
-import LoginButton from "./LoginButton.tsx";
+import {url} from "../contexts/AuthContext.tsx";
 
 interface TherapistCardProps {
   initialTitle?: string;
@@ -43,7 +43,7 @@ function TherapistCard({
 
   const fetchPatients = async () => {
     try {
-      const response = await fetch('http://localhost:3000/user/profile/patients', {
+      const response = await fetch(url + '/user/profile/patients', {
         method: 'GET',
         credentials: 'include',
       });
@@ -68,7 +68,7 @@ function TherapistCard({
     try {
       setLoadingLinked(true);
 
-      const response = await fetch('http://localhost:3000/user/getAllPatientsLinked', {
+      const response = await fetch(url + '/user/getAllPatientsLinked', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -121,7 +121,7 @@ function TherapistCard({
 
     try {
 
-      const response = await fetch('http://localhost:3000/dosAndDonts/fears/addUserToFear', {
+      const response = await fetch(url + '/dosAndDonts/fears/addUserToFear', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -153,7 +153,7 @@ function TherapistCard({
     const fearId = fullUrl.substring(lastSlashIndex + 1);
     try {
 
-      const response = await fetch('http://localhost:3000/dosAndDonts/fears/deleteUserToFear', {
+      const response = await fetch(url + '/dosAndDonts/fears/deleteUserToFear', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -192,15 +192,16 @@ function TherapistCard({
         <Offcanvas show={showSidebar}
                    onHide={() => setShowSidebar(false)}
                    style={{
-                     backgroundColor: '#cccccc',
+                     backgroundColor: '#ededed',
                      border: '2px',
-                     padding: '1.5rem'
+                     padding: '1.5rem',
+                     color: '#3e368d'
                    }}
         >
-          <Offcanvas.Header closeButton style={{margin: '1rem', }}>
+          <Offcanvas.Header closeButton style={{margin: '1rem', color: '#3e368d' }}>
             <Offcanvas.Title><h2>Patienten</h2></Offcanvas.Title>
           </Offcanvas.Header>
-          <Offcanvas.Body style={{backgroundColor:'#FFFFFF'}}>
+          <Offcanvas.Body style={{backgroundColor:'#FFFFFF', borderRadius: '15px'}}>
             {/* Search Input */}
             <input
                 type="text"
