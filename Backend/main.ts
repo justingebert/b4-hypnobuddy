@@ -33,9 +33,9 @@ app.use(session({
     saveUninitialized: false,
     store: sessionStore,
     cookie: {
-        proxy: process.env.NODE_ENV === 'production',
+        proxy: true,//process.env.NODE_ENV === 'production',
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
+        secure: true, //process.env.NODE_ENV === 'production',
         maxAge: 24 * 60 * 60 * 1000
     }
 }));
