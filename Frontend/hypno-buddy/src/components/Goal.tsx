@@ -1,4 +1,3 @@
-import React from 'react';
 import style from '../styles/Roadmap/buttons.module.scss';
 import styles from '../styles/Roadmap/Goal.module.scss';
 import deleteIcon from '../assets/delete.png';

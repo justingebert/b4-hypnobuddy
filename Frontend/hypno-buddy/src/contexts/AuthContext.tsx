@@ -1,7 +1,6 @@
 import {createContext, ReactNode, useContext, useEffect, useState} from 'react';
 import { User } from "../types/User.ts";
 import {FlashContext} from "./FlashContext.tsx";
-//import {useNavigate} from "react-router-dom";
 
 //this file provides a centralized state management system for
 // handling user authentication,

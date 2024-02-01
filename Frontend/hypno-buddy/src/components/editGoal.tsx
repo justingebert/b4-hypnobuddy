@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 function GoalModal({ show, goalData, onSave, onClose }) {
     const [formData, setFormData] = useState(goalData || { title: '', description: '' });

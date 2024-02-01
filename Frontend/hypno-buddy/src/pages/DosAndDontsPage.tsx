@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import  {useContext, useEffect, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import { Fear } from '../../../../Backend/data/model/fearModel.ts';
 import DeleteConfirmationModal from '../components/DeleteConfirmationModal';
