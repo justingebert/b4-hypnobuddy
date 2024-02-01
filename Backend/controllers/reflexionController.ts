@@ -8,6 +8,15 @@ interface RequestWithUser extends ExpressRequest {
   };
 }
 
+/**
+ * Creates a new reflexion entry for a user.
+ * 
+ * @async
+ * @function createReflexion
+ * @param {RequestWithUser} req - The express request object, containing user ID and reflexion details in req.body.
+ * @param {Response} res - The express response object.
+ * @returns {void} - The function does not return a value but sends a JSON response.
+ */
 export const createReflexion = async (req: RequestWithUser, res: Response) => {
   if (!req.user?._id) {
       res.status(401).json({ message: 'User not authenticated' });
@@ -29,6 +38,15 @@ export const createReflexion = async (req: RequestWithUser, res: Response) => {
   }
 };
 
+/**
+ * Retrieves all reflexion entries for the authenticated user, sorted by date in descending order.
+ * 
+ * @async
+ * @function getReflexions
+ * @param {RequestWithUser} req - The express request object, containing user ID.
+ * @param {Response} res - The express response object.
+ * @returns {void} - The function does not return a value but sends a JSON response.
+ */
 export const getReflexions = async (req: RequestWithUser, res: Response) => {
   if (!req.user?._id) {
       res.status(401).json({ message: 'User not authenticated' });
@@ -42,6 +60,15 @@ export const getReflexions = async (req: RequestWithUser, res: Response) => {
   }
 };
 
+/**
+ * Retrieves a specific reflexion by its ID for the authenticated user.
+ * 
+ * @async
+ * @function getReflexionById
+ * @param {RequestWithUser} req - The express request object, containing reflexion ID in req.params and user ID.
+ * @param {Response} res - The express response object.
+ * @returns {void} - The function does not return a value but sends a JSON response.
+ */
 
 export const getReflexionById = async (req: RequestWithUser, res: Response) => {
   try {
@@ -59,6 +86,15 @@ export const getReflexionById = async (req: RequestWithUser, res: Response) => {
   }
 };
 
+/**
+ * Deletes a specific reflexion by its ID for the authenticated user.
+ * 
+ * @async
+ * @function deleteReflexion
+ * @param {RequestWithUser} req - The express request object, containing reflexion ID in req.params and user ID.
+ * @param {Response} res - The express response object.
+ * @returns {void} - The function does not return a value but sends a response status.
+ */
 export const deleteReflexion = async (req: RequestWithUser, res: Response) => {
   try {
     const reflexion = await Reflexion.findOneAndDelete({ _id: req.params.id, user: req.user?._id });
@@ -75,6 +111,15 @@ export const deleteReflexion = async (req: RequestWithUser, res: Response) => {
   }
 };
 
+/**
+ * Updates a specific reflexion by its ID for the authenticated user.
+ * 
+ * @async
+ * @function updateReflexion
+ * @param {RequestWithUser} req - The express request object, containing reflexion ID in req.params, user ID and update data in req.body.
+ * @param {Response} res - The express response object.
+ * @returns {void} - The function does not return a value but sends a JSON response.
+ */
 export const updateReflexion = async (req: RequestWithUser, res: Response) => {
   try {
     const updatedReflexion = await Reflexion.findOneAndUpdate(

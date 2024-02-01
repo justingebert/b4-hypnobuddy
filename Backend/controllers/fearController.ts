@@ -10,6 +10,15 @@ interface RequestWithUser extends ExpressRequest {
     };
 }
 
+/**
+ * Retrieves a list of fears associated with a given therapist.
+ * 
+ * @async
+ * @function getFears
+ * @param {RequestWithUser} req - The express request object, containing therapist ID in query parameters.
+ * @param {Response} res - The express response object.
+ * @returns {Promise<void>} - A promise that resolves when the operation is complete.
+ */
 export const getFears = async (req: RequestWithUser, res: Response): Promise<void> => {
     try {
         const therapistId = req.query.therapistId as string;
@@ -25,6 +34,15 @@ export const getFears = async (req: RequestWithUser, res: Response): Promise<voi
     }
 };
 
+/**
+ * Retrieves a specific fear by its ID, along with its associated Dos and Donts.
+ * 
+ * @async
+ * @function getFearById
+ * @param {RequestWithUser} req - The express request object, containing fear ID in req.params.
+ * @param {Response} res - The express response object.
+ * @returns {Promise<void>} - A promise that resolves when the operation is complete.
+ */
 export const getFearById = async (req: RequestWithUser, res: Response): Promise<void> => {
     const { fearId } = req.params;
     try {
@@ -48,7 +66,15 @@ export const getFearById = async (req: RequestWithUser, res: Response): Promise<
     }
 };
 
-
+/**
+ * Creates and saves a new fear in the database.
+ * 
+ * @async
+ * @function saveFear
+ * @param {Request} req - The express request object, containing fear name in req.body.
+ * @param {Response} res - The express response object.
+ * @returns {Promise<void>} - A promise that resolves when the operation is complete.
+ */
 export const saveFear = async (req, res): Promise<void> => {
     const { name } = req.body;
     const therapistId = req.user ? req.user._id : null;
@@ -72,6 +98,15 @@ export const saveFear = async (req, res): Promise<void> => {
     }
 };
 
+/**
+ * Adds a new Do and Dont entry to a specific fear.
+ * 
+ * @async
+ * @function addDoAndDontToFear
+ * @param {RequestWithUser} req - The express request object, containing fear ID and Do and Dont details in req.body.
+ * @param {Response} res - The express response object.
+ * @returns {Promise<void>} - A promise that resolves when the operation is complete.
+ */
 export const addDoAndDontToFear = async (req: RequestWithUser, res: Response): Promise<void> => {
     const { fearId, type, text } = req.body;
     console.log(fearId, text);
@@ -94,6 +129,15 @@ export const addDoAndDontToFear = async (req: RequestWithUser, res: Response): P
     }
 };
 
+/**
+ * Updates the name of a specific fear.
+ * 
+ * @async
+ * @function updateFearName
+ * @param {RequestWithUser} req - The express request object, containing fear ID in req.params and new name in req.body.
+ * @param {Response} res - The express response object.
+ * @returns {Promise<void>} - A promise that resolves when the operation is complete.
+ */
 export const updateFearName = async (req: RequestWithUser, res: Response): Promise<void> => {
     const { fearId } = req.params;
     const { name } = req.body;
@@ -117,6 +161,15 @@ export const updateFearName = async (req: RequestWithUser, res: Response): Promi
     }
 };
 
+/**
+ * Adds a user to a specific fear.
+ * 
+ * @async
+ * @function addUserToFear
+ * @param {RequestWithUser} req - The express request object, containing fear ID and user ID in req.body.
+ * @param {Response} res - The express response object.
+ * @returns {Promise<void>} - A promise that resolves when the operation is complete.
+ */
 export const addUserToFear = async (req: RequestWithUser, res: Response): Promise<void> => {
     const { fearId,userId, type, text } = req.body;
     console.log(fearId, userId);
@@ -142,6 +195,15 @@ export const addUserToFear = async (req: RequestWithUser, res: Response): Promis
     }
 };
 
+/**
+ * Removes a user from a specific fear.
+ * 
+ * @async
+ * @function deleteUserToFear
+ * @param {RequestWithUser} req - The express request object, containing fear ID and user ID in req.body.
+ * @param {Response} res - The express response object.
+ * @returns {Promise<void>} - A promise that resolves when the operation is complete.
+ */
 export const deleteUserToFear = async (req: RequestWithUser, res: Response): Promise<void> => {
     const { fearId,userId, type, text } = req.body;
     console.log(fearId, userId);
