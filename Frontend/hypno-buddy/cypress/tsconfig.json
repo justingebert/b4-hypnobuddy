@@ -4,6 +4,7 @@
     "lib": ["ES2020", "dom"],
     "types": ["cypress"]
   },
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts"],
+  "exclude": ["cypress.config.js"]
 }
   
