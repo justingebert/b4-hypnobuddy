@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ES2020", "dom"],
+    "types": ["cypress"]
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["cypress.config.js"]
+}
+  

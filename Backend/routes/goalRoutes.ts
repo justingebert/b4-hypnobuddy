@@ -12,5 +12,6 @@ goalRouter.post('/update/:goalId', goalController.updateGoal)
 goalRouter.post('/reorder', goalController.updateGoalOrder)
 goalRouter.post('/createSubGoal', goalController.createSubGoal)
 goalRouter.post('/saveComment', goalController.addComment)
+goalRouter.post('/deleteComment/:commentId', goalController.deleteComment)
 
 export default goalRouter;

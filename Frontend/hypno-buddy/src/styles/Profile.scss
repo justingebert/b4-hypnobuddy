@@ -14,12 +14,20 @@
     display: flex;
     align-items: flex-start;
 }
+@media (max-width: 768px) {
+    .containerProfil {
+        flex-direction: column;
+        align-items: center;
+    }
+}
 .textContentProfil{
     border-radius: 30px;
-    background-color: $light-grey;
+    background-color: rgb(237,237,237,0.5);
     padding: 30px;
     margin-left: 250px;
     width: 600px;
+    backface-visibility: hidden;
+    box-shadow: 0 10px 15px rgba(62, 54, 141, 0.5);
 }
 .headerProfil{
     padding: 15px;
