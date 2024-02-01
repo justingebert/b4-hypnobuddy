@@ -14,7 +14,6 @@ export const getFears = async (req: RequestWithUser, res: Response): Promise<voi
     try {
         const therapistId = req.query.therapistId as string;
         if (!therapistId) {
-            // If therapistId is not provided, return an error or handle it as per your requirement
             res.status(400).json({ error: 'Missing therapistId parameter' });
             return;
         }
@@ -29,18 +28,15 @@ export const getFears = async (req: RequestWithUser, res: Response): Promise<voi
 export const getFearById = async (req: RequestWithUser, res: Response): Promise<void> => {
     const { fearId } = req.params;
     try {
-        // Fetch fear data without populating 'dosAndDonts' and 'users'
         const fear = await FearModel.findById(fearId).populate("dosAndDonts").select('-__v');
         if (!fear) {
             res.status(404).json({ error: 'Fear not found' });
             return;
         }
 
-        // Fetch user data based on the user IDs stored in the fear model
         const userIds = fear.users.map(userId => new mongoose.Types.ObjectId(userId));
         const users = await User.find({ _id: { $in: userIds } });
 
-        // Combine fear data with user data
         const result: Fear & { users: any[] } = {
             ...fear.toObject(),
             users,
@@ -64,10 +60,8 @@ export const saveFear = async (req, res): Promise<void> => {
         const existingFear = await FearModel.findOne({ name, therapistId });
 
         if (existingFear) {
-            // If a fear with the same name exists, create a new one with a unique identifier
             res.status(409).json({ error: 'Please enter a new fear title, this fear already exists' });
         } else {
-            // If no fear with the same name exists, create a new fear
             const newFear = new FearModel({ name, therapistId });
             const savedFear = await newFear.save();
             res.json(savedFear);

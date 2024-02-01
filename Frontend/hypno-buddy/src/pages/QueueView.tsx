@@ -3,7 +3,7 @@ import QueueList from '../components/QueueList';
 import { RoadmapGoal } from '../types/Roadmap-Goal.ts';
 import GoalCreateForm from '../components/GoalCreateForm';
 import {useNavigate} from "react-router-dom";
-import {useGoals} from "../contexts/GoalContext.tsx"; // Assuming you have a form for adding/editing goals
+import {useGoals} from "../contexts/GoalContext.tsx";
 
 const QueueView: React.FC = () => {
 

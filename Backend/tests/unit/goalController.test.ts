@@ -127,8 +127,6 @@ describe('Goal Input Validation', () => {
         expect(response.status).toBe(400);
         expect(response.body.message).toContain('Description cannot be empty');
     });
-
-    // Add more validation tests for other fields
 });
 
 describe('Goal Creation', () => {
@@ -159,7 +157,7 @@ describe('Goal Creation', () => {
         expect(response.status).toBe(200);
         expect(response.body.success).toBeTruthy();
         expect(response.body.message).toContain('Successfully created goal');
-        expect(response.body.goal).toBeDefined(); // Assuming you return the created goal in the response
+        expect(response.body.goal).toBeDefined();
     });
 
     it('should save the goalID within user document', async () => {
