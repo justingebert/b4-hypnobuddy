@@ -137,6 +137,9 @@ export async function getAllGoals(req, res, next) {
         return next();
     }
     try {
+        if (!req.user) {
+            return res.status(401).json({ error: 'Unauthorized' });
+        }
         //get order of goals form user document
         const goalIDs = await User.findOne({ _id: req.user._id }).select('goalIDs');
 
@@ -185,6 +188,9 @@ export async function getGoalsOfPatient(req, res, next) {
         return next();
     }
     try {
+        if (!req.user) {
+            return res.status(401).json({ error: 'Unauthorized' });
+        }
         //get order of goals form user document
         const goalIDs = await User.findById(req.params.patientID).select('goalIDs');
         //add goals in the correct order to the goals array
