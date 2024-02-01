@@ -4,6 +4,11 @@ on:
   push:
     branches: [ main ]
 
+env:
+  USERNAME: justingebert
+  IMAGE_NAME: hypnobuddy-backend
+
+
 jobs:
   docker:
     runs-on: ubuntu-latest
