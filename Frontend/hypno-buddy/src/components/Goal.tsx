@@ -1,7 +1,8 @@
 import React from 'react';
 import style from '../styles/Roadmap/buttons.module.scss';
 import styles from '../styles/Roadmap/Goal.module.scss';
-
+import deleteIcon from '../assets/delete.png';
+import editIcon from '../assets/edit.png';
 function GoalItem({ goal, onEdit, onDelete, onCreateSubGoal }) {
     const getStatusClass = (status) => {
         switch (status) {
@@ -29,8 +30,12 @@ function GoalItem({ goal, onEdit, onDelete, onCreateSubGoal }) {
                 <h5 className={`card-title ${styles.title}`}>{goal.title}</h5>
                 <p className={`card-text small text-muted ${styles.date}`}>{getDueDate(goal.dueDate)}</p>
                 <p className={`card-text ${styles.subtitle}`} dangerouslySetInnerHTML={{ __html: goal.description }} />
-                <button className={`btn btn-secondary ${style.btnEditCustom} mr-2`} onClick={() => onEdit(goal)}>Bearbeiten</button>
-                <button className={`btn btn-danger ${style.btnDeleteCustom} m-2`} onClick={() => onDelete(goal._id)}>Löschen</button>
+                <button className={`btn btn-secondary ${style.btnEditCustom} mr-2`} onClick={() => onEdit(goal)}>
+                    <img src={editIcon} alt="Edit" style={{ filter: "invert(1)", width: "20px", height: "20px" }}/>
+                </button>
+                <button className={`btn btn-danger ${style.btnDeleteCustom} m-2`} onClick={() => onDelete(goal._id)}>
+                    <img src={deleteIcon} alt="Delete" style={{ filter: "invert(1)",  width: "20px", height: "20px" }}/>
+                </button>
                 {!goal.isSubGoal && (
                     <button className={`btn btn-primary ${style.btnPrimaryCustom}`} onClick={() => onCreateSubGoal(goal._id)}>+
                         Zwischenziel</button>
