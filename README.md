@@ -120,6 +120,40 @@ The features of Hypnobuddy are:
 - Text field for entries, sample questions for guidance, and emoji-buttons for mood representation.
 - **Goal**: Empower users to track feelings, celebrate achievements, and contribute positively to their therapeutic journey.
 
+## Troubleshooting
+
+- delete node_modules folder
+- delete package-lock.json
+- run npm i again
+
+## Development
+
+### Available Fonts:
+
+- Oscine
+- FinalSix
+- Input Serif
+- Bebas Neue SemiRounded
+- Novecento Sans
+
+### How to use:
+
+- use vars: type $ -> intellisense will show you the available vars
+- For family use:
+    - $oscine-family
+    - $finalsix-family
+    - $input-serif-family
+    - $bebas-neue-semirounded-family
+    - $novecento-sans-family
+- For weight use:
+    - $oscine-light-weight
+    - $oscine-regular-weight
+    - $oscine-bold-weight
+    - $finalsix-light-weight
+    - $finalsix-medium-weight
+    - $finalsix-semibold-weight
+    - $finalsix-bold-weight
+
 ## Contributing
 
 Hypnobuddy is a university project. Contributions are not provided.
