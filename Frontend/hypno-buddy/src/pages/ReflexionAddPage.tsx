@@ -9,8 +9,13 @@ import badImage from '../assets/Sehr schlecht.png';
 import CustomButton from "../components/CustomButton.tsx";
 import bunny from "../assets/bunny.png";
 import {url} from "../contexts/AuthContext.tsx";
+
+import { FlashContext } from '../contexts/FlashContext';
+
+
 const AddingReflexionPage: React.FC = () => {
   const navigate = useNavigate();
+  const { flash } = React.useContext(FlashContext);
   const [hoveredButton, setHoveredButton] = useState<string | null>(null);
 
   const handleMoodClick = async (selectedMood: string) => {
@@ -21,8 +26,17 @@ const AddingReflexionPage: React.FC = () => {
         credentials: 'include',
         body: JSON.stringify({ mood: selectedMood })
       });
-      const data = await response.json();
-      navigate(`/reflexion-description/${data._id}`);
+      if (response.ok) {
+        const data = await response.json();
+        navigate(`/reflexion-description/${data._id}`);
+      }else if (response.status === 401) {
+        flash('Bitte loggen Sie sich ein.');
+        navigate('/login');
+      } else {
+        console.error('Error saving mood:', response.status);
+        return;
+      }
+
     } catch (error) {
       console.error('Error saving mood:', error);
     }
@@ -48,7 +62,7 @@ const AddingReflexionPage: React.FC = () => {
   return (
     <div>
       <div className="reflection">
-        <div className="reflectionCard">
+        <div className="reflectionCard" >
           <h2 className="h2-refelxion">Wie fühlst du dich heute?</h2>
           <div className="moodDiv">
             {['Sehr gut', 'Gut', 'Normal', 'Nicht so gut', 'Schlecht'].map((mood) => (
@@ -77,7 +91,9 @@ const AddingReflexionPage: React.FC = () => {
                 }}
             />
           </div>
-          <img src={bunny} className="bunnyImage" alt="bunny"/>
+          <div style={{display:'flex', justifyContent:'center', padding:'20px'}}>
+            <img src={bunny} className="bunnyImage" alt="bunny"/>
+          </div>
         </div>
       </div>
     </div>

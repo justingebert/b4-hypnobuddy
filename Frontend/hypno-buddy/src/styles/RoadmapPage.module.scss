@@ -34,7 +34,8 @@ $timeline-thickness: 7px;
   left: 50%;
   margin-left: calc(-1 * $timeline-thickness / 2);
   margin-top: 1%;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+
   &.planned {
     background-color: $light-grey;
   }
@@ -95,7 +96,6 @@ $timeline-thickness: 7px;
 
 .circle {
   @include circle($circle-size);
-
 }
 
 .planned {

@@ -63,7 +63,7 @@ const NavbarComponent = () => {
                             <Nav>
                                 {user.role === 'therapist' ? (
                                     <Nav.Link href="/dosanddonts/t" className="nav-link active" aria-current="page">
-                                       <p className={styles.navHover}> Dos & Don'ts</p>
+                                        <p className={styles.navHover}> Dos & Don'ts</p>
                                     </Nav.Link>
                                 ) : (
                                     <Nav.Link href="/dosanddonts/p" className={`nav-link active ${styles.navHover}`} aria-current="page">
@@ -73,9 +73,11 @@ const NavbarComponent = () => {
                                 <Nav.Link href="/roadmap" className="nav-link active" aria-current="page">
                                     <p className={styles.navHover}> Roadmap </p>
                                 </Nav.Link>
-                                <Nav.Link href="/reflexion-add" className="nav-link active" aria-current="page">
-                                    <p className={styles.navHover}>  Reflexion </p>
-                                </Nav.Link>
+                                {user.role === 'patient' ? (
+                                    <Nav.Link href="/reflexion-add" className="nav-link active" aria-current="page">
+                                        <p className={styles.navHover}>  Reflexion </p>
+                                    </Nav.Link>
+                                ) : null}
                             </Nav>
 
                         ) : null}

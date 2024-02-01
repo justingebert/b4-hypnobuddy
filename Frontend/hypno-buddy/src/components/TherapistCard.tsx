@@ -276,7 +276,7 @@ function TherapistCard({
                     value={initialTitle}
                     onChange={(e) => onTitleChange(e.target.value)}
                     className={styles.editableTitle}
-                    placeholder="Add title..."
+                    placeholder="Titel hinzufügen..."
                 />
             ) : (
                 <h2 className={styles.therapistCardTitle}>{initialTitle}</h2>
@@ -295,7 +295,7 @@ function TherapistCard({
                   value={leftTextField}
                   onChange={onTextAreaChange}
                   className={`${styles.creamTextField} editable left`}
-                  placeholder="Write here..."
+                  placeholder="Schreibe hier etwas..."
                   readOnly={!isEditMode}
                   rows={3}
               />
@@ -311,7 +311,7 @@ function TherapistCard({
                   value={rightTextField}
                   onChange={onTextAreaChange}
                   className={`${styles.creamTextField} editable right`}
-                  placeholder="Write here..."
+                  placeholder="Schreibe hier etwas..."
                   readOnly={!isEditMode}
                   rows={3}
               />

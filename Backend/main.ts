@@ -25,9 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser('your_secret_key'));
 
-// Configure session and store in MongoDB
-export const sessionStore = MongoStore.create({ mongoUrl: process.env.MONGO_URL || 'mongodb://127.0.0.1:27017/hypnobuddy'});
-
+export const sessionStore = MongoStore.create({ mongoUrl: process.env.MONGO_URL || 'mongodb://127.0.0.1:27017/hypnobuddy' });
 app.use(session({
     name: 'session',
     secret: 'your_secret_key',
@@ -38,6 +36,7 @@ app.use(session({
         proxy: process.env.NODE_ENV === 'production',
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
+        sameSite: 'none',
         maxAge: 24 * 60 * 60 * 1000
     }
 }));

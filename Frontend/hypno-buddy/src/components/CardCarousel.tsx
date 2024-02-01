@@ -1,4 +1,4 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import { Carousel } from 'react-bootstrap';
 
 /**
@@ -12,18 +12,11 @@ function CardCarousel() {
         setIndex(selectedIndex);
     };
 
+    const smallScreenStyles = {
+        fontSize: '0.3 rem',
+    };
     const itemStyle = {
-        width: '100%',
-        height: '100%',
-        //background: 'radial-gradient(circle at bottom, #ff6641,#f2e1ec ,#f2e1ec,#9999ff)',
-        background: 'rgba(237, 237, 237, 0.5)',
-        display: 'flex',
-        flexDirection: 'column' as 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: '10px',
-        borderRadius: '30px',
-        boxShadow: '0 8px 16px rgba(62, 54, 141, 1)',
+        width: '100%', height: '100%', background: 'rgba(237, 237, 237, 0.5)', display: 'flex', flexDirection: 'column' as 'column', justifyContent: 'center', alignItems: 'center', padding: '10px', borderRadius: '30px', boxShadow: '0 8px 16px rgba(62, 54, 141, 1)', marginBottom: '80px', margin: '0',
     };
 
     const carouselItems = [
@@ -47,13 +40,18 @@ function CardCarousel() {
 
     return (
         <div>
-            <Carousel data-bs-theme="dark" activeIndex={index} onSelect={handleSelect} className="carousel" style={{display:'inline-block'}}>
+            <Carousel data-bs-theme="dark" activeIndex={index} onSelect={handleSelect} className="carousel" style={{ display: 'inline-block' }}>
                 {carouselItems.map((item, idx) => (
                     <Carousel.Item key={idx} className="carouselItem">
-                        <div style={{ ...itemStyle, width: '40vw', height: '400px', marginBottom:'80px', padding: '40px', margin:'5vw'}} >
-                            <h2 style={{color:'#3e368d', textAlign:'center', paddingBottom:'60px', fontSize: '2rem', fontFamily: 'oscine', fontWeight: '700'}}>{item.title}</h2>
-
-                            <p style={{color:'#3e368d', textAlign:'center', width:'28vw', fontSize: '1.5rem'}}>{item.text}</p>
+                        <div style={{
+                            ...itemStyle, width: '40vw', minHeight: '400px', marginBottom: '80px', padding: '40px', margin: '5vw', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center',
+                        }}>
+                            <h2 style={{
+                                color: '#3e368d', textAlign: 'center', paddingBottom: '60px', fontSize: '2rem', ...(window.innerWidth <= 768 && smallScreenStyles), overflow: 'hidden', fontFamily: 'oscine', fontWeight: '700'
+                            }}>{item.title}</h2>
+                            <p style={{
+                                color: '#3e368d', textAlign: 'center', width: '28vw', fontSize: '1.2rem', ...(window.innerWidth <= 768 && smallScreenStyles), overflow: 'hidden',
+                            }}>{item.text}</p>
                         </div>
 
                     </Carousel.Item>

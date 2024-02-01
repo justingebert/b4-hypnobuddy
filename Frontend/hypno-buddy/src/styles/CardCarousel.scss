@@ -12,5 +12,11 @@
     align-items: center;
     border-radius: 30px;
     margin-right: 25vw;
-    margin-left: 25vw;
+    margin-left:  25vw;
+    overflow: hidden;
+}
+@media (max-width: 768px) {
+    .carouselItem {
+        margin: 0;
+    }
 }

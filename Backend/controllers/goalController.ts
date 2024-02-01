@@ -66,23 +66,28 @@ export const validate = [
 
     // Middleware to handle the validation result
     (req, res, next) => {
+        try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                // Map the errors to extract messages
+                const messages = errors.array().map(e => e.msg);
 
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            // Map the errors to extract messages
-            let messages = errors.array().map(e => e.msg);
-            console.log("!Validation Error!");
-            console.log(messages);
-            console.log(errors);
-
-            req.skip = true; // to avoid rewriting the response
-            res.status(400).json({
+                req.skip = true; // to avoid rewriting the response
+                return res.status(400).json({
+                    success: false,
+                    redirect: '/',
+                    message: messages.join(' and ')
+                });
+            }
+            next();
+        } catch (error) {
+            console.error('Error during validation:', error);
+            res.status(500).json({
                 success: false,
                 redirect: '/',
-                message: messages.join(' and ')
+                message: 'Internal Server Error'
             });
         }
-        next();
     }
 ];
 
@@ -137,6 +142,9 @@ export async function getAllGoals(req, res, next) {
         return next();
     }
     try {
+        if (!req.user) {
+            return res.status(401).json({ error: 'Unauthorized' });
+        }
         //get order of goals form user document
         const goalIDs = await User.findOne({ _id: req.user._id }).select('goalIDs');
 
@@ -185,6 +193,9 @@ export async function getGoalsOfPatient(req, res, next) {
         return next();
     }
     try {
+        if (!req.user) {
+            return res.status(401).json({ error: 'Unauthorized' });
+        }
         //get order of goals form user document
         const goalIDs = await User.findById(req.params.patientID).select('goalIDs');
         //add goals in the correct order to the goals array

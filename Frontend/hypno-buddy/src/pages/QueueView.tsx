@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import QueueList from '../components/QueueList';
 import { RoadmapGoal } from '../types/Roadmap-Goal.ts';
 import GoalCreateForm from '../components/GoalCreateForm';
-import {useNavigate} from "react-router-dom";
-import {useGoals} from "../contexts/GoalContext.tsx"; // Assuming you have a form for adding/editing goals
+import { useNavigate } from "react-router-dom";
+import { useGoals } from "../contexts/GoalContext.tsx"; // Assuming you have a form for adding/editing goals
 import styles from "../styles/Roadmap/Queueview.module.scss";
 import style from '../styles/Roadmap/buttons.module.scss';
 
@@ -16,7 +16,7 @@ const QueueView: React.FC = () => {
 
     const navigate = useNavigate();
 
-    useEffect( () => {
+    useEffect(() => {
         fetchGoals()
     }, []);
 
@@ -69,6 +69,11 @@ const QueueView: React.FC = () => {
         setGoals(reorderedGoals);
     };
 
+    const onClose = async () => {
+        setEditingGoal(null);
+        setShowCreateModal(false);
+    };
+
     const handleCreateSubGoal = async (parentGoalId: string) => {
         // Initialize a new subgoal with the parentGoalId
         const newSubGoal = {
@@ -91,23 +96,23 @@ const QueueView: React.FC = () => {
     return (
         <>
             <div className={`container ${styles.queueView} `}>
-                    <div className={`row`}>
-                        <h1 className={` box ${styles.heading} text-center`}>Goals Queue</h1>
-                    </div>
+                <div className={`row`}>
+                    <h1 className={` box ${styles.heading} text-center`}>Goals Queue</h1>
+                </div>
                 <div className={`row`}>
                     <div className={`col-3 d-flex justify-content-center align-items-center`}>
                         <button className={`$ btn btn-secondary ${style.btnSecondaryCustom} box ${styles.stickyButtons}`}
-                                onClick={goToRoadmap}>← Roadmap
+                            onClick={goToRoadmap}>← Roadmap
                         </button>
                     </div>
 
                     <div className={`col-6`}>
-                    <QueueList goals={goals} onReorder={onReorder} onEdit={handleEditGoal} onDelete={handleDeleteGoal}
-                               onCreateSubGoal={handleCreateSubGoal}/>
+                        <QueueList goals={goals} onReorder={onReorder} onEdit={handleEditGoal} onDelete={handleDeleteGoal}
+                            onCreateSubGoal={handleCreateSubGoal} />
                     </div>
                     <div className={`col-3 d-flex justify-content-center box align-self-center`}>
                         <button className={`btn btn-primary ${style.btnPrimaryCustom}  ${styles.stickyButtons}`}
-                                onClick={() => setShowCreateModal(true)}>+ neues
+                            onClick={() => setShowCreateModal(true)}>+ neues
                             Ziel
                         </button>
                     </div>
@@ -116,11 +121,7 @@ const QueueView: React.FC = () => {
                     <GoalCreateForm
                         goalData={editingGoal}
                         onSave={actionType === 'edit' ? handleUpdateGoal : handleCreateNewGoal}
-                        onClose={() => {
-                            setShowCreateModal(false)
-                            setEditingGoal(null);
-                        }
-                        }
+                        onClose={onClose}
                     />
                 )}
             </div>

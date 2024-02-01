@@ -2,6 +2,7 @@ import React, { createContext, useState, useContext, useCallback } from 'react';
 import { RoadmapGoal } from '../types/Roadmap-Goal';
 import {Comment} from "../types/Comment.ts";
 import {FlashContext} from "./FlashContext.tsx";
+import {useNavigate} from "react-router-dom";
 import {url} from "./AuthContext.tsx";
 
 interface GoalsContextType {
@@ -38,6 +39,7 @@ export const useGoals = () => {
 export const GoalsProvider: React.FC = ({ children }) => {
     const [goals, setGoals] = useState<RoadmapGoal[]>([]);
     const { flash } = useContext(FlashContext);
+    const navigate = useNavigate();
 
     const addGoal = useCallback((newGoal: RoadmapGoal) => {
         setGoals((prevGoals) => [...prevGoals, newGoal]);
@@ -55,6 +57,9 @@ export const GoalsProvider: React.FC = ({ children }) => {
             if (response.ok) {
                 const data = await response.json();
                 setGoals(data.goals);
+            } else if (response.status === 401) {
+                flash('Bitte loggen Sie sich ein');
+                navigate('/login');
             } else {
                 console.error('Failed to fetch goals:', response.status);
             }
@@ -110,6 +115,9 @@ export const GoalsProvider: React.FC = ({ children }) => {
             if (response.ok) {
                 const data = await response.json();
                 setGoals(data.goals);
+            } else if (response.status === 401){
+                flash('Bitte loggen Sie sich ein')
+                navigate('/login');
             } else {
                 console.error('Failed to fetch goals:', response.status);
             }
@@ -206,7 +214,6 @@ export const GoalsProvider: React.FC = ({ children }) => {
             });
 
             if (response.ok) {
-                // Optionally update the local state if needed
             } else {
                 console.error('Failed to update goal order:', response.status);
             }
@@ -239,7 +246,6 @@ export const GoalsProvider: React.FC = ({ children }) => {
                 console.error('Failed to create subgoal:', response.status);
             }
         } catch (error) {
-            // Handle network errors
             console.error('Error creating subgoal:', error);
         }
     }, []);

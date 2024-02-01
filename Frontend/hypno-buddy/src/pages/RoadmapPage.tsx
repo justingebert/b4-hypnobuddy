@@ -114,8 +114,6 @@ function RoadmapPage() {
                     </div>
                 ))}
 
-
-
             </div>
         </div>
     );

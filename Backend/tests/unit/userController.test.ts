@@ -62,6 +62,7 @@ beforeAll(async () => {
  * close the db connection after all tests
  */
 afterAll(async () => {
+    await mongoose.connection.close();
     await mongoose.disconnect();
     await mongoServer.stop();
     await sessionStore.close();
@@ -114,9 +115,6 @@ describe('getUserParams Function', () => {
 
         expect(getUserParams(body)).toEqual(expectedOutput);
     });
-
-    // Additional test cases can be added here, such as handling unexpected input types,
-    // extra fields, or null values.
 });
 describe('User Input Validation', () => {
     it('should reject invalid email', async () => {
@@ -136,8 +134,6 @@ describe('User Input Validation', () => {
         expect(response.status).toBe(400);
         expect(response.body.message).toContain('Password cannot be empty');
     });
-
-    // Add more tests for other validation rules
 });
 describe('User Account Creation', () => {
     it('should create a new user account', async () => {
@@ -150,7 +146,6 @@ describe('User Account Creation', () => {
         expect(response.body.message).toContain('account created successfully');
     });
 
-    // Tests for handling duplicate email, invalid input, etc.
 });
 describe('User Authentication', () => {
     beforeEach(async () => {
@@ -178,7 +173,6 @@ describe('User Authentication', () => {
         expect(response.body.success).toBeFalsy();
     });
 
-    // More tests around authentication logic
 });
 describe('User Logout', () => {
     let userCookie;
@@ -200,7 +194,6 @@ describe('User Logout', () => {
         expect(response.body.message).toBe('You have been logged out!');
     });
 
-    // Additional logout related tests
 });
 describe('Current User Endpoint', () => {
     let userCookie;
@@ -235,7 +228,6 @@ describe('Current User Endpoint', () => {
         expect(response.body.isAuthenticated).toBeFalsy();
     });
 
-    // Additional tests around this functionality
 });
 describe('Therapist Verification', () => {
     let therapist,therapistCookie, verificationCode;
@@ -250,7 +242,6 @@ describe('Therapist Verification', () => {
     afterEach(cleanDatabase);
 
     it('should successfully verify a therapist', async () => {
-        // Use a valid verification code
         const response = await request(app)
             .post('/user/verify')
             .set('Cookie', therapistCookie)
@@ -286,8 +277,6 @@ describe('Therapist Verification', () => {
 
         expect(updatedTherapist.role).toBe('therapist');
     });
-
-    // Additional tests for already used codes, etc.
 });
 describe('Linking Patient to Therapist', () => {
     let therapist, patient, patientCookie, patientLinkingCode;
@@ -345,6 +334,4 @@ describe('Linking Patient to Therapist', () => {
 
         expect(updatedPatient.therapist.toString()).toBe(therapist._id.toString());
     });
-
-    // Additional tests for expired codes, codes exceeding use limits, etc.
 });
