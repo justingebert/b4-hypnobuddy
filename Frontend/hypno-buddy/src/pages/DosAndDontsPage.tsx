@@ -110,10 +110,10 @@ function DosAndDontsPage() {
 
   return (
     <div className={styles.layout}>
-      <h1 className={styles.h1}>Do's & Dont's</h1>
+      <h1 className={styles.h1}>Do's & Don'ts</h1>
       <div className={styles.welcomeContainer}>
         <p className={styles.welcomeText}>
-          Liebe TherapeutInnen!<br />
+          Liebe Therapeut:innen!<br />
           Nutzen Sie die Kraft, das Leben junger Menschen durch Ihre Anleitung zu verändern. <br /> Ihre Dos and Don'ts-Listen sind der Kompass für Eltern, <br/> die den Weg zum emotionalen Wohlbefinden ihres Kindes einschlagen.
         </p>
       </div>
