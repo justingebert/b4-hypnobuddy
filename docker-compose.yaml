@@ -3,7 +3,7 @@ services:
   backend:
     build:
       context: ./Backend
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     ports:
       - "3000:3000"
     depends_on:
@@ -12,7 +12,7 @@ services:
   frontend:
     build:
       context: ./Frontend/hypno-buddy
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     ports:
       - "5173:5173"
 
