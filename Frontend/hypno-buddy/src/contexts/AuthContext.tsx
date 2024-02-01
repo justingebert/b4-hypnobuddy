@@ -254,4 +254,4 @@ export const  useAuth = () => {
 }
 
 
-export const url = process.env. REACT_APP_BACKEND_URL || 'http://localhost:8080';
+export const url = import.meta.env. REACT_APP_BACKEND_URL || 'http://localhost:8080';
