@@ -2,30 +2,32 @@ import React, { useState, useEffect } from 'react';
 import QueueList from '../components/QueueList';
 import { RoadmapGoal } from '../types/Roadmap-Goal.ts';
 import GoalCreateForm from '../components/GoalCreateForm';
-import {useNavigate} from "react-router-dom";
-import {useGoals} from "../contexts/GoalContext.tsx"; // Assuming you have a form for adding/editing goals
+import { useNavigate } from "react-router-dom";
+import { useGoals } from "../contexts/GoalContext.tsx"; // Assuming you have a form for adding/editing goals
+import styles from "../styles/Roadmap/Queueview.module.scss";
+import style from '../styles/Roadmap/buttons.module.scss';
 
 const QueueView: React.FC = () => {
 
     const { goals, setGoals, fetchGoals, createGoal, updateGoal, deleteGoal, updateGoalOrder, createSubGoal } = useGoals();
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
     const [editingGoal, setEditingGoal] = useState<RoadmapGoal | null>(null);
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [actionType, setActionType] = useState(null);
 
     const navigate = useNavigate();
 
-    useEffect( () => {
+    useEffect(() => {
         fetchGoals()
     }, []);
 
     //TODO should be split into two functions
     const handleCreateNewGoal = async (goalData: RoadmapGoal) => {
+
         //if not s a subgoal
         if (!goalData.isSubGoal) {
             await createGoal(goalData);
             setShowCreateModal(false);
+            window.scrollTo(0, 0);
             return;
         }
         //if it is a subgoal
@@ -90,13 +92,31 @@ const QueueView: React.FC = () => {
         navigate('/roadmap');
     }
 
+
     return (
         <>
-            <div className="container my-4">
-                <h1 className="mb-3">Goals Queue</h1>
-                <QueueList goals={goals} onReorder={onReorder} onEdit={handleEditGoal} onDelete={handleDeleteGoal} onCreateSubGoal={handleCreateSubGoal}/>
-                <button className="btn btn-success m-3" onClick={() => setShowCreateModal(true)}>+ neues Ziel</button>
+            <div className={`container ${styles.queueView} `}>
+                <div className={`row`}>
+                    <h1 className={` box ${styles.heading} text-center`}>Goals Queue</h1>
+                </div>
+                <div className={`row`}>
+                    <div className={`col-3 d-flex justify-content-center align-items-center`}>
+                        <button className={`$ btn btn-secondary ${style.btnSecondaryCustom} box ${styles.stickyButtons}`}
+                            onClick={goToRoadmap}>← Roadmap
+                        </button>
+                    </div>
 
+                    <div className={`col-6`}>
+                        <QueueList goals={goals} onReorder={onReorder} onEdit={handleEditGoal} onDelete={handleDeleteGoal}
+                            onCreateSubGoal={handleCreateSubGoal} />
+                    </div>
+                    <div className={`col-3 d-flex justify-content-center box align-self-center`}>
+                        <button className={`btn btn-primary ${style.btnPrimaryCustom}  ${styles.stickyButtons}`}
+                            onClick={() => setShowCreateModal(true)}>+ neues
+                            Ziel
+                        </button>
+                    </div>
+                </div>
                 {showCreateModal && (
                     <GoalCreateForm
                         goalData={editingGoal}
@@ -105,8 +125,7 @@ const QueueView: React.FC = () => {
                     />
                 )}
             </div>
-            <br/>
-            <button className="btn btn-secondary m-3" onClick={goToRoadmap}>← Roadmap</button>
+
         </>
     );
 };

@@ -1,3 +1,4 @@
+@import 'vars';
 .carousel {
     justify-content: center;
     align-items: center;
@@ -6,6 +7,7 @@
 }
 
 .carouselItem {
+    font: $oscine-bold-weight 30px/30px $oscine-family;
     justify-content: center;
     align-items: center;
     border-radius: 30px;

@@ -1,5 +1,5 @@
 import React from "react";
-
+import styles from "../styles/Navbar.module.scss";
 const LogoutButton = ({ onLogout }): any => {
     const handleClick = async() => {
         await onLogout();
@@ -22,6 +22,7 @@ const LogoutButton = ({ onLogout }): any => {
                     backgroundColor: '#3e368d',
                     borderColor: '#3e368d',
                 }}
+                className={styles.buttonLogin}
                 onMouseOver={handleMouseOver}
                 onMouseOut={handleMouseOut}
         >Logout</button>

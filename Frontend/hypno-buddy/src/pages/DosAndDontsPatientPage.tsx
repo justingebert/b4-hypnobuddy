@@ -40,7 +40,7 @@ const DosAndDontsPatientPage = () => {
                 <h1>Gemeinsam <br /> Ängste überwinden</h1>
             </div>
             <div className={styles.infotext}>
-                <p>Wir verstehen, dass es Momente gibt, in denen du dich vielleicht unsicher fühlst, besonders wenn es darum geht, die Ängste deines Kindes zu verstehen und zu unterstützen.</p>
+                <h3>Wir verstehen, dass es Momente gibt, in denen du dich vielleicht unsicher fühlst, besonders wenn es darum geht, die Ängste deines Kindes zu verstehen und zu unterstützen.</h3>
             </div>
 
             <div className={styles.container}>
@@ -70,7 +70,7 @@ const DosAndDontsPatientPage = () => {
 
             <div className={styles.background_eclipse}>
                 <div className={styles.text}>
-                    <p>Jeder kleine Schritt, den du als Elternteil machst, ist ein <br /> großer Beitrag auf der Reise deines Kindes. Du machst bereits einen bedeutenden Unterschied, und jeder weitere Schritt bringt uns näher zur Überwindung von Ängsten und zum Erblühen von Vertrauen.</p>
+                    <h3>Jeder kleine Schritt, den du als Elternteil machst, ist ein <br /> großer Beitrag auf der Reise deines Kindes. Du machst bereits einen bedeutenden Unterschied, und jeder weitere Schritt bringt uns näher zur Überwindung von Ängsten und zum Erblühen von Vertrauen.</h3>
                 </div>
             </div>
 

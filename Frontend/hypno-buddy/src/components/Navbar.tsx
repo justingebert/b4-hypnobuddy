@@ -57,38 +57,39 @@ const NavbarComponent = () => {
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link href="/" className="nav-link active" aria-current="page">
-                            Home
+                            <p className={styles.navHover}> Home </p>
                         </Nav.Link>
                         {isAuthenticated && user ? (
                             <Nav>
                                 {user.role === 'therapist' ? (
                                     <Nav.Link href="/dosanddonts/t" className="nav-link active" aria-current="page">
-                                        Dos & Don'ts
+                                        <p className={styles.navHover}> Dos & Don'ts</p>
                                     </Nav.Link>
                                 ) : (
-                                    <Nav.Link href="/dosanddonts/p" className="nav-link active" aria-current="page">
-                                        Dos & Don'ts
+                                    <Nav.Link href="/dosanddonts/p" className={`nav-link active ${styles.navHover}`} aria-current="page">
+                                        <p className={styles.navHover}>Dos & Don'ts</p>
                                     </Nav.Link>
                                 )}
                                 <Nav.Link href="/roadmap" className="nav-link active" aria-current="page">
-                                    Roadmap
+                                    <p className={styles.navHover}> Roadmap </p>
                                 </Nav.Link>
-                                <Nav.Link href="/reflexion-add" className="nav-link active" aria-current="page">
-                                    Reflexion
-                                </Nav.Link>
+                                {user.role === 'patient' ? (
+                                    <Nav.Link href="/reflexion-add" className="nav-link active" aria-current="page">
+                                        <p className={styles.navHover}>  Reflexion </p>
+                                    </Nav.Link>
+                                ) : null}
                             </Nav>
 
                         ) : null}
                     </Nav>
                     <Nav>
-                        //TODO What is #deets?
                         <Nav.Link href="#deets" className="d-flex">
                             {isAuthenticated && user ? (
                                 <>
                                     <Nav.Link href="/profile" className={styles.navLink}>
                                         <div className={styles.userEmail}>
                                             <Navbar.Text>
-                                                Eingeloggt:
+                                                <p>Eingeloggt:</p>
                                             </Navbar.Text>
                                             <b>{" " + user.name.first + " " + user.name.last}</b>
                                         </div>

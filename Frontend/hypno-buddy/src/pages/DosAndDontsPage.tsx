@@ -42,12 +42,10 @@ function DosAndDontsPage() {
     try {
       setIsAddButtonDisabled(true);
 
-      // Make a DELETE request to your backend endpoint to delete the fear and its associated entries
       await fetch(url + `/dosAndDonts/fears/${fearId}`, {
         method: 'DELETE',
       });
 
-      // Remove the closed fear from the state
       setFears((prevFears) => prevFears.filter((fear) => fear._id !== fearId));
       flash('Fear deleted successfully!');
     } catch (error) {
@@ -101,11 +99,8 @@ function DosAndDontsPage() {
       } else {
         const data = await response.json();
         const newFearId = data._id;
-        // Redirect to the page for the newly added fear
         navigate(`/dosanddonts/t/${newFearId}`);
-        // Close the new fear modal
         setIsNewFearModalOpen(false);
-        // Reset the new fear title input
         setNewFearTitle('');
       }
     } catch (error) {

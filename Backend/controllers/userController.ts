@@ -27,7 +27,6 @@ export const getUserParams = body => {
  * validate user input
  */
 export const validate = [
-    // Validation and sanitization middlewares
     body('email')
         .normalizeEmail({ all_lowercase: true })
         .trim()
@@ -35,12 +34,10 @@ export const validate = [
     body('password')
         .notEmpty().withMessage('Password cannot be empty'),
 
-    // Middleware to handle the validation result
     (req, res, next) => {
 
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            // Map the errors to extract messages
             let messages = errors.array().map(e => e.msg);
             req.skip = true;
 
@@ -164,6 +161,7 @@ export async function currentUser(req, res, next) {
         try {
             const user = await User.findById(req.user._id)
                 .populate('patients')  // Populate 'patients' field if the user is a therapist
+                .populate('patientLinkingCode')
                 .populate('therapist'); // Populate 'therapist' field if the user is a patient
 
             res.json({
@@ -195,15 +193,12 @@ export async function verifyTherapist(req, res) {
     const verificationCode = await VerificationCode.findOne({ code: code, type: 'therapistVerification' });
 
     if (verificationCode && !verificationCode.used) {
-        // Mark the therapist verification code as used
         verificationCode.used = true;
         await verificationCode.save();
 
-        // Update the therapist's role
         const therapist = await User.findById(user._id);
         therapist.role = 'therapist';
 
-        // Generate a new patient linking code for the therapist
         const patientCode = uuidv4();
         therapist.patientLinkingCode = patientCode;
         await therapist.save();
@@ -242,11 +237,9 @@ export async function linkPatientToTherapist(req, res) {
         const patient = await User.findById(req.user._id);
         const therapist = await User.findById(verificationCode.therapistId);
 
-        // Link the patient to the therapist
         patient.therapist = therapist._id;
         await patient.save();
 
-        // Add the patient to the therapist's list of patients
         therapist.patients.push(patient._id);
         await therapist.save();
 
@@ -294,7 +287,6 @@ export async function getAllPatientsLinked(req, res) {
             return res.status(404).json({ error: 'Fear not found' });
         }
 
-        // Assuming you have a field named `users` in the Fear model which is an array of user IDs
         if (!fear.users || !Array.isArray(fear.users)) {
             return res.status(500).json({ error: 'Invalid data in Fear model' });
         }

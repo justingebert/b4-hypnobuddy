@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import styles from "../styles/Navbar.module.scss";
 
 const LoginButton = ({ }): any => {
     const navigate = useNavigate();
@@ -27,6 +28,7 @@ const LoginButton = ({ }): any => {
                 backgroundColor: '#3e368d',
                 borderColor: '#3e368d',
             }}
+            className={styles.buttonLogin}
             onMouseOver={handleMouseOver}
             onMouseOut={handleMouseOut}
             onClick={handleClick}

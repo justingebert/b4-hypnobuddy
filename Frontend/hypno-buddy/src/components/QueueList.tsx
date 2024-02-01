@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import GoalWithSubgoals from './GoalWithSubgoals';
+import styles from '../styles/Roadmap/QueueList.module.scss';
 
 function QueueList({ goals, onReorder, onEdit, onDelete, onCreateSubGoal }) {
     const [localGoals, setLocalGoals] = useState(goals);
@@ -71,7 +72,7 @@ function QueueList({ goals, onReorder, onEdit, onDelete, onCreateSubGoal }) {
         <DragDropContext onDragEnd={handleDragEnd}>
             <StrictModeDroppable droppableId="goals" type="goal">
                 {(provided) => (
-                    <div {...provided.droppableProps} ref={provided.innerRef} className="container">
+                    <div {...provided.droppableProps} ref={provided.innerRef} className={`${styles.queueList} container ${styles.containerCustom}`}>
                         {localGoals.map((goal, index) => (
                             <GoalWithSubgoals
                                 key={goal._id}
