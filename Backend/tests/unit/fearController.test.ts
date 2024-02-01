@@ -13,7 +13,7 @@ const mockFearId = "65b81cc56adcc9e503a61110";
 
 const exampleLogin = {
   email: "therapist@example.com",
-  password: "password123",
+  password: "Therapy123!",
 };
 let therapistBody = {
   therapist: null,

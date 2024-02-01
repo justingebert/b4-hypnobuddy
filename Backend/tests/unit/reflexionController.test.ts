@@ -12,8 +12,8 @@ const getByIdRoute = "/getById/";
 const updateRoute = "/update/";
 
 const exampleLogin = {
-  email: "patient@example.com",
-  password: "password123",
+  email: "erik.klein@patient.com",
+  password: "Recover123!",
 };
 let patientBody = {
   patient: null,
