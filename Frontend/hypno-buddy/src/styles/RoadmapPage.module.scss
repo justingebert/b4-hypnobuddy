@@ -63,9 +63,6 @@ $timeline-thickness: 4px;
 
 .circle {
   @include circle($circle-size);
-
-  // Additional styling specific to the circle
-  // e.g., colors based on status, border, etc.
 }
 
 .textbox{
