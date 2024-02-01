@@ -109,7 +109,7 @@ describe('Goal Input Validation', () => {
 
     afterEach(cleanDatabase);
 
-    it.skip('should reject empty title', async () => {
+    it('should reject empty title', async () => {
         const response = await request(app)
             .post('/goal/create')
             .set('Cookie', userCookie)
@@ -119,7 +119,7 @@ describe('Goal Input Validation', () => {
         expect(response.body.message).toContain('Title cannot be empty');
     });
 
-    it.skip('should reject empty description', async () => {
+    it('should reject empty description', async () => {
         const response = await request(app)
             .post('/goal/create')
             .set('Cookie', userCookie)

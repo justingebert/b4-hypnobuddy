@@ -47,25 +47,25 @@ jobs:
     - name: Run Backend Tests userController
       run: |
         cd Backend
-        npm run test --userController.test.ts
+        npm run test -- userController.test.ts
       continue-on-error: true
 
     - name: Run Backend Tests goalController
       run: |
         cd Backend
-        npm run test --goalController.test.ts
+        npm run test -- goalController.test.ts
       continue-on-error: true
 
     - name: Run Backend Tests fearController
       run: |
         cd Backend
-        npm run test --fearController.test.ts
+        npm run test -- fearController.test.ts
       continue-on-error: true
     
     - name: Run Backend Tests reflexionController
       run: |
         cd Backend
-        npm run test --reflexionController.test.ts
+        npm run test -- reflexionController.test.ts
       continue-on-error: true
 
     - name: Shutdown MongoDB
