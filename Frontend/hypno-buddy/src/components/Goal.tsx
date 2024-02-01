@@ -25,22 +25,21 @@ function GoalItem({ goal, onEdit, onDelete, onCreateSubGoal }) {
     }
 
     return (
-        <div className={`card  border-2 ${getStatusClass(goal.status)}  ${styles.cardCustom} mb-3`}>
+        <div className={`card  border-3 ${getStatusClass(goal.status)}  ${styles.cardCustom} mb-3`}>
             <div className={` card-body`}>
                 <h5 className={`card-title ${styles.title}`}>{goal.title}</h5>
                 <p className={`card-text small text-muted ${styles.date}`}>{getDueDate(goal.dueDate)}</p>
                 <p className={`card-text ${styles.subtitle}`} dangerouslySetInnerHTML={{ __html: goal.description }} />
                 <button className={`btn btn-secondary ${style.btnEditCustom} mr-2`} onClick={() => onEdit(goal)}>
-                    <img src={editIcon} alt="Edit" style={{ filter: "invert(1)", width: "20px", height: "20px" }}/>
-                </button>
-                <button className={`btn btn-danger ${style.btnDeleteCustom} m-2`} onClick={() => onDelete(goal._id)}>
-                    <img src={deleteIcon} alt="Delete" style={{ filter: "invert(1)",  width: "20px", height: "20px" }}/>
+                    <img src={editIcon} alt="Edit" style={{ filter: "invert(1)", fill:"white", width: "20px", height: "20px" }}/>
                 </button>
                 {!goal.isSubGoal && (
-                    <button className={`btn btn-primary ${style.btnPrimaryCustom}`} onClick={() => onCreateSubGoal(goal._id)}>+
+                    <button className={`btn btn-primary ${style.btnPrimaryCustom} m-2`} onClick={() => onCreateSubGoal(goal._id)}>+
                         Zwischenziel</button>
                 )}
-
+                <button className={`btn btn-danger ${style.btnDeleteCustom} mr-2`} onClick={() => onDelete(goal._id)}>
+                    <img src={deleteIcon} alt="Delete" style={{ filter: "invert(.1)",  width: "20px", height: "20px" }}/>
+                </button>
             </div>
         </div>
     );

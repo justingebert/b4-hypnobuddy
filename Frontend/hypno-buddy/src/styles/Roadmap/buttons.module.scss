@@ -31,8 +31,8 @@
   border-color: $light-creme;
   color: $dark-grey;
   &:hover {
-    background-color: $orange;
-    border-color: $orange;
+    background-color: lighten($orange,10%);
+    border-color: lighten($orange,10%);
     color: $white;
   }
 }
