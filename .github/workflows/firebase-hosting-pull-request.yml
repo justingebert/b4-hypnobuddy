@@ -5,6 +5,10 @@ name: Deploy to Firebase Hosting on PR
 'on':
   pull_request:
     branches: [ main, deployment ]
+
+env:
+  REACT_APP_BACKEND_URL: '${{ secrets.BACKEND_URL }}'
+
 jobs:
   build_and_preview:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
@@ -16,8 +20,6 @@ jobs:
 
       - name: Install dependencies and build
         run: npm i && npm run buildnocheck
-        env:
-          REACT_APP_BACKEND_URL: '${{ secrets.BACKEND_URL }}'
         working-directory: ./Frontend/hypno-buddy
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
