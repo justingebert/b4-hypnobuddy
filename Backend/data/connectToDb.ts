@@ -8,8 +8,7 @@ import { sampleTherapists, samplePatients } from "./mockupData";
 // connect to mongodb
 export async function connectDB() {
     try {
-        await mongoose.connect('mongodb://mongo:27017/hypnobuddy', {
-            //useNewUrlParser: true, //TODO this is not working why?
+        await mongoose.connect(process.env.MONGO_URL || 'mongodb://127.0.0.1:27017/hypnobuddy', {
         });
         console.log('MongoDB connected successfully');
     } catch (error) {

@@ -21,12 +21,14 @@ services:
     container_name: mongo
     ports:
       - "27017:27017"
+    # environment:
+    #   MONGO_URL: "mongodb://mongo:27017/hypnobuddy"
 
-  test:
-    build:
-      context: ./Backend
-      dockerfile: Dockerfile.test
-    depends_on:
-      - mongo
-    environment:
-      MONGO_URI: mongodb://mongo:27017/hypnobuddy
+  # test:
+  #   build:
+  #     context: ./Backend
+  #     dockerfile: Dockerfile.test
+  #   depends_on:
+  #     - mongo
+  #   environment:
+  #     MONGO_URI: mongodb://mongo:27017/hypnobuddy
