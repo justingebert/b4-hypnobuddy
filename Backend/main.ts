@@ -36,7 +36,7 @@ app.use(session({
         proxy: process.env.NODE_ENV === 'production',
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
-        sameSite: 'none',
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
         maxAge: 24 * 60 * 60 * 1000
     }
 }));

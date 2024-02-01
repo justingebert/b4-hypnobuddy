@@ -18,13 +18,15 @@ jobs:
         with:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
-      - name: 'Terraform Delete (this should be removed later -> get last tag from docker gh action)'
-        run: terraform destroy -auto-approve
-        working-directory: ./Backend/terraform
-
       - name: 'Terraform Init'
         run: terraform init
         working-directory: ./Backend/terraform
+
+      - name: 'Terraform Delete (this should be removed later -> get last tag from docker gh action)'
+        run: terraform destroy -auto-approve
+        working-directory: ./Backend/terraform
+        env:
+          TF_VAR_gcp_credentials: ${{ secrets.GCP_CREDENTIALS_JSON }}
 
       - name: 'Terraform Apply'
         run: terraform apply -auto-approve
