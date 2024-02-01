@@ -6,7 +6,6 @@ import { useAuth } from '../contexts/AuthContext.tsx';
 import { Link } from 'react-router-dom';
 import RegisterForm from './RegisterPage';
 import styled from 'styled-components';
-import { Container, Row, Col } from 'react-bootstrap';
 import '../styles/LoginSignin.scss';
 
 const WelcomeHeading = styled.div`

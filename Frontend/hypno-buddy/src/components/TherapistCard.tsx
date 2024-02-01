@@ -320,7 +320,7 @@ function TherapistCard({
 
           {/* Button for Edit/Save */}
           <button className={styles.editSaveButton} onClick={isEditMode ? onSave : onEditToggle}>
-            {isEditMode ? 'Save' : 'Edit'}
+            {isEditMode ? 'Speichern' : 'Bearbeiten'}
           </button>
         </div>
       </div>
