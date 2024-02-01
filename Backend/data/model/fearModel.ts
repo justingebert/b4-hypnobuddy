@@ -9,6 +9,7 @@ const fearSchema = new mongoose.Schema({
 
 fearSchema.index({ name: 1, therapistId: 1 }, { unique: true });
 export const FearModel = mongoose.model('Fear', fearSchema);
+export default FearModel;
 
 export interface Fear {
     _id: string;

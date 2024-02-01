@@ -3,7 +3,7 @@ import QueueList from '../components/QueueList';
 import { RoadmapGoal } from '../types/Roadmap-Goal.ts';
 import GoalCreateForm from '../components/GoalCreateForm';
 import {useNavigate} from "react-router-dom";
-import {useGoals} from "../contexts/GoalContext.tsx"; // Assuming you have a form for adding/editing goals
+import {useGoals} from "../contexts/GoalContext.tsx";
 
 const QueueView: React.FC = () => {
 
@@ -67,6 +67,11 @@ const QueueView: React.FC = () => {
         setGoals(reorderedGoals);
     };
 
+    const onClose = async () => {
+        setEditingGoal(null);
+        setShowCreateModal(false);
+    };
+
     const handleCreateSubGoal = async (parentGoalId: string) => {
         // Initialize a new subgoal with the parentGoalId
         const newSubGoal = {
@@ -96,7 +101,7 @@ const QueueView: React.FC = () => {
                     <GoalCreateForm
                         goalData={editingGoal}
                         onSave={actionType === 'edit' ? handleUpdateGoal : handleCreateNewGoal}
-                        onClose={() => setShowCreateModal(false)}
+                        onClose={onClose}
                     />
                 )}
             </div>

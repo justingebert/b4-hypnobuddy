@@ -9,7 +9,9 @@ import badImage from '../assets/Sehr schlecht.png';
 import CustomButton from "../components/CustomButton.tsx";
 import bunny from "../assets/bunny.png";
 import {url} from "../contexts/AuthContext.tsx";
+
 import { FlashContext } from '../contexts/FlashContext';
+
 
 const AddingReflexionPage: React.FC = () => {
   const navigate = useNavigate();
@@ -60,7 +62,7 @@ const AddingReflexionPage: React.FC = () => {
   return (
     <div>
       <div className="reflection">
-        <div className="reflectionCard">
+        <div className="reflectionCard" >
           <h2 className="h2-refelxion">Wie fühlst du dich heute?</h2>
           <div className="moodDiv">
             {['Sehr gut', 'Gut', 'Normal', 'Nicht so gut', 'Schlecht'].map((mood) => (
@@ -89,7 +91,9 @@ const AddingReflexionPage: React.FC = () => {
                 }}
             />
           </div>
-          <img src={bunny} className="bunnyImage" alt="bunny"/>
+          <div style={{display:'flex', justifyContent:'center', padding:'20px'}}>
+            <img src={bunny} className="bunnyImage" alt="bunny"/>
+          </div>
         </div>
       </div>
     </div>

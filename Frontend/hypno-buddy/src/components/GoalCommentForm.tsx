@@ -13,7 +13,6 @@ const GoalCommentForm: React.FC<GoalCommentFormProps> = ({onSave, goalID }) => {
         e.preventDefault();
         // Check if the comment is empty
         if (comment.trim() === '') {
-            // You can show an error message or handle it in any way you prefer
             console.error('Comment cannot be empty!');
             return;
         }
