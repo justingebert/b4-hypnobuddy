@@ -206,7 +206,6 @@ export const GoalsProvider: React.FC = ({ children }) => {
             });
 
             if (response.ok) {
-                // Optionally update the local state if needed
             } else {
                 console.error('Failed to update goal order:', response.status);
             }
@@ -239,7 +238,6 @@ export const GoalsProvider: React.FC = ({ children }) => {
                 console.error('Failed to create subgoal:', response.status);
             }
         } catch (error) {
-            // Handle network errors
             console.error('Error creating subgoal:', error);
         }
     }, []);

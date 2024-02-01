@@ -1,9 +1,9 @@
 @media (min-width: 1000px) {
 
   .navbar-toggler {
-    display: none; /* Verstecke den Toggle-Button bei Desktop-Ansicht */
+    display: none; /* Hide the toggle button for desktop view */
   }
   .collapse.navbar-collapse {
-    display: flex !important; /* Zeige das Menü bei Desktop-Ansicht */
+    display: flex !important; /* Show the menu in desktop view */
   }
 }

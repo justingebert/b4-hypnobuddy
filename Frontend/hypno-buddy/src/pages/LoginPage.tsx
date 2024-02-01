@@ -1,4 +1,3 @@
-// LoginCombined.tsx
 import React, { useContext, useState } from 'react';
 import AuthForm from '../components/AuthForm.tsx';
 import { FlashContext } from '../contexts/FlashContext';
