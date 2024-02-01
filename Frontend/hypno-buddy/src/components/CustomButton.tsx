@@ -39,6 +39,7 @@ const CustomButton: React.FC<ButtonProps> = ({
                 borderColor: backgroundColor,
                 margin: '15px',
                 minWidth:'80px',
+                fontSize: '18px'
             }}
             onMouseOver={handleMouseOver}
             onMouseOut={handleMouseOut}

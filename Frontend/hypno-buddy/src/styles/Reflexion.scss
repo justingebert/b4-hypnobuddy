@@ -6,17 +6,20 @@
     align-content: center;
     background: linear-gradient($light-creme 10%, $light-violet 40%,#C9BAFD);
     min-height: 100vh;
+    font: $oscine-bold-weight 30px/30px $oscine-family;
 }
 .reflection{
     align-items: center;
     justify-content: center;
     align-content: center;
+    font: $oscine-regular-weight $oscine-family;
 }
 .reflectionCard{
     background-image: url('../assets/background.png');
     background-size: cover;
     padding-top: 100px;
     min-height: 94vh;
+    font: $oscine-bold-weight 20px/20px $oscine-family;
 }
 .h2-refelxion{
     margin-top: 10%;
@@ -29,7 +32,6 @@
     align-content: center;
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
-
 }
 .moodDiv{
     display: flex;
@@ -51,6 +53,7 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    font-size: 15px;
 }
 .moodButtonImg {
     width: 100%;
@@ -67,6 +70,8 @@
     background-color: $light-grey;
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
+    font: $oscine-regular-weight $oscine-family;
+
 }
 
 .yesNoDiv{
