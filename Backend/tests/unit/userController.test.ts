@@ -62,6 +62,7 @@ beforeAll(async () => {
  * close the db connection after all tests
  */
 afterAll(async () => {
+    await mongoose.connection.close();
     await mongoose.disconnect();
     await mongoServer.stop();
     await sessionStore.close();
