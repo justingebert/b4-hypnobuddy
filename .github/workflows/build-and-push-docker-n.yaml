@@ -1,6 +1,9 @@
 name: Build and Push Docker Image
 
 on:
+  push:
+    branches:
+      - docker-image #test
   pull_request:
     branches:
       - main
@@ -27,3 +30,9 @@ jobs:
 
       - name: Push Docker image
         run: docker push nataliiaremezova/b4-hypnobuddy:$GITHUB_SHA
+
+      - name: Build Frontend Docker image
+        run: docker build -t nataliiaremezova/b4-hypnobuddy-frontend:$GITHUB_SHA ./Frontend/hypno-buddy
+
+      - name: Push Frontend Docker image
+        run: docker push nataliiaremezova/b4-hypnobuddy-frontend:$GITHUB_SHA
