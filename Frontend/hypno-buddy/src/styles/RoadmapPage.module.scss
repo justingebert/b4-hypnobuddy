@@ -30,13 +30,12 @@ $timeline-thickness: 7px;
   width: $timeline-thickness;
   background-color: $light-grey;
   border-radius: 6px;
-  top: 50%;
+  top: 0;
   bottom: 0;
   left: 50%;
   margin-left: calc(-1 * $timeline-thickness / 2);
   margin-top: 1%;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
   &.planned {
     background-color: $light-grey;
   }
@@ -157,13 +156,11 @@ $timeline-thickness: 7px;
 }
 
 .button {
-  background-color: $orange;
-  position: fixed;
-  font-size: 1rem;
-  bottom: 0;
-  right: 0;
-  margin: 6% 8% 7% 8%;
+  right: 8%;
   z-index: 1;
+  position: fixed;
+  top: 8rem;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .btn {

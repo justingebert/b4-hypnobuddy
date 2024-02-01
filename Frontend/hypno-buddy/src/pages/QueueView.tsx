@@ -124,7 +124,6 @@ const QueueView: React.FC = () => {
                     />
                 )}
             </div>
-            <br/>
 
         </>
     );

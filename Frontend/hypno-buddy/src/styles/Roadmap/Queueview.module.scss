@@ -2,10 +2,16 @@
 
 .queueView{
   background-image: url('../../assets/backgroundR.png');
+  position: relative;
   padding-top: 8%;
   min-height: 100vh;
   background-size: cover;
   background-position: center;
+  margin-inline: 0;
+  max-width: none;
+  color: $dark-violet;
+  bottom: 0;
+  margin: 0;
 }
 
 //TODO needed?
@@ -13,6 +19,7 @@
 .heading{
   font-family: $oscine-family;
   font-weight: $oscine-bold-weight;
+  padding-block: 2%;
 }
 
 .centeredRow {

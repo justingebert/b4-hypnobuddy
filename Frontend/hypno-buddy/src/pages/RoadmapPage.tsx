@@ -4,8 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { useGoals } from "../contexts/GoalContext.tsx";
 import { useAuth } from "../contexts/AuthContext.tsx";
 import { RoadmapGoal } from "../types/Roadmap-Goal.ts";
-import GoalCommentForm from "../components/GoalCommentForm.tsx";
 import RoadmapGoalTextbox from "../components/RoadmapGoalTextbox.tsx";
+import style from '../styles/Roadmap/buttons.module.scss';
+
 
 function RoadmapPage() {
     const [isLoading, setIsLoading] = useState(false);
@@ -81,7 +82,18 @@ function RoadmapPage() {
 
     return (
         <div className={styles.roadmap}>
-            <h1 className={styles.header}>ROADMAP</h1>
+            <div className={`row`}>
+                <h1 className={` box ${styles.header} text-center`}>ROADMAP</h1>
+            </div>
+            {user?.role === 'patient' &&
+                <div className={`row`}>
+                    <div className={`col-3 d-flex justify-content-center align-items-center`}>
+                        <button className={`$ btn btn-secondary ${style.btnSecondaryCustom} box ${styles.button}`} onClick={() => navigate('/goalQueueView')}>
+                            Bearbeiten
+                        </button>
+                    </div>
+                </div>
+            }
             <h4 className="text-center mb-4">{selectedPatient?.name.first} {selectedPatient?.name.last}</h4>
             <div className={`${styles.timeline} ${getTimelineColor(sortedGoals[0]?.status)}\``}>
                 {sortedGoals.length > 0 && sortedGoals.map((goal, index) => (
@@ -101,13 +113,7 @@ function RoadmapPage() {
                         ))}
                     </div>
                 ))}
-                <div className="mt-4">
-                    {user?.role === 'patient' &&
-                        <button className={styles.button} onClick={() => navigate('/goalQueueView')}>
-                            Bearbeiten
-                        </button>
-                    }
-                </div>
+
 
 
             </div>
