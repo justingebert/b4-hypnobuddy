@@ -42,6 +42,7 @@ app.use(session({
 }));
 //test
 
+
 app.set('trust proxy', 1);
 
 //setup passport
