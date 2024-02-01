@@ -141,7 +141,9 @@ const deepDiveQuestions = [
                 </div>
             </>
           )}
-            <img src={bunny} className="bunnyImage" alt="bunny"/>
+            <div style={{display:'flex', justifyContent:'center', padding:'20px'}}>
+                <img src={bunny} className="bunnyImage" alt="bunny"/>
+            </div>
         </div>
     </div>
   );

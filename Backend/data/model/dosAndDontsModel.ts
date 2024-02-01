@@ -7,6 +7,7 @@ export const doAndDontSchema = new mongoose.Schema({
 });
 
 export const DoAndDontModel = mongoose.model('DoAndDont', doAndDontSchema);
+export default DoAndDontModel;
 
 export interface DoAndDont {
   fearId: string;
