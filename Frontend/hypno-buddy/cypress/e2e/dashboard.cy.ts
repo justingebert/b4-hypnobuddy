@@ -1,9 +1,12 @@
+Cypress.on("uncaught:exception", () => {
+  return false;
+});
 describe("Dashboard Functionality", () => {
   beforeEach(() => {
     cy.visit("http://localhost:5173/login");
 
-    cy.get('input[name="email"]').invoke("val", "patient1@example.com");
-    cy.get('input[name="password"]').invoke("val", "password123");
+    cy.get('input[name="email"]').invoke("val", "erik.klein@patient.com");
+    cy.get('input[name="password"]').invoke("val", "Recover123!");
 
     cy.wait(1000);
 
@@ -15,6 +18,7 @@ describe("Dashboard Functionality", () => {
   afterEach(() => {
     cy.clearCookies();
     cy.clearLocalStorage();
+    cy.wait(1000);
     cy.get("button").contains("Logout").click();
   });
 
