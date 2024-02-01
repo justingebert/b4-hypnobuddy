@@ -28,12 +28,11 @@ describe("QueueView Goal Creation", () => {
 
     cy.get("button").contains("+ neues Ziel").click();
 
-    cy.get("input.form-control").first().invoke("val", "New Goal Title");
-    cy.get("textarea.form-control")
-      .first()
-      .invoke("val", "New Goal Description");
+    cy.get("input.form-control").first().type("New Goal Title");
+    cy.get("textarea.form-control").first().type("New Goal Description");
 
-    cy.get("form").submit();
+    cy.wait(1500);
+    cy.get("button").contains("Hinzufügen").click();
 
     cy.contains("New Goal Title").should("be.visible");
   });
@@ -64,18 +63,16 @@ describe("QueueView Edit Goal", () => {
     cy.get("button").contains("Bearbeiten").click();
     cy.url().should("include", "/goalQueueView");
 
-    cy.get("button").contains("Bearbeiten").first().click();
+    cy.get('[class^="btn btn-secondary _btnEditCustom_8u0ig_37"]').first().click();
 
-    cy.get("input.form-control")
-      .first()
-      .clear()
-      .invoke("val", "Updated Goal Title");
+    cy.get("input.form-control").first().clear().type("Updated Goal Title");
     cy.get("textarea.form-control")
       .first()
       .clear()
-      .invoke("val", "Updated Goal Description");
+      .type("Updated Goal Description");
 
-    cy.get("form").submit();
+    cy.wait(1500);
+    cy.get("button").contains("Speichern").click();
 
     cy.contains("Updated Goal Title").should("be.visible");
   });
@@ -105,8 +102,9 @@ describe("QueueView Delete Goal", () => {
   it("allows a user to delete a goal", () => {
     cy.get("button").contains("Bearbeiten").click();
     cy.url().should("include", "/goalQueueView");
+    
+    cy.get('[class^="btn btn-danger _btnDeleteCustom_8u0ig_25"]').first().click();
 
-    cy.get("button").contains("Löschen").click();
     cy.contains("Updated Goal Title").should("not.exist");
   });
 });
