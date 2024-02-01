@@ -2,7 +2,7 @@ name: 'Terraform Apply'
 
 on:
   push:
-    branches: [ main, deployment ]
+    branches: [ main ]
 
 jobs:
   terraform-apply:
@@ -17,6 +17,10 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: 'Terraform Delete (this should be removed later -> get last tag from docker gh action)'
+        run: terraform delete -auto-approve
+        working-directory: ./Backend/terraform
 
       - name: 'Terraform Init'
         run: terraform init
