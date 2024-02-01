@@ -1,0 +1,50 @@
+@import '../vars';
+
+.btnPrimaryCustom {
+  font-family: $oscine-family;
+  background-color: $dark-violet;
+  border-color: $dark-violet;
+  color: $white;
+  &:hover {
+    background-color: $orange;
+    border-color: $orange;
+    color: $white;
+  }
+}
+
+.btnSecondaryCustom {
+  font-family: $oscine-family;
+  background-color: $light-violet;
+  border-color: $light-violet;
+  color: $white;
+
+  &:hover {
+    background-color: $orange;
+    border-color: $orange;
+    color: $white;
+  }
+}
+
+.btnDeleteCustom{
+  font-family: $oscine-family;
+  background-color: $light-creme;
+  border-color: $light-creme;
+  color: $dark-grey;
+  &:hover {
+    background-color: $orange;
+    border-color: $orange;
+    color: $white;
+  }
+}
+
+.btnEditCustom{
+  font-family: $oscine-family;
+  background-color: $light-violet;
+  border-color: $light-violet;
+  color: $white;
+  &:hover {
+    background-color: $orange;
+    border-color: $orange;
+    color: $white;
+  }
+}

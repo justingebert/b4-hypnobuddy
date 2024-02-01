@@ -5,7 +5,7 @@ import GoalCreateForm from '../components/GoalCreateForm';
 import {useNavigate} from "react-router-dom";
 import {useGoals} from "../contexts/GoalContext.tsx"; // Assuming you have a form for adding/editing goals
 import styles from "../styles/Roadmap/Queueview.module.scss";
-import styles2 from "../styles/GoalForm.module.scss";
+import style from '../styles/Roadmap/buttons.module.scss';
 
 const QueueView: React.FC = () => {
 
@@ -87,20 +87,31 @@ const QueueView: React.FC = () => {
         navigate('/roadmap');
     }
 
+
     return (
         <>
             <div className={`container ${styles.queueView} `}>
-                    <div className={`${styles.queueViewTop} d-flex justify-content-center`}>
-                        <button className={`${styles.btn} btn btn-secondary box align-self-center`} onClick={goToRoadmap}>← Roadmap</button>
-                        <h1 className={`m-5 box ${styles.heading}`}>Goals Queue</h1>
-                        <button className={`btn btn-primary box align-self-center`} onClick={() => setShowCreateModal(true)}>+ neues
-                            Ziel
+                    <div className={`row`}>
+                        <h1 className={` box ${styles.heading} text-center`}>Goals Queue</h1>
+                    </div>
+                <div className={`row`}>
+                    <div className={`col-3 d-flex justify-content-center align-items-center`}>
+                        <button className={`$ btn btn-secondary ${style.btnSecondaryCustom} box ${styles.stickyButtons}`}
+                                onClick={goToRoadmap}>← Roadmap
                         </button>
                     </div>
 
-                <QueueList goals={goals} onReorder={onReorder} onEdit={handleEditGoal} onDelete={handleDeleteGoal}
-                           onCreateSubGoal={handleCreateSubGoal}/>
-
+                    <div className={`col-6`}>
+                    <QueueList goals={goals} onReorder={onReorder} onEdit={handleEditGoal} onDelete={handleDeleteGoal}
+                               onCreateSubGoal={handleCreateSubGoal}/>
+                    </div>
+                    <div className={`col-3 d-flex justify-content-center box align-self-center`}>
+                        <button className={`btn btn-primary ${style.btnPrimaryCustom}  ${styles.stickyButtons}`}
+                                onClick={() => setShowCreateModal(true)}>+ neues
+                            Ziel
+                        </button>
+                    </div>
+                </div>
                 {showCreateModal && (
                     <GoalCreateForm
                         goalData={editingGoal}

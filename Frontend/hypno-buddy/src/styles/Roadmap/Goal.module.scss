@@ -5,9 +5,38 @@
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); // Custom shadow
 }
 
-.btnPrimaryCustom {
-  font-family: $oscine-family;
+.cardCustom:hover {
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); // Custom shadow on hover
 }
 
+.title{
+  font-family: $oscine-family;
+  font-weight: $oscine-bold-weight;
+  font-size: 30px;
+}
 
+.subtitle{
+  font-family: $oscine-family;
+  font-weight: $oscine-regular-weight;
+}
 
+.date{
+  font-family: $oscine-family;
+  font-weight: $oscine-regular-weight;
+}
+
+.borderSecondaryCustom {
+  border-color: $light-violet;
+}
+
+.borderPrimaryCustom {
+  border-color: $dark-violet;
+}
+
+.borderSuccessCustom {
+  border-color: $orange;
+}
+
+.bgSecondaryCustom {
+  background-color: $light-grey;
+}

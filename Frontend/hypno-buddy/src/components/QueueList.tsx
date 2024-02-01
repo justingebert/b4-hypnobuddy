@@ -72,7 +72,7 @@ function QueueList({ goals, onReorder, onEdit, onDelete, onCreateSubGoal }) {
         <DragDropContext onDragEnd={handleDragEnd}>
             <StrictModeDroppable droppableId="goals" type="goal">
                 {(provided) => (
-                    <div {...provided.droppableProps} ref={provided.innerRef} className={`${styles.queueList} container`}>
+                    <div {...provided.droppableProps} ref={provided.innerRef} className={`${styles.queueList} container ${styles.containerCustom}`}>
                         {localGoals.map((goal, index) => (
                             <GoalWithSubgoals
                                 key={goal._id}

@@ -9,11 +9,6 @@
 }
 
 //TODO needed?
-.queueViewTop {
-  position: sticky;
-  top: 25px;
-  z-index: 1; // This ensures the sticky element stays on top of other elements
-}
 
 .heading{
   font-family: $oscine-family;
@@ -25,4 +20,10 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.stickyButtons {
+  position: fixed;
+  top: 25rem;
+}
+
 
