@@ -17,7 +17,7 @@ jobs:
       - name: Install dependencies and build
         run: npm i && npm run buildnocheck
         env:
-          BACKEND_URL: ${{ secrets.BACKEND_URL }}
+          REACT_APP_BACKEND_URL: '${{ secrets.BACKEND_URL }}'
         working-directory: ./Frontend/hypno-buddy
 
       - uses: FirebaseExtended/action-hosting-deploy@v0

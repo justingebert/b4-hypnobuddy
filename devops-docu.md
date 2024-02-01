@@ -1,4 +1,5 @@
-This is my path of creating my project, I jumped between different topics and had to do some research on the way. This is why connected topics arent one after the other. I will try to explain my thought process and what I learned. 
+This is my path of creating my project, I jumped between different topics and had to do some research on the way. This is why connected topics arent one after the other. I will try to explain my thought process and what I learned.
+15 includes the visual representation of my project. 
 
 1. **Initial Research**:
    - Began by researching how to deploy and comparing major cloud providers.
@@ -79,7 +80,7 @@ This is my path of creating my project, I jumped between different topics and ha
     - detroy infrastructure lcoally by logging in to terraform cloud and destroy
     - the docker Github action build and pushes on PR a docker iamge with PR tag an on commit a docker image with latest tag
 
-14. **What I learned**:
+13. **What I learned**:
     - pricing of cloud providers
     - how to deploy a docker container to cloud run
     - how to deploy a frontend to firebase hosting and vercel
@@ -89,16 +90,17 @@ This is my path of creating my project, I jumped between different topics and ha
     - how to use github secrets
     - how to use google secret manager
 
-15. **What I would do differently / add in the future**:
+14. **What I would do differently / add in the future**:
     - use terraform for the database deployment
     - terraform plan change to pr dockerfile
     - deploy test backend container to cloud run to test Pullrequest app fully (not only frontend) - i didnt do that because i was worried about costs
     - make script for whitelisting ip for mongodb atlas - not whitelist all ips
+    - store secrets in one place
 
-16. **What I would do differently**:
+15. **Visual Representation and Images**:
     - figma link: https://www.figma.com/file/yVnwSy4HVDZioFTdOb0ZAb/Devops-Project?type=whiteboard&node-id=0%3A1&t=tOjXEp9mIJ5yYqf1-1
 
-### Here are my raw notes which i scribbled down while working on the project:
+### Here are my raw notes which I scribbled down while working on the project:
 
 - Start with research on how to deploy and compare the big cloud providers.
 - It was hard to understand the billing, that's why I decided to use the free tier of Google because it was the easiest to understand with $300 free credit.
