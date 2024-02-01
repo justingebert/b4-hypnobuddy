@@ -3,7 +3,7 @@ import { FlashContext } from "../contexts/FlashContext.tsx";
 import { useNavigate } from "react-router-dom";
 import '../styles/Profile.scss';
 import SubmitButton from "../components/SubmitButton.tsx";
-import { Form, FormControl, Button, Row, Col } from 'react-bootstrap';
+import { Form, FormControl, Row, Col } from 'react-bootstrap';
 import {url} from "../contexts/AuthContext.tsx";
 
 function ProfilePage() {
@@ -124,9 +124,11 @@ function ProfilePage() {
                             <strong className="textProfil">Rolle</strong> {data.user.role}
                             <br />
                             {data.user.role === 'therapist' && (
-                                <>
-                                    <p><strong className="textProfil">Code zur Weitergabe an Patienten:</strong> {data.user.patientLinkingCode}</p>
-                                </>
+                                <div style={{paddingTop:'15px'}}>
+                                    <strong className="textProfil">Code zur Weitergabe an Patienten:</strong>
+                                    <br />
+                                    <p style={{ color:'#FF6641', textAlign:'center'}}>{data.user.patientLinkingCode}</p>
+                                </div>
                             )}
                             <br />
                             {/* List of linked patients */}
