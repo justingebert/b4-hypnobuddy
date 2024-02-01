@@ -39,6 +39,7 @@ app.use(session({
         maxAge: 24 * 60 * 60 * 1000
     }
 }));
+//test
 
 app.set('trust proxy', 1);
 
