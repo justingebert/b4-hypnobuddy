@@ -95,6 +95,9 @@
 .patientSearchInput input {
     padding: 10px;
     margin-bottom: 20px;
+    background: $dark-violet;
+    color:  $light-creme;
+    border: 1px solid $dark-violet;
 }
 
 
@@ -129,14 +132,14 @@
 .CardCarousel {
     background-image: url('../assets/background.png');
     background-color: $light-creme;
-    height: 35vw;
+    display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .carousel.slide {
     width: 50vw;
-    display: inline-flex;
+    display: flex;
 }
 
 .eyeDiv {

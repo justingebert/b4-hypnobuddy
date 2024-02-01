@@ -83,6 +83,7 @@ beforeAll(async () => {
  * close the db connection after all tests
  */
 afterAll(async () => {
+    await mongoose.connection.close();
     await mongoose.disconnect();
     await mongoServer.stop();
     await sessionStore.close();
@@ -127,8 +128,6 @@ describe('Goal Input Validation', () => {
         expect(response.status).toBe(400);
         expect(response.body.message).toContain('Description cannot be empty');
     });
-
-    // Add more validation tests for other fields
 });
 
 describe('Goal Creation', () => {

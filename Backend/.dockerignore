@@ -1,8 +1,15 @@
+# Node
 node_modules
 npm-debug.log
-tests
+
+# Docker
+Dockerfile
+.dockerignore
+
+# Git
+.git
 .gitignore
-jest.config.json
+
 terraform
 .env
 dockerrun.bash
