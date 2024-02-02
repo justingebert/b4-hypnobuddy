@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { v4 as uuidv4 } from 'uuid';
 import VerificationCode from "./model/verificationCode";
-import User from "./model/user"; // UUID library for generating unique codes
+import User from "./model/user";
 import { sampleTherapists, samplePatients } from "./mockupData";
 
 

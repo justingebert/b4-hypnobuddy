@@ -7,7 +7,6 @@ export type Roadmap = {
     creationDate: Date;
     lastUpdated: Date;
     goals: RoadmapGoal[];
-    //add more
 };
 
 export type RoadmapGoal = {
