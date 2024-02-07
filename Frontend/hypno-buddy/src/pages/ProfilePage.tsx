@@ -193,7 +193,7 @@ function ProfilePage() {
                         </div>
                     </div>
                     <div className="">
-                        {/* platzhalter für message */}
+                        {/* Placeholder for message */}
                     </div>
                 </div>
             </div>

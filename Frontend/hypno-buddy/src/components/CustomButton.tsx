@@ -45,7 +45,6 @@ const CustomButton: React.FC<ButtonProps> = ({
             onMouseOut={handleMouseOut}
             onClick={() => {
                 handleClick();
-                // Optionally navigate to a route
               //  navigate("/login");
             }}
         >

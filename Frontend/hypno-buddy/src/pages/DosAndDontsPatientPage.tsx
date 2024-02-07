@@ -8,7 +8,7 @@ const DosAndDontsPatientPage = () => {
     const [isInDos, setIsInDos] = useState(true);
 
     if (!isAuthenticated || (user && user.role !== 'patient')) {
-        return "Sie sind nicht berechtigt für diese Seite."; // or you can return a message or redirect to another page
+        return "Sie sind nicht berechtigt für diese Seite.";
     }
 
 

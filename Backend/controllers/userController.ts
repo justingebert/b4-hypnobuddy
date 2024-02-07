@@ -150,13 +150,7 @@ export async function logout(req, res, next) {
  */
 export async function currentUser(req, res, next) {
     if (req.isAuthenticated()) {
-        // // Assuming req.user holds the authenticated user information
-        // res.json({
-        //     isAuthenticated: true,
-        //     user: req.user
-        // });
-
-
+        
         //for tests
         try {
             const user = await User.findById(req.user._id)
