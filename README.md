@@ -4,7 +4,7 @@
 
 Hypnobuddy is a web application built with Node.js, TypeScript, MongoDB, Jest, Vite, React, Bootstrap, and SCSS. 
 
-It is designed to designed to enhance the effectiveness of hypnotherapy sessions, particularly for children and adolescents. The app facilitates seamless communication between hypnotherapists, young clients, and parents, empowering all parties involved.  Hypno Buddy strengthens the bond and trust between therapists and patients, emphasizing mutual collaboration. Patients receive support, visualization, and reflection to reinforce progress in their daily life without external pressure, while therapists benefit from enhanced communication for resource sharing.
+It is designed to enhance the effectiveness of hypnotherapy sessions, particularly for children and adolescents. The app facilitates seamless communication between hypnotherapists, young clients, and parents, empowering all parties involved.  Hypno Buddy strengthens the bond and trust between therapists and patients, emphasizing mutual collaboration. Patients receive support, visualization, and reflection to reinforce progress in their daily life without external pressure, while therapists benefit from enhanced communication for resource sharing.
 
 This application combines the robust backend capabilities of Node.js and MongoDB with the powerful frontend framework of React and the styling flexibility of Bootstrap and SCSS.
 
